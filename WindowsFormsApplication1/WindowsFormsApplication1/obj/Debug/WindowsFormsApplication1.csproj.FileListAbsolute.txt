@@ -31,3 +31,4 @@ C:\Users\user\Documents\BCU_Calendar\WindowsFormsApplication1\WindowsFormsApplic
 C:\Users\user\Documents\BCU_Calendar\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.CoreCompileInputs.cache
 C:\Users\user\Documents\BCU_Calendar\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\user\Documents\BCU_Calendar\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\user\Documents\BCU_Calendar\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.AddPicture.resources

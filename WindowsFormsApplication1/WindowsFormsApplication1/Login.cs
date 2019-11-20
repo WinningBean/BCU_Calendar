@@ -14,8 +14,8 @@ namespace WindowsFormsApplication1
     {
         private String strID;
         private String strPass;
-
         bool isSighUp;
+
         public Login()
         {
             InitializeComponent();
