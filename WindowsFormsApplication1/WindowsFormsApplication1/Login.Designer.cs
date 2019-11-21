@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.textBox2);
@@ -68,6 +70,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(486, 649);
             this.panel2.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(67, 496);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 24);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "label3";
             // 
             // panel7
             // 
@@ -113,7 +126,8 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(319, 51);
             this.textBox2.TabIndex = 3;
-            this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
             // 
             // textBox4
             // 
@@ -125,7 +139,8 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(319, 51);
             this.textBox4.TabIndex = 4;
-            this.textBox4.Click += new System.EventHandler(this.textBox4_Click);
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.textBox4.Enter += new System.EventHandler(this.textBox4_Enter);
             // 
             // textBox3
             // 
@@ -137,7 +152,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(319, 51);
             this.textBox3.TabIndex = 1;
-            this.textBox3.Click += new System.EventHandler(this.textBox3_Click);
+            this.textBox3.Enter += new System.EventHandler(this.textBox3_Enter);
             // 
             // panel6
             // 
@@ -158,7 +173,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(319, 51);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
+            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             // 
             // panel5
             // 
@@ -258,5 +273,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

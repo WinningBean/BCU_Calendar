@@ -44,3 +44,4 @@ C:\Users\82107\Documents\gitDir\BCU\WindowsFormsApplication1\WindowsFormsApplica
 C:\Users\82107\Documents\gitDir\BCU\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Month.resources
 C:\Users\82107\Documents\gitDir\BCU\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 C:\Users\82107\Documents\gitDir\BCU\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\82107\Documents\gitDir\BCU\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\Oracle.DataAccess.dll
