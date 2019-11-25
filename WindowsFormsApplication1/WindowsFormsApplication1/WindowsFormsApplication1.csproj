@@ -37,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,6 +72,7 @@
     <Compile Include="AddPicture.Designer.cs">
       <DependentUpon>AddPicture.cs</DependentUpon>
     </Compile>
+    <Compile Include="DBConnection.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

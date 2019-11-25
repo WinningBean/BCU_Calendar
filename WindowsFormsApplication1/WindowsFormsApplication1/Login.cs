@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Oracle.DataAccess.Client;
 
 namespace WindowsFormsApplication1
 {
     public partial class Login : Form
     {
         bool isSighUp, isSamePass;
+
+        DBConnection db = Program.DB; // static 객체를 db참조변수에 저장
 
         public Login()
         {
@@ -28,6 +29,12 @@ namespace WindowsFormsApplication1
             label3.Visible = false;
             textBox1.Text = "ID";
             textBox2.Text = "Password";
+            textBox1.ForeColor = Color.Gray;
+            textBox2.ForeColor = Color.Gray;
+            textBox3.ForeColor = Color.Gray;
+            textBox4.ForeColor = Color.Gray;
+
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -44,7 +51,10 @@ namespace WindowsFormsApplication1
                 textBox2.PasswordChar = '\0';
                 textBox3.Text = "Name";
                 textBox4.Text = "Rewrite Password";
-
+                textBox1.ForeColor = Color.Gray;
+                textBox2.ForeColor = Color.Gray;
+                textBox3.ForeColor = Color.Gray;
+                textBox4.ForeColor = Color.Gray;
                 isSighUp = true;
             }
             else
@@ -57,7 +67,10 @@ namespace WindowsFormsApplication1
                 textBox1.Text = "ID";
                 textBox2.Text = "Password";
                 label3.Visible = false;
-
+                textBox1.ForeColor = Color.Gray;
+                textBox2.ForeColor = Color.Gray;
+                textBox3.ForeColor = Color.Gray;
+                textBox4.ForeColor = Color.Gray;
                 isSighUp = false;
 
             }
@@ -74,24 +87,23 @@ namespace WindowsFormsApplication1
                     String strName = textBox3.Text;
                     try
                     {
-                        string connectionString = "User Id=CHARMJO; Password=charmjo; Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))(CONNECT_DATA = (SERVER =DEDICATED)(SERVICE_NAME = orcl)) ); ";
-                        string commandString = "insert into USER_TB values(seq_userid.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
-                        // "insert into USER_TB values(seq_userid.nextval, '" + strID + "', " + strPass + ", '" + strName + "');";
-                        OracleConnection userConnect = new OracleConnection(connectionString);
-                        userConnect.Open();
-                        OracleCommand userCommand = new OracleCommand(commandString, userConnect);
-                        if (userCommand.ExecuteNonQuery() < 1)
+                        string command = "insert into USER_TB values(seq_userid.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
+
+                        if (db.ExecuteNonQuery(command) < 1)
                         {
                             MessageBox.Show("데이터베이스 오류!!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                         MessageBox.Show("회원가입 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         button2.PerformClick();
-                        userConnect.Close();
                     }
                     catch (DataException DE)
                     {
                         MessageBox.Show("데이터베이스 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception E)
+                    {
+                        MessageBox.Show("데이터베이스 오류!! \n" + E.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -102,35 +114,34 @@ namespace WindowsFormsApplication1
                 String strName = textBox3.Text;
                 try
                 {
-                    string connectionString = "User Id=CHARMJO; Password=charmjo; Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))(CONNECT_DATA = (SERVER =DEDICATED)(SERVICE_NAME = orcl)) ); ";
-                    string commandString = "select * from USER_TB where (UR_ID = '" + strID + "') AND (UR_PW = '" + strPass + "')";
-                    // "insert into USER_TB values(seq_userid.nextval, '" + strID + "', " + strPass + ", '" + strName + "');";
-                    OracleConnection userConnect = new OracleConnection(connectionString);
-                    userConnect.Open();
-                    OracleCommand userCommand = new OracleCommand(commandString, userConnect);
-                    OracleDataReader userReader = userCommand.ExecuteReader();
-                    if (userReader.Read())
+                    db.ExecuteReader("select * from USER_TB where (UR_ID = '" + strID + "') AND (UR_PW = '" + strPass + "')");
+                    if (db.Reader.Read())
                     {
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        userConnect.Close();
+                        //db.Close();
                         Hide();
-                        Form Login = new Login();
-                        Login.ShowDialog();
+                        Main main = new Main();
+                        db.UR_CD = db.Reader.GetString(0);
+                        main.USERNAME = db.Reader.GetString(3);
+                        main.ShowDialog();
                         Close();
                         return;
 
                     }
                     MessageBox.Show("로그인 실패하였습니다!!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    userConnect.Close();
+                    db.Close();
                     return;
                 }
                 catch (DataException DE)
                 {
-                    MessageBox.Show("데이터베이스 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("데이터베이스 연결 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Oracle.DataAccess.Client.OracleException OE)
+                {
+                    MessageBox.Show("데이터베이스 데이터 오류!! \n" + OE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-
 
 
         private void label2_Click(object sender, EventArgs e)
@@ -142,22 +153,26 @@ namespace WindowsFormsApplication1
         {
             textBox4.Text = "";
             textBox4.PasswordChar = '*';
+            textBox4.ForeColor = Color.Black;
         }
 
         private void textBox3_Enter(object sender, EventArgs e)
         {
             textBox3.Text = "";
+            textBox3.ForeColor = Color.Black;
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
             textBox1.Text = "";
+            textBox1.ForeColor = Color.Black;
         }
 
         private void textBox2_Enter(object sender, EventArgs e)
         {
             textBox2.Text = "";
             textBox2.PasswordChar = '*';
+            textBox2.ForeColor = Color.Black;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -179,6 +194,7 @@ namespace WindowsFormsApplication1
                 }
             }
         }
+
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {

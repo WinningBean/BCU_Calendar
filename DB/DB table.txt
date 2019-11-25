@@ -1,0 +1,67 @@
+USER_TB (사용자 테이블)
+	- UR_CD (사용자 코드) [PK] VARCHAR(20) OR CHAR(20) NOR NULL
+	- UR_ID (사용자 아이디) VARCHAR(20) NOT NULL
+	- UR_PW (사용자 비밀번호) VARCHAR(20) NOT NULL
+	- UR_NM (사용자 이름) VARCHAR(20) NOT NULL
+
+FRIEND_TB (친구 테이블)
+	- FR_UR_FK (사용자 코드) [PK][FK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- FR_FR_FK (사용자 친구 코드) [PK][FK]
+	- FR_FRGR_FK (친구그룹 코드) [FK]
+
+FRIEND_GROUP_TB (친구 그룹 테이블)
+	- FRGR_CD (친구 그룹 코드) [PK][FK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- FRGR_NM (친구 그룹명) VARCHAR(20) NOT NULL
+	- FRGR_UR_FK (사용자 코드) [FK]
+
+GROUP_TB (그룹 테이블)
+	- GR_CD (그룹 코드) [PK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- GR_MST_UR_FK (그룹장 코드) [FK]
+	- GR_NM (그룹 이름) VARCHAR(20) NOT NULL
+	- GR_EX (그룹 설명) VARCHAR(20) NULL
+
+GROUP_MEMBER_TB (그룹원 테이블)
+	- GR_FK (그룹 코드) [PK][FK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- GR_MBR_UR_FK (그룹원 코드) [PK][FK]
+
+SCHEDULE_TB (일정 테이블)
+	- SC_CD (일정 코드) [PK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- SC_NM (일정명) VARCHAR(20) NOT NULL
+	- SC_EX (일정 내용) VARCHAR(100) NOT NULL
+	- SC_PB_ST (공개 상태) BOOL DEFAUL= TRUE
+	- SC_STR_DT (시작일시) DATE NOT NULL
+	- SC_END_DT (종료일시) DATE NOT NULL
+	- SC_PIC_FK (사진코드) [FK]
+	- SC_CR_FK (컬러 코드) [FK]
+	- SC_UR_FK (유저 코드) [FK] NULL
+	- SC_GR_FK (그룹 코드) [FK] NULL
+
+PICTURE_TB (사진 테이블)
+	- PIC_CD (사진 코드) [PK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- PIC_PATH (사진 경로) VARCHAR(100) NOT NULL
+	- PIC_PB_ST (공개 상태) BOOL DEFAULT = TRUE
+	- PIC_DT (사진 일자) (등록 X, 해당 일자) DATE NOT NULL
+	- PIC_UR_FK (유저 코드) [FK]
+	- PIC_GR_FK (그룹 코드) [FK]
+
+TODO_TB (할일 테이블)
+	- TD_CD (할일 코드) [PK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- TD_EX (할일 내용) VARCHAR(50) NOT NULL
+	- TD_DT (할일 일시) DATE NULL
+	- TD_COMP_ST (완료 상태) BOOL DEFAULT = FALSE
+	- TD_PIC_FK (컬러코드) [FK]
+	- TD_UR_FK (유저 코드) [FK] NULL
+	- TD_GR_FK (그룹 코드) [FK] NULL
+
+COLOR_TB (컬러 테이블)
+	- CR_CD (컬러 코드) [PK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- CR_NM (컬러명) VARCHAR(10) NOT NULL
+
+COMMENT_TB (댓글 테이블) 
+	- CT_CD (댓글 코드) [PK] VARCHAR(20) OR CHAR(20) NOT NULL
+	- CT_SC_FK (일정 코드) [FK] NULL
+	- CT_PIC_FK (사진 코드) [FK] NULL
+	- CT_UR_FK (작성자 코드) [FK]
+	- CT_PRE_FK (원 댓글 코드) [FK]
+	- CT_WR_DT (댓글 작성 시간) DATE NOT NULL
+	- CT_EX (댓글 내용) VARCHAR(100) NOT NULL
