@@ -14,7 +14,7 @@ namespace WindowsFormsApplication1
     {
         bool isSighUp, isSamePass;
 
-        DBConnection db = null;
+        DBConnection db = Program.DB; // static 객체를 db참조변수에 저장
 
         public Login()
         {
@@ -34,13 +34,7 @@ namespace WindowsFormsApplication1
             textBox3.ForeColor = Color.Gray;
             textBox4.ForeColor = Color.Gray;
 
-            try
-            {
-                db = new DBConnection();
-            }catch(Exception e)
-            {
-                MessageBox.Show("데이터베이스 연결 실패\n" + e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -124,9 +118,10 @@ namespace WindowsFormsApplication1
                     if (db.Reader.Read())
                     {
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        db.Close();
+                        //db.Close();
                         Hide();
                         Form Main = new Main();
+                        MessageBox.Show(db.Reader.GetString(0));
                         Main.ShowDialog();
                         Close();
                         return;

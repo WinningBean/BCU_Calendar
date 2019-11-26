@@ -20,6 +20,14 @@ namespace WindowsFormsApplication1
         public OracleDataReader Reader { get { return reader; } }
         public OracleDataAdapter Adapter {get { return adapter; }}
 
+        // 전역 데이터 설정
+        private string ur_cd;
+
+        public string UR_CD {
+            get { return ur_cd; }
+            set { ur_cd = value; }
+        }
+
         public DBConnection()
         {
             try

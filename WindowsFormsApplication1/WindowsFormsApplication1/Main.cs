@@ -12,6 +12,8 @@ namespace WindowsFormsApplication1
 {
     public partial class Main : Form
     {
+        DBConnection db = Program.DB;
+
         public Main()
         {
             InitializeComponent();
