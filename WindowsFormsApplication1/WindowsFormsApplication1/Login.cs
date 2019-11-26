@@ -126,8 +126,8 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         db.Close();
                         Hide();
-                        Form Login = new Login();
-                        Login.ShowDialog();
+                        Form Main = new Main();
+                        Main.ShowDialog();
                         Close();
                         return;
 
