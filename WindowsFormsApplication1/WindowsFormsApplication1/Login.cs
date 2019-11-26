@@ -120,9 +120,10 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         //db.Close();
                         Hide();
-                        Form Main = new Main();
-                        MessageBox.Show(db.Reader.GetString(0));
-                        Main.ShowDialog();
+                        Main main = new Main();
+                        db.UR_CD = db.Reader.GetString(0);
+                        main.USERNAME = db.Reader.GetString(3);
+                        main.ShowDialog();
                         Close();
                         return;
 
