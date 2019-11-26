@@ -16,13 +16,12 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-
+        //abcabc hello
         private void Main_Load(object sender, EventArgs e)
         {
             Month mnt = new Month();
             mnt.MdiParent = this;
             mnt.Show();
         }
-        // wsb 브랜치 확인
     }
 }
