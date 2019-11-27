@@ -122,8 +122,9 @@ namespace WindowsFormsApplication1
                         Hide();
                         Main main = new Main();
                         db.UR_CD = db.Reader.GetString(0);
-                        main.USERNAME = db.Reader.GetString(3);
-                        main.ShowDialog();
+                        main.USERID = db.Reader.GetString(2); // 프로퍼티로 ID값 넘겨줌
+                        main.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
+                        main.Show();
                         Close();
                         return;
 
