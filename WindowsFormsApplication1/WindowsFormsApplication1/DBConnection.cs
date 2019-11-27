@@ -57,33 +57,6 @@ namespace WindowsFormsApplication1
             adapter = new OracleDataAdapter(command, conn);
         }
 
-        public void FileSave(string filePath)
-        {
-            // 입력받은 파일을 바이트 배열에 저장
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            byte[] b = new byte[fs.Length - 1];
-            fs.Read(b, 0, b.Length);
-            fs.Close();
-
-            // 배열에 있는 데이터를 보낼 정보를 담는다
-            OracleParameter op = new OracleParameter();
-            op.ParameterName = ":BINARYFILE";
-            op.OracleDbType = Oracle.DataAccess.Client.OracleDbType.Blob;
-            op.Direction = ParameterDirection.Input;
-            op.Size = b.Length;
-            op.Value = b;
-            comd.CommandType = CommandType.Text;
-            comd.Parameters.Add(op);
-
-            ExecuteReader("select TO_CHAR(SEQ_PICCD.nextval) from dual"); // 다음 시퀀스 값 불러오기
-            string currSeq = null;
-            if (Reader.Read())
-                currSeq = Reader.GetString(0);
-
-            ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', sysdate, '" + UR_CD + "', null, :BINARYFILE)");
-            comd.Parameters.Remove(op);
-        }
-
         public void Close()
         {
             conn.Close();
