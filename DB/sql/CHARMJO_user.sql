@@ -1,12 +1,12 @@
--- USER_TB ì‘ì—… --
+-- USER_TB ?‘?—… --
 
--- UR_CD í•´ë‹¹ seq_urcd ì‹œí€€ìŠ¤ ìƒì„± --
+-- UR_CD ?•´?‹¹ seq_urcd ?‹œ???Š¤ ?ƒ?„± --
 create sequence seq_urcd
 start with 100000
 increment by 1;
 
--- field ìƒì„± --
-insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser1', '1234', 'í™ê¸¸ë™');
-insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser2', '1234', 'ê¹€ê¸¸ë™');
-insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser3', '1234', 'ìµœê¸¸ë™');
-insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser4', '1234', 'ìœ„ê¸¸ë™');
+-- field ?ƒ?„± --
+insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser1', '1234', 'È«±æµ¿');
+insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser2', '1234', '±è±æµ¿');
+insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser3', '1234', 'ÃÖ±æµ¿');
+insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser4', '1234', 'À§±æµ¿');
