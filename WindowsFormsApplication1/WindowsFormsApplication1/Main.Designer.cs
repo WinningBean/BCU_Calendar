@@ -37,7 +37,6 @@
             this.m_Today_lbl = new System.Windows.Forms.Label();
             this.MonthForm_btn = new System.Windows.Forms.Button();
             this.UserName_txt = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainHeader_menustp = new System.Windows.Forms.MenuStrip();
             this.사용자ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.사용자정보ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,11 +60,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.MainCenter_pan = new System.Windows.Forms.Panel();
             this.Mainuser_pan = new System.Windows.Forms.Panel();
+            this.UserPic_picbox = new WindowsFormsApplication1.RoundPictureBox();
             this.MainTop_pan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MainHeader_menustp.SuspendLayout();
             this.MainLeft_pan.SuspendLayout();
             this.Mainuser_pan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UserPic_picbox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTop_pan
@@ -164,18 +164,6 @@
             this.UserName_txt.Size = new System.Drawing.Size(90, 21);
             this.UserName_txt.TabIndex = 2;
             this.UserName_txt.Text = "UserName";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(53, 12);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 43);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // MainHeader_menustp
             // 
@@ -353,12 +341,22 @@
             // Mainuser_pan
             // 
             this.Mainuser_pan.BackColor = System.Drawing.Color.White;
-            this.Mainuser_pan.Controls.Add(this.pictureBox1);
+            this.Mainuser_pan.Controls.Add(this.UserPic_picbox);
             this.Mainuser_pan.Controls.Add(this.UserName_txt);
             this.Mainuser_pan.Location = new System.Drawing.Point(0, 24);
             this.Mainuser_pan.Name = "Mainuser_pan";
             this.Mainuser_pan.Size = new System.Drawing.Size(243, 69);
             this.Mainuser_pan.TabIndex = 8;
+            // 
+            // UserPic_picbox
+            // 
+            this.UserPic_picbox.Image = ((System.Drawing.Image)(resources.GetObject("UserPic_picbox.Image")));
+            this.UserPic_picbox.Location = new System.Drawing.Point(43, 10);
+            this.UserPic_picbox.Name = "UserPic_picbox";
+            this.UserPic_picbox.Size = new System.Drawing.Size(50, 50);
+            this.UserPic_picbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.UserPic_picbox.TabIndex = 12;
+            this.UserPic_picbox.TabStop = false;
             // 
             // Main
             // 
@@ -382,12 +380,12 @@
             this.Load += new System.EventHandler(this.Main_Load);
             this.MainTop_pan.ResumeLayout(false);
             this.MainTop_pan.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MainHeader_menustp.ResumeLayout(false);
             this.MainHeader_menustp.PerformLayout();
             this.MainLeft_pan.ResumeLayout(false);
             this.Mainuser_pan.ResumeLayout(false);
             this.Mainuser_pan.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UserPic_picbox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -396,7 +394,6 @@
         #endregion
         private System.Windows.Forms.Panel MainTop_pan;
         private System.Windows.Forms.Label UserName_txt;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.MenuStrip MainHeader_menustp;
         private System.Windows.Forms.ToolStripMenuItem 사용자ToolStripMenuItem;
         private System.Windows.Forms.Panel MainLeft_pan;
@@ -426,6 +423,7 @@
         private System.Windows.Forms.ToolStripMenuItem 사진추가ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem 로그아웃ToolStripMenuItem;
+        private RoundPictureBox UserPic_picbox;
     }
 }
 
