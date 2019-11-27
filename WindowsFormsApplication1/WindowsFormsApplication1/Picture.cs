@@ -12,30 +12,43 @@ using System.IO;
 namespace WindowsFormsApplication1
 {
 
-    public partial class AddPicture : Form
+    public partial class Picture : Form
     {
 
         DBConnection db = Program.DB;
         DataSet PictureDS = null;
         DataTable PictureDT = null;
+        DateTime preDate;
 
         int pictureLocation;
         int rowNum;
         int currWheel;
-        int nextWheel;
+        Point lastPicture;
 
-        public AddPicture()
+        Panel insidePan;
+
+        public Picture()
         {
             InitializeComponent();
             pictureLocation = 0;
             rowNum = 0;
             currWheel = 0;
-            nextWheel = -700;
+            insidePan = ClonePan(Picture_pan);
+            Picture_pan.Controls.Add(insidePan);
+        }
+
+        private Panel ClonePan(Panel p)
+        {
+            Panel another = new Panel();
+            another.Size = new Size(p.Size.Width, 999999);
+            another.Location = new Point(0, 0); 
+            return another;
         }
 
         private void AddPicture_Load(object sender, EventArgs e)
         {
             PictureLoad();
+            preDate = new DateTime();
             PictureShow();
         }
 
@@ -83,10 +96,12 @@ namespace WindowsFormsApplication1
 
         private void PictureClear()
         {
-            Picture_pan.Controls.Clear();
+            insidePan.Controls.Clear();
+            insidePan.Location = new Point(0, 0);
             pictureLocation = 0;
             rowNum = 0;
             currWheel = 0;
+            preDate = new DateTime();
         }
         private void PictureLoad()
         {
@@ -99,33 +114,53 @@ namespace WindowsFormsApplication1
         private void PictureShow()
         {
             int i = 0;
-            while(i < 10 && PictureDT.Rows.Count > rowNum)
+            while (i < 10 && rowNum < PictureDT.Rows.Count)
             {
-                DataRow currRow = PictureDT.Rows[rowNum++];
+                DataRow currRow = PictureDT.Rows[rowNum++]; // 행 하나씩 받아옴
+                string date = currRow["PIC_DT"].ToString();
+                int year = Convert.ToInt32(date.Substring(0, 4));
+                int month = Convert.ToInt32(date.Substring(5, 2));
+                int day = Convert.ToInt32(date.Substring(8, 2));
+                DateTime currDate = new DateTime(year, month, day);
+
+                if (!preDate.Equals(currDate)) // 날짜를 추가하는 부분
+                {
+                    preDate = currDate;
+                    Label lb = new Label();
+                    insidePan.Controls.Add(lb);
+                    lb.Text = preDate.ToShortDateString();
+                    lb.Location = new Point(10, pictureLocation);
+                    lb.AutoSize = true;
+                    lb.Size = new System.Drawing.Size(60, 24);
+                    lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    lb.Show();
+
+                    pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34
+                 }
                 Byte[] b = (Byte[])(currRow["PIC_DATA"]);
                 MemoryStream stmBlobData = new MemoryStream(b);
                 Image img = Image.FromStream(stmBlobData);
-                CreatePicure(pictureLocation, img);
+                pictureLocation = CreatePicure(pictureLocation, img);
                 i++;
-                pictureLocation += 120;
+                lastPicture = insidePan.Controls[insidePan.Controls.Count - 1].Location;
             }
         }
 
-        private void CreatePicure(int location, Image img)
+        private int CreatePicure(int location, Image img)
         {
             PictureBox pb = new PictureBox();
-            Picture_pan.Controls.Add(pb);
-            pb.Size = new Size(250, 120);
+            insidePan.Controls.Add(pb);
+
+            float percent = (float)img.Width / 250;
+            int imgHeight = (int)((float)img.Height / percent);
+
+            pb.Size = new Size(250, imgHeight);
             pb.Location = new Point(0, location);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
-            pb.BorderStyle = BorderStyle.FixedSingle;
+            //pb.BorderStyle = BorderStyle.FixedSingle;
             pb.Image = img;
             pb.Show();
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
+            return location + imgHeight + 10; // 기본 y + 사진 y + 띄울공간 10
         }
 
         private void label4_DoubleClick(object sender, EventArgs e)
@@ -137,33 +172,27 @@ namespace WindowsFormsApplication1
         {
             if (e.Delta > 0)
             {
-                if (currWheel >= 0)
+                if (currWheel <= (pictureLocation * -1) + Picture_pan.Height)
                     return;
-                currWheel += 20;
-                for (int i = 0; i < Picture_pan.Controls.Count; i++)
-                {
-                    Point p = Picture_pan.Controls[i].Location;
-                    p.Y = p.Y + 20;
-                    Picture_pan.Controls[i].Location = p;
-                }
+                currWheel -= 10;
+                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y - 10);
+                
             }
             else
             {
-                currWheel -= 20;
-                for (int i = 0; i < Picture_pan.Controls.Count; i++)
-                {
-                    Point p = Picture_pan.Controls[i].Location;
-                    p.Y = p.Y - 20;
-                    Picture_pan.Controls[i].Location = p;
-                }
+                if (currWheel >= 0)
+                    return;
+                currWheel += 10;
+                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y + 10);
+
             }
-            if(currWheel > nextWheel)
+            if(currWheel - 10 < lastPicture.Y)
             {
                 PictureShow();
-                nextWheel *= 2;
             }
+            label7.Text = pictureLocation.ToString();
             label5.Text = currWheel.ToString();
-
+            label6.Text = lastPicture.Y.ToString();
         }
     }
 

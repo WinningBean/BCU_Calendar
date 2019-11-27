@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class AddPicture
+    partial class Picture
     {
         /// <summary>
         /// Required designer variable.
@@ -33,13 +33,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Picture_pan = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.Picture_pan = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
@@ -97,6 +101,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Picture";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(110, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 24);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "label5";
+            // 
             // Picture_pan
             // 
             this.Picture_pan.Location = new System.Drawing.Point(12, 82);
@@ -105,14 +119,25 @@
             this.Picture_pan.TabIndex = 1;
             this.Picture_pan.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Picture_pan_MouseWheel);
             // 
-            // label5
+            // label6
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(91, 21);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 15);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "label5";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(110, 37);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 24);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "label5";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(110, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 24);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "label5";
             // 
             // AddPicture
             // 
@@ -142,5 +167,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel Picture_pan;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

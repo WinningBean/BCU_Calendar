@@ -13,7 +13,7 @@ namespace WindowsFormsApplication1
     public partial class Main : Form
     {
         DBConnection db = Program.DB;
-
+        Picture ap = null;
         public Main()
         {
             InitializeComponent();
@@ -32,6 +32,11 @@ namespace WindowsFormsApplication1
             Month mnt = new Month();
             mnt.MdiParent = this;
             mnt.Show();
+
+            ap = new Picture();
+            ap.Show();
+            ap.Location = new Point(this.Location.X, this.Right);
+            MessageBox.Show(this.Location.Y.ToString() + " : " + this.Right.ToString());
         }
     }
 }
