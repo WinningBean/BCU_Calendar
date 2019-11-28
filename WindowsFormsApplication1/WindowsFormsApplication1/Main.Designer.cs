@@ -60,12 +60,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.MainCenter_pan = new System.Windows.Forms.Panel();
             this.Mainuser_pan = new System.Windows.Forms.Panel();
-            this.roundPictureBox1 = new UserCustomControl.RoundPictureBox();
+            this.roundPictureBox2 = new UserCustomControl.RoundPictureBox();
             this.MainTop_pan.SuspendLayout();
             this.MainHeader_menustp.SuspendLayout();
             this.MainLeft_pan.SuspendLayout();
             this.Mainuser_pan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.roundPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roundPictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTop_pan
@@ -341,22 +341,22 @@
             // Mainuser_pan
             // 
             this.Mainuser_pan.BackColor = System.Drawing.Color.White;
-            this.Mainuser_pan.Controls.Add(this.roundPictureBox1);
+            this.Mainuser_pan.Controls.Add(this.roundPictureBox2);
             this.Mainuser_pan.Controls.Add(this.UserName_txt);
             this.Mainuser_pan.Location = new System.Drawing.Point(0, 24);
             this.Mainuser_pan.Name = "Mainuser_pan";
             this.Mainuser_pan.Size = new System.Drawing.Size(243, 69);
             this.Mainuser_pan.TabIndex = 8;
             // 
-            // roundPictureBox1
+            // roundPictureBox2
             // 
-            this.roundPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("roundPictureBox1.Image")));
-            this.roundPictureBox1.Location = new System.Drawing.Point(40, 12);
-            this.roundPictureBox1.Name = "roundPictureBox1";
-            this.roundPictureBox1.Size = new System.Drawing.Size(45, 45);
-            this.roundPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.roundPictureBox1.TabIndex = 3;
-            this.roundPictureBox1.TabStop = false;
+            this.roundPictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("roundPictureBox2.Image")));
+            this.roundPictureBox2.Location = new System.Drawing.Point(41, 12);
+            this.roundPictureBox2.Name = "roundPictureBox2";
+            this.roundPictureBox2.Size = new System.Drawing.Size(45, 45);
+            this.roundPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.roundPictureBox2.TabIndex = 4;
+            this.roundPictureBox2.TabStop = false;
             // 
             // Main
             // 
@@ -385,7 +385,7 @@
             this.MainLeft_pan.ResumeLayout(false);
             this.Mainuser_pan.ResumeLayout(false);
             this.Mainuser_pan.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.roundPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roundPictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,7 +423,7 @@
         private System.Windows.Forms.ToolStripMenuItem 사진추가ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem 로그아웃ToolStripMenuItem;
-        private UserCustomControl.RoundPictureBox roundPictureBox1;
+        private UserCustomControl.RoundPictureBox roundPictureBox2;
     }
 }
 
