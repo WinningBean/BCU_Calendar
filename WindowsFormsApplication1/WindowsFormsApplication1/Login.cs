@@ -122,15 +122,15 @@ namespace WindowsFormsApplication1
                         Hide();
                         Main main = new Main();
                         db.UR_CD = db.Reader.GetString(0);
-                        main.USERID = db.Reader.GetString(2); // 프로퍼티로 ID값 넘겨줌
+                        main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
                         main.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
                         main.Show();
-                        Close();
+                        //Close();
                         return;
 
                     }
                     MessageBox.Show("로그인 실패하였습니다!!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    db.Close();
+                    //db.Close();
                     return;
                 }
                 catch (DataException DE)
