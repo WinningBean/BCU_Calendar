@@ -1,11 +1,6 @@
--- USER_TB ?옉?뾽 --
+-- USER_TB 작업 --
 
--- UR_CD ?빐?떦 seq_urcd ?떆???뒪 ?깮?꽦 --
-create sequence seq_urcd
-start with 100000
-increment by 1;
-
--- field ?깮?꽦 --
+-- field 추가 --
 insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser1', '1234', '홍길동');
 insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser2', '1234', '김길동');
 insert into USER_TB values('U'||to_char(seq_urcd.NEXTVAL), 'testuser3', '1234', '최길동');

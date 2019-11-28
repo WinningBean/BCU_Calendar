@@ -1,9 +1,4 @@
--- SCHEDULE_TB 작업 --
-
--- SC_CD 해당 seq_sccd 시퀀스 생성 --
-create sequence seq_sccd
-start with 100000
-increment by 1;
+﻿-- SCHEDULE_TB 작업 --
 
 -- field 생성 --
 
