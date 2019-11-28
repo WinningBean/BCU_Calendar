@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-namespace WindowsFormsApplication1
+namespace UserCustomControl
 {
     public class RoundPictureBox : PictureBox
     {
-
         protected override void OnPaint(PaintEventArgs pe)
         {
             GraphicsPath grath = new GraphicsPath();
