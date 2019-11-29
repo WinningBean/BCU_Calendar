@@ -22,7 +22,7 @@ namespace WindowsFormsApplication1
         public OracleDataAdapter Adapter { get { return adapter; } }
 
         // 전역 데이터 설정
-        private string ur_cd = "aa";
+        private string ur_cd;
 
         public string UR_CD
         {

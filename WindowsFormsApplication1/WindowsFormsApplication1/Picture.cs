@@ -15,6 +15,7 @@ namespace WindowsFormsApplication1
 
     public partial class Picture : Form
     {
+        const int WHEELSPEED = 25;
         bool isZoomBtn;
 
         DBConnection db = Program.DB;
@@ -28,6 +29,7 @@ namespace WindowsFormsApplication1
         int currWheel;
 
         Panel insidePan;
+
 
         public Picture()
         {
@@ -201,7 +203,7 @@ namespace WindowsFormsApplication1
                         preDate = currDate;
                         Label lb = new Label();
                         insidePan.Controls.Add(lb);
-                        lb.Text = preDate.ToString("yyyy년 MM월");
+                        lb.Text = preDate.ToString("yyyy년 MM월 dd일");
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
@@ -277,8 +279,8 @@ namespace WindowsFormsApplication1
             {
                 if (currWheel >= 0) // 휠을 끝까지 올렸을때 더이상 이동하면 안됨
                     return;
-                currWheel += 10; // 10칸씩 증가시킨후 페널을 10씩 + 한다
-                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y + 10);
+                currWheel += WHEELSPEED; // 10칸씩 증가시킨후 페널을 10씩 + 한다
+                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y + WHEELSPEED);
 
             }
             else // 마우스 휠을 내렸을때
@@ -293,8 +295,8 @@ namespace WindowsFormsApplication1
                     if (currWheel <= (pictureLocation * -1) + Picture_pan.Height - 70) // 마지막 사진까지 오면 더이상 내릴수없음
                         return;
                 }
-                currWheel -= 10;
-                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y - 10);
+                currWheel -= WHEELSPEED;
+                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y - WHEELSPEED);
 
             }
             if ((currWheel <= (pictureLocation * -1) + Picture_pan.Height + 50) && !isLastPictue)

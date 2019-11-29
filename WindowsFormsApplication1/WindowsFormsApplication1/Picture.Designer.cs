@@ -137,7 +137,7 @@
             // 
             this.Picture_pan.Location = new System.Drawing.Point(12, 82);
             this.Picture_pan.Name = "Picture_pan";
-            this.Picture_pan.Size = new System.Drawing.Size(424, 627);
+            this.Picture_pan.Size = new System.Drawing.Size(424, 1000);
             this.Picture_pan.TabIndex = 1;
             this.Picture_pan.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Picture_pan_MouseWheel);
             // 
