@@ -1,6 +1,0 @@
-C:\Users\user\Downloads\BCU_Calendar-wsb\WindowsFormsApplication1\UserCustomControl\bin\Debug\UserCustomControl.dll
-C:\Users\user\Downloads\BCU_Calendar-wsb\WindowsFormsApplication1\UserCustomControl\bin\Debug\UserCustomControl.pdb
-C:\Users\user\Downloads\BCU_Calendar-wsb\WindowsFormsApplication1\UserCustomControl\obj\Debug\UserCustomControl.csprojAssemblyReference.cache
-C:\Users\user\Downloads\BCU_Calendar-wsb\WindowsFormsApplication1\UserCustomControl\obj\Debug\UserCustomControl.csproj.CoreCompileInputs.cache
-C:\Users\user\Downloads\BCU_Calendar-wsb\WindowsFormsApplication1\UserCustomControl\obj\Debug\UserCustomControl.dll
-C:\Users\user\Downloads\BCU_Calendar-wsb\WindowsFormsApplication1\UserCustomControl\obj\Debug\UserCustomControl.pdb
