@@ -135,11 +135,14 @@ namespace WindowsFormsApplication1
                 }
                 catch (DataException DE)
                 {
-                    MessageBox.Show("데이터베이스 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("데이터베이스 연결 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Oracle.DataAccess.Client.OracleException OE)
+                {
+                    MessageBox.Show("데이터베이스 데이터 오류!! \n" + OE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-
 
 
         private void label2_Click(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-﻿-- SCHEDULE_TB 작업 --
+-- SCHEDULE_TB 작업 --
 
 -- field 생성 --
 

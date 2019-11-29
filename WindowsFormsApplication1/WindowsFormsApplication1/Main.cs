@@ -72,9 +72,10 @@ namespace WindowsFormsApplication1
 
         private void PictureForm_btn_Click(object sender, EventArgs e) // 사진 폼 띄우기 버튼
         {
-            AddPicture pic = new AddPicture();
+            Picture pic = new Picture();
             pic.StartPosition = FormStartPosition.Manual; // 사진 폼 시작 포지션 설정
             pic.Location = new Point(this.Location.X + this.ClientSize.Width, this.Location.Y); // 현재 폼의 X좌표+현재폼의 길이, 현재폼의 Y좌표
+            pic.Size = new Size(pic.Size.Width, this.Size.Height); // 메인폼 높이를 같이 설정
             pic.Show();
         }
 
