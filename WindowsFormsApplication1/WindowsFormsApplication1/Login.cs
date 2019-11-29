@@ -87,7 +87,7 @@ namespace WindowsFormsApplication1
                     String strName = textBox3.Text;
                     try
                     {
-                        string command = "insert into USER_TB values(seq_userid.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
+                        string command = "insert into USER_TB values('U' || seq_urcd.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
 
                         if (db.ExecuteNonQuery(command) < 1)
                         {
@@ -120,12 +120,11 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         //db.Close();
                         Hide();
-                        Main main = new Main();
+                        Main main = new Main(this);
                         db.UR_CD = db.Reader.GetString(0);
                         main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
                         main.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
                         main.Show();
-                        //Close();
                         return;
 
                     }
@@ -182,14 +181,14 @@ namespace WindowsFormsApplication1
             {
                 if (!(textBox2.Text.Equals(textBox4.Text)))
                 {
-                    isSamePass = true;
+                    isSamePass = false;
                     label3.Text = "비밀번호가 같지 않습니다.";
                     label3.ForeColor = Color.Red;
                     label3.Visible = true;
                 }
                 else
                 {
-                    isSamePass = false;
+                    isSamePass = true;
                     label3.Text = "비밀번호가 같습니다.";
                     label3.ForeColor = Color.Green;
                 }
@@ -201,14 +200,14 @@ namespace WindowsFormsApplication1
         {
             if (!(textBox4.Text.Equals(textBox2.Text)))
             {
-                isSamePass = true;
+                isSamePass = false;
                 label3.Text = "비밀번호가 같지 않습니다.";
                 label3.ForeColor = Color.Red;
                 label3.Visible = true;
             }
             else
             {
-                isSamePass = false;
+                isSamePass = true;
                 label3.Text = "비밀번호가 같습니다.";
                 label3.ForeColor = Color.Green;
             }
