@@ -44,25 +44,21 @@
             this.MonthDay8_panel = new System.Windows.Forms.Panel();
             this.MonthDay15_panel = new System.Windows.Forms.Panel();
             this.MonthDay1_panel = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.MonthDay35_panel = new System.Windows.Forms.Panel();
             this.MonthDay28_panel = new System.Windows.Forms.Panel();
             this.MonthDay14_panel = new System.Windows.Forms.Panel();
             this.MonthDay21_panel = new System.Windows.Forms.Panel();
             this.MonthDay7_panel = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
             this.MonthDay34_panel = new System.Windows.Forms.Panel();
             this.MonthDay27_panel = new System.Windows.Forms.Panel();
             this.MonthDay13_panel = new System.Windows.Forms.Panel();
             this.MonthDay20_panel = new System.Windows.Forms.Panel();
             this.MonthDay6_panel = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
             this.MonthDay33_panel = new System.Windows.Forms.Panel();
             this.MonthDay26_panel = new System.Windows.Forms.Panel();
             this.MonthDay12_panel = new System.Windows.Forms.Panel();
             this.MonthDay19_panel = new System.Windows.Forms.Panel();
             this.MonthDay5_panel = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
             this.MonthDay32_panel = new System.Windows.Forms.Panel();
             this.MonthDay25_panel = new System.Windows.Forms.Panel();
             this.MonthDay31_panel = new System.Windows.Forms.Panel();
@@ -73,38 +69,14 @@
             this.MonthDay10_panel = new System.Windows.Forms.Panel();
             this.MonthDay23_panel = new System.Windows.Forms.Panel();
             this.MonthDay4_panel = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
             this.MonthDay17_panel = new System.Windows.Forms.Panel();
             this.MonthDay9_panel = new System.Windows.Forms.Panel();
             this.MonthDay16_panel = new System.Windows.Forms.Panel();
             this.MonthDay3_panel = new System.Windows.Forms.Panel();
-            this.label11 = new System.Windows.Forms.Label();
             this.MonthDay2_panel = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
             this.m_Year_btn = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
             this.TodayBtn = new System.Windows.Forms.Label();
             this.Month_panel.SuspendLayout();
-            this.MonthDay8_panel.SuspendLayout();
-            this.MonthDay1_panel.SuspendLayout();
-            this.MonthDay14_panel.SuspendLayout();
-            this.MonthDay7_panel.SuspendLayout();
-            this.MonthDay13_panel.SuspendLayout();
-            this.MonthDay6_panel.SuspendLayout();
-            this.MonthDay12_panel.SuspendLayout();
-            this.MonthDay5_panel.SuspendLayout();
-            this.MonthDay11_panel.SuspendLayout();
-            this.MonthDay10_panel.SuspendLayout();
-            this.MonthDay4_panel.SuspendLayout();
-            this.MonthDay9_panel.SuspendLayout();
-            this.MonthDay3_panel.SuspendLayout();
-            this.MonthDay2_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_MonthNum
@@ -199,7 +171,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label9.Location = new System.Drawing.Point(864, 3);
+            this.label9.Location = new System.Drawing.Point(864, 1);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(36, 19);
             this.label9.TabIndex = 4;
@@ -208,7 +180,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(727, 3);
+            this.label8.Location = new System.Drawing.Point(727, 1);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 19);
             this.label8.TabIndex = 4;
@@ -217,7 +189,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(590, 3);
+            this.label7.Location = new System.Drawing.Point(590, 1);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(39, 19);
             this.label7.TabIndex = 4;
@@ -226,7 +198,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(459, 3);
+            this.label6.Location = new System.Drawing.Point(459, 1);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 19);
             this.label6.TabIndex = 4;
@@ -235,7 +207,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(323, 3);
+            this.label4.Location = new System.Drawing.Point(323, 1);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 19);
             this.label4.TabIndex = 4;
@@ -245,7 +217,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(55, 3);
+            this.label5.Location = new System.Drawing.Point(55, 1);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 19);
             this.label5.TabIndex = 4;
@@ -254,7 +226,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(185, 3);
+            this.label3.Location = new System.Drawing.Point(185, 1);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 19);
             this.label3.TabIndex = 4;
@@ -276,7 +248,6 @@
             // 
             // MonthDay8_panel
             // 
-            this.MonthDay8_panel.Controls.Add(this.label17);
             this.MonthDay8_panel.Location = new System.Drawing.Point(0, 122);
             this.MonthDay8_panel.Name = "MonthDay8_panel";
             this.MonthDay8_panel.Size = new System.Drawing.Size(135, 100);
@@ -291,20 +262,10 @@
             // 
             // MonthDay1_panel
             // 
-            this.MonthDay1_panel.Controls.Add(this.label2);
             this.MonthDay1_panel.Location = new System.Drawing.Point(0, 22);
             this.MonthDay1_panel.Name = "MonthDay1_panel";
             this.MonthDay1_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay1_panel.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 19);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "1";
             // 
             // MonthDay35_panel
             // 
@@ -322,7 +283,6 @@
             // 
             // MonthDay14_panel
             // 
-            this.MonthDay14_panel.Controls.Add(this.label23);
             this.MonthDay14_panel.Location = new System.Drawing.Point(810, 122);
             this.MonthDay14_panel.Name = "MonthDay14_panel";
             this.MonthDay14_panel.Size = new System.Drawing.Size(135, 100);
@@ -337,20 +297,10 @@
             // 
             // MonthDay7_panel
             // 
-            this.MonthDay7_panel.Controls.Add(this.label15);
             this.MonthDay7_panel.Location = new System.Drawing.Point(810, 22);
             this.MonthDay7_panel.Name = "MonthDay7_panel";
             this.MonthDay7_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay7_panel.TabIndex = 3;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 4);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(17, 19);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "7";
             // 
             // MonthDay34_panel
             // 
@@ -368,7 +318,6 @@
             // 
             // MonthDay13_panel
             // 
-            this.MonthDay13_panel.Controls.Add(this.label22);
             this.MonthDay13_panel.Location = new System.Drawing.Point(675, 122);
             this.MonthDay13_panel.Name = "MonthDay13_panel";
             this.MonthDay13_panel.Size = new System.Drawing.Size(135, 100);
@@ -383,20 +332,10 @@
             // 
             // MonthDay6_panel
             // 
-            this.MonthDay6_panel.Controls.Add(this.label14);
             this.MonthDay6_panel.Location = new System.Drawing.Point(675, 22);
             this.MonthDay6_panel.Name = "MonthDay6_panel";
             this.MonthDay6_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay6_panel.TabIndex = 3;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 4);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(17, 19);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "6";
             // 
             // MonthDay33_panel
             // 
@@ -414,7 +353,6 @@
             // 
             // MonthDay12_panel
             // 
-            this.MonthDay12_panel.Controls.Add(this.label21);
             this.MonthDay12_panel.Location = new System.Drawing.Point(540, 122);
             this.MonthDay12_panel.Name = "MonthDay12_panel";
             this.MonthDay12_panel.Size = new System.Drawing.Size(135, 100);
@@ -429,20 +367,10 @@
             // 
             // MonthDay5_panel
             // 
-            this.MonthDay5_panel.Controls.Add(this.label13);
             this.MonthDay5_panel.Location = new System.Drawing.Point(540, 22);
             this.MonthDay5_panel.Name = "MonthDay5_panel";
             this.MonthDay5_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay5_panel.TabIndex = 3;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(17, 19);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "5";
             // 
             // MonthDay32_panel
             // 
@@ -474,7 +402,6 @@
             // 
             // MonthDay11_panel
             // 
-            this.MonthDay11_panel.Controls.Add(this.label20);
             this.MonthDay11_panel.Location = new System.Drawing.Point(405, 122);
             this.MonthDay11_panel.Name = "MonthDay11_panel";
             this.MonthDay11_panel.Size = new System.Drawing.Size(135, 100);
@@ -496,7 +423,6 @@
             // 
             // MonthDay10_panel
             // 
-            this.MonthDay10_panel.Controls.Add(this.label19);
             this.MonthDay10_panel.Location = new System.Drawing.Point(270, 122);
             this.MonthDay10_panel.Name = "MonthDay10_panel";
             this.MonthDay10_panel.Size = new System.Drawing.Size(135, 100);
@@ -511,20 +437,10 @@
             // 
             // MonthDay4_panel
             // 
-            this.MonthDay4_panel.Controls.Add(this.label12);
             this.MonthDay4_panel.Location = new System.Drawing.Point(405, 22);
             this.MonthDay4_panel.Name = "MonthDay4_panel";
             this.MonthDay4_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay4_panel.TabIndex = 3;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 4);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(17, 19);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "4";
             // 
             // MonthDay17_panel
             // 
@@ -535,7 +451,6 @@
             // 
             // MonthDay9_panel
             // 
-            this.MonthDay9_panel.Controls.Add(this.label18);
             this.MonthDay9_panel.Location = new System.Drawing.Point(135, 122);
             this.MonthDay9_panel.Name = "MonthDay9_panel";
             this.MonthDay9_panel.Size = new System.Drawing.Size(135, 100);
@@ -550,37 +465,17 @@
             // 
             // MonthDay3_panel
             // 
-            this.MonthDay3_panel.Controls.Add(this.label11);
             this.MonthDay3_panel.Location = new System.Drawing.Point(270, 22);
             this.MonthDay3_panel.Name = "MonthDay3_panel";
             this.MonthDay3_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay3_panel.TabIndex = 2;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 4);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(17, 19);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "3";
-            // 
             // MonthDay2_panel
             // 
-            this.MonthDay2_panel.Controls.Add(this.label10);
             this.MonthDay2_panel.Location = new System.Drawing.Point(135, 22);
             this.MonthDay2_panel.Name = "MonthDay2_panel";
             this.MonthDay2_panel.Size = new System.Drawing.Size(135, 100);
             this.MonthDay2_panel.TabIndex = 1;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 4);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(17, 19);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "2";
             // 
             // m_Year_btn
             // 
@@ -590,70 +485,7 @@
             this.m_Year_btn.Name = "m_Year_btn";
             this.m_Year_btn.Size = new System.Drawing.Size(75, 26);
             this.m_Year_btn.TabIndex = 4;
-            this.m_Year_btn.Text = "2019년";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(5, 3);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(17, 19);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "1";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 3);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(17, 19);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "2";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(3, 3);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(17, 19);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "3";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 3);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(17, 19);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "4";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 3);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(17, 19);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "5";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(3, 3);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(17, 19);
-            this.label22.TabIndex = 0;
-            this.label22.Text = "6";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 3);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(17, 19);
-            this.label23.TabIndex = 0;
-            this.label23.Text = "7";
+            this.m_Year_btn.Text = "0000년";
             // 
             // TodayBtn
             // 
@@ -684,36 +516,9 @@
             this.Name = "Month";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Month";
+            this.Load += new System.EventHandler(this.Month_Load);
             this.Month_panel.ResumeLayout(false);
             this.Month_panel.PerformLayout();
-            this.MonthDay8_panel.ResumeLayout(false);
-            this.MonthDay8_panel.PerformLayout();
-            this.MonthDay1_panel.ResumeLayout(false);
-            this.MonthDay1_panel.PerformLayout();
-            this.MonthDay14_panel.ResumeLayout(false);
-            this.MonthDay14_panel.PerformLayout();
-            this.MonthDay7_panel.ResumeLayout(false);
-            this.MonthDay7_panel.PerformLayout();
-            this.MonthDay13_panel.ResumeLayout(false);
-            this.MonthDay13_panel.PerformLayout();
-            this.MonthDay6_panel.ResumeLayout(false);
-            this.MonthDay6_panel.PerformLayout();
-            this.MonthDay12_panel.ResumeLayout(false);
-            this.MonthDay12_panel.PerformLayout();
-            this.MonthDay5_panel.ResumeLayout(false);
-            this.MonthDay5_panel.PerformLayout();
-            this.MonthDay11_panel.ResumeLayout(false);
-            this.MonthDay11_panel.PerformLayout();
-            this.MonthDay10_panel.ResumeLayout(false);
-            this.MonthDay10_panel.PerformLayout();
-            this.MonthDay4_panel.ResumeLayout(false);
-            this.MonthDay4_panel.PerformLayout();
-            this.MonthDay9_panel.ResumeLayout(false);
-            this.MonthDay9_panel.PerformLayout();
-            this.MonthDay3_panel.ResumeLayout(false);
-            this.MonthDay3_panel.PerformLayout();
-            this.MonthDay2_panel.ResumeLayout(false);
-            this.MonthDay2_panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -767,21 +572,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label m_Year_btn;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label TodayBtn;
     }
 }
