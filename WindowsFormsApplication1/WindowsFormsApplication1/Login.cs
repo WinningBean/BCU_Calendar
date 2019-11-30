@@ -120,25 +120,35 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         //db.Close();
                         Hide();
-                        Main main = new Main();
-                        db.UR_CD = db.Reader.GetString(0);
-                        main.USERNAME = db.Reader.GetString(3);
-                        main.ShowDialog();
-                        Close();
+                        PassDB_ToMain();
+                        //Close();
                         return;
-
                     }
                     MessageBox.Show("로그인 실패하였습니다!!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    db.Close();
+                    //db.Close();
                     return;
                 }
                 catch (DataException DE)
                 {
-                    MessageBox.Show("데이터베이스 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("데이터베이스 연결 오류!! \n" + DE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Oracle.DataAccess.Client.OracleException OE)
+                {
+                    MessageBox.Show("데이터베이스 데이터 오류!! \n" + OE.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        private void PassDB_ToMain()
+        {
+            // Main 생성 후 DB 정보를 넘기는 함수
+            Main main = new Main(this);
+            db.UR_CD = db.Reader.GetString(0);
+            main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
+            main.USERPROFILE.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
+            main.USERPROFILE.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(4));
+            main.Show();
+        }
 
 
         private void label2_Click(object sender, EventArgs e)

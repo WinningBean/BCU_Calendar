@@ -66,11 +66,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddPicture.cs">
+    <Compile Include="Picture.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddPicture.Designer.cs">
-      <DependentUpon>AddPicture.cs</DependentUpon>
+    <Compile Include="Picture.Designer.cs">
+      <DependentUpon>Picture.cs</DependentUpon>
     </Compile>
     <Compile Include="DBConnection.cs" />
     <Compile Include="FriendList.cs">
@@ -99,8 +99,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddPicture.resx">
-      <DependentUpon>AddPicture.cs</DependentUpon>
+    <EmbeddedResource Include="Picture.resx">
+      <DependentUpon>Picture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FriendList.resx">
       <DependentUpon>FriendList.cs</DependentUpon>
@@ -151,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UserCustomControl\UserCustomControl.csproj">
+      <Project>{ec1b2884-805f-48da-ab2b-8e2a5026b625}</Project>
+      <Name>UserCustomControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
