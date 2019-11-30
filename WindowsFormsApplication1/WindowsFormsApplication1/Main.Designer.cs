@@ -340,10 +340,10 @@
             // UserProfile_prof
             // 
             this.UserProfile_prof.BackColor = System.Drawing.Color.Transparent;
-            this.UserProfile_prof.Location = new System.Drawing.Point(0, 7);
+            this.UserProfile_prof.Location = new System.Drawing.Point(0, 0);
             this.UserProfile_prof.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.UserProfile_prof.Name = "UserProfile_prof";
-            this.UserProfile_prof.Size = new System.Drawing.Size(243, 55);
+            this.UserProfile_prof.Size = new System.Drawing.Size(243, 45);
             this.UserProfile_prof.TabIndex = 0;
             this.UserProfile_prof.USERNAME = "UserName";
             this.UserProfile_prof.USERPIC = ((System.Drawing.Image)(resources.GetObject("UserProfile_prof.USERPIC")));

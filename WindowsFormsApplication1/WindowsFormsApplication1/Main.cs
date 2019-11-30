@@ -64,7 +64,7 @@ namespace WindowsFormsApplication1
         private void Set_UserProfile()
         {
             // UserProfile_pro 초기 설정 함수
-            UserProfile_prof.Set_Profile_Size(55, FontStyle.Bold);
+            UserProfile_prof.Set_Profile_Size(UserProfile_prof.Height, FontStyle.Bold);
             UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
         }
