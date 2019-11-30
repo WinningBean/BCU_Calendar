@@ -13,6 +13,8 @@ namespace WindowsFormsApplication1
     public partial class Main : Form
     {
         DBConnection db = Program.DB;
+        DBSchedule sche_db = new DBSchedule();
+
         Login log = null;
 
         public Main(Login log)
@@ -38,6 +40,7 @@ namespace WindowsFormsApplication1
         private void setCenterMonthPanel()
         { // 센터패널 설정 함수 (월간 폼 가져오기)
             MainCenter_pan.Controls.Clear();
+
             Month mnt = new Month();
             mnt.TopLevel = false;
             mnt.TopMost = true;
@@ -51,7 +54,8 @@ namespace WindowsFormsApplication1
         private void setCenterWeekPanel()
         { // 센터패널 설정 함수 (주간 폼 가져오기)
             MainCenter_pan.Controls.Clear();
-            Login week = new Login();
+
+            TestForm week = new TestForm();
             week.TopLevel = false;
             week.TopMost = true;
 
