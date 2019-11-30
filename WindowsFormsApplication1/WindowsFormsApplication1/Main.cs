@@ -13,11 +13,13 @@ namespace WindowsFormsApplication1
     public partial class Main : Form
     {
         DBConnection db = Program.DB;
+        Picture pic = null;
         Login log = null;
+        bool isShowPic;
 
-        public Main(Login log)
-        {
-            this.log = log;
+        public Main(Login log) // 로그인에서 메인 폼이 만들어졌으므로 로그인 객체를 가지고있다가 종료시 같이 삭제
+        {                      // 이렇게 안할시 메인폼은 종료되어도 로그인폼은 계속 프로세스에 남아있음
+            this.log = log;    // 로그인 폼 종료 코드는 Dispose (Main.Designer.cs) 메서드에 정의되어있음
             InitializeComponent();
         }
 
@@ -51,7 +53,7 @@ namespace WindowsFormsApplication1
         private void setCenterWeekPanel()
         { // 센터패널 설정 함수 (주간 폼 가져오기)
             MainCenter_pan.Controls.Clear();
-            Login week = new Login();
+            Week week = new Week();
             week.TopLevel = false;
             week.TopMost = true;
 
@@ -73,6 +75,7 @@ namespace WindowsFormsApplication1
         private void Main_Load(object sender, EventArgs e)
         {
             //UserName_txt.Text = db.UR_CD;
+            isShowPic = false; // 사진폼 띄우지않음
             setCenterMonthPanel(); // 월간보기로 기본설정
             m_Today_lbl.Text = DateTime.Now.ToString("yyyy.MM.dd"); // 오늘 날짜(시스템 날짜) 가져오기
             Set_UserProfile();
@@ -80,16 +83,28 @@ namespace WindowsFormsApplication1
 
         private void xToolStripMenuItem_Click(object sender, EventArgs e) // 메뉴스트립 닫기버튼
         {
+            if (pic != null)
+                pic.Dispose();
             Close();
         }
 
         private void PictureForm_btn_Click(object sender, EventArgs e) // 사진 폼 띄우기 버튼
         {
-            Picture pic = new Picture();
-            pic.StartPosition = FormStartPosition.Manual; // 사진 폼 시작 포지션 설정
-            pic.Location = new Point(this.Location.X + this.ClientSize.Width, this.Location.Y); // 현재 폼의 X좌표+현재폼의 길이, 현재폼의 Y좌표
-            pic.Size = new Size(pic.Size.Width, this.Size.Height); // 메인폼 높이를 같이 설정
-            pic.Show();
+            if (!isShowPic)
+            {
+                pic = new Picture(this);
+                pic.StartPosition = FormStartPosition.Manual; // 사진 폼 시작 포지션 설정
+                pic.Location = new Point(this.Location.X + this.ClientSize.Width, this.Location.Y); // 현재 폼의 X좌표+현재폼의 길이, 현재폼의 Y좌표
+                pic.Show();
+
+                isShowPic = true;
+                return;
+            }
+            else
+            {
+                pic.Dispose();  
+                isShowPic = false;
+            }
         }
 
 
@@ -109,7 +124,10 @@ namespace WindowsFormsApplication1
             if (isMove && (e.Button & MouseButtons.Left) == MouseButtons.Left)
             { // 마우스가 눌려지고, 왼쪽 버튼일 경우에 수행
                 Location = new Point(this.Left - (fPt.X - e.X), this.Top - (fPt.Y - e.Y));
-                // 폼 Location 재지정
+                if (isShowPic) // 사진폼이 띄어져있으면 사진폼도 이동
+                {
+                    pic.Location = new Point(pic.Left - (fPt.X - e.X), pic.Top - (fPt.Y - e.Y));
+                }// 폼 Location 재지정
             }
         }
 
@@ -136,6 +154,5 @@ namespace WindowsFormsApplication1
             MonthForm_btn.BackColor = Color.White;
             setCenterWeekPanel(); // 주간 폼 띄우기
         }
-
     }
 }

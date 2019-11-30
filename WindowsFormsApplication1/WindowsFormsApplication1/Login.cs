@@ -87,7 +87,7 @@ namespace WindowsFormsApplication1
                     String strName = textBox3.Text;
                     try
                     {
-                        string command = "insert into USER_TB values(seq_userid.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
+                        string command = "insert into USER_TB values('U' || seq_urcd.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
 
                         if (db.ExecuteNonQuery(command) < 1)
                         {
@@ -188,14 +188,14 @@ namespace WindowsFormsApplication1
             {
                 if (!(textBox2.Text.Equals(textBox4.Text)))
                 {
-                    isSamePass = true;
+                    isSamePass = false;
                     label3.Text = "비밀번호가 같지 않습니다.";
                     label3.ForeColor = Color.Red;
                     label3.Visible = true;
                 }
                 else
                 {
-                    isSamePass = false;
+                    isSamePass = true;
                     label3.Text = "비밀번호가 같습니다.";
                     label3.ForeColor = Color.Green;
                 }
@@ -207,14 +207,14 @@ namespace WindowsFormsApplication1
         {
             if (!(textBox4.Text.Equals(textBox2.Text)))
             {
-                isSamePass = true;
+                isSamePass = false;
                 label3.Text = "비밀번호가 같지 않습니다.";
                 label3.ForeColor = Color.Red;
                 label3.Visible = true;
             }
             else
             {
-                isSamePass = false;
+                isSamePass = true;
                 label3.Text = "비밀번호가 같습니다.";
                 label3.ForeColor = Color.Green;
             }
