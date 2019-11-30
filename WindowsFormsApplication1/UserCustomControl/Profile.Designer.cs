@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
             this.m_UserName_lbl = new System.Windows.Forms.Label();
             this.m_UserPic_rpic = new UserCustomControl.RoundPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_UserPic_rpic)).BeginInit();
@@ -46,7 +45,7 @@
             // 
             // m_UserPic_rpic
             // 
-            this.m_UserPic_rpic.Image = ((System.Drawing.Image)(resources.GetObject("m_UserPic_rpic.Image")));
+            this.m_UserPic_rpic.Image = global::UserCustomControl.Properties.Resources.user_null;
             this.m_UserPic_rpic.Location = new System.Drawing.Point(0, 0);
             this.m_UserPic_rpic.Name = "m_UserPic_rpic";
             this.m_UserPic_rpic.Size = new System.Drawing.Size(70, 70);
