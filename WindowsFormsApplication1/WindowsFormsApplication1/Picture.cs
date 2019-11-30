@@ -22,28 +22,31 @@ namespace WindowsFormsApplication1
         DataSet PictureDS = null;
         DataTable PictureDT = null;
         DateTime preDate;
-        bool isLastPictue;
 
         int pictureLocation;
         int rowNum;
-        int currWheel;
 
         Panel insidePan;
 
 
-        public Picture()
+        public Picture(Main main)
         {
             InitializeComponent();
             // 생성시 초기화
+            this.Size = new Size(this.Size.Width, main.Size.Height);
+            Picture_pan.Size = new Size(Picture_pan.Size.Width, main.Size.Height - 60);
             pictureLocation = 0;
             rowNum = 0;
-            currWheel = 0;
-            isLastPictue = false;
             isZoomBtn = true;
+            Picture_pan.VerticalScroll.Maximum = 0;
+            Picture_pan.VerticalScroll.Maximum = 0;
+            Picture_pan.VerticalScroll.Visible = false;
+            Picture_pan.AutoScroll = true;
+
             // 패널 안에 똑같은 패널을 만든다 
             // why? : 바깥 패널 안에있는 패널에 사진을넣고 위치값을 바꿀경우 위치가 변해도 바깥 패널밖으로 나가지않음
             insidePan = new Panel();
-            insidePan.Size = new Size(Picture_pan.Size.Width, 999999);
+            insidePan.Size = Picture_pan.Size;
             insidePan.Location = new Point(0, 0);
             // 안 패널을 바깥패널에 넣는다
             Picture_pan.Controls.Add(insidePan);
@@ -63,6 +66,7 @@ namespace WindowsFormsApplication1
             byte[] b = new byte[fs.Length - 1];
             fs.Read(b, 0, b.Length);
             fs.Close();
+
 
             // 배열에 있는 데이터를 보낼 정보를 담는다
             OracleParameter op = new OracleParameter();
@@ -132,9 +136,12 @@ namespace WindowsFormsApplication1
             insidePan.Location = new Point(0, 0);
             pictureLocation = 0;
             rowNum = 0;
-            currWheel = 0;
-            isLastPictue = false;
             preDate = new DateTime();
+            Picture_pan.Controls.Remove(insidePan);
+            insidePan = new Panel();
+            insidePan.Size = Picture_pan.Size;
+            insidePan.Location = new Point(0, 0);
+            Picture_pan.Controls.Add(insidePan);
         }
         private void PictureLoad() // 폼이 처음 실행되거나 사진추가했을때 사진목록을 불러옴
         {
@@ -143,11 +150,13 @@ namespace WindowsFormsApplication1
             db.Adapter.Fill(PictureDS, "PICTURE_TB");
             PictureDT = PictureDS.Tables["PICTURE_TB"];
         }
+        List<int> li = null;
 
         private void PictureShow() // 사진목록을 받아서 채워진 Table을 한줄씩 받아 사진을 만듦
         {
             if (isZoomBtn) // 크게보기
             {
+                PictureClear();
                 int i = 0;
                 while (i < 10 && rowNum < PictureDT.Rows.Count)
                 {
@@ -169,7 +178,6 @@ namespace WindowsFormsApplication1
                         lb.Size = new System.Drawing.Size(60, 24);
                         lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         lb.Show();
-
                         pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34
                     }
 
@@ -185,10 +193,15 @@ namespace WindowsFormsApplication1
             }
             else // 목록보기
             {
+                PictureClear();
                 int i = 0;
-                int pictureCount = 0;
                 int maxHeight = 0;
-                while (i < 40 && rowNum < PictureDT.Rows.Count)
+                int width = 0;
+                Panel widthInsidePan = null;
+                li = new List<int>();
+                Panel widthOutsidePan = null;
+
+                while (rowNum < PictureDT.Rows.Count)
                 {
                     DataRow currRow = PictureDT.Rows[rowNum++]; // 행 하나씩 받아옴
                     string date = currRow["PIC_DT"].ToString();
@@ -199,7 +212,10 @@ namespace WindowsFormsApplication1
 
                     if (!preDate.Equals(currDate)) // 전에 설정해둔 Month와 비교
                     {
-                        pictureLocation = maxHeight;
+                        pictureLocation = maxHeight+ 10;
+                        width = 0;
+                        li.Add(0);
+
                         preDate = currDate;
                         Label lb = new Label();
                         insidePan.Controls.Add(lb);
@@ -209,9 +225,47 @@ namespace WindowsFormsApplication1
                         lb.Size = new System.Drawing.Size(60, 24);
                         lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         lb.Show();
-                        pictureCount = 0;
 
                         pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34
+
+                        widthOutsidePan = new Panel();
+                        widthOutsidePan.Size = new Size(insidePan.Width, 100);
+                        widthOutsidePan.Location = new Point(0, pictureLocation);
+
+                        Label txtLeft = new Label();
+                        txtLeft.Text = "◀";
+                        txtLeft.TextAlign = ContentAlignment.MiddleCenter;
+                        txtLeft.Location = new Point(0, 0);
+                        txtLeft.Size = new Size(20, widthOutsidePan.Height);
+                        txtLeft.ForeColor = Color.Black;
+                        txtLeft.BackColor = Color.Transparent;
+                        txtLeft.Visible = false;
+                        widthOutsidePan.Controls.Add(txtLeft); // widthOutsidePan.Contains[0]
+
+
+                        Label txtRight = new Label();
+                        txtRight.Text = "▶";
+                        txtRight.TextAlign = ContentAlignment.MiddleCenter;
+                        txtRight.Location = new Point(widthOutsidePan.Width - 20, 0);
+                        txtRight.Size = new Size(20, widthOutsidePan.Height);
+                        txtRight.ForeColor = Color.Black;
+                        txtRight.BackColor = Color.Transparent;
+                        widthOutsidePan.Controls.Add(txtRight); // widthOutsidePan.Contains[1]
+
+                        txtLeft.Click += new System.EventHandler(OnGoLeftPan);
+                        txtRight.Click += new System.EventHandler(OnGoRightPan);
+
+                        widthInsidePan = new Panel();
+                        widthInsidePan.BackColor = Color.Transparent;
+                        widthInsidePan.Size = new Size(100000, 100);
+                        widthInsidePan.Location = new Point(0, 0);
+                        widthInsidePan.Name = (li.Count - 1).ToString();
+
+                        widthOutsidePan.Controls.Add(widthInsidePan); // widthOutsidePan.Contains[2]
+
+
+
+                        insidePan.Controls.Add(widthOutsidePan);
                     }
 
                     // 사진을 2진데이터화 하고 Image 클래스로 만든다
@@ -220,34 +274,90 @@ namespace WindowsFormsApplication1
                     Image img = Image.FromStream(stmBlobData);
 
                     // 다음 사진이 들어갈 위치와 이미지를 인자로 보내 사진을 만들고 그 다음 사진 위치를 받음
-                    int currHeight = CreateSmallPicure(pictureLocation, img, pictureCount++);
+                    int currHeight = CreateSmallPicure(ref widthInsidePan, pictureLocation, ref width, img);
                     maxHeight = maxHeight < currHeight ? currHeight : maxHeight;
-                    if (pictureCount > 2)
-                    {
-                        pictureCount = 0;
-                        pictureLocation = maxHeight;
-                    }
                     i++;
+                    if (li[li.Count - 1] < 2)
+                    {
+                        widthOutsidePan.Controls[1].Visible = false;
+                        li[li.Count - 1]++;
+                    }
+                    else
+                    {
+                        widthOutsidePan.Controls[1].Visible = true;
+                    }
                 }
-                if (rowNum >= PictureDT.Rows.Count) // 사진이 모두 출력되면
-                    isLastPictue = true;
             }
+            if (pictureLocation > insidePan.Size.Height)
+                insidePan.Size = new Size(insidePan.Size.Width, pictureLocation+ 100);
+            label5.Text = pictureLocation.ToString();
+            label6.Text = insidePan.Size.Height.ToString();
         }
-        private int CreateSmallPicure(int location, Image img, int count)
+
+        private void OnGoLeftPan(object sender, EventArgs e)
+        {
+            Panel widthOutsdiePan = (Panel)((Label)sender).Parent;
+            Panel widthInsidePan = (Panel)widthOutsdiePan.Controls[2]; // 인사이드 패널
+            int level = Convert.ToInt32(widthInsidePan.Name);
+
+            if (1 < li[level])
+            {
+                widthOutsdiePan.Controls[1].Visible = true;
+            }
+            else if (1 == li[level])
+            {
+                widthOutsdiePan.Controls[0].Visible = false;
+                widthOutsdiePan.Controls[1].Visible = true;
+            }
+            else
+            {
+                return;
+            }
+            widthInsidePan.Location = new Point(widthInsidePan.Controls[--li[level]].Location.X * -1, widthInsidePan.Location.Y);
+        }
+
+
+        private void OnGoRightPan(object sender, EventArgs e)
+        {
+            Panel widthOutsdiePan = (Panel)((Label)sender).Parent;
+            Panel widthInsidePan = (Panel)widthOutsdiePan.Controls[2]; // 인사이드 패널
+            int level = Convert.ToInt32(widthInsidePan.Name);
+            if (li[level] < widthInsidePan.Controls.Count - 2)
+            {
+                widthOutsdiePan.Controls[0].Visible = true; 
+            }
+            else if (li[level] == widthInsidePan.Controls.Count - 2)
+                {
+                widthOutsdiePan.Controls[1].Visible = false;
+                widthOutsdiePan.Controls[0].Visible = true;
+            }
+            else
+            {
+                widthInsidePan.Location = new Point(widthInsidePan.Controls[li[level]].Location.X * -1, widthInsidePan.Location.Y);
+                widthOutsdiePan.Controls[1].Visible = false;
+                widthOutsdiePan.Controls[0].Visible = true;
+                return;
+            }
+            widthInsidePan.Location = new Point(widthInsidePan.Controls[++li[level]].Location.X * -1, widthInsidePan.Location.Y);
+        }
+
+        private int CreateSmallPicure(ref Panel widthPan, int location, ref int width, Image img)
         {
             PictureBox pb = new PictureBox();
             insidePan.Controls.Add(pb); // 페널 안에 넣는다
 
+
             // 사진 비율 조정 : made by seungbeen
-            float percent = (float)img.Width / 120;
-            int imgHeight = (int)((float)img.Height / percent);
-            pb.Size = new Size(120, imgHeight);
-            pb.Location = new Point(count > 0 ? (count * 125) : 0, location);
+            float percent = (float)img.Height / 100;
+            int imgHeight = (int)((float)img.Width / percent);
+            pb.Size = new Size(imgHeight, 100);
+            pb.Location = new Point(width, 0);
+            width += imgHeight + 10;
             pb.SizeMode = PictureBoxSizeMode.Zoom;
-            //pb.BorderStyle = BorderStyle.FixedSingle;
             pb.Image = img;
             pb.Show();
-            return location + imgHeight + 10; // 기본 y + 사진 y + 띄울공간 10
+            widthPan.Controls.Add(pb);
+            return location + 80 + 10; // 기본 y + 사진 y + 띄울공간 10
         }
 
         private int CreateZoomPicure(int location, Image img)
@@ -275,38 +385,38 @@ namespace WindowsFormsApplication1
 
         private void Picture_pan_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.Delta > 0) // 마우스 휠을 올릴때
-            {
-                if (currWheel >= 0) // 휠을 끝까지 올렸을때 더이상 이동하면 안됨
-                    return;
-                currWheel += WHEELSPEED; // 10칸씩 증가시킨후 페널을 10씩 + 한다
-                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y + WHEELSPEED);
 
-            }
-            else // 마우스 휠을 내렸을때
-            {
-                if (isZoomBtn)
-                {
-                    if (currWheel <= (pictureLocation * -1) + Picture_pan.Height) // 마지막 사진까지 오면 더이상 내릴수없음
-                        return;
-                }
-                else
-                {
-                    if (currWheel <= (pictureLocation * -1) + Picture_pan.Height - 70) // 마지막 사진까지 오면 더이상 내릴수없음
-                        return;
-                }
-                currWheel -= WHEELSPEED;
-                insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y - WHEELSPEED);
 
-            }
-            if ((currWheel <= (pictureLocation * -1) + Picture_pan.Height + 50) && !isLastPictue)
-            // 끝까지 가기 50전이거나 마지막사진이 아니면 남아있는 사진들 더 출력함 (사진은 10장기준으로 끊킴)
-            {
-                PictureShow();
-            }
-            label7.Text = pictureLocation.ToString();
-            label5.Text = currWheel.ToString();
-            label6.Text = ((pictureLocation * -1) + Picture_pan.Height + 50).ToString();
+
+            //if (e.Delta > 0) // 마우스 휠을 올릴때
+            //{
+            //    if (currWheel >= 0) // 휠을 끝까지 올렸을때 더이상 이동하면 안됨
+            //        return;
+            //    currWheel += WHEELSPEED; // 10칸씩 증가시킨후 페널을 10씩 + 한다
+            //    insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y + WHEELSPEED);
+
+            //}
+            //else // 마우스 휠을 내렸을때
+            //{
+            //    if (isZoomBtn)
+            //    {
+            //        if (currWheel <= (pictureLocation * -1) + Picture_pan.Height) // 마지막 사진까지 오면 더이상 내릴수없음
+            //            return;
+            //    }
+            //    else
+            //    {
+            //        if (currWheel <= (pictureLocation * -1) + Picture_pan.Height - 70) // 마지막 사진까지 오면 더이상 내릴수없음
+            //            return;
+            //    }
+            //    currWheel -= WHEELSPEED;
+            //    insidePan.Location = new Point(insidePan.Location.X, insidePan.Location.Y - WHEELSPEED);
+
+            //}
+            //if ((currWheel <= (pictureLocation * -1) + Picture_pan.Height + 50) && !isLastPictue)
+            //// 끝까지 가기 50전이거나 마지막사진이 아니면 남아있는 사진들 더 출력함 (사진은 10장기준으로 끊킴)
+            //{
+            //    PictureShow();
+            //}
         }
 
         private void m_Small_btn_Click(object sender, EventArgs e)

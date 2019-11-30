@@ -81,10 +81,9 @@ namespace WindowsFormsApplication1
         {
             if (!isShowPic)
             {
-                pic = new Picture();
+                pic = new Picture(this);
                 pic.StartPosition = FormStartPosition.Manual; // 사진 폼 시작 포지션 설정
                 pic.Location = new Point(this.Location.X + this.ClientSize.Width, this.Location.Y); // 현재 폼의 X좌표+현재폼의 길이, 현재폼의 Y좌표
-                pic.Size = new Size(pic.Size.Width, this.Size.Height); // 메인폼 높이를 같이 설정
                 pic.Show();
 
                 isShowPic = true;
