@@ -126,7 +126,7 @@
             this.FreindForm_btn.AutoSize = true;
             this.FreindForm_btn.Location = new System.Drawing.Point(17, 26);
             this.FreindForm_btn.Name = "FreindForm_btn";
-            this.FreindForm_btn.Size = new System.Drawing.Size(60, 16);
+            this.FreindForm_btn.Size = new System.Drawing.Size(74, 19);
             this.FreindForm_btn.TabIndex = 8;
             this.FreindForm_btn.Text = "친구 목록";
             // 
@@ -136,7 +136,7 @@
             this.m_Today_lbl.Font = new System.Drawing.Font("함초롬돋움", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_Today_lbl.Location = new System.Drawing.Point(449, 23);
             this.m_Today_lbl.Name = "m_Today_lbl";
-            this.m_Today_lbl.Size = new System.Drawing.Size(69, 24);
+            this.m_Today_lbl.Size = new System.Drawing.Size(90, 32);
             this.m_Today_lbl.TabIndex = 6;
             this.m_Today_lbl.Text = "TODAY";
             // 
@@ -161,7 +161,7 @@
             this.UserName_txt.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.UserName_txt.Location = new System.Drawing.Point(99, 23);
             this.UserName_txt.Name = "UserName_txt";
-            this.UserName_txt.Size = new System.Drawing.Size(90, 21);
+            this.UserName_txt.Size = new System.Drawing.Size(111, 26);
             this.UserName_txt.TabIndex = 2;
             this.UserName_txt.Text = "UserName";
             // 
@@ -169,6 +169,7 @@
             // 
             this.MainHeader_menustp.BackColor = System.Drawing.Color.Gainsboro;
             this.MainHeader_menustp.Font = new System.Drawing.Font("함초롬돋움", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.MainHeader_menustp.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainHeader_menustp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사용자ToolStripMenuItem,
             this.그룹ToolStripMenuItem,
@@ -181,7 +182,7 @@
             this.MainHeader_menustp.Location = new System.Drawing.Point(0, 0);
             this.MainHeader_menustp.Name = "MainHeader_menustp";
             this.MainHeader_menustp.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.MainHeader_menustp.Size = new System.Drawing.Size(1212, 24);
+            this.MainHeader_menustp.Size = new System.Drawing.Size(1212, 27);
             this.MainHeader_menustp.TabIndex = 4;
             this.MainHeader_menustp.Text = "menuStrip1";
             this.MainHeader_menustp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainHeader_menustp_MouseDown);
@@ -195,24 +196,24 @@
             this.toolStripMenuItem3,
             this.로그아웃ToolStripMenuItem});
             this.사용자ToolStripMenuItem.Name = "사용자ToolStripMenuItem";
-            this.사용자ToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.사용자ToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.사용자ToolStripMenuItem.Text = "UserID";
             // 
             // 사용자정보ToolStripMenuItem
             // 
             this.사용자정보ToolStripMenuItem.Name = "사용자정보ToolStripMenuItem";
-            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
             this.사용자정보ToolStripMenuItem.Text = "사용자 정보";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(137, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(161, 6);
             // 
             // 로그아웃ToolStripMenuItem
             // 
             this.로그아웃ToolStripMenuItem.Name = "로그아웃ToolStripMenuItem";
-            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
             this.로그아웃ToolStripMenuItem.Text = "로그아웃";
             // 
             // 그룹ToolStripMenuItem
@@ -220,13 +221,13 @@
             this.그룹ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.그룹추가ToolStripMenuItem});
             this.그룹ToolStripMenuItem.Name = "그룹ToolStripMenuItem";
-            this.그룹ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.그룹ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
             this.그룹ToolStripMenuItem.Text = "그룹";
             // 
             // 그룹추가ToolStripMenuItem
             // 
             this.그룹추가ToolStripMenuItem.Name = "그룹추가ToolStripMenuItem";
-            this.그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.그룹추가ToolStripMenuItem.Text = "그룹 추가";
             // 
             // 친구ToolStripMenuItem
@@ -235,19 +236,19 @@
             this.친구추가ToolStripMenuItem,
             this.친구그룹추가ToolStripMenuItem});
             this.친구ToolStripMenuItem.Name = "친구ToolStripMenuItem";
-            this.친구ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.친구ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
             this.친구ToolStripMenuItem.Text = "친구";
             // 
             // 친구추가ToolStripMenuItem
             // 
             this.친구추가ToolStripMenuItem.Name = "친구추가ToolStripMenuItem";
-            this.친구추가ToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.친구추가ToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.친구추가ToolStripMenuItem.Text = "친구 추가";
             // 
             // 친구그룹추가ToolStripMenuItem
             // 
             this.친구그룹추가ToolStripMenuItem.Name = "친구그룹추가ToolStripMenuItem";
-            this.친구그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.친구그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.친구그룹추가ToolStripMenuItem.Text = "친구 그룹 추가";
             // 
             // 할일ToolStripMenuItem
@@ -257,25 +258,25 @@
             this.할일모두완료ToolStripMenuItem,
             this.할일모두삭제ToolStripMenuItem});
             this.할일ToolStripMenuItem.Name = "할일ToolStripMenuItem";
-            this.할일ToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.할일ToolStripMenuItem.Size = new System.Drawing.Size(56, 23);
             this.할일ToolStripMenuItem.Text = "할 일";
             // 
             // 할일추가ToolStripMenuItem
             // 
             this.할일추가ToolStripMenuItem.Name = "할일추가ToolStripMenuItem";
-            this.할일추가ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.할일추가ToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.할일추가ToolStripMenuItem.Text = "할 일 추가";
             // 
             // 할일모두완료ToolStripMenuItem
             // 
             this.할일모두완료ToolStripMenuItem.Name = "할일모두완료ToolStripMenuItem";
-            this.할일모두완료ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.할일모두완료ToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.할일모두완료ToolStripMenuItem.Text = "할 일 모두 완료";
             // 
             // 할일모두삭제ToolStripMenuItem
             // 
             this.할일모두삭제ToolStripMenuItem.Name = "할일모두삭제ToolStripMenuItem";
-            this.할일모두삭제ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.할일모두삭제ToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.할일모두삭제ToolStripMenuItem.Text = "할 일 모두 삭제";
             // 
             // 사진ToolStripMenuItem
@@ -283,20 +284,20 @@
             this.사진ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사진추가ToolStripMenuItem});
             this.사진ToolStripMenuItem.Name = "사진ToolStripMenuItem";
-            this.사진ToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.사진ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
             this.사진ToolStripMenuItem.Text = "사진";
             // 
             // 사진추가ToolStripMenuItem
             // 
             this.사진추가ToolStripMenuItem.Name = "사진추가ToolStripMenuItem";
-            this.사진추가ToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.사진추가ToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.사진추가ToolStripMenuItem.Text = "사진 추가";
             // 
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(27, 20);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(30, 23);
             this.xToolStripMenuItem.Text = "X";
             this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
@@ -304,14 +305,14 @@
             // 
             this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(32, 20);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(36, 23);
             this.toolStripMenuItem2.Text = "□";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(32, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(36, 23);
             this.toolStripMenuItem1.Text = "─";
             // 
             // MainLeft_pan
@@ -332,7 +333,7 @@
             // 
             // MainCenter_pan
             // 
-            this.MainCenter_pan.BackColor = System.Drawing.Color.Maroon;
+            this.MainCenter_pan.BackColor = System.Drawing.Color.WhiteSmoke;
             this.MainCenter_pan.Location = new System.Drawing.Point(243, 92);
             this.MainCenter_pan.Name = "MainCenter_pan";
             this.MainCenter_pan.Size = new System.Drawing.Size(969, 596);
@@ -360,7 +361,7 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
