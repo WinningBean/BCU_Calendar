@@ -120,7 +120,7 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         //db.Close();
                         Hide();
-                        Main main = new Main();
+                        Main main = new Main(this);
                         db.UR_CD = db.Reader.GetString(0);
                         main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
                         main.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌

@@ -13,9 +13,11 @@ namespace WindowsFormsApplication1
     public partial class Main : Form
     {
         DBConnection db = Program.DB;
+        Login log = null;
 
-        public Main()
+        public Main(Login log)
         {
+            this.log = log;
             InitializeComponent();
         }
 
