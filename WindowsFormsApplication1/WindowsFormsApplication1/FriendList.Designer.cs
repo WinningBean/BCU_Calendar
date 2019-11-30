@@ -34,8 +34,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.DBGrid2 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.DBGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DBGrid2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -92,6 +92,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(27, 39);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(143, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "친구목록";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
@@ -104,15 +113,6 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(150, 124);
             this.listBox1.TabIndex = 1;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(27, 39);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(143, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "친구목록";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // FriendList
             // 
