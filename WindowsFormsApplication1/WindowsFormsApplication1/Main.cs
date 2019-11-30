@@ -21,14 +21,16 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
-        public string USERNAME // username 프로퍼티 -> login에서 값 넘겨줌
-        {
-            get { return UserName_txt.Text; }
-            set { UserName_txt.Text = value; }
+        public UserCustomControl.Profile USERPROFILE
+        { 
+            // Userprofile 프로퍼티 -> login에서 값 넘겨줌
+            get { return UserProfile_prof; }
+            set { UserProfile_prof = value; }
         }
 
-        public string USERID // userid 프로퍼티 -> login에서 값 넘겨줌
-        { 
+        public string USERID
+        {
+            // userid 프로퍼티 -> login에서 값 넘겨줌
             get { return 사용자ToolStripMenuItem.Text; }
             set { 사용자ToolStripMenuItem.Text = value; }
         }
@@ -58,6 +60,14 @@ namespace WindowsFormsApplication1
             week.Location = new Point(0, 0);
             week.Show();
         }
+
+        private void Set_UserProfile()
+        {
+            // UserProfile_pro 초기 설정 함수
+            UserProfile_prof.Set_Profile_Size(55, FontStyle.Bold);
+            UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
+            UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
+        }
         
         //abcabc hello
         private void Main_Load(object sender, EventArgs e)
@@ -65,6 +75,7 @@ namespace WindowsFormsApplication1
             //UserName_txt.Text = db.UR_CD;
             setCenterMonthPanel(); // 월간보기로 기본설정
             m_Today_lbl.Text = DateTime.Now.ToString("yyyy.MM.dd"); // 오늘 날짜(시스템 날짜) 가져오기
+            Set_UserProfile();
         }
 
         private void xToolStripMenuItem_Click(object sender, EventArgs e) // 메뉴스트립 닫기버튼

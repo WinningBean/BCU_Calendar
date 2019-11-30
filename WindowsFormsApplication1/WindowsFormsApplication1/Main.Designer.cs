@@ -37,7 +37,6 @@
             this.FreindForm_btn = new System.Windows.Forms.Label();
             this.m_Today_lbl = new System.Windows.Forms.Label();
             this.MonthForm_btn = new System.Windows.Forms.Button();
-            this.UserName_txt = new System.Windows.Forms.Label();
             this.MainHeader_menustp = new System.Windows.Forms.MenuStrip();
             this.사용자ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.사용자정보ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,13 +59,12 @@
             this.MainLeft_pan = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.MainCenter_pan = new System.Windows.Forms.Panel();
-            this.Mainuser_pan = new System.Windows.Forms.Panel();
-            this.roundPictureBox2 = new UserCustomControl.RoundPictureBox();
+            this.MainUser_pan = new System.Windows.Forms.Panel();
+            this.UserProfile_prof = new UserCustomControl.Profile();
             this.MainTop_pan.SuspendLayout();
             this.MainHeader_menustp.SuspendLayout();
             this.MainLeft_pan.SuspendLayout();
-            this.Mainuser_pan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.roundPictureBox2)).BeginInit();
+            this.MainUser_pan.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTop_pan
@@ -155,16 +153,6 @@
             this.MonthForm_btn.Text = "월간";
             this.MonthForm_btn.UseVisualStyleBackColor = false;
             this.MonthForm_btn.Click += new System.EventHandler(this.MonthForm_btn_Click);
-            // 
-            // UserName_txt
-            // 
-            this.UserName_txt.AutoSize = true;
-            this.UserName_txt.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.UserName_txt.Location = new System.Drawing.Point(99, 23);
-            this.UserName_txt.Name = "UserName_txt";
-            this.UserName_txt.Size = new System.Drawing.Size(111, 26);
-            this.UserName_txt.TabIndex = 2;
-            this.UserName_txt.Text = "UserName";
             // 
             // MainHeader_menustp
             // 
@@ -340,25 +328,25 @@
             this.MainCenter_pan.Size = new System.Drawing.Size(969, 596);
             this.MainCenter_pan.TabIndex = 7;
             // 
-            // Mainuser_pan
+            // MainUser_pan
             // 
-            this.Mainuser_pan.BackColor = System.Drawing.Color.White;
-            this.Mainuser_pan.Controls.Add(this.roundPictureBox2);
-            this.Mainuser_pan.Controls.Add(this.UserName_txt);
-            this.Mainuser_pan.Location = new System.Drawing.Point(0, 24);
-            this.Mainuser_pan.Name = "Mainuser_pan";
-            this.Mainuser_pan.Size = new System.Drawing.Size(243, 69);
-            this.Mainuser_pan.TabIndex = 8;
+            this.MainUser_pan.BackColor = System.Drawing.Color.White;
+            this.MainUser_pan.Controls.Add(this.UserProfile_prof);
+            this.MainUser_pan.Location = new System.Drawing.Point(0, 24);
+            this.MainUser_pan.Name = "MainUser_pan";
+            this.MainUser_pan.Size = new System.Drawing.Size(243, 69);
+            this.MainUser_pan.TabIndex = 8;
             // 
-            // roundPictureBox2
+            // UserProfile_prof
             // 
-            this.roundPictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("roundPictureBox2.Image")));
-            this.roundPictureBox2.Location = new System.Drawing.Point(41, 12);
-            this.roundPictureBox2.Name = "roundPictureBox2";
-            this.roundPictureBox2.Size = new System.Drawing.Size(45, 45);
-            this.roundPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.roundPictureBox2.TabIndex = 4;
-            this.roundPictureBox2.TabStop = false;
+            this.UserProfile_prof.BackColor = System.Drawing.Color.Transparent;
+            this.UserProfile_prof.Location = new System.Drawing.Point(0, 7);
+            this.UserProfile_prof.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.UserProfile_prof.Name = "UserProfile_prof";
+            this.UserProfile_prof.Size = new System.Drawing.Size(243, 55);
+            this.UserProfile_prof.TabIndex = 0;
+            this.UserProfile_prof.USERNAME = "UserName";
+            this.UserProfile_prof.USERPIC = ((System.Drawing.Image)(resources.GetObject("UserProfile_prof.USERPIC")));
             // 
             // Main
             // 
@@ -367,7 +355,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1212, 689);
-            this.Controls.Add(this.Mainuser_pan);
+            this.Controls.Add(this.MainUser_pan);
             this.Controls.Add(this.MainCenter_pan);
             this.Controls.Add(this.MainLeft_pan);
             this.Controls.Add(this.MainTop_pan);
@@ -385,9 +373,7 @@
             this.MainHeader_menustp.ResumeLayout(false);
             this.MainHeader_menustp.PerformLayout();
             this.MainLeft_pan.ResumeLayout(false);
-            this.Mainuser_pan.ResumeLayout(false);
-            this.Mainuser_pan.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.roundPictureBox2)).EndInit();
+            this.MainUser_pan.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,13 +381,11 @@
 
         #endregion
         private System.Windows.Forms.Panel MainTop_pan;
-        private System.Windows.Forms.Label UserName_txt;
         private System.Windows.Forms.MenuStrip MainHeader_menustp;
         private System.Windows.Forms.ToolStripMenuItem 사용자ToolStripMenuItem;
         private System.Windows.Forms.Panel MainLeft_pan;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel MainCenter_pan;
-        private System.Windows.Forms.Panel Mainuser_pan;
         private System.Windows.Forms.Label m_Today_lbl;
         private System.Windows.Forms.Label FreindForm_btn;
         private System.Windows.Forms.Button MonthForm_btn;
@@ -425,7 +409,8 @@
         private System.Windows.Forms.ToolStripMenuItem 사진추가ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem 로그아웃ToolStripMenuItem;
-        private UserCustomControl.RoundPictureBox roundPictureBox2;
+        private System.Windows.Forms.Panel MainUser_pan;
+        private UserCustomControl.Profile UserProfile_prof;
     }
 }
 
