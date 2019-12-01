@@ -66,6 +66,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFriend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFriend.Designer.cs">
+      <DependentUpon>AddFriend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Day.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Day.Designer.cs">
+      <DependentUpon>Day.cs</DependentUpon>
+    </Compile>
     <Compile Include="Picture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +111,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddFriend.resx">
+      <DependentUpon>AddFriend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Day.resx">
+      <DependentUpon>Day.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Picture.resx">
       <DependentUpon>Picture.cs</DependentUpon>
     </EmbeddedResource>
