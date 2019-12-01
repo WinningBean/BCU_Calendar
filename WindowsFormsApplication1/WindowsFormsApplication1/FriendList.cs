@@ -13,26 +13,16 @@ namespace WindowsFormsApplication1
 {
     public partial class FriendList : Form
     {
-
-
-        // int count = 0;
-
         DBConnection db = Program.DB;
         DataTable friendTable = null;
         DataTable friend_group_tb = null;
-        DataTable friendtb = null;
-        
 
         Panel[] pan;
         Label[] label;
         Button[] btn;
 
-        DataSet groupMember = new DataSet();
-
         int location;
         int[] flag;
-
-
 
         public FriendList()
         {
@@ -53,34 +43,38 @@ namespace WindowsFormsApplication1
             }
         }
 
-
         private void UploadeList(int location)
         {
             flag = new int[friendTable.Rows.Count + 1];
             label = new Label[friendTable.Rows.Count];
-            btn = new Button[friend_group_tb.Rows.Count];
-            
+            btn = new Button[friend_group_tb.Rows.Count+1];
+            pan = new Panel[friend_group_tb.Rows.Count + 1];
 
-            
-            
-            Button btnbase = new Button();
-            btnbase.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            btnbase.Location = new System.Drawing.Point(50, 10);
-            btnbase.Name = "btn";
-            btnbase.Size = new System.Drawing.Size(130, 32);
-            btnbase.Text = "기본그룹    ▲";
-            panel1.Controls.Add(btnbase);
+            //기본적으로 생성해주는 모든친구 버튼과 목록이 저장되는 판넬 생성 
+            btn[0] = new Button();
+            btn[0].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            btn[0].Location = new System.Drawing.Point(50, 10);
+            btn[0].Name = "btn";
+            btn[0].Size = new System.Drawing.Size(130, 32);
+            btn[0].Text = "기본그룹    ▲";
+            panel1.Controls.Add(btn[0]);
             flag[0] = 1;
+
+            pan[0] = new Panel();
+            pan[0].AutoSize = true;
+            pan[0].Location = new Point(btn[0].Location.X, btn[0].Location.Y + 30);
+            panel1.Controls.Add(pan[0]);
 
             for (int i = 0; i < friendTable.Rows.Count; i++)
             {
                 DataRow currRow = friendTable.Rows[i];
                 UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
+                pan[0].Controls.Add(FriendProfile);
                 FriendProfile.Set_Profile_Size(30, FontStyle.Bold);
                 FriendProfile.USERNAME = currRow["UR_NM"].ToString();
-                FriendProfile.Location = new System.Drawing.Point(70, 45 + location * 30);
-                FriendProfile.Size = new System.Drawing.Size(150, 25);       
-                panel1.Controls.Add(FriendProfile);
+                FriendProfile.Location = new System.Drawing.Point(0, 10 + location * 30);
+                FriendProfile.Size = new System.Drawing.Size(150, 25);
+                
                 location++;
 
                 //label[i] = new Label();
@@ -93,21 +87,20 @@ namespace WindowsFormsApplication1
                 //panel1.Controls.Add(label[i]);
                 //location++;
             }
-            // friend_group_tb.Rows.Count
-            //currRow["FRGR_NM"].ToString();
-            for (int i = 0; i < friend_group_tb.Rows.Count; i++)
+
+            for (int i = 0; i < friend_group_tb.Rows.Count; i++) // ***CreateGroupButton 함수로 뺄꺼
             {
                 DataRow currRow;
                 currRow = friend_group_tb.Rows[i];
-                btn[i] = new Button();
-                btn[i].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                btn[i].Location = new System.Drawing.Point(50, 45 + location * 30);
-                btn[i].Name = "btn" + i.ToString();
-                btn[i].Size = new System.Drawing.Size(130, 32);
-                btn[i].TabIndex = i;
-                btn[i].Text = currRow["FRGR_NM"].ToString() + "       ▼";
-                // btn[i].Click +=
-                panel1.Controls.Add(btn[i]);
+                btn[i+1] = new Button();
+                btn[i+1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                btn[i+1].Location = new System.Drawing.Point(50, 45 + location * 30);
+                btn[i+1].Name = "btn" + i.ToString();
+                btn[i+1].Size = new System.Drawing.Size(130, 32);
+                btn[i+1].TabIndex = i;
+                btn[i+1].Text = currRow["FRGR_NM"].ToString() + "       ▼";
+                // btn[i+1].Click +=
+                panel1.Controls.Add(btn[i+1]);
 
                 location++;
                 flag[i + 1] = 0;
@@ -135,14 +128,14 @@ namespace WindowsFormsApplication1
         {
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
-           // panel1.AutoScroll = false;
+            // panel1.AutoScroll = false;
             panel1.VerticalScroll.Visible = false;
             panel1.AutoScroll = true;  //스크롤 
 
             GetFriendsList();
             GetGroupList();
             UploadeList(location);
-            getFriendTB();
+           // getFriendTB();
             GetGroupMamber();
             // userTB();    
 
@@ -160,54 +153,58 @@ namespace WindowsFormsApplication1
 
         private void GetGroupMamber() // 그룹 멤버 반환 
         {
-            pan = new Panel[friend_group_tb.Rows.Count];
-            for (int i = 0; i < friend_group_tb.Rows.Count; i++)
+            
+            for (int i = 0; i < friend_group_tb.Rows.Count; i++)  //panal 생성구간 create panel 로뺄까...?
             {
 
                 int count = 0;
-                pan[i] = new Panel();
-                panel1.Controls.Add(pan[i]);
-                pan[i].Location = new System.Drawing.Point(btn[i].Location.X, btn[i].Location.Y + 32);
-                pan[i].AutoSize = true;
-                pan[i].BorderStyle = BorderStyle.FixedSingle;
-
-
+                pan[i+1] = new Panel();
+                panel1.Controls.Add(pan[i+1]);
+                pan[i+1].Location = new System.Drawing.Point(btn[i+1].Location.X, btn[i+1].Location.Y + 32);
+                pan[i+1].AutoSize = true;
+                pan[i+1].BorderStyle = BorderStyle.FixedSingle;
 
                 DataRow currRow = friend_group_tb.Rows[i];
                 db.AdapterOpen("select  UR_NM from USER_TB  where UR_CD in (select FR_FR_FK from FRIEND_TB where FR_FRGR_FK = '" + currRow["FRGR_CD"].ToString() + "') ORDER BY  UR_NM ASC");
-               
+
                 DataSet rs = new DataSet();
                 db.Adapter.Fill(rs, "groupMemberTb");
                 DataTable groupMemberTb = rs.Tables["groupMemberTb"];
 
                 for (int j = 0; j < groupMemberTb.Rows.Count; j++)
                 {
-                     DataRow McurrRow = groupMemberTb.Rows[j];
+                    DataRow McurrRow = groupMemberTb.Rows[j];
+                    UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
+                    FriendProfile.Set_Profile_Size(30, FontStyle.Bold);
+                    FriendProfile.USERNAME = McurrRow["UR_NM"].ToString();
+                    FriendProfile.Size = new System.Drawing.Size(150, 25);
+                    pan[i + 1].Controls.Add(FriendProfile);
+                    FriendProfile.Location = new Point(0, count * 30);
 
-                        Label li = new Label();
-                        li.Size = new System.Drawing.Size(100, 25);
-                        li.Text = McurrRow["UR_NM"].ToString();
-                        li.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                         pan[i].Controls.Add(li);
-                        li.Location = new Point(0, count*30);
-                         listBox1.Items.Add(McurrRow["UR_NM"].ToString());
-                    
-                        count++;
-               
+                    //Label li = new Label();
+                    //li.Size = new System.Drawing.Size(100, 25);
+                    //li.Text = McurrRow["UR_NM"].ToString();
+                    //li.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                    //pan[i+1].Controls.Add(li);
+                    //li.Location = new Point(0, count * 30);
+                    listBox1.Items.Add(McurrRow["UR_NM"].ToString()); 
+
+                    count++;
+
                 }
             }
         }
 
-        private void getFriendTB()
-        {
-            db.AdapterOpen("select FR_UR_FK, FR_FR_FK ,FR_FRGR_FK from FRIEND_TB WHERE FR_UR_FK = '" + db.UR_CD + "' ");
+        //private void getFriendTB()
+        //{
+        //    db.AdapterOpen("select FR_UR_FK, FR_FR_FK ,FR_FRGR_FK from FRIEND_TB WHERE FR_UR_FK = '" + db.UR_CD + "' ");
 
-            DataSet ds = new DataSet();
+        //    DataSet ds = new DataSet();
 
-            db.Adapter.Fill(ds, "friendtb");
-            friendtb = ds.Tables["friendtb"];
+        //    db.Adapter.Fill(ds, "friendtb");
+        //    friendtb = ds.Tables["friendtb"];
 
-        }
+        //}
         //private void userTB()
         //{
         //    db.AdapterOpen("select UR_CD, UR_NM  from USER_TB WHERE UR_CD = '" + db.UR_CD + "' ORDER BY UR_NM ASC");
@@ -219,10 +216,34 @@ namespace WindowsFormsApplication1
 
         //}
 
+        private void GroupList_Click(object render, EventArgs e)  // 동적생성 버튼의 이벤드 아직 연결 안시킴 
+        {
+            int i = 0; // 눌린 버튼이 몇째버튼인지 구해서 i 에  넣어줘야함
+                if (flag[i] == 0)
+                {
+                    pan[i].Visible = true;
+                    for (int j = i; j < friend_group_tb.Rows.Count+1; j++)
+                    {
+                        btn[j].Location = new Point(btn[j].Location.X, btn[j].Location.Y + pan[j].Size.Height);
+                        pan[j].Location = new System.Drawing.Point(btn[j].Location.X, btn[j].Location.Y + 32);
+                    }
+                }
+                else
+                {
+                    pan[i].Visible = false;
+                    for (int j = i; j < friend_group_tb.Rows.Count+1; j++)
+                    {
+                        btn[j].Location = new Point(btn[j].Location.X, btn[j].Location.Y - pan[j].Size.Height);
+                        pan[j].Location = new System.Drawing.Point(btn[j].Location.X, btn[j].Location.Y + 32);
+                    }
 
-        private void 
+                } 
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 
 }
