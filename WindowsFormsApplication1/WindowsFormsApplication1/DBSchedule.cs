@@ -40,7 +40,6 @@ namespace WindowsFormsApplication1
             sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_UR_CD + "'";
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
             sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
-
             //db.Command.CommandText = sql;
             db.AdapterOpen(sql);
             db.Adapter.Fill(DS, "USER_SC_DAY_TB");

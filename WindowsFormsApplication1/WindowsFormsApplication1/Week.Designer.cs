@@ -32,12 +32,11 @@
         {
             this.m_Year_btn = new System.Windows.Forms.Label();
             this.m_Mon_pan = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.m_Top_pan = new System.Windows.Forms.Panel();
             this.m_Main_pan = new System.Windows.Forms.Panel();
             this.m_Mid_pan = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.m_Mon_pan.SuspendLayout();
-            this.m_Main_pan.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_Year_btn
@@ -52,11 +51,22 @@
             // 
             // m_Mon_pan
             // 
+            this.m_Mon_pan.Controls.Add(this.button1);
             this.m_Mon_pan.Controls.Add(this.m_Year_btn);
             this.m_Mon_pan.Location = new System.Drawing.Point(0, 0);
             this.m_Mon_pan.Name = "m_Mon_pan";
             this.m_Mon_pan.Size = new System.Drawing.Size(91, 63);
             this.m_Mon_pan.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(30, 37);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // m_Top_pan
             // 
@@ -67,7 +77,6 @@
             // 
             // m_Main_pan
             // 
-            this.m_Main_pan.Controls.Add(this.label1);
             this.m_Main_pan.Location = new System.Drawing.Point(1, 92);
             this.m_Main_pan.Name = "m_Main_pan";
             this.m_Main_pan.Size = new System.Drawing.Size(966, 504);
@@ -80,16 +89,6 @@
             this.m_Mid_pan.Name = "m_Mid_pan";
             this.m_Mid_pan.Size = new System.Drawing.Size(969, 28);
             this.m_Mid_pan.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(184, 70);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Mon";
             // 
             // Week
             // 
@@ -108,10 +107,9 @@
             this.Name = "Week";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Week";
+            this.Load += new System.EventHandler(this.Week_Load);
             this.m_Mon_pan.ResumeLayout(false);
             this.m_Mon_pan.PerformLayout();
-            this.m_Main_pan.ResumeLayout(false);
-            this.m_Main_pan.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -122,6 +120,7 @@
         private System.Windows.Forms.Panel m_Top_pan;
         private System.Windows.Forms.Panel m_Main_pan;
         private System.Windows.Forms.Panel m_Mid_pan;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
     }
 }
