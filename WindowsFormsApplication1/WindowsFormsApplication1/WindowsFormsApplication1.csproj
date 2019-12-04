@@ -84,6 +84,7 @@
     <Compile Include="FriendCheck.Designer.cs">
       <DependentUpon>FriendCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="DBSchedule.cs" />
     <Compile Include="Picture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +127,18 @@
     <EmbeddedResource Include="FriendCheck.resx">
       <DependentUpon>FriendCheck.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Week.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Week.Designer.cs">
+      <DependentUpon>Week.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Picture.resx">
       <DependentUpon>Picture.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,6 +164,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Week.resx">
+      <DependentUpon>Week.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
