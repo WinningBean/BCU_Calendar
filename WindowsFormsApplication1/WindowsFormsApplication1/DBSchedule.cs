@@ -17,7 +17,7 @@ namespace WindowsFormsApplication1
 
         DBConnection db = Program.DB;
         private string sql;
-        private DataSet DS = new DataSet();
+        private DataSet DS;
 
         // DB상 Schedule 가져오기 클래스
 
@@ -32,7 +32,7 @@ namespace WindowsFormsApplication1
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
-            
+            DS = new DataSet();
             db.AdapterOpen(sql);
             db.Adapter.Fill(DS, "GET_SC_TB");
 
@@ -55,7 +55,8 @@ namespace WindowsFormsApplication1
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
             sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
-            
+
+            DS = new DataSet();
             db.AdapterOpen(sql);
             db.Adapter.Fill(DS, "GET_DAY_SC_TB");
 
