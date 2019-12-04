@@ -72,13 +72,17 @@ namespace WindowsFormsApplication1
             string st_day_str = st_day.ToString("yyyy/mm/dd hh24:mi"); // 시작일시 스트링 포맷
             string end_day_str = end_day.ToString("yyyy/mm/dd hh24:mi"); // 시작일시 스트링 포맷
 
-            sql = "insert into SCHEDULE_TB values('S'||to_char(seq_sccd.NEXTVAL), '" + title + "', '" + ex + "', " + st + 
-                ", to_date('" + st_day_str + "', 'yyyy/mm/dd hh24:mi'), to_date('" + end_day_str + "', 'yyyy/mm/dd hh24:mi'), ";
+            sql = "insert into SCHEDULE_TB values('S'||to_char(seq_sccd.NEXTVAL), '" + title + "', ";
+
+            if (ex == null) { sql += "null, "; } // 일정설명
+            else { sql += "'" + ex + "', "; }
+
+            sql += st.ToString() + ", to_date('" + st_day_str + "', 'yyyy/mm/dd hh24:mi'), to_date('" + end_day_str + "', 'yyyy/mm/dd hh24:mi'), ";
 
             if (p_fk == null) { sql += "null, "; } // 사진코드
-            else { sql += p_fk + ", "; }
+            else { sql += "'" + p_fk + "', "; }
             if (cr_fk == null) { sql += "null, "; } // 컬러코드
-            else { sql += cr_fk + ", "; }
+            else { sql += "'" + cr_fk + "', "; }
             if (is_UR == true){sql += "'" + m_URorGR_CD + "', null)";} // 회원일시
             else {sql += "null, '" + m_URorGR_CD + "')";} // 그룹일시
 
