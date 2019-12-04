@@ -137,5 +137,17 @@ namespace WindowsFormsApplication1
             setCenterWeekPanel(); // 주간 폼 띄우기
         }
 
+       private void Check_FriendRequest() // 메인이 실행 될때 친구친청 온게 있는지 확인 - CJE 
+       {
+            string command = "select FRIEND_TB from FRIEND_TB where FR_UR_FK ='" + db.UR_CD + "' and FR_ACEP_ST = 1";
+            db.ExecuteReader(command);
+            if(db.Reader.Read())
+            {
+                // 하나라도 있으면 알림창 띄움 (메시지 박스?) 확인누를시 팝업 띄움 / 취소 누르면 그냥 알림창 닫음 
+                //break;
+            }
+
+       }
+      
     }
 }

@@ -19,7 +19,7 @@ namespace WindowsFormsApplication1
             DBOpen();  //
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FriendList()); //시작할 폼
+            Application.Run(new Login()); //시작할 폼
         }
 
         private static DBConnection db = null; // static db 참조변수 선언

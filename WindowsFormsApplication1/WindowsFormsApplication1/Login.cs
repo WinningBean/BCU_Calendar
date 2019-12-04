@@ -146,7 +146,7 @@ namespace WindowsFormsApplication1
             db.UR_CD = db.Reader.GetString(0);
             main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
             main.USERPROFILE.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
-            main.USERPROFILE.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(4));
+           // main.USERPROFILE.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(4));
             main.Show();
         }
 
