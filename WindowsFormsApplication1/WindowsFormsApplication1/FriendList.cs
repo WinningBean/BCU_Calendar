@@ -39,7 +39,7 @@ namespace WindowsFormsApplication1
             FriendProfile.Location = new System.Drawing.Point(0, 10 + location * 30);
             FriendProfile.Size = new System.Drawing.Size(150, 25);
 
-            location++;
+            location++; // 전역
 
             return FriendProfile;
         }
@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
             //기본적으로 생성해주는 모든친구 버튼과 목록이 저장되는 판넬 생성 
             btn[0] = new Button();
             btn[0].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            btn[0].Location = new System.Drawing.Point(50, 10);
+            btn[0].Location = new System.Drawing.Point(20, 10);
             btn[0].Name = "btn";
             btn[0].TabIndex = 0;
             btn[0].Size = new System.Drawing.Size(130, 32);
@@ -74,13 +74,13 @@ namespace WindowsFormsApplication1
                 pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
             }
 
-            for (int i = 0; i < friend_group_tb.Rows.Count; i++) // ***CreateGroupButton 함수로 뺄꺼
+            for (int i = 0; i < friend_group_tb.Rows.Count; i++) // ***CreateGroupButton 함수로 뺄까...? // 그룹추가 할떄 
             {
                 DataRow currRow;
                 currRow = friend_group_tb.Rows[i];
                 btn[i + 1] = new Button();
                 btn[i + 1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                btn[i + 1].Location = new System.Drawing.Point(50, 45 + location * 30);
+                btn[i + 1].Location = new System.Drawing.Point(20, 45 + location * 30);
                 btn[i + 1].Name = "btn" + i.ToString();
                 btn[i + 1].Size = new System.Drawing.Size(130, 32);
                 btn[i + 1].TabIndex = i+1;
@@ -109,8 +109,9 @@ namespace WindowsFormsApplication1
         {
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
+            panel1.AutoScroll = false;
             panel1.VerticalScroll.Visible = false;
-            panel1.AutoScroll = true;  //스크롤 
+            panel1.AutoScroll = true;
 
             GetFriendsList();
             GetGroupList();
@@ -151,7 +152,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void GroupList_Click(object render, EventArgs e)
+        private void GroupList_Click(object render, EventArgs e)// 위치 조절 함수
         {
             int i = 0;
             Button mybtn = (Button)render;
@@ -188,9 +189,11 @@ namespace WindowsFormsApplication1
                 if (currRow["UR_NM"].ToString().Equals(textBox1.Text))
                 {
                     check = true;
-                    panel3.Controls.Add( Create_FriendProfile(i, friendTable));                   
+                    panel3.Controls.Add( Create_FriendProfile(i, friendTable));
+                    panel3.Visible = true;
                 }       
             }
+           
             if(!check)
             {
                 panel1.Visible = false;
@@ -204,6 +207,15 @@ namespace WindowsFormsApplication1
             panel2.Visible = false;
             panel1.Visible = true;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AddFriend addFriend = new AddFriend();
+            addFriend.ShowDialog();
+          
+        }
+
+     
     }
 }
 
