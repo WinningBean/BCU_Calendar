@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
         private void TestForm_Load(object sender, EventArgs e)
         {
             DateTime now = DateTime.Parse("2019-11-13 00:00:00");
-            DT = sche_db.Get_Day_Schedule("U",db.UR_CD, now);
+            DT = sche_db.Get_Day_Schedule(true,db.UR_CD, now);
             dataGridView1.DataSource = DT;
         }
     }

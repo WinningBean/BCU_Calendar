@@ -210,7 +210,7 @@ namespace WindowsFormsApplication1
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    DataTable dt = dbs.Get_Day_Schedule("U100000", weekSunday.AddDays(i));
+                    DataTable dt = dbs.Get_Day_Schedule(true,"U100000", weekSunday.AddDays(i));
                     for (int k = 0; k < dt.Rows.Count; k++)
                     {
                         DataRow dr = dt.Rows[k];
