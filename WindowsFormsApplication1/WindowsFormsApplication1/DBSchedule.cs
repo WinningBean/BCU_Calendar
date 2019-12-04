@@ -85,9 +85,27 @@ namespace WindowsFormsApplication1
             db.ExecuteNonQuery(sql);
         }
 
-        public void Delete_Schedule(string sc_cd) {
-            sql = "delete from SCHEDULE where SC_CD = '" + sc_cd + "'";
+        public void Delete_Schedule(string sc_cd)
+        {
+            // Delete_Schedule(스케줄코드)
+            sql = "delete from SCHEDULE_TB where SC_CD = '" + sc_cd + "'";
             db.ExecuteNonQuery(sql);
-        }                                                                                                                                                                                                                                                                                                   
+        }
+
+        public void Update_Schedule(string sc_cd, string column_name, string sc_data)
+        {
+            // Update_Schedule(스케줄코드, 업데이트될 컬럼명, 업데이트 데이터)
+            sql = "update SCHEDULE_TB set " + column_name + " = '" + sc_data + "' where SC_CD = '" + sc_cd + "'";
+            db.ExecuteNonQuery(sql);
+        }
+
+        public void Update_Schedule(string sc_cd, string column_name, DateTime sc_data)
+        {
+            // Update_Schedule overloading - 시작일시, 종료일시 업데이트
+            // Update_Schedule(스케줄코드, 업데이트될 컬럼명, 업데이트 데이터)
+            string sc_data_str = sc_data.ToString("yyyy/mm/dd hh24:mi");
+            sql = "update SCHEDULE_TB set " + column_name + " = to_date('" + sc_data + "', 'yyyy/mm/dd hh24:mi') where SC_CD = '" + sc_cd + "'";
+            db.ExecuteNonQuery(sql);
+        }
     }
 }
