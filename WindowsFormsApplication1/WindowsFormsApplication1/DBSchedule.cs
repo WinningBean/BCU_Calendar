@@ -21,14 +21,14 @@ namespace WindowsFormsApplication1
 
         // DB상 Schedule 가져오기 클래스
 
-        public DataTable Get_Schedule(string UrOrGr, string m_URorGR_CD)
+        public DataTable Get_Schedule(Boolean is_UR, string m_URorGR_CD)
         {
             // 해당 사용자에 대한 모든 일정 테이블 함수
-            if (UrOrGr == "U") // 회원이라면
+            if (is_UR == true) // 회원이라면
             {
                 sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
             }
-            else if(UrOrGr == "G") // 그룹이라면
+            else // 그룹이라면
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
@@ -42,14 +42,14 @@ namespace WindowsFormsApplication1
             return GET_SC_TB;
         }
         
-        public DataTable Get_Day_Schedule(string UrOrGr, string m_URorGR_CD, DateTime day)
+        public DataTable Get_Day_Schedule(Boolean is_UR, string m_URorGR_CD, DateTime day)
         {
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
-            if (UrOrGr == "U") // 회원이라면
+            if (is_UR == true) // 회원이라면
             {
                 sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
             }
-            else if (UrOrGr == "G") // 그룹이라면
+            else // 그룹이라면
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
@@ -64,5 +64,30 @@ namespace WindowsFormsApplication1
 
             return GET_DAY_SC_TB;
         }
+
+        public void Insert_Schedule(Boolean is_UR, string m_URorGR_CD, string title, string ex, int st, DateTime st_day, DateTime end_day, string p_fk , string cr_fk)
+        {
+            // Insert_Schedule(사용자/그룹구분, 사용자/그룹 코드, 일정제목, 일정내용, 공개상태, 시작일시, 종료일시, 사진fk, 컬러fk)
+
+            string st_day_str = st_day.ToString("yyyy/mm/dd hh24:mi"); // 시작일시 스트링 포맷
+            string end_day_str = end_day.ToString("yyyy/mm/dd hh24:mi"); // 시작일시 스트링 포맷
+
+            sql = "insert into SCHEDULE_TB values('S'||to_char(seq_sccd.NEXTVAL), '" + title + "', '" + ex + "', " + st + 
+                ", to_date('" + st_day_str + "', 'yyyy/mm/dd hh24:mi'), to_date('" + end_day_str + "', 'yyyy/mm/dd hh24:mi'), ";
+
+            if (p_fk == null) { sql += "null, "; } // 사진코드
+            else { sql += p_fk + ", "; }
+            if (cr_fk == null) { sql += "null, "; } // 컬러코드
+            else { sql += cr_fk + ", "; }
+            if (is_UR == true){sql += "'" + m_URorGR_CD + "', null)";} // 회원일시
+            else {sql += "null, '" + m_URorGR_CD + "')";} // 그룹일시
+
+            db.ExecuteNonQuery(sql);
+        }
+
+        public void Delete_Schedule(string sc_cd) {
+            sql = "delete from SCHEDULE where SC_CD = '" + sc_cd + "'";
+            db.ExecuteNonQuery(sql);
+        }                                                                                                                                                                                                                                                                                                   
     }
 }
