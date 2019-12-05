@@ -102,7 +102,7 @@ namespace WindowsFormsApplication1
             db.Adapter.Fill(DS, "friend_tb");
             friendTable = DS.Tables["friend_tb"];
 
-            db.Close();
+            //db.Close();
         }
 
         private void FriendList_Load(object sender, EventArgs e)
