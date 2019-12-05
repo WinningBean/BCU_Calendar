@@ -51,6 +51,8 @@ namespace WindowsFormsApplication1
             MainCenter_pan.Controls.Add(mnt);
             mnt.Location = new Point(0, 0);
             mnt.Show();
+
+            Check_FriendRequest(); // -----------------------------어디다가 넣어야 메인이 띄워지고 메세지 박스가 뜰까?????
         }
 
         private void setCenterWeekPanel()
@@ -83,6 +85,7 @@ namespace WindowsFormsApplication1
             setCenterMonthPanel(); // 월간보기로 기본설정
             m_Today_lbl.Text = DateTime.Now.ToString("yyyy.MM.dd"); // 오늘 날짜(시스템 날짜) 가져오기
             Set_UserProfile();
+           
         }
 
         private void xToolStripMenuItem_Click(object sender, EventArgs e) // 메뉴스트립 닫기버튼
@@ -158,14 +161,19 @@ namespace WindowsFormsApplication1
             MonthForm_btn.BackColor = Color.White;
             setCenterWeekPanel(); // 주간 폼 띄우기
         }
+
+
        private void Check_FriendRequest() // 메인이 실행 될때 친구친청 온게 있는지 확인 - CJE 
        {
-            string command = "select FRIEND_TB from FRIEND_TB where FR_UR_FK ='" + db.UR_CD + "' and FR_ACEP_ST = 1";
+            string command = "select * from FRIEND_TB where FR_FR_FK ='" + db.UR_CD + "' and FR_ACEP_ST = 0";
             db.ExecuteReader(command);
             if(db.Reader.Read())
             {
-                // 하나라도 있으면 알림창 띄움 (메시지 박스?) 확인누를시 팝업 띄움 / 취소 누르면 그냥 알림창 닫음 
-                //break;
+                if (MessageBox.Show("친구 신청이 왔습니다 확인 하시겠습나까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    FriendCheck friendCheck = new FriendCheck();
+                    friendCheck.ShowDialog();
+                }
             }
 
        }
