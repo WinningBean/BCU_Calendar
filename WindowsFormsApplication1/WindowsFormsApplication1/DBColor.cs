@@ -11,8 +11,20 @@ namespace WindowsFormsApplication1
     class DBColor
     {
         DBConnection db = Program.DB;
+        Dictionary<string, string> colorDic;
 
-        public DBColor() { }
+        public DBColor() {
+            db.ExecuteReader("select * from COLOR_TB");
+            while (db.Reader.Read())
+            {
+                colorDic.Add(db.Reader[0].ToString(), db.Reader[1].ToString());
+            }
+        }
+
+        public Dictionary<string, string> ColorDic
+        {
+            get { return colorDic; }
+        }
 
         public Color randomColor(int alpha) // 색을 랜덤으로 만들어줌
         {
