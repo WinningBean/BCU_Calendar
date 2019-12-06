@@ -97,10 +97,16 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < rows.Length; i++)
             {
                 label = new System.Windows.Forms.Label(); // 레이블 동적 생성
-                label.Location = new System.Drawing.Point(0, 15*(i+1));
+                label.Location = new System.Drawing.Point(0, 25*(i+1));
                 label.Name = "day" + lbl_nm.ToString() + "_sc" + i.ToString();
-                label.Size = new System.Drawing.Size(m_panel.Width, 30);
+                label.Size = new System.Drawing.Size(m_panel.Width, 25);
+                label.Padding = new Padding(5,0,5,0);
                 label.Text = rows[i]["SC_NM"].ToString();
+                label.TextAlign = ContentAlignment.MiddleLeft;
+
+                Random rnd = new Random();
+                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                label.BackColor = randomColor;
 
                 m_panel.Controls.Add(label);
             }

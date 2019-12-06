@@ -11,40 +11,46 @@ increment by 1;
 create sequence seq_sccd
 start with 100000
 increment by 1;
--- insert 사용시 : 'S'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'S'||to_char(seq_sccd.NEXTVAL) --
 
 -- 사진 코드 시퀀스 --
 create sequence seq_piccd
 start with 100000
 increment by 1;
--- insert 사용시 : 'P'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'P'||to_char(seq_piccd.NEXTVAL) --
 
 -- 할 일 코드 시퀀스 --
 create sequence seq_tdcd
 start with 100000
 increment by 1;
--- insert 사용시 : 'T'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'T'||to_char(seq_tdcd.NEXTVAL) --
 
 -- 그룹 코드 시퀀스 --
 create sequence seq_grcd
 start with 100000
 increment by 1;
--- insert 사용시 : 'G'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'G'||to_char(seq_grcd.NEXTVAL) --
 
 -- 친구그룹 코드 시퀀스 --
 create sequence seq_frgrcd
 start with 10000
 increment by 1;
--- insert 사용시 : 'FG'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'FG'||to_char(seq_frgrcd.NEXTVAL) --
 
 -- 댓글 코드 시퀀스 --
 create sequence seq_ctcd
 start with 100000
 increment by 1;
--- insert 사용시 : 'C'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'C'||to_char(seq_ctcd.NEXTVAL) --
 
 -- 컬러 코드 시퀀스 --
 create sequence seq_crcd
 start with 10000
 increment by 1;
--- insert 사용시 : 'CR'||to_char(seq_urcd.NEXTVAL) --
+-- insert 사용시 : 'CR'||to_char(seq_crcd.NEXTVAL) --
+
+-- 일기 코드 시퀀스 --
+create sequence seq_drcd
+start with 100000
+increment by 1;
+-- insert 사용시 : 'D'||to_char(seq_drcd.NEXTVAL) --
