@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
             day = new List<List<Panel>>(); // 각 시간마다 생성된 패널 (ex: day[1][7] -> 월요일 8 AM)
             insideMain = new Panel();
             insideMain.Location = new Point(0, 0);
-            insideMain.Size = new Size(966, 1512);
+            insideMain.Size = new Size(966, 1200); // 966 1512 (1칸당 125, 63) -> 966 1200 (1칸당 125, 50) 
             insideMain.Show();
             insideMain.Paint += new System.Windows.Forms.PaintEventHandler(OnMainPaint);
             insideMain.BackColor = Color.Transparent;
@@ -62,7 +62,7 @@ namespace WindowsFormsApplication1
             Pen pen = new Pen(Color.LightGray);
             for (int i = 0; i < 6; i++)
             {
-                graphics.DrawLine(pen, x, 0, x, 63);
+                graphics.DrawLine(pen, x, 0, x, 50);
                 x += 125;
             }
             graphics.Dispose();
@@ -77,7 +77,7 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < 24; i++)
             {
                 graphics.DrawLine(pen, x, y, 956, y);
-                y += 63;
+                y += 50;
             }
             x = 216;
             for (int i = 0; i < 6; i++)
@@ -95,6 +95,14 @@ namespace WindowsFormsApplication1
             {
                 Label pan = new Label();
 
+                pan.Size = new Size(91, 50); // 125
+                pan.Location = new Point(0, y);
+                //pan.BorderStyle = BorderStyle.FixedSingle;
+
+                pan.TextAlign = ContentAlignment.TopRight;
+                pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                pan.ForeColor = Color.DimGray;
+
                 if (i < 12)
                     pan.Text = i.ToString() + " AM";
                 else if (i > 12 && i < 24)
@@ -102,19 +110,17 @@ namespace WindowsFormsApplication1
                     pan.Text = (i % 12).ToString() + " PM";
                 }
                 else if (i == 12)
+                {
                     pan.Text = "Noon";
+                    pan.ForeColor = Color.Black;
+                    pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                }
                 else
                     pan.Text = "0 AM";
 
 
-                pan.Size = new Size(91, 63); // 125
-                pan.Location = new Point(0, y);
-                //pan.BorderStyle = BorderStyle.FixedSingle;
-
-                pan.TextAlign = ContentAlignment.TopRight;
-                pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                pan.ForeColor = Color.DimGray;
-                y += 63;
+               
+                y += 50;
                 pan.Show();
                 insideMain.Controls.Add(pan);
             }
@@ -129,7 +135,7 @@ namespace WindowsFormsApplication1
             for (int j = 0; j < 7; j++)
             {
                 Panel pan = new Panel();
-                pan.Size = new Size(125, 63);
+                pan.Size = new Size(125, 50);
                 pan.Location = new Point(x, 0);
                 pan.BackColor = Color.Transparent;
 
@@ -154,30 +160,29 @@ namespace WindowsFormsApplication1
                 for (int i = 0; i < 24; i++)
                 {
                     Panel pan = new Panel();
-                    pan.Size = new Size(125, 63);
+                    pan.Size = new Size(125, 50);
                     pan.Location = new Point(x, y);
-                    pan.Visible = false;
+                    pan.Visible = true;
                     //pan.BorderStyle = BorderStyle.Fixed3D;
-                    y += 63;
+                    y += 50;
                     //pan.Show();
                     insideMain.Controls.Add(pan);
                     day[j].Add(pan);
                 }
                 x += 125;
             }
-            day[4][7].BackColor = Color.Tan;
         }
 
         #endregion
 
         private void Week_Load(object sender, EventArgs e)
         {
-            m_Main_pan.AutoScrollPosition = new Point(0, 505); // 휠 포지션을 가운데로 설정
+            m_Main_pan.AutoScrollPosition = new Point(0, 348); // 휠 포지션을 가운데로 설정
             
         }
 
         private void CurrWeek()
-        {
+        { // 현재날짜가 몇주차인지 구하는 메서드 -> 현재 주에 월요일부터 표현하기위해
             //현재시간을 년 월 일로 나눔
             int currYear = Int32.Parse(DateTime.Now.ToString("yyyy"));
             int currMonth = Int32.Parse(DateTime.Now.ToString("MM"));
@@ -244,8 +249,9 @@ namespace WindowsFormsApplication1
             Panel cre = new Panel();
             cre.Size = new Size(beginPosition.Size.Width, endPosition.Location.Y - beginPosition.Location.Y);
             cre.Location = beginPosition.Location;
+            cre.Name = dr[0].ToString(); // 후에 폼 클릭시 연결을위한
             //cre.BorderStyle = BorderStyle.FixedSingle;
-            cre.BackColor = (new DBColor()).randomColor();
+            cre.BackColor = (new DBColor()).randomColor(100);
             Label lb = CreateSCText(ref dr);
             lb.Text = dr[1].ToString();
             cre.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
@@ -257,26 +263,29 @@ namespace WindowsFormsApplication1
                 {
                     if (statusSC[i][k].Top <= cre.Top && statusSC[i][k].Bottom >= cre.Bottom)
                     { // 자기가 완전히 안에 들어가면
-                        if (statusSC[i][k].Top == cre.Top) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림
-                            cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
-                        cre.Location = new Point(4, cre.Top - statusSC[i][k].Top);
+                        if (statusSC[i][k].Top == cre.Top && statusSC[i][k].Controls.Count > 0) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림, 짤라진 레이블을위해 텍스트가 있으면도 포함
+                            if(typeof(Label) == statusSC[i][k].Controls[0].GetType()) // 라벨이있는 판넬이면 라벨을 내림
+                                cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
+                        cre.Location = new Point(6, cre.Top - statusSC[i][k].Top);
                         statusSC[i][k].Controls.Add(cre);
                         statusSC[i].Add(cre);
                         return;
                     }
-                    else if(statusSC[i][k].Top <= cre.Top && statusSC[i][k].Bottom < cre.Bottom)
+                    else if(statusSC[i][k].Bottom > cre.Top && statusSC[i][k].Bottom < cre.Bottom)
                     { // 윗부분 들어가고 아랫부분 나올경우
-                        if (statusSC[i][k].Top == cre.Top) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림
-                            cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
+                        if (statusSC[i][k].Top == cre.Top && statusSC[i][k].Controls.Count > 0) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림, 짤라진 레이블을위해 텍스트가 있으면도 포함
+                            if (typeof(Label) == statusSC[i][k].Controls[0].GetType()) // 라벨이있는 판넬이면 라벨을 내림
+                                cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
                         Panel plus = new Panel();
-                        plus.Location = new Point(statusSC[i][k].Location.X + 4, statusSC[i][k].Bottom);
-                        plus.Size = new Size(cre.Size.Width - 4, cre.Bottom - statusSC[i][k].Bottom);
+                        plus.Location = new Point(statusSC[i][k].Location.X + 6, statusSC[i][k].Bottom);
+                        plus.Size = new Size(statusSC[i][k].Width - 6, cre.Bottom - statusSC[i][k].Bottom);
                         plus.BackColor = cre.BackColor;
+                        plus.Name = dr[0].ToString();
                         plus.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
                         //plus.BorderStyle = BorderStyle.FixedSingle;
 
-                        cre.Location = new Point(4, cre.Top - statusSC[i][k].Top);
-                        cre.Size = new Size(cre.Size.Width, statusSC[i][k].Bottom - cre.Top);
+                        cre.Location = new Point(6, cre.Top - statusSC[i][k].Top);
+                        cre.Size = new Size(cre.Size.Width - 6, statusSC[i][k].Bottom - cre.Top);
 
                         statusSC[i][k].Controls.Add(cre);
                         insideMain.Controls.Add(plus);
@@ -294,7 +303,7 @@ namespace WindowsFormsApplication1
             Graphics g = e.Graphics;
             Panel pan = ((Panel)sender);
             Color panColor = pan.BackColor;
-            Color sideColor = Color.FromArgb(((int)panColor.A) + 100, (int)panColor.R, (int)panColor.G, (int)panColor.B);
+            Color sideColor = Color.FromArgb(((int)panColor.A) + 100, (int)panColor.R, (int)panColor.G, (int)panColor.B); // 좀 진하게
             Pen p = new Pen(sideColor);
             p.Width = 10;
             g.DrawLine(p, 0, 0, 0, pan.Size.Height);

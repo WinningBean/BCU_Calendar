@@ -151,6 +151,7 @@ namespace WindowsFormsApplication1
             insidePan = new Panel();
             insidePan.Size = new Size(Picture_pan.Size.Width, 0);
             insidePan.Location = new Point(0, 0);
+            widthPanList.Clear();
             Picture_pan.Controls.Add(insidePan);
         }
         private void PictureLoad() // 폼이 처음 실행되거나 사진추가했을때 사진목록을 불러옴
@@ -478,6 +479,7 @@ namespace WindowsFormsApplication1
                 PictureShow();
             }
         }
+
     }
 
 }
