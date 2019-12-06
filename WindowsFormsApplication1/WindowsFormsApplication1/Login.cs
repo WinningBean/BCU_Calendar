@@ -141,13 +141,13 @@ namespace WindowsFormsApplication1
 
         private void PassDB_ToMain()
         {
-            // Main 생성 후 DB 정보를 넘기는 함수
+            // Main form에 DB 정보를 넘기는 함수
             Main main = new Main(this);
             db.UR_CD = db.Reader.GetString(0);
             main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
             main.USERPROFILE.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
             // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
-            //if (!(db.Reader[4].Equals(System.DBNull.Value))) main.USERPROFILE.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(4));
+            if (!(db.Reader[4].Equals(System.DBNull.Value))) main.USERPROFILE.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(4));
             main.Show();
         }
 
