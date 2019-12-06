@@ -26,11 +26,11 @@ namespace WindowsFormsApplication1
             // 해당 사용자에 대한 모든 일정 테이블 함수
             if (is_UR == true) // 회원이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' order by SC_STR_DT ASC";
             }
             else // 그룹이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "' order by SC_STR_DT ASC";
             }
             DS = new DataSet();
             db.AdapterOpen(sql);
@@ -55,6 +55,7 @@ namespace WindowsFormsApplication1
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
             sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " order by SC_STR_DT ASC";
 
             DS = new DataSet();
             db.AdapterOpen(sql);
