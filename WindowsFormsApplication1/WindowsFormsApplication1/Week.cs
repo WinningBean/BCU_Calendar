@@ -73,7 +73,7 @@ namespace WindowsFormsApplication1
             int x = 91;
             int y = 0;
             Graphics graphics = e.Graphics;
-            Pen pen = new Pen(Color.LightGray);
+            Pen pen = new Pen(Color.Gainsboro);
             for (int i = 0; i < 24; i++)
             {
                 graphics.DrawLine(pen, x, y, 956, y);
@@ -229,35 +229,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        public enum color
-        {
-            Green, Yellow, Orange, Mint, Gray
-        };
-
-        private Color randomColor() // 색을 랜덤으로 만들어줌
-        {
-            Random r = new Random();
-            color c = (color)(r.Next() % 5);
-            return SelectColor(c);
-        }
-
-        private Color SelectColor(color c) // 지정한 색을 리턴
-        {
-            switch (c)
-            {
-                case color.Green: // 투명도 0 ~ 255
-                    return Color.FromArgb(100, 85, 239, 196);// green
-                case color.Yellow:
-                    return Color.FromArgb(100, 253, 203, 110); // yellow
-                case color.Orange:
-                    return Color.FromArgb(100, 225, 112, 85); //orange
-                case color.Mint:
-                    return Color.FromArgb(100, 129, 236, 236); //mint
-                case color.Gray:
-                    return Color.FromArgb(100, 178, 190, 195); // gray
-            }
-            return Color.FromArgb(50, 0, 255, 0); // 기본 컬러
-        }
+        
         List<List<Panel>> statusSC = new List<List<Panel>>();
 
         public void CreateSCPan(ref DataRow dr, int i) // DataRow를 읽고 색을 입혀줌
@@ -272,10 +244,11 @@ namespace WindowsFormsApplication1
             Panel cre = new Panel();
             cre.Size = new Size(beginPosition.Size.Width, endPosition.Location.Y - beginPosition.Location.Y);
             cre.Location = beginPosition.Location;
-            cre.BorderStyle = BorderStyle.FixedSingle;
-            cre.BackColor = randomColor();
+            //cre.BorderStyle = BorderStyle.FixedSingle;
+            cre.BackColor = (new DBColor()).randomColor();
             Label lb = CreateSCText(ref dr);
             lb.Text = dr[1].ToString();
+            cre.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
 
             cre.Controls.Add(lb);
             if (statusSC[i].Any()) // 리스트에 엘리먼트가 있는지 확인
@@ -286,7 +259,7 @@ namespace WindowsFormsApplication1
                     { // 자기가 완전히 안에 들어가면
                         if (statusSC[i][k].Top == cre.Top) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림
                             cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
-                        cre.Location = new Point(0, cre.Top - statusSC[i][k].Top);
+                        cre.Location = new Point(4, cre.Top - statusSC[i][k].Top);
                         statusSC[i][k].Controls.Add(cre);
                         statusSC[i].Add(cre);
                         return;
@@ -296,12 +269,13 @@ namespace WindowsFormsApplication1
                         if (statusSC[i][k].Top == cre.Top) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림
                             cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
                         Panel plus = new Panel();
-                        plus.Location = new Point(statusSC[i][k].Location.X, statusSC[i][k].Bottom);
-                        plus.Size = new Size(cre.Size.Width, cre.Bottom - statusSC[i][k].Bottom);
+                        plus.Location = new Point(statusSC[i][k].Location.X + 4, statusSC[i][k].Bottom);
+                        plus.Size = new Size(cre.Size.Width - 4, cre.Bottom - statusSC[i][k].Bottom);
                         plus.BackColor = cre.BackColor;
-                        plus.BorderStyle = BorderStyle.FixedSingle;
+                        plus.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                        //plus.BorderStyle = BorderStyle.FixedSingle;
 
-                        cre.Location = new Point(0, cre.Top - statusSC[i][k].Top);
+                        cre.Location = new Point(4, cre.Top - statusSC[i][k].Top);
                         cre.Size = new Size(cre.Size.Width, statusSC[i][k].Bottom - cre.Top);
 
                         statusSC[i][k].Controls.Add(cre);
@@ -315,6 +289,16 @@ namespace WindowsFormsApplication1
             insideMain.Controls.Add(cre);
         }
 
+        private void OnPanPaint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Panel pan = ((Panel)sender);
+            Color panColor = pan.BackColor;
+            Color sideColor = Color.FromArgb(((int)panColor.A) + 100, (int)panColor.R, (int)panColor.G, (int)panColor.B);
+            Pen p = new Pen(sideColor);
+            p.Width = 10;
+            g.DrawLine(p, 0, 0, 0, pan.Size.Height);
+        }
         private Label CreateSCText(ref DataRow dr)
         {
             Label txt = new Label();

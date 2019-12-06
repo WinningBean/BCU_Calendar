@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBColor.cs" />
     <Compile Include="DBSchedule.cs" />
     <Compile Include="Picture.cs">
       <SubType>Form</SubType>
@@ -92,6 +93,18 @@
     <Compile Include="Month.Designer.cs">
       <DependentUpon>Month.cs</DependentUpon>
     </Compile>
+    <Compile Include="Picture_Modify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Picture_Modify.Designer.cs">
+      <DependentUpon>Picture_Modify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Picture_SelectDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Picture_SelectDate.Designer.cs">
+      <DependentUpon>Picture_SelectDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Week.cs">
@@ -117,6 +130,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Month.resx">
       <DependentUpon>Month.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Picture_Modify.resx">
+      <DependentUpon>Picture_Modify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Picture_SelectDate.resx">
+      <DependentUpon>Picture_SelectDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

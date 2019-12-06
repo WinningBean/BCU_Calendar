@@ -60,7 +60,7 @@ namespace WindowsFormsApplication1
             PictureShow();
         }
 
-        private void FileSave(string filePath)
+        private void FileSave(string filePath, DateTime dt)
         {
             // 입력받은 파일을 바이트 배열에 저장
             FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -84,7 +84,7 @@ namespace WindowsFormsApplication1
             if (db.Reader.Read())
                 currSeq = db.Reader.GetString(0);
 
-            db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', sysdate, '" + db.UR_CD + "', null, :BINARYFILE)");
+            db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
             db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
         }
 
@@ -116,8 +116,15 @@ namespace WindowsFormsApplication1
                         return;
                     }
 
-                    FileSave(file);
-                    MessageBox.Show("사진이 등록되었습니다", "사진등록", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    Picture_SelectDate ps = new Picture_SelectDate();
+
+                    if (ps.ShowDialog() == DialogResult.OK)
+                    {
+                        DateTime dt = ps.dt;
+                        FileSave(file, dt);
+                        MessageBox.Show("사진이 등록되었습니다", "사진등록", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                   
                     PictureClear();
                     PictureLoad();
                     PictureShow();
@@ -155,6 +162,7 @@ namespace WindowsFormsApplication1
         }
 
         List<List<Label>> labelList = null;
+        List<DataRow> drList = new List<DataRow>();
         private void PictureShow() // 사진목록을 받아서 채워진 Table을 한줄씩 받아 사진을 만듦
         {
             if (isZoomBtn) // 크게보기
@@ -189,6 +197,7 @@ namespace WindowsFormsApplication1
                     Image img = Image.FromStream(stmBlobData);
 
                     // 다음 사진이 들어갈 위치와 이미지를 인자로 보내 사진을 만들고 그 다음 사진 위치를 받음
+                    drList.Add(currRow);
                     pictureLocation = CreateZoomPicure(pictureLocation, img);
                     pictureLocation += 10; // 간격을 띄우는 수
                     i++;
@@ -359,6 +368,7 @@ namespace WindowsFormsApplication1
         private int CreateZoomPicure(int location, Image img)
         {
             PictureBox pb = new PictureBox();
+            pb.Click += new System.EventHandler(OnPicClick);
             insidePan.Controls.Add(pb); // 페널 안에 넣는다
 
             // 사진 비율 조정 : made by seungbeen
@@ -368,10 +378,26 @@ namespace WindowsFormsApplication1
             pb.Size = new Size(365, imgHeight);
             pb.Location = new Point(0, location);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
+            pb.Name = (drList.Count -1).ToString(); // 사진코드도 넣어줌
             //pb.BorderStyle = BorderStyle.FixedSingle;
             pb.Image = img;
             pb.Show();
             return location + imgHeight; // 기본 y + 사진 y + 띄울공간 10
+        }
+
+
+        private void OnPicClick(object sender, EventArgs e)
+        { // 삭제기능 구현
+            int rowNum = Int32.Parse(((PictureBox)sender).Name);
+            Picture_Modify pm = new Picture_Modify(drList[rowNum]);
+            DialogResult dr = pm.ShowDialog();
+            if(dr == DialogResult.No) // 삭제를 눌렀다면
+            {
+                PictureClear();
+                PictureLoad();
+                preDate = new DateTime(); // PictureShow 에서 preDate로 현재날짜와 전날짜를 비교한다
+                PictureShow();
+            }
         }
 
         private void label4_DoubleClick(object sender, EventArgs e)

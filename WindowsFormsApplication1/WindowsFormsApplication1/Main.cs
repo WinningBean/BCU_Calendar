@@ -57,7 +57,7 @@ namespace WindowsFormsApplication1
         { // 센터패널 설정 함수 (주간 폼 가져오기)
             MainCenter_pan.Controls.Clear();
 
-            TestForm week = new TestForm();
+            Week week = new Week();
             week.TopLevel = false;
             week.TopMost = true;
 
