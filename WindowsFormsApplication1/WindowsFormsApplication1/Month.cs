@@ -53,30 +53,26 @@ namespace WindowsFormsApplication1
                 {
                     LastMonth_btn.PerformClick();
                     clear_pan_border();
+
+                    fc_pan = (Panel)this.Controls.Find("MonthDay" + (fc_pan_n + 28).ToString() + "_panel", true)[0]; // 해당월의 마지막 주
+
                     if (fc_pan.Controls.Count > 1) // 해당 패널에 레이블이 있을 경우
                     {
                         m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[1].Text.ToString()));
                         fc_pan.BorderStyle = BorderStyle.FixedSingle;
-                    }
-                    else
-                    {
-                        m_focus_dt = new DateTime(m_nowYear, m_nowMonth, 1);
-                        ((Panel)this.Controls.Find("Day1_lbl", true)[0].Parent).BorderStyle = BorderStyle.FixedSingle;
                     }
                 }
                 else if (fc_pan_n > 28) // 다음달 해당 패널을 눌렀다면 강제 이벤트 호출
                 {
                     NextMonth_btn.PerformClick();
                     clear_pan_border();
+
+                    fc_pan = (Panel)this.Controls.Find("MonthDay" + (fc_pan_n - 28).ToString() + "_panel", true)[0]; // 해당월의 첫째 주
+
                     if (fc_pan.Controls.Count > 1) // 해당 패널에 레이블이 있을 경우
                     {
                         m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[1].Text.ToString()));
                         fc_pan.BorderStyle = BorderStyle.FixedSingle;
-                    }
-                    else
-                    {
-                        m_focus_dt = new DateTime(m_nowYear, m_nowMonth, DateTime.DaysInMonth(m_nowYear, m_nowMonth));
-                        ((Panel)this.Controls.Find("Day" + m_LastDay.ToString() + "_lbl", true)[0].Parent).BorderStyle = BorderStyle.FixedSingle;
                     }
                 }
             }

@@ -81,13 +81,13 @@
             // 
             // m_MonthNum
             // 
-            this.m_MonthNum.AutoSize = true;
             this.m_MonthNum.Font = new System.Drawing.Font("함초롬돋움", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.m_MonthNum.Location = new System.Drawing.Point(457, 3);
+            this.m_MonthNum.Location = new System.Drawing.Point(447, -1);
             this.m_MonthNum.Name = "m_MonthNum";
-            this.m_MonthNum.Size = new System.Drawing.Size(77, 66);
+            this.m_MonthNum.Size = new System.Drawing.Size(86, 60);
             this.m_MonthNum.TabIndex = 0;
             this.m_MonthNum.Text = "월";
+            this.m_MonthNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LastMonth_btn
             // 
@@ -520,7 +520,6 @@
             this.Month_panel.ResumeLayout(false);
             this.Month_panel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
