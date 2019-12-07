@@ -18,6 +18,14 @@ namespace WindowsFormsApplication1
         DBSchedule dbs = new DBSchedule();
         DBConnection db = Program.DB;
         DateTime today;
+
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        { // 현재 포커스날짜 프로퍼티
+            get { return m_focus_dt; }
+            set { m_focus_dt = value; }
+        }
+
         public Week()
         {
             InitializeComponent();
@@ -178,7 +186,6 @@ namespace WindowsFormsApplication1
         private void Week_Load(object sender, EventArgs e)
         {
             m_Main_pan.AutoScrollPosition = new Point(0, 348); // 휠 포지션을 가운데로 설정
-            
         }
 
         private void CurrWeek()

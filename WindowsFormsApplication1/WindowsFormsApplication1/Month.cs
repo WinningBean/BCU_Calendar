@@ -17,6 +17,12 @@ namespace WindowsFormsApplication1
         private DBSchedule sc_db = new DBSchedule();
         private DBColor cr_db = new DBColor();
 
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT { // 현재 포커스날짜 프로퍼티
+            get { return m_focus_dt; }
+            set { m_focus_dt = value; }
+        }
+
         public Month()
         {
             InitializeComponent();
@@ -121,7 +127,7 @@ namespace WindowsFormsApplication1
                 scPanel.Height = MonthPanel.Height - 25;
             }
 
-            DateTime m_today = sc_db.FOCUST_DT;
+            DateTime m_today = m_focus_dt;
 
             m_nowYear = m_today.Year; // 현재 연도
             m_nowMonth = m_today.Month; // 현재 월

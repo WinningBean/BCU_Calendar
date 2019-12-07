@@ -13,11 +13,18 @@ namespace WindowsFormsApplication1
     public partial class Main : Form
     {
         DBConnection db = Program.DB;
-        DBSchedule sc_db;
+        DBSchedule sc_db = new DBSchedule();
 
         Picture pic = null;
         Login log = null;
         bool isShowPic;
+
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        {  //프로퍼티
+            get { return m_focus_dt; }
+            set { m_focus_dt = value; }
+        }
 
         public Main(Login log) // 로그인에서 메인 폼이 만들어졌으므로 로그인 객체를 가지고있다가 종료시 같이 삭제
         {                      // 이렇게 안할시 메인폼은 종료되어도 로그인폼은 계속 프로세스에 남아있음
@@ -39,13 +46,17 @@ namespace WindowsFormsApplication1
             set { 사용자ToolStripMenuItem.Text = value; }
         }
 
+
+        Month mnt = new Month();
         private void setCenterMonthPanel()
         { // 센터패널 설정 함수 (월간 폼 가져오기)
             MainCenter_pan.Controls.Clear();
 
-            Month mnt = new Month();
             mnt.TopLevel = false;
             mnt.TopMost = true;
+
+            m_focus_dt = week.FOCUS_DT;
+            mnt.FOCUS_DT = m_focus_dt;
 
             mnt.Parent = this;
             MainCenter_pan.Controls.Add(mnt);
@@ -53,13 +64,17 @@ namespace WindowsFormsApplication1
             mnt.Show();
         }
 
+
+        Week week = new Week();
         private void setCenterWeekPanel()
         { // 센터패널 설정 함수 (주간 폼 가져오기)
             MainCenter_pan.Controls.Clear();
 
-            Week week = new Week();
             week.TopLevel = false;
             week.TopMost = true;
+
+            m_focus_dt = mnt.FOCUS_DT;
+            week.FOCUS_DT = m_focus_dt;
 
             week.Parent = this;
             MainCenter_pan.Controls.Add(week);
@@ -79,11 +94,11 @@ namespace WindowsFormsApplication1
         private void Main_Load(object sender, EventArgs e)
         {
             isShowPic = false; // 사진폼 띄우지않음
-            setCenterMonthPanel(); // 월간보기로 기본설정
 
-            sc_db = new DBSchedule();
-            m_Today_lbl.Text = sc_db.FOCUST_DT.ToString("yyyy.MM.dd"); // 오늘 날짜 설정
-            
+            m_Today_lbl.Text = sc_db.TODAY.ToString("yyyy.MM.dd"); // 오늘 날짜 설정
+            mnt.FOCUS_DT = week.FOCUS_DT = m_focus_dt = sc_db.TODAY;
+
+            setCenterMonthPanel(); // 월간보기로 기본설정
             Set_UserProfile();
         }
 
