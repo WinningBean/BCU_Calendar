@@ -24,6 +24,13 @@ namespace WindowsFormsApplication1
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect,
           int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
         #endregion
+        
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        { // 현재 포커스날짜 프로퍼티
+            get { return m_focus_dt; }
+            set { m_focus_dt = value; }
+        }
 
         public Week()
         {

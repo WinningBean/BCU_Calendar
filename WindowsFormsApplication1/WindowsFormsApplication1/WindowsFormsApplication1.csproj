@@ -66,8 +66,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFriend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFriend.Designer.cs">
+      <DependentUpon>AddFriend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Day.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Day.Designer.cs">
+      <DependentUpon>Day.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FriendCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendCheck.Designer.cs">
+      <DependentUpon>FriendCheck.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBColor.cs" />
     <Compile Include="DBSchedule.cs" />
+    <Compile Include="ModifySchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifySchedule.Designer.cs">
+      <DependentUpon>ModifySchedule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Picture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +99,12 @@
       <DependentUpon>Picture.cs</DependentUpon>
     </Compile>
     <Compile Include="DBConnection.cs" />
+    <Compile Include="FriendList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendList.Designer.cs">
+      <DependentUpon>FriendList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +137,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddFriend.resx">
+      <DependentUpon>AddFriend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Day.resx">
+      <DependentUpon>Day.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendCheck.resx">
+      <DependentUpon>FriendCheck.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Week.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,8 +158,14 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ModifySchedule.resx">
+      <DependentUpon>ModifySchedule.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Picture.resx">
       <DependentUpon>Picture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendList.resx">
+      <DependentUpon>FriendList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -46,7 +46,7 @@ namespace WindowsFormsApplication1
             return db.Reader[0].ToString();
         }
 
-        public Color GetColorInsertCRCD(string CR_CD, int alpha) // 지정한 색을 리턴
+        public Color GetColorInsertCRCD(string CR_CD, int alpha = 255) // 지정한 색을 리턴
         {
             db.ExecuteReader("select * from COLOR_TB where CR_CD = '" + CR_CD + "'");
             if (!db.Reader.Read())
@@ -55,7 +55,7 @@ namespace WindowsFormsApplication1
             return Color.FromArgb(alpha, Int32.Parse(db.Reader[2].ToString()), Int32.Parse(db.Reader[3].ToString()), Int32.Parse(db.Reader[4].ToString()));
         }
 
-        public Color GetColorInsertName(string colorName, int alpha) // 지정한 색을 리턴
+        public Color GetColorInsertName(string colorName, int alpha = 255) // 지정한 색을 리턴
         {
             db.ExecuteReader("select * from COLOR_TB where CR_NM = '" + colorName + "'");
             if (!db.Reader.Read())
