@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
-            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "' ORDER BY SC_STR_DT";
 
             DS = new DataSet();
             db.AdapterOpen(sql);

@@ -18,19 +18,27 @@ namespace WindowsFormsApplication1
         DBSchedule dbs = new DBSchedule();
         DBConnection db = Program.DB;
         DateTime today;
+
+        #region 둥근 모서리
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect,
+          int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+        #endregion
+
         public Week()
         {
+
             InitializeComponent();
             day = new List<List<Panel>>(); // 각 시간마다 생성된 패널 (ex: day[1][7] -> 월요일 8 AM)
             insideMain = new Panel();
             insideMain.Location = new Point(0, 0);
-            insideMain.Size = new Size(966, 1200); // 966 1512 (1칸당 125, 63) -> 966 1200 (1칸당 125, 50) 
+            insideMain.Size = new Size(966, 1152); // 966 1512 (1칸당 125, 63) -> 966 1200 (1칸당 125, 50) -> 1152 (48) 
             insideMain.Show();
             insideMain.Paint += new System.Windows.Forms.PaintEventHandler(OnMainPaint);
             insideMain.BackColor = Color.Transparent;
             m_Main_pan.Controls.Add(insideMain);
 
-            m_Main_pan.VerticalScroll.Maximum = 0;
+            m_Main_pan.VerticalScroll.Minimum = 0;
             m_Main_pan.VerticalScroll.Maximum = 0;
             m_Main_pan.VerticalScroll.Visible = false;
             m_Main_pan.AutoScroll = true;
@@ -38,17 +46,10 @@ namespace WindowsFormsApplication1
             m_Top_pan.Paint += new System.Windows.Forms.PaintEventHandler(OnTopPaint);
 
             makeTop();
-
-
             makeTime();
-
             makeDay();
 
 
-            for (int i = 0; i < 7; i++)
-                statusSC.Add(new List<Panel>());
-
-            insideMain.Controls.Add(label1);
         }
 
         #region Week Form Designe
@@ -62,7 +63,7 @@ namespace WindowsFormsApplication1
             Pen pen = new Pen(Color.LightGray);
             for (int i = 0; i < 6; i++)
             {
-                graphics.DrawLine(pen, x, 0, x, 50);
+                graphics.DrawLine(pen, x, 0, x, 48);
                 x += 125;
             }
             graphics.Dispose();
@@ -77,7 +78,7 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < 24; i++)
             {
                 graphics.DrawLine(pen, x, y, 956, y);
-                y += 50;
+                y += 48;
             }
             x = 216;
             for (int i = 0; i < 6; i++)
@@ -95,7 +96,7 @@ namespace WindowsFormsApplication1
             {
                 Label pan = new Label();
 
-                pan.Size = new Size(91, 50); // 125
+                pan.Size = new Size(91, 48); // 125
                 pan.Location = new Point(0, y);
                 //pan.BorderStyle = BorderStyle.FixedSingle;
 
@@ -119,8 +120,8 @@ namespace WindowsFormsApplication1
                     pan.Text = "0 AM";
 
 
-               
-                y += 50;
+
+                y += 48;
                 pan.Show();
                 insideMain.Controls.Add(pan);
             }
@@ -135,7 +136,7 @@ namespace WindowsFormsApplication1
             for (int j = 0; j < 7; j++)
             {
                 Panel pan = new Panel();
-                pan.Size = new Size(125, 50);
+                pan.Size = new Size(125, 60);
                 pan.Location = new Point(x, 0);
                 pan.BackColor = Color.Transparent;
 
@@ -160,11 +161,12 @@ namespace WindowsFormsApplication1
                 for (int i = 0; i < 24; i++)
                 {
                     Panel pan = new Panel();
-                    pan.Size = new Size(125, 50);
+                    pan.Size = new Size(125, 48);
                     pan.Location = new Point(x, y);
-                    pan.Visible = true;
+                    pan.Visible = false;
+                    pan.Name = 0.ToString();
                     //pan.BorderStyle = BorderStyle.Fixed3D;
-                    y += 50;
+                    y += 48;
                     //pan.Show();
                     insideMain.Controls.Add(pan);
                     day[j].Add(pan);
@@ -178,7 +180,7 @@ namespace WindowsFormsApplication1
         private void Week_Load(object sender, EventArgs e)
         {
             m_Main_pan.AutoScrollPosition = new Point(0, 348); // 휠 포지션을 가운데로 설정
-            
+            CurrWeek(); // 실질적인 일정 생성 메서드
         }
 
         private void CurrWeek()
@@ -209,23 +211,37 @@ namespace WindowsFormsApplication1
             createWeek(weekSunday);
         }
 
+        List<List<DateTime>> scList = new List<List<DateTime>>();
+        List<List<int>> overlapSCList = new List<List<int>>();
+        List<DataRow> dataRowList = new List<DataRow>();
+
         private void createWeek(DateTime weekSunday)
         {
             if (weekSunday.Year != 1) // 일주일이 온전하게 있을경우
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    DataTable dt = dbs.Get_Day_Schedule(true,"U100000", weekSunday.AddDays(i));
+                    DataTable dt = dbs.Get_Day_Schedule(true, "U100000", weekSunday.AddDays(i));
                     for (int k = 0; k < dt.Rows.Count; k++)
                     {
                         DataRow dr = dt.Rows[k];
-                        CreateSCPan(ref dr, i);
+                        scList.Add(new List<DateTime>());
+                        scList.Last().Add(DateTime.Parse(dr[4].ToString()));
+                        scList.Last().Add(DateTime.Parse(dr[5].ToString()));
+                        overlapSCList.Add(new List<int>());
+                        overlapSCList.Last().Add(0); // 곂치는 카운트
+                        overlapSCList.Last().Add(0); // 순서
+                        dataRowList.Add(dr);
+                        //CreateSCPan(ref dr, i);
                         //MessageBox.Show(i.ToString() + " : " + Convert.ToDateTime(dr[4].ToString()).Hour.ToString());
                     }
-                    dt.Clear();
+                    //dt.Clear();
+
                 }
+                overlapMethod();
+                CreateSCPan();
             }
-            else
+            else // 여기 만들어야함 만들어야함 만들어야함
             {
                 for (DayOfWeek i = today.DayOfWeek; i <= DayOfWeek.Saturday; i++)
                 {
@@ -234,95 +250,316 @@ namespace WindowsFormsApplication1
             }
         }
 
-        
-        List<List<Panel>> statusSC = new List<List<Panel>>();
-
-        public void CreateSCPan(ref DataRow dr, int i) // DataRow를 읽고 색을 입혀줌
+        private void overlapMethod()
         {
-            MessageBox.Show(dr[1].ToString());
-            DateTime beginSC = Convert.ToDateTime(dr[4].ToString()); // 시작일
-            DateTime endSC = Convert.ToDateTime(dr[5].ToString()); // 종료일
-
-            Panel beginPosition = day[Convert.ToInt32(beginSC.DayOfWeek)][beginSC.Hour];
-            Panel endPosition = day[Convert.ToInt32(endSC.DayOfWeek)][endSC.Hour + 1];
-
-            Panel cre = new Panel();
-            cre.Size = new Size(beginPosition.Size.Width, endPosition.Location.Y - beginPosition.Location.Y);
-            cre.Location = beginPosition.Location;
-            cre.Name = dr[0].ToString(); // 후에 폼 클릭시 연결을위한
-            //cre.BorderStyle = BorderStyle.FixedSingle;
-            cre.BackColor = (new DBColor()).randomColor(100);
-            Label lb = CreateSCText(ref dr);
-            lb.Text = dr[1].ToString();
-            cre.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
-
-            cre.Controls.Add(lb);
-            if (statusSC[i].Any()) // 리스트에 엘리먼트가 있는지 확인
+            int skipValue = -1;
+            int maxValue = -1;
+            for (int k = 0; k < scList.Count;)
             {
-                for (int k = 0; k < statusSC[i].Count; k++)
+                if (skipValue > -1)
                 {
-                    if (statusSC[i][k].Top <= cre.Top && statusSC[i][k].Bottom >= cre.Bottom)
-                    { // 자기가 완전히 안에 들어가면
-                        if (statusSC[i][k].Top == cre.Top && statusSC[i][k].Controls.Count > 0) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림, 짤라진 레이블을위해 텍스트가 있으면도 포함
-                            if(typeof(Label) == statusSC[i][k].Controls[0].GetType()) // 라벨이있는 판넬이면 라벨을 내림
-                                cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
-                        cre.Location = new Point(6, cre.Top - statusSC[i][k].Top);
-                        statusSC[i][k].Controls.Add(cre);
-                        statusSC[i].Add(cre);
-                        return;
-                    }
-                    else if(statusSC[i][k].Bottom > cre.Top && statusSC[i][k].Bottom < cre.Bottom)
-                    { // 윗부분 들어가고 아랫부분 나올경우
-                        if (statusSC[i][k].Top == cre.Top && statusSC[i][k].Controls.Count > 0) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림, 짤라진 레이블을위해 텍스트가 있으면도 포함
-                            if (typeof(Label) == statusSC[i][k].Controls[0].GetType()) // 라벨이있는 판넬이면 라벨을 내림
-                                cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
-                        Panel plus = new Panel();
-                        plus.Location = new Point(statusSC[i][k].Location.X + 6, statusSC[i][k].Bottom);
-                        plus.Size = new Size(statusSC[i][k].Width - 6, cre.Bottom - statusSC[i][k].Bottom);
-                        plus.BackColor = cre.BackColor;
-                        plus.Name = dr[0].ToString();
-                        plus.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
-                        //plus.BorderStyle = BorderStyle.FixedSingle;
+                    overlapSCList[k][0] = maxValue;
+                    --skipValue; // 곂치는 개수만큼 스킵해줌
+                    if (skipValue == -1)
+                        maxValue = -1;
+                    ++k;
+                    continue;
+                }
+                skipValue += overlapLoop(scList[k][1], k, -1, ref maxValue);
+                //overlapSCList[k][0] = maxValue;
+                //++k;
+            }
+        }
 
-                        cre.Location = new Point(6, cre.Top - statusSC[i][k].Top);
-                        cre.Size = new Size(cre.Size.Width - 6, statusSC[i][k].Bottom - cre.Top);
-
-                        statusSC[i][k].Controls.Add(cre);
-                        insideMain.Controls.Add(plus);
-                        statusSC[i].Add(plus);
-                        return;
-                    }
+        private int overlapLoop(DateTime preEnd, int currVal, int count, ref int maxValue)
+        {
+            if (count > -1) // 맨처음은 프리패스
+            {
+                if (scList[currVal][0].Day > preEnd.Day) // 비교하는 일이 더 크면 절대 곂칠수없음
+                    return 0;
+                else if (scList[currVal][0].Day == preEnd.Day) // 일이같지만 시간대가 곂치지않으면 곂칠수없음
+                {
+                    if (((preEnd.Hour * 10) + (preEnd.Minute / 10)) <= ((scList[currVal][0].Hour * 10) + (scList[currVal][0].Minute / 10)))
+                        return 0;
                 }
             }
-            statusSC[i].Add(cre);
-            insideMain.Controls.Add(cre);
+            overlapSCList[currVal][1] = ++count; // 몇번째 순서인지 지정
+            maxValue = maxValue < count ? count : maxValue; // 최대 카운트를 넣어줌 (사이즈를 지정하기위함)
+
+            int size = 1; // 후에 리턴할 값, 자기자신은 포함되니 1로 정의
+            for (int k = currVal + 1; k < scList.Count;)
+            {
+                int value = overlapLoop(scList[currVal][1], k, count, ref maxValue);
+                if (value == 0) // 결과가 0이 나오면 그다음을 볼필요도없이 리턴 (시간순서로 검색되기떄문에)
+                    return size; // 지금까지 쌓아준 size를 리턴
+                size += value; // 만약 1이상 나왔으면 더 찾아볼 필요성이있음
+                k += value;
+            }
+            return size;
         }
+
+        int[] panCountWidth = { 125, 63, 42, 31 }; //125, 62.5 , 41.66... ,31.25
+        int[] panCountPosition = { 0, 63, 42, 31 }; // 사이즈만큼 더해줌여
+        float[] panTextSize = { 14F, 11F, 10F, 8F };
+        // 곂치는 개수에따라 width 사이즈를 조정해줄 배열
+        public void CreateSCPan() // DataRow를 읽고 색을 입혀줌
+        {
+            for (int k = 0; k < scList.Count; k++)
+            {
+                MessageBox.Show(dataRowList[k][1].ToString());
+                DateTime startDate = scList[k][0];
+                DateTime endDate = scList[k][1];
+                Panel startPanel = day[(int)startDate.DayOfWeek][startDate.Hour];
+                int startMinute = scList[k][0].Minute / 10;
+                Panel endPanel = day[(int)endDate.DayOfWeek][endDate.Hour];
+                int endMinute = scList[k][1].Minute / 10;
+
+                Panel pan = new Panel();
+                pan.Name = dataRowList[k][0].ToString(); // 판넬에 코드 부여
+                pan.BackColor = (new DBColor()).randomColor(200);
+                pan.MouseClick += new MouseEventHandler(OnPanelClick); // 판넬 클릭시 정보출력
+
+
+                if (overlapSCList[k][1] > 3) // 4개 이상 넘어가면
+                {
+                    Panel morePan = (Panel)insideMain.Controls[insideMain.Controls.Count - 1]; // 마지막
+                    morePan.BackColor = (new DBColor()).GetColorInsertName("GRAY", 200);
+                    Label moreLabel = (Label)morePan.Controls[0];
+                    moreLabel.Text = ". . .";
+                    moreLabel.Location = new Point(0, 0);
+                    moreLabel.AutoSize = false;
+                    moreLabel.Size = morePan.Size;
+                    moreLabel.TextAlign = ContentAlignment.MiddleCenter;
+                    morePan.Name += dataRowList[k][0].ToString(); // 네임을 더 추가해줌
+                    moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
+                    continue;
+                }
+                int overlapNum = overlapSCList[k][0] > 3 ? 3 : overlapSCList[k][0];
+                // 4개 넘어가면 ... 으로 만들기 finish
+                // 판넬 클릭시 정보
+                // 일정 추가
+                Label lb = CreateSCText(dataRowList[k], panTextSize[overlapNum]); // 텍스트를 만들어줌
+                pan.Controls.Add(lb);
+
+                if (startDate.Day != endDate.Day) // 시작일 끝일이 다름
+                {
+                    pan.Location = new Point(startPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
+                        , startPanel.Location.Y);
+                    pan.Size = new Size(panCountWidth[overlapNum], insideMain.Size.Height - startPanel.Top);
+                    pan.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pan.Size.Width, pan.Size.Height, 13, 13));
+                    pan.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                    insideMain.Controls.Add(pan);
+                    for (int m = (int)startDate.DayOfWeek + 1; m < (int)endDate.DayOfWeek; m++) // 시작일 끝나는일 중간 일정
+                    {
+                        Panel middle = new Panel();
+                        middle.Name = pan.Name;
+                        middle.BackColor = pan.BackColor;
+                        middle.Size = new Size(panCountWidth[overlapNum], insideMain.Size.Height);
+                        middle.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, middle.Size.Width, middle.Size.Height, 13, 13));
+                        middle.Location = new Point(day[m][0].Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
+                        , day[m][0].Location.Y);
+                        middle.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                        middle.MouseClick += new MouseEventHandler(OnPanelClick);
+                        insideMain.Controls.Add(middle);
+                    }
+                    Panel last = new Panel();
+                    last.Name = pan.Name;
+                    last.BackColor = pan.BackColor;
+                    last.Location = new Point(endPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1]), 0);
+                    last.Size = new Size(panCountWidth[overlapNum], endPanel.Bottom);
+                    last.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, last.Size.Width, last.Size.Height, 13, 13));
+                    last.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                    last.MouseClick += new MouseEventHandler(OnPanelClick);
+                    insideMain.Controls.Add(last);
+                }
+                else // 시작일 끝일이 같을경우
+                {//                                                                                              카운트가 3넘어가면 3사이즈로
+                    pan.Location = new Point(startPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
+                        , startPanel.Location.Y);
+                    pan.Size = new Size(panCountWidth[overlapNum], (endPanel.Top + (endMinute * 8)) - startPanel.Top);
+                    //(좌측상단여백, 우측상단여백, 컨트롤 넓이, 컨트롤 높이, 가로 모서리 원기울기, 세로 모서리 원기울기)
+                    pan.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pan.Size.Width, pan.Size.Height, 13, 13));
+
+                    //pan.BorderStyle = BorderStyle.FixedSingle;
+                    // 사이즈 조절
+                    pan.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                    insideMain.Controls.Add(pan);
+                }
+            }
+        }
+
+        private void OnPanelClick(object sender, MouseEventArgs e)
+        {
+            Panel pan = (Panel)sender;
+            MessageBox.Show(pan.Name);
+        }
+
+        private void OnMorePanelClick(object sender, MouseEventArgs e)
+        {// ...을 클릭했을경우
+            Panel pan = (Panel)((Label)sender).Parent;
+            MessageBox.Show(pan.Name);
+        }
+        
 
         private void OnPanPaint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             Panel pan = ((Panel)sender);
             Color panColor = pan.BackColor;
-            Color sideColor = Color.FromArgb(((int)panColor.A) + 100, (int)panColor.R, (int)panColor.G, (int)panColor.B); // 좀 진하게
+            Color sideColor = Color.FromArgb(((int)panColor.A) + 50, (int)panColor.R, (int)panColor.G, (int)panColor.B); // 좀 진하게
             Pen p = new Pen(sideColor);
             p.Width = 10;
             g.DrawLine(p, 0, 0, 0, pan.Size.Height);
         }
-        private Label CreateSCText(ref DataRow dr)
+        private Label CreateSCText(DataRow dr, float size)
         {
             Label txt = new Label();
             txt.TextAlign = ContentAlignment.TopLeft;
-            txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            txt.Location = new Point(10, 10);
+            txt.Font = new System.Drawing.Font("Microsoft Sans Serif", size, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            txt.Location = new Point(5, 5);
             txt.AutoSize = true; // this.label1.Size = new System.Drawing.Size(46, 18);
-            //txt.BackColor = Color.Transparent; // 안한게 더 예쁜데?
+                                 //txt.BackColor = Color.Transparent; // 안한게 더 예쁜데?
+            if(size <= 10F)
+                txt.Text = dr[1].ToString()[0].ToString(); // 한글자만
+            else
+                txt.Text = dr[1].ToString();
 
             return txt;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CurrWeek();
-        }
+
+        #region Garbage Method
+
+        // overlapSCList 0행( 일정번호) 1행 (0열 : 곂치는 일정개수  1열: 곂칠때 순서)
+        // scList 0행:( 일정번호) 1행 (0열 시작일 1열: 끝일)
+        //private void overlapCount() // 순서를 for문으로 구현 -> 버그발생 ->  overlapMethod 로 재구현(재귀)
+        //{ 
+        //    for (int k = 0; k < scList.Count;)
+        //    {
+        //        int saveK = k;
+        //        DateTime dtStart = scList[k][0];
+        //        DateTime dtEnd = scList[k][1];
+        //        int count = 0; // 순서가 몇번쨰인지
+
+        //        for (int p = k + 1; p < scList.Count; p++)
+        //        {// 시작일이 같을때 시간이 곂치면
+        //            if (dtEnd.Day < scList[p][0].Day)
+        //                break;
+        //            else if (dtEnd.Day == scList[p][0].Day)
+        //            {
+        //                if (((dtEnd.Hour * 10) + (dtEnd.Minute / 10)) <= ((scList[p][0].Hour * 10) + (scList[p][0].Minute / 10)))
+        //                    break;
+        //            }
+
+        //            if (dtEnd < scList[p][1])
+        //                dtEnd = scList[p][1]; // 곂치면 그 아래 일정 끝나는 시간을 넣음
+        //            overlapSCList[p][1] = ++count; // 그다음 순서니깐 더해준값을 넣음
+        //            ++k;
+
+        //        }
+        //        for (int m = saveK; m <= saveK + count; m++) // 몇번 곂쳤는지 넣어줌
+        //        {
+        //            overlapSCList[m][0] = count;
+        //        }
+        //        ++k;
+        //    }
+        //}
+
+        //private void muliSCPan(ref Panel cre, int i, ref DataRow dr, ref DateTime beginSC, ref DateTime endSC)
+        //{
+
+        //    if (beginSC.Day != endSC.Day) // 시작일과 끝일이 다르면
+        //    {
+        //        Panel beginPosition = day[Convert.ToInt32(beginSC.DayOfWeek)][beginSC.Hour];
+        //        Panel endPosition = day[Convert.ToInt32(endSC.DayOfWeek)][endSC.Hour];
+
+        //        cre.Size = new Size(beginPosition.Size.Width, insideMain.Size.Height - beginPosition.Top);
+        //        // 다음날까지 이어져야되니 맨 아래까지 만든다
+        //        for (int x = (int)beginSC.DayOfWeek + 1; x < (int)endSC.DayOfWeek; x++)
+        //        {
+        //            Panel middleDay = new Panel();
+        //            middleDay.Size = new Size(cre.Width, insideMain.Height);
+        //            middleDay.Location = new Point(day[x][0].Location.X, day[x][0].Location.Y);
+        //            middleDay.Name = cre.Name;
+        //            middleDay.BackColor = cre.BackColor;
+        //            middleDay.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+
+        //            //overlapSCPan(ref middleDay, x, ref dr, ref beginSC, ref endSC);
+        //            //statusSC[x].Add(middleDay);
+        //            //insideMain.Controls.Add(middleDay);
+        //        }
+
+        //        Panel nextDay = new Panel();
+        //        nextDay.Size = new Size(cre.Width, endPosition.Bottom);
+        //        nextDay.Location = new Point(endPosition.Location.X, 0);
+        //        nextDay.Name = cre.Name;
+        //        nextDay.BackColor = cre.BackColor;
+        //        nextDay.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+
+        //        //overlapSCPan(ref nextDay, (int)endSC.DayOfWeek, ref dr, ref beginSC, ref endSC);
+        //        //statusSC[(int)endSC.DayOfWeek].Add(nextDay);
+        //        //insideMain.Controls.Add(nextDay);
+        //    }
+        //}
+
+        // 곂치는 일정 표시방법
+        // 1. 곂치는 일정을 위에 덮어씌운다 (곂치는 일정이 많아질수록 버그발생) overlapSCPan
+        // 2. 곂치는 일정을 작게 바꾸고 크기를 줄인다 overlapLoop , CreateSCPan
+        //private void overlapSCPan(ref Panel cre, int i, ref DataRow dr, ref DateTime beginSC, ref DateTime endSC)
+        //{
+        //    if (statusSC[i].Any()) // 리스트에 엘리먼트가 있는지 확인
+        //    {
+        //        for (int k = 0; k < statusSC[i].Count; k++)
+        //        {
+        //            if (statusSC[i][k].Top <= cre.Top && statusSC[i][k].Bottom >= cre.Bottom)
+        //            { // 자기가 완전히 안에 들어가면
+        //                if (statusSC[i][k].Top == cre.Top && statusSC[i][k].Controls.Count > 0) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림, 짤라진 레이블을위해 텍스트가 있으면도 포함
+        //                    if (typeof(Label) == statusSC[i][k].Controls[0].GetType()) // 라벨이있는 판넬이면 라벨을 내림
+        //                        cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
+        //                cre.Location = new Point(6, cre.Top - statusSC[i][k].Top);
+        //                statusSC[i][k].Controls.Add(cre);
+        //                statusSC[i].Add(cre);
+        //                break;
+        //            }
+        //            else if (statusSC[i][k].Bottom > cre.Top && statusSC[i][k].Bottom < cre.Bottom)
+        //            { // 윗부분 들어가고 아랫부분 나올경우
+        //                if (statusSC[i][k].Top == cre.Top && statusSC[i][k].Controls.Count > 0) // 만약 시작일도 곂쳐버리면 안에 들어가는 텍스트를 내림, 짤라진 레이블을위해 텍스트가 있으면도 포함
+        //                    if (typeof(Label) == statusSC[i][k].Controls[0].GetType()) // 라벨이있는 판넬이면 라벨을 내림
+        //                        cre.Controls[0].Location = new Point(10, cre.Controls[0].Location.Y + 30);
+
+        //                Panel plus = new Panel();
+        //                plus.Location = new Point(statusSC[i][k].Location.X + 6, statusSC[i][k].Bottom);
+        //                if (beginSC.Day != endSC.Day) // 다음날까지 일정이있으면 맨 아래까지
+        //                    plus.Size = new Size(statusSC[i][k].Width - 6, insideMain.Height - cre.Top);
+        //                else
+        //                    plus.Size = new Size(statusSC[i][k].Width - 6, cre.Bottom - statusSC[i][k].Bottom);
+        //                plus.BackColor = cre.BackColor;
+        //                plus.Name = dr[0].ToString();
+        //                plus.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+        //                                                                                      //plus.BorderStyle = BorderStyle.FixedSingle;
+
+        //                cre.Location = new Point(6, cre.Top - statusSC[i][k].Top);
+        //                cre.Size = new Size(cre.Size.Width - 6, statusSC[i][k].Bottom - cre.Top);
+
+        //                statusSC[i][k].Controls.Add(cre);
+        //                insideMain.Controls.Add(plus);
+        //                statusSC[i].Add(plus);
+        //                break;
+        //            }
+        //            if (k == statusSC[i].Count - 1) // 하나도 해당없으면 기존에있는거 추가
+        //            {
+        //                statusSC[i].Add(cre);
+        //                insideMain.Controls.Add(cre);
+        //            }
+        //        }
+        //    }
+        //    else // 하나도 해당없으면 기존에있는거 추가
+        //    {
+        //        statusSC[i].Add(cre);
+        //        insideMain.Controls.Add(cre);
+        //    }
+        //}
+
+        #endregion
     }
 }

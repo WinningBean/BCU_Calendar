@@ -14,6 +14,7 @@ namespace WindowsFormsApplication1
         Dictionary<string, string> colorDic;
 
         public DBColor() {
+            colorDic = new Dictionary<string, string>();
             db.ExecuteReader("select * from COLOR_TB");
             while (db.Reader.Read())
             {
