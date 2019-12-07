@@ -76,8 +76,12 @@ namespace WindowsFormsApplication1
                 Panel MonthPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
 
                 pan = new System.Windows.Forms.Panel(); // 일정 패널 동적 생성
+                pan.VerticalScroll.Minimum = 0;
                 pan.VerticalScroll.Maximum = 0;
                 pan.VerticalScroll.Visible = false;
+                pan.HorizontalScroll.Minimum = 0;
+                pan.HorizontalScroll.Maximum = 0;
+                pan.HorizontalScroll.Visible = false;
                 pan.AutoScroll = true;
                 pan.Location = new System.Drawing.Point(0, 25);
                 pan.Name = "Sc" + i.ToString() + "_pan";
@@ -86,6 +90,12 @@ namespace WindowsFormsApplication1
                 pan.Click += new System.EventHandler(this.dm_pan_Click);
 
                 // 일정 패널 추가
+                MonthPanel.VerticalScroll.Minimum = 0;
+                MonthPanel.VerticalScroll.Maximum = 0;
+                MonthPanel.VerticalScroll.Visible = false;
+                MonthPanel.HorizontalScroll.Minimum = 0;
+                MonthPanel.HorizontalScroll.Maximum = 0;
+                MonthPanel.HorizontalScroll.Visible = false;
                 MonthPanel.Controls.Add(pan);
             }
         }
@@ -111,6 +121,7 @@ namespace WindowsFormsApplication1
                 if (MonthPanel.Controls.Count > 1)
                 {
                     MonthPanel.Controls[1].Dispose();
+                    //MonthPanel.Controls.Clear();
                 }
 
                 string sc_Panel_nm = "Sc" + i.ToString() + "_pan"; ; // 해당 일정 클리어
@@ -173,7 +184,10 @@ namespace WindowsFormsApplication1
 
                 // 날짜 추가
                 MonthPanel.Controls.Add(label);
-                //MonthPanel.Click += new System.EventHandler(this.dm_pan_Click);
+                if (i == m_nowDay)
+                {
+                    MonthPanel.BorderStyle = BorderStyle.FixedSingle;
+                }
 
                 // 일정 추가
                 Set_Schedule(m_day.AddDays(i - 1), DayPenel_num);
@@ -308,13 +322,13 @@ namespace WindowsFormsApplication1
 
         private void LastMonth_btn_Click(object sender, EventArgs e) // 전 달 보기
         {
-            sc_db.FOCUST_DT = sc_db.FOCUST_DT.AddMonths(-1);
+            m_focus_dt = m_focus_dt.AddMonths(-1);
             Set_Month_Today();
         }
 
         private void NextMonth_btn_Click(object sender, EventArgs e) // 후 달 보기
         {
-            sc_db.FOCUST_DT = sc_db.FOCUST_DT.AddMonths(1);
+            m_focus_dt = m_focus_dt.AddMonths(1);
             Set_Month_Today();
         }
     }
