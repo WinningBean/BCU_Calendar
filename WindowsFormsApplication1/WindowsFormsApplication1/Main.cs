@@ -13,9 +13,7 @@ namespace WindowsFormsApplication1
     public partial class Main : Form
     {
         DBConnection db = Program.DB;
-        DBSchedule sche_db = new DBSchedule();
-
-        private DateTime m_focus_dt;
+        DBSchedule sc_db;
 
         Picture pic = null;
         Login log = null;
@@ -25,11 +23,6 @@ namespace WindowsFormsApplication1
         {                      // 이렇게 안할시 메인폼은 종료되어도 로그인폼은 계속 프로세스에 남아있음
             this.log = log;    // 로그인 폼 종료 코드는 Dispose (Main.Designer.cs) 메서드에 정의되어있음
             InitializeComponent();
-        }
-
-        public DateTime FOCUS_DT {
-            get { return m_focus_dt; }
-            set { m_focus_dt = value; }
         }
 
         public UserCustomControl.Profile USERPROFILE
@@ -88,10 +81,8 @@ namespace WindowsFormsApplication1
             isShowPic = false; // 사진폼 띄우지않음
             setCenterMonthPanel(); // 월간보기로 기본설정
 
-            db.ExecuteReader("select SYSDATE from dual");
-            db.Reader.Read();
-            m_focus_dt = db.Reader.GetDateTime(0);
-            m_Today_lbl.Text = m_focus_dt.ToString("yyyy.MM.dd"); // 오라클 서버 시간 가져오기
+            sc_db = new DBSchedule();
+            m_Today_lbl.Text = sc_db.FOCUST_DT.ToString("yyyy.MM.dd"); // 오늘 날짜 설정
             
             Set_UserProfile();
         }

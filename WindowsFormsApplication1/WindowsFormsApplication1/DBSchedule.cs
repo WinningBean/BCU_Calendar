@@ -10,16 +10,25 @@ namespace WindowsFormsApplication1
     class DBSchedule
     {
 
+        // DB상 Schedule 가져오기 클래스
+
         public DBSchedule()
         {
             // DBSchedule 생성자
+            db.ExecuteReader("select SYSDATE from dual"); // 오라클 서버 시간 가져오기
+            db.Reader.Read();
+            m_focus_dt = db.Reader.GetDateTime(0);
         }
 
         DBConnection db = Program.DB;
         private string sql;
         private DataSet DS;
 
-        // DB상 Schedule 가져오기 클래스
+        private DateTime m_focus_dt;
+        public DateTime FOCUST_DT { // 현재 포커스 날짜 프로퍼티
+            get { return m_focus_dt; }
+            set { m_focus_dt = value; }
+        }
 
         public DataTable Get_Schedule(Boolean is_UR, string m_URorGR_CD)
         {
