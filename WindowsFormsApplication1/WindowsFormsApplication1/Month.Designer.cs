@@ -102,6 +102,7 @@
             this.LastMonth_btn.TabIndex = 1;
             this.LastMonth_btn.Text = "◀";
             this.LastMonth_btn.UseVisualStyleBackColor = true;
+            this.LastMonth_btn.Click += new System.EventHandler(this.LastMonth_btn_Click);
             // 
             // NextMonth_btn
             // 
@@ -116,6 +117,7 @@
             this.NextMonth_btn.TabIndex = 2;
             this.NextMonth_btn.Text = "▶";
             this.NextMonth_btn.UseVisualStyleBackColor = true;
+            this.NextMonth_btn.Click += new System.EventHandler(this.NextMonth_btn_Click);
             // 
             // Month_panel
             // 
@@ -479,7 +481,6 @@
             // 
             // m_Year_btn
             // 
-            this.m_Year_btn.AutoSize = true;
             this.m_Year_btn.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_Year_btn.Location = new System.Drawing.Point(17, 20);
             this.m_Year_btn.Name = "m_Year_btn";
@@ -489,7 +490,6 @@
             // 
             // TodayBtn
             // 
-            this.TodayBtn.AutoSize = true;
             this.TodayBtn.Font = new System.Drawing.Font("함초롬돋움", 12F);
             this.TodayBtn.Location = new System.Drawing.Point(907, 22);
             this.TodayBtn.Name = "TodayBtn";

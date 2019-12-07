@@ -10,27 +10,35 @@ namespace WindowsFormsApplication1
     class DBSchedule
     {
 
+        // DB상 Schedule 가져오기 클래스
+
         public DBSchedule()
         {
             // DBSchedule 생성자
+            db.ExecuteReader("select SYSDATE from dual"); // 오라클 서버 시간 가져오기
+            db.Reader.Read();
+            s_today = db.Reader.GetDateTime(0);
         }
 
         DBConnection db = Program.DB;
         private string sql;
         private DataSet DS;
 
-        // DB상 Schedule 가져오기 클래스
+        private static DateTime s_today; // 오늘 시간
+        public DateTime TODAY {
+            get { return s_today; }
+        }
 
         public DataTable Get_Schedule(Boolean is_UR, string m_URorGR_CD)
         {
             // 해당 사용자에 대한 모든 일정 테이블 함수
             if (is_UR == true) // 회원이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' order by SC_STR_DT ASC";
             }
             else // 그룹이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "' order by SC_STR_DT ASC";
             }
             DS = new DataSet();
             db.AdapterOpen(sql);
@@ -55,6 +63,7 @@ namespace WindowsFormsApplication1
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
             sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " order by SC_STR_DT ASC";
 
             DS = new DataSet();
             db.AdapterOpen(sql);
