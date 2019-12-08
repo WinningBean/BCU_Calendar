@@ -27,52 +27,55 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             AutoScrollMinSize = new Size(int.MinValue, int.MinValue);
-
+            
             Set_SC_Panel();
         }
 
-        private void clear_pan_border() { // MonthDay_panel.BorderStyle = BorderStyle.None;
+        private void clear_lbl_cr() { // MonthDay_panel.BorderStyle = BorderStyle.None;
             for (int i = 1; i < 36; i++)
             {
                 string Panel_nm = "MonthDay" + i.ToString() + "_panel"; // 해당 패널에 삽입
                 Panel MonthPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
-                MonthPanel.BorderStyle = BorderStyle.None;
+                if (MonthPanel.Controls.Count > 0)
+                {
+                    MonthPanel.Controls[0].BackColor = Color.Transparent;
+                }
             }
         }
 
         private void set_pass_Month(Panel fc_pan, int fc_pan_n) {
-            if (fc_pan.Controls.Count > 1)
+            if (fc_pan.Controls.Count > 0)
             {
-                clear_pan_border();
-                m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[1].Text.ToString()));
-                fc_pan.BorderStyle = BorderStyle.FixedSingle;
+                clear_lbl_cr();
+                m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[0].Text.ToString()));
+                fc_pan.Controls[0].BackColor = Color.Gainsboro;
             }
             else
             {
                 if (fc_pan_n < 8) // 저번달 해당 패널을 눌렀다면 강제 이벤트 호출
                 {
                     LastMonth_btn.PerformClick();
-                    clear_pan_border();
+                    clear_lbl_cr();
 
                     fc_pan = (Panel)this.Controls.Find("MonthDay" + (fc_pan_n + 28).ToString() + "_panel", true)[0]; // 해당월의 마지막 주
 
-                    if (fc_pan.Controls.Count > 1) // 해당 패널에 레이블이 있을 경우
+                    if (fc_pan.Controls.Count > 0) // 해당 패널에 레이블이 있을 경우
                     {
-                        m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[1].Text.ToString()));
-                        fc_pan.BorderStyle = BorderStyle.FixedSingle;
+                        m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[0].Text.ToString()));
+                        fc_pan.Controls[0].BackColor = Color.Gainsboro;
                     }
                 }
                 else if (fc_pan_n > 28) // 다음달 해당 패널을 눌렀다면 강제 이벤트 호출
                 {
                     NextMonth_btn.PerformClick();
-                    clear_pan_border();
+                    clear_lbl_cr();
 
                     fc_pan = (Panel)this.Controls.Find("MonthDay" + (fc_pan_n - 28).ToString() + "_panel", true)[0]; // 해당월의 첫째 주
 
-                    if (fc_pan.Controls.Count > 1) // 해당 패널에 레이블이 있을 경우
+                    if (fc_pan.Controls.Count > 0) // 해당 패널에 레이블이 있을 경우
                     {
-                        m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[1].Text.ToString()));
-                        fc_pan.BorderStyle = BorderStyle.FixedSingle;
+                        m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(fc_pan.Controls[0].Text.ToString()));
+                        fc_pan.Controls[0].BackColor = Color.Gainsboro;
                     }
                 }
             }
@@ -80,56 +83,63 @@ namespace WindowsFormsApplication1
 
         private void dm_pan_Click(object sender, EventArgs e) // 일정 패널 클릭시 이벤트 처리
         {
-            Panel fc_pan = (Panel)((Panel)sender).Parent;
-            int fc_pan_n = Convert.ToInt32(fc_pan.Name.Substring(8, fc_pan.Name.Length - 6 - 8));
-            set_pass_Month(fc_pan, fc_pan_n);
+            int fc_pan_n = Convert.ToInt32(((Panel)sender).Name.Substring(2, ((Panel)sender).Name.Length - 4 - 2));
+            Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
+            set_pass_Month(fc_pan, fc_pan_n); 
         }
 
         private void dm_sc_Click(object sender, EventArgs e)// 일정 클릭시 이벤트 처리
         {
-            Panel fc_pan = (Panel)((Panel)((Label)sender).Parent).Parent;
-            int fc_pan_n = Convert.ToInt32(fc_pan.Name.Substring(8, fc_pan.Name.Length - 6 - 8));
+            int fc_pan_n = Convert.ToInt32(((Panel)((Label)sender).Parent).Name.Substring(2, ((Panel)((Label)sender).Parent).Name.Length - 4 - 2));
+            Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
         }
 
         private void dm_dt_Click(object sender, EventArgs e)// 날짜 클릭시 이벤트 처리
         {
-            clear_pan_border();
-            Panel fc_pan = (Panel)((Label)sender).Parent;
-            fc_pan.BorderStyle = BorderStyle.FixedSingle;
+            clear_lbl_cr();
+            ((Label)sender).BackColor = Color.Gainsboro;
             m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(((Label)sender).Text.ToString()));
         }
 
         private void Set_SC_Panel() // 일정 패널 동적 생성, 동적 이벤트 생성
         {
             System.Windows.Forms.Panel pan;
-            for (int i = 1; i < 36; i++)
+
+            for (int i = 1; i < 6; i++)
             {
-                string Panel_nm = "MonthDay" + i.ToString() + "_panel"; // 해당 패널에 삽입
-                Panel MonthPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
+                string Panel_nm = "Week" + i.ToString() + "_panel"; // 해당 패널에 삽입
+                Panel WeekPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
 
-                pan = new System.Windows.Forms.Panel(); // 일정 패널 동적 생성
-                pan.VerticalScroll.Minimum = 0;
-                pan.VerticalScroll.Maximum = 0;
-                pan.VerticalScroll.Visible = false;
-                pan.HorizontalScroll.Minimum = 0;
-                pan.HorizontalScroll.Maximum = 0;
-                pan.HorizontalScroll.Visible = false;
-                pan.AutoScroll = true;
-                pan.Location = new System.Drawing.Point(0, 25);
-                pan.Name = "Sc" + i.ToString() + "_pan";
-                pan.Size = new System.Drawing.Size(MonthPanel.Width, MonthPanel.Height - 25);
+                for (int j = 1; j < 8; j++)
+                {
+                    int day_n = j + (7*(i-1));
 
-                pan.Click += new System.EventHandler(this.dm_pan_Click);
+                    pan = new System.Windows.Forms.Panel(); // 일정 패널 동적 생성
+                    pan.VerticalScroll.Minimum = 0;
+                    pan.VerticalScroll.Maximum = 0;
+                    pan.VerticalScroll.Visible = false;
+                    pan.HorizontalScroll.Minimum = 0;
+                    pan.HorizontalScroll.Maximum = 0;
+                    pan.HorizontalScroll.Visible = false;
+                    pan.AutoSize = false;
+                    pan.AutoScroll = true;
+                    pan.Location = new System.Drawing.Point(135*(j-1), 0);
+                    pan.Name = "Sc" + day_n.ToString() + "_pan";
+                    pan.Size = new System.Drawing.Size(135, WeekPanel.Height);
 
-                // 일정 패널 추가
-                MonthPanel.VerticalScroll.Minimum = 0;
-                MonthPanel.VerticalScroll.Maximum = 0;
-                MonthPanel.VerticalScroll.Visible = false;
-                MonthPanel.HorizontalScroll.Minimum = 0;
-                MonthPanel.HorizontalScroll.Maximum = 0;
-                MonthPanel.HorizontalScroll.Visible = false;
-                MonthPanel.Controls.Add(pan);
+                    pan.Click += new System.EventHandler(this.dm_pan_Click);
+
+                    // 일주일 패널 추가
+                    WeekPanel.VerticalScroll.Minimum = 0;
+                    WeekPanel.VerticalScroll.Maximum = 0;
+                    WeekPanel.VerticalScroll.Visible = false;
+                    WeekPanel.HorizontalScroll.Minimum = 0;
+                    WeekPanel.HorizontalScroll.Maximum = 0;
+                    WeekPanel.HorizontalScroll.Visible = false;
+                    pan.AutoScroll = true;
+                    WeekPanel.Controls.Add(pan);
+                }
             }
         }
 
@@ -151,9 +161,9 @@ namespace WindowsFormsApplication1
             {
                 string Panel_nm = "MonthDay" + i.ToString() + "_panel"; // 해당 패널 클리어
                 Panel MonthPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
-                if (MonthPanel.Controls.Count > 1)
+                if (MonthPanel.Controls.Count > 0)
                 {
-                    MonthPanel.Controls[1].Dispose();
+                    MonthPanel.Controls[0].Dispose();
                 }
 
                 string sc_Panel_nm = "Sc" + i.ToString() + "_pan"; ; // 해당 일정 클리어
@@ -189,10 +199,15 @@ namespace WindowsFormsApplication1
                 Panel MonthPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
 
                 label = new System.Windows.Forms.Label(); // 날짜 레이블 동적 생성
-                label.Location = new System.Drawing.Point(5, 5);
+                label.Location = new System.Drawing.Point(5, 1);
                 label.Name = "Day" + i.ToString() + "_lbl";
-                label.Size = new System.Drawing.Size(25, 15);
+                label.Size = new System.Drawing.Size(23, 23);
                 label.Text = i.ToString();
+                label.TextAlign = ContentAlignment.MiddleCenter;
+
+                var path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddEllipse(0, 0, label.Width, label.Height);
+                label.Region = new Region(path);
 
                 label.Click += new System.EventHandler(this.dm_dt_Click);
 
@@ -209,7 +224,7 @@ namespace WindowsFormsApplication1
                 MonthPanel.Controls.Add(label);
                 if (i == m_nowDay)
                 {
-                    MonthPanel.BorderStyle = BorderStyle.FixedSingle;
+                    label.BackColor = Color.Gainsboro;
                 }
 
                 // 일정 추가
@@ -347,14 +362,14 @@ namespace WindowsFormsApplication1
         private void LastMonth_btn_Click(object sender, EventArgs e) // 전 달 보기
         {
             m_focus_dt = m_focus_dt.AddMonths(-1);
-            clear_pan_border();
+            clear_lbl_cr();
             Set_Month_Today();
         }
 
         private void NextMonth_btn_Click(object sender, EventArgs e) // 후 달 보기
         {
             m_focus_dt = m_focus_dt.AddMonths(1);
-            clear_pan_border();
+            clear_lbl_cr();
             Set_Month_Today();
         }
     }

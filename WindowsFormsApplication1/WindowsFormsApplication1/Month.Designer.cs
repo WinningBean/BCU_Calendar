@@ -32,6 +32,11 @@
             this.LastMonth_btn = new System.Windows.Forms.Button();
             this.NextMonth_btn = new System.Windows.Forms.Button();
             this.Month_panel = new System.Windows.Forms.Panel();
+            this.Week5_panel = new System.Windows.Forms.Panel();
+            this.Week4_panel = new System.Windows.Forms.Panel();
+            this.Week3_panel = new System.Windows.Forms.Panel();
+            this.Week2_panel = new System.Windows.Forms.Panel();
+            this.Week1_panel = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -122,6 +127,11 @@
             // Month_panel
             // 
             this.Month_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Month_panel.Controls.Add(this.Week5_panel);
+            this.Month_panel.Controls.Add(this.Week4_panel);
+            this.Month_panel.Controls.Add(this.Week3_panel);
+            this.Month_panel.Controls.Add(this.Week2_panel);
+            this.Month_panel.Controls.Add(this.Week1_panel);
             this.Month_panel.Controls.Add(this.label9);
             this.Month_panel.Controls.Add(this.label8);
             this.Month_panel.Controls.Add(this.label7);
@@ -168,6 +178,41 @@
             this.Month_panel.Name = "Month_panel";
             this.Month_panel.Size = new System.Drawing.Size(945, 523);
             this.Month_panel.TabIndex = 3;
+            // 
+            // Week5_panel
+            // 
+            this.Week5_panel.Location = new System.Drawing.Point(0, 447);
+            this.Week5_panel.Name = "Week5_panel";
+            this.Week5_panel.Size = new System.Drawing.Size(945, 75);
+            this.Week5_panel.TabIndex = 8;
+            // 
+            // Week4_panel
+            // 
+            this.Week4_panel.Location = new System.Drawing.Point(0, 347);
+            this.Week4_panel.Name = "Week4_panel";
+            this.Week4_panel.Size = new System.Drawing.Size(945, 75);
+            this.Week4_panel.TabIndex = 8;
+            // 
+            // Week3_panel
+            // 
+            this.Week3_panel.Location = new System.Drawing.Point(0, 247);
+            this.Week3_panel.Name = "Week3_panel";
+            this.Week3_panel.Size = new System.Drawing.Size(945, 75);
+            this.Week3_panel.TabIndex = 7;
+            // 
+            // Week2_panel
+            // 
+            this.Week2_panel.Location = new System.Drawing.Point(0, 147);
+            this.Week2_panel.Name = "Week2_panel";
+            this.Week2_panel.Size = new System.Drawing.Size(945, 75);
+            this.Week2_panel.TabIndex = 6;
+            // 
+            // Week1_panel
+            // 
+            this.Week1_panel.Location = new System.Drawing.Point(0, 47);
+            this.Week1_panel.Name = "Week1_panel";
+            this.Week1_panel.Size = new System.Drawing.Size(945, 75);
+            this.Week1_panel.TabIndex = 5;
             // 
             // label9
             // 
@@ -238,245 +283,245 @@
             // 
             this.MonthDay29_panel.Location = new System.Drawing.Point(0, 422);
             this.MonthDay29_panel.Name = "MonthDay29_panel";
-            this.MonthDay29_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay29_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay29_panel.TabIndex = 0;
             // 
             // MonthDay22_panel
             // 
             this.MonthDay22_panel.Location = new System.Drawing.Point(0, 322);
             this.MonthDay22_panel.Name = "MonthDay22_panel";
-            this.MonthDay22_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay22_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay22_panel.TabIndex = 0;
             // 
             // MonthDay8_panel
             // 
             this.MonthDay8_panel.Location = new System.Drawing.Point(0, 122);
             this.MonthDay8_panel.Name = "MonthDay8_panel";
-            this.MonthDay8_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay8_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay8_panel.TabIndex = 0;
             // 
             // MonthDay15_panel
             // 
             this.MonthDay15_panel.Location = new System.Drawing.Point(0, 222);
             this.MonthDay15_panel.Name = "MonthDay15_panel";
-            this.MonthDay15_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay15_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay15_panel.TabIndex = 0;
             // 
             // MonthDay1_panel
             // 
             this.MonthDay1_panel.Location = new System.Drawing.Point(0, 22);
             this.MonthDay1_panel.Name = "MonthDay1_panel";
-            this.MonthDay1_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay1_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay1_panel.TabIndex = 0;
             // 
             // MonthDay35_panel
             // 
             this.MonthDay35_panel.Location = new System.Drawing.Point(810, 422);
             this.MonthDay35_panel.Name = "MonthDay35_panel";
-            this.MonthDay35_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay35_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay35_panel.TabIndex = 3;
             // 
             // MonthDay28_panel
             // 
             this.MonthDay28_panel.Location = new System.Drawing.Point(810, 322);
             this.MonthDay28_panel.Name = "MonthDay28_panel";
-            this.MonthDay28_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay28_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay28_panel.TabIndex = 3;
             // 
             // MonthDay14_panel
             // 
             this.MonthDay14_panel.Location = new System.Drawing.Point(810, 122);
             this.MonthDay14_panel.Name = "MonthDay14_panel";
-            this.MonthDay14_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay14_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay14_panel.TabIndex = 3;
             // 
             // MonthDay21_panel
             // 
             this.MonthDay21_panel.Location = new System.Drawing.Point(810, 222);
             this.MonthDay21_panel.Name = "MonthDay21_panel";
-            this.MonthDay21_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay21_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay21_panel.TabIndex = 3;
             // 
             // MonthDay7_panel
             // 
             this.MonthDay7_panel.Location = new System.Drawing.Point(810, 22);
             this.MonthDay7_panel.Name = "MonthDay7_panel";
-            this.MonthDay7_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay7_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay7_panel.TabIndex = 3;
             // 
             // MonthDay34_panel
             // 
             this.MonthDay34_panel.Location = new System.Drawing.Point(675, 422);
             this.MonthDay34_panel.Name = "MonthDay34_panel";
-            this.MonthDay34_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay34_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay34_panel.TabIndex = 3;
             // 
             // MonthDay27_panel
             // 
             this.MonthDay27_panel.Location = new System.Drawing.Point(675, 322);
             this.MonthDay27_panel.Name = "MonthDay27_panel";
-            this.MonthDay27_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay27_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay27_panel.TabIndex = 3;
             // 
             // MonthDay13_panel
             // 
             this.MonthDay13_panel.Location = new System.Drawing.Point(675, 122);
             this.MonthDay13_panel.Name = "MonthDay13_panel";
-            this.MonthDay13_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay13_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay13_panel.TabIndex = 3;
             // 
             // MonthDay20_panel
             // 
             this.MonthDay20_panel.Location = new System.Drawing.Point(675, 222);
             this.MonthDay20_panel.Name = "MonthDay20_panel";
-            this.MonthDay20_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay20_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay20_panel.TabIndex = 3;
             // 
             // MonthDay6_panel
             // 
             this.MonthDay6_panel.Location = new System.Drawing.Point(675, 22);
             this.MonthDay6_panel.Name = "MonthDay6_panel";
-            this.MonthDay6_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay6_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay6_panel.TabIndex = 3;
             // 
             // MonthDay33_panel
             // 
             this.MonthDay33_panel.Location = new System.Drawing.Point(540, 422);
             this.MonthDay33_panel.Name = "MonthDay33_panel";
-            this.MonthDay33_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay33_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay33_panel.TabIndex = 3;
             // 
             // MonthDay26_panel
             // 
             this.MonthDay26_panel.Location = new System.Drawing.Point(540, 322);
             this.MonthDay26_panel.Name = "MonthDay26_panel";
-            this.MonthDay26_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay26_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay26_panel.TabIndex = 3;
             // 
             // MonthDay12_panel
             // 
             this.MonthDay12_panel.Location = new System.Drawing.Point(540, 122);
             this.MonthDay12_panel.Name = "MonthDay12_panel";
-            this.MonthDay12_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay12_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay12_panel.TabIndex = 3;
             // 
             // MonthDay19_panel
             // 
             this.MonthDay19_panel.Location = new System.Drawing.Point(540, 222);
             this.MonthDay19_panel.Name = "MonthDay19_panel";
-            this.MonthDay19_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay19_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay19_panel.TabIndex = 3;
             // 
             // MonthDay5_panel
             // 
             this.MonthDay5_panel.Location = new System.Drawing.Point(540, 22);
             this.MonthDay5_panel.Name = "MonthDay5_panel";
-            this.MonthDay5_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay5_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay5_panel.TabIndex = 3;
             // 
             // MonthDay32_panel
             // 
             this.MonthDay32_panel.Location = new System.Drawing.Point(405, 422);
             this.MonthDay32_panel.Name = "MonthDay32_panel";
-            this.MonthDay32_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay32_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay32_panel.TabIndex = 3;
             // 
             // MonthDay25_panel
             // 
             this.MonthDay25_panel.Location = new System.Drawing.Point(405, 322);
             this.MonthDay25_panel.Name = "MonthDay25_panel";
-            this.MonthDay25_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay25_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay25_panel.TabIndex = 3;
             // 
             // MonthDay31_panel
             // 
             this.MonthDay31_panel.Location = new System.Drawing.Point(270, 422);
             this.MonthDay31_panel.Name = "MonthDay31_panel";
-            this.MonthDay31_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay31_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay31_panel.TabIndex = 2;
             // 
             // MonthDay24_panel
             // 
             this.MonthDay24_panel.Location = new System.Drawing.Point(270, 322);
             this.MonthDay24_panel.Name = "MonthDay24_panel";
-            this.MonthDay24_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay24_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay24_panel.TabIndex = 2;
             // 
             // MonthDay11_panel
             // 
             this.MonthDay11_panel.Location = new System.Drawing.Point(405, 122);
             this.MonthDay11_panel.Name = "MonthDay11_panel";
-            this.MonthDay11_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay11_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay11_panel.TabIndex = 3;
             // 
             // MonthDay18_panel
             // 
             this.MonthDay18_panel.Location = new System.Drawing.Point(405, 222);
             this.MonthDay18_panel.Name = "MonthDay18_panel";
-            this.MonthDay18_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay18_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay18_panel.TabIndex = 3;
             // 
             // MonthDay30_panel
             // 
             this.MonthDay30_panel.Location = new System.Drawing.Point(135, 422);
             this.MonthDay30_panel.Name = "MonthDay30_panel";
-            this.MonthDay30_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay30_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay30_panel.TabIndex = 1;
             // 
             // MonthDay10_panel
             // 
             this.MonthDay10_panel.Location = new System.Drawing.Point(270, 122);
             this.MonthDay10_panel.Name = "MonthDay10_panel";
-            this.MonthDay10_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay10_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay10_panel.TabIndex = 2;
             // 
             // MonthDay23_panel
             // 
             this.MonthDay23_panel.Location = new System.Drawing.Point(135, 322);
             this.MonthDay23_panel.Name = "MonthDay23_panel";
-            this.MonthDay23_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay23_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay23_panel.TabIndex = 1;
             // 
             // MonthDay4_panel
             // 
             this.MonthDay4_panel.Location = new System.Drawing.Point(405, 22);
             this.MonthDay4_panel.Name = "MonthDay4_panel";
-            this.MonthDay4_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay4_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay4_panel.TabIndex = 3;
             // 
             // MonthDay17_panel
             // 
             this.MonthDay17_panel.Location = new System.Drawing.Point(270, 222);
             this.MonthDay17_panel.Name = "MonthDay17_panel";
-            this.MonthDay17_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay17_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay17_panel.TabIndex = 2;
             // 
             // MonthDay9_panel
             // 
             this.MonthDay9_panel.Location = new System.Drawing.Point(135, 122);
             this.MonthDay9_panel.Name = "MonthDay9_panel";
-            this.MonthDay9_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay9_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay9_panel.TabIndex = 1;
             // 
             // MonthDay16_panel
             // 
             this.MonthDay16_panel.Location = new System.Drawing.Point(135, 222);
             this.MonthDay16_panel.Name = "MonthDay16_panel";
-            this.MonthDay16_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay16_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay16_panel.TabIndex = 1;
             // 
             // MonthDay3_panel
             // 
             this.MonthDay3_panel.Location = new System.Drawing.Point(270, 22);
             this.MonthDay3_panel.Name = "MonthDay3_panel";
-            this.MonthDay3_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay3_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay3_panel.TabIndex = 2;
             // 
             // MonthDay2_panel
             // 
             this.MonthDay2_panel.Location = new System.Drawing.Point(135, 22);
             this.MonthDay2_panel.Name = "MonthDay2_panel";
-            this.MonthDay2_panel.Size = new System.Drawing.Size(135, 100);
+            this.MonthDay2_panel.Size = new System.Drawing.Size(135, 25);
             this.MonthDay2_panel.TabIndex = 1;
             // 
             // m_Year_btn
@@ -573,5 +618,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label m_Year_btn;
         private System.Windows.Forms.Label TodayBtn;
+        private System.Windows.Forms.Panel Week5_panel;
+        private System.Windows.Forms.Panel Week4_panel;
+        private System.Windows.Forms.Panel Week3_panel;
+        private System.Windows.Forms.Panel Week2_panel;
+        private System.Windows.Forms.Panel Week1_panel;
     }
 }
