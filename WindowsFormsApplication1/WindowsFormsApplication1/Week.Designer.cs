@@ -32,7 +32,6 @@
         {
             this.m_Year_btn = new System.Windows.Forms.Label();
             this.m_Mon_pan = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.m_Top_pan = new System.Windows.Forms.Panel();
             this.m_Main_pan = new System.Windows.Forms.Panel();
             this.m_Mid_pan = new System.Windows.Forms.Panel();
@@ -51,22 +50,11 @@
             // 
             // m_Mon_pan
             // 
-            this.m_Mon_pan.Controls.Add(this.button1);
             this.m_Mon_pan.Controls.Add(this.m_Year_btn);
             this.m_Mon_pan.Location = new System.Drawing.Point(0, 0);
             this.m_Mon_pan.Name = "m_Mon_pan";
             this.m_Mon_pan.Size = new System.Drawing.Size(91, 63);
             this.m_Mon_pan.TabIndex = 6;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(30, 37);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // m_Top_pan
             // 
@@ -120,7 +108,5 @@
         private System.Windows.Forms.Panel m_Top_pan;
         private System.Windows.Forms.Panel m_Main_pan;
         private System.Windows.Forms.Panel m_Mid_pan;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
     }
 }

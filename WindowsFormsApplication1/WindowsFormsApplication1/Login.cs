@@ -118,14 +118,12 @@ namespace WindowsFormsApplication1
                     if (db.Reader.Read())
                     {
                         MessageBox.Show("로그인 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        //db.Close();
                         Hide();
                         PassDB_ToMain();
-                        //Close();
+                        //db.Reader.Close();
                         return;
                     }
                     MessageBox.Show("로그인 실패하였습니다!!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //db.Close();
                     return;
                 }
                 catch (DataException DE)
@@ -142,12 +140,17 @@ namespace WindowsFormsApplication1
         private void PassDB_ToMain()
         {
             // Main form에 DB 정보를 넘기는 함수
-            Main main = new Main(this);
             db.UR_CD = db.Reader.GetString(0);
-            main.USERID = db.Reader.GetString(1); // 프로퍼티로 ID값 넘겨줌
-            main.USERPROFILE.USERNAME = db.Reader.GetString(3); // 프로퍼티로 NAME값 넘겨줌
+            string user_id = db.Reader.GetString(1);
+            string user_nm = db.Reader.GetString(3);
+            Image user_pic = null;
             // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
-            if (!(db.Reader[4].Equals(System.DBNull.Value))) main.USERPROFILE.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(4));
+            if (!(db.Reader[4].Equals(System.DBNull.Value))) user_pic = Image.FromStream(db.Reader.GetOracleBlob(4));
+
+            Main main = new Main(this);
+            main.USERID = user_id; // 프로퍼티로 ID값 넘겨줌
+            main.USERPROFILE.USERNAME = user_nm; // 프로퍼티로 NAME값 넘겨줌
+            main.USERPROFILE.USERPIC = user_pic; // 프로퍼티로 PIC값 넘겨줌
             main.Show();
         }
 
