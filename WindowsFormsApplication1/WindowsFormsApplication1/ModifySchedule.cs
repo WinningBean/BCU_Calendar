@@ -14,7 +14,14 @@ namespace WindowsFormsApplication1
 {
     public partial class ModifySchedule : Form
     {
-        public ModifySchedule()
+        Main main = null;
+        public ModifySchedule(Main main ) // 메인에서 호출 
+        {
+            InitializeComponent();
+            db.UR_CD = "U100000";
+            this.main = main;
+        }
+        public ModifySchedule() // 
         {
             InitializeComponent();
             db.UR_CD = "U100000";
@@ -22,7 +29,9 @@ namespace WindowsFormsApplication1
 
         DBConnection db = Program.DB;
         DBSchedule dbs = new DBSchedule();
+        DBColor dbc = new DBColor();
         string pic_CD=null;
+        bool check = false;
         
 
         public string NameTxt
@@ -72,12 +81,19 @@ namespace WindowsFormsApplication1
                 Image img = value;
                 if (img != null)
                 {
-                    float percent = (float)img.Height / 130;
+                    float percent = (float)img.Height / 120;
                     int imgWidth = (int)((float)img.Width / percent);
-                    imagePic.Size = new Size(imgWidth, 130);
+                    imagePic.Size = new Size(imgWidth, 120);
                     imagePic.SizeMode = PictureBoxSizeMode.Zoom;
+                    imagePic.BorderStyle = BorderStyle.None;
+                    imagePic.Image = img;
                 }
-                imagePic.Image = img;
+                else
+                {
+                    imagePic.BorderStyle = BorderStyle.FixedSingle;
+                    imagePic.Image = null;
+                }
+              
             }
         }
         public int StateCheck
@@ -95,6 +111,12 @@ namespace WindowsFormsApplication1
                     stateCheck.Checked = false;
                 }
             }
+
+        }
+        public string ColorCom
+        {
+            get { return dbc.ColorDic.ElementAt(colorCom.SelectedIndex).Key; }
+            set { colorCom.Text = value; }
         }
 
 
@@ -118,6 +140,17 @@ namespace WindowsFormsApplication1
                 endMin.Items.Add(i);
             }
 
+            StrMin= "00";
+            EndMin = "00";
+
+            for(int i = 0; i < dbc.ColorDic.Values.Count; i++ )
+            { 
+                
+                colorCom.Items.Add(dbc.ColorDic.ElementAt(i).Value);
+            }
+          
+            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -132,6 +165,20 @@ namespace WindowsFormsApplication1
                 strMin.Text = "00";
                 strMin.Enabled = false;
             }
+            else
+            {
+                strMin.Enabled = true;
+            }
+        }
+        private void Clear_Controls()
+        {
+            NameTxt = "";
+            ExTxt = "";
+            StrHour = "0";
+            StrMin = "0";
+            EndHour = "0";
+            EndMin = "0";
+            StateCheck = 1;
         }
 
         private void endHour_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,6 +187,10 @@ namespace WindowsFormsApplication1
             {
                 endMin.Text = "00";
                 endMin.Enabled = false;
+            }
+            else
+            {
+                endMin.Enabled = true;
             }
         }
         private void FileSave(string filePath, DateTime dt)
@@ -171,7 +222,7 @@ namespace WindowsFormsApplication1
         }
 
 
-        public void PictureSave()
+        public bool PictureSave()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "사진추가";
@@ -190,12 +241,12 @@ namespace WindowsFormsApplication1
                     if (info.Length > 2000000) // 1당 byte, 바이트가 너무 큰 사진은 막음
                     {
                         MessageBox.Show("사진 용량이 너무 큽니다 \n" + info.Length.ToString() + " byte > " + "1000000 byte");
-                        return;
+                        return false;
                     }
 
                     if (MessageBox.Show("사진을 올리시겠습니까?", "사진등록", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) != DialogResult.OK)
                     {
-                        return;
+                        return true;
                     }
 
                     Picture_SelectDate ps = new Picture_SelectDate();
@@ -204,53 +255,115 @@ namespace WindowsFormsApplication1
                     {
                         DateTime dt = ps.dt;
                         FileSave(file, dt);
-
+                        return true;
                     }
-
+                    return true;
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show("파일을 불러오는데 실패하였습니다\n" + e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }
             }
+            return false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //if(ImagePic != null)
-            //{
-            //    string str = "insert ";
-            //    db.ExecuteNonQuery(str);
 
-            //    str = "select CD form __ where data ";
-            //    db.ExecuteReader(str);
-                
-            //}
-            DateTime end_Date = EndDate;
-            TimeSpan endts = new TimeSpan(int.Parse(EndHour), int.Parse( EndMin), 0);
-            end_Date=end_Date += endts;
+            if (EndHour=="" || StrHour == "")
+            {
+                MessageBox.Show("시간을 설정해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (NameTxt == "")
+            {
+                MessageBox.Show("일정명을 등록하세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            DateTime str_Date = StrDate;
-            TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
-            str_Date = str_Date.Date + strts;
-        
+            else
+            {
+                DateTime end_Date = EndDate;
+                TimeSpan endts = new TimeSpan(int.Parse(EndHour), int.Parse(EndMin), 0);
+                end_Date = end_Date += endts;
 
-            dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, null, null);
+                DateTime str_Date = StrDate;
+                TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
+                str_Date = str_Date.Date + strts;
+
+                dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
+                MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                Clear_Controls();
+            }
+
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)//사진 등록하기 버튼 
         {
-            PictureSave();
-            string str = "select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' ORDER BY PIC_CD DESC";
-            db.ExecuteReader(str);
-            if(db.Reader.Read())
+            check = PictureSave();
+            if (check == true)
             {
-                pic_CD = db.Reader["PIC_CD"].ToString();
+                string str = "select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' ORDER BY PIC_CD DESC";
+                db.ExecuteReader(str);
+                if (db.Reader.Read())
+                {
+                    pic_CD = db.Reader["PIC_CD"].ToString(); // PIC_CD 저장 
+                }
+                Byte[] b = (Byte[])(db.Reader["PIC_DATA"]);
+                MemoryStream stmBlobData = new MemoryStream(b);
+                Image img = Image.FromStream(stmBlobData);
+                ImagePic = img;
             }
-            Byte[] b = (Byte[])(db.Reader["PIC_DATA"]);
-            MemoryStream stmBlobData = new MemoryStream(b);
-            Image img = Image.FromStream(stmBlobData);
-            ImagePic = img;
+
+        }
+
+        private void colorCom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idx = colorCom.SelectedIndex;
+            label11.Text = "●";
+           // ColorCom = dbc.ColorDic.ElementAt(idx).Key;
+            label11.Font = new System.Drawing.Font("함초롬돋움", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
+      
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) // 일정 하루종일 
+        {
+            if (checkBox1.Checked == true)
+            {
+                endMin.Text = "00";
+                endMin.Enabled = false;
+                endHour.Text = "0";
+                endHour.Enabled = false;
+                strMin.Text = "00";
+                strMin.Enabled = false;
+                strHour.Text = "0";
+                strHour.Enabled = false;
+                if(StrDate.Date == EndDate.Date)//하루종일인데 날짜가 같을 경우 +1
+                {
+                    EndDate = EndDate.AddDays(1) ;
+                }
+            }
+            else
+            {
+                endMin.Enabled = true;
+                endHour.Enabled = true;
+                strMin.Enabled = true;
+                strHour.Enabled = true;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e) // 이미지 지우기 버튼 
+        {
+            ImagePic = null;
+            imagePic.BorderStyle = BorderStyle.None;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e) // 불러오기 버튼 
+        {
+            Picture pic = new Picture();
+            pic.ShowDialog();
+
         }
     }
 }
