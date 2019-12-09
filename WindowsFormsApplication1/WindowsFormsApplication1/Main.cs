@@ -63,7 +63,6 @@ namespace WindowsFormsApplication1
         { // 센터패널 설정 함수 (월간 폼 가져오기)
 
             m_focus_dt = week.Get_focus_dt();
-            MessageBox.Show(m_focus_dt.ToString());
             MainCenter_pan.Controls.Clear();
             mnt.FOCUS_DT = m_focus_dt;
             

@@ -27,11 +27,9 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             AutoScrollMinSize = new Size(int.MinValue, int.MinValue);
-            
-            Set_SC_Panel();
         }
 
-        private void clear_lbl_cr() { // MonthDay_panel.BorderStyle = BorderStyle.None;
+        private void clear_lbl_cr() {
             for (int i = 1; i < 36; i++)
             {
                 string Panel_nm = "MonthDay" + i.ToString() + "_panel"; // 해당 패널에 삽입
@@ -105,17 +103,37 @@ namespace WindowsFormsApplication1
         private void Set_SC_Panel() // 일정 패널 동적 생성, 동적 이벤트 생성
         {
             System.Windows.Forms.Panel pan;
+            System.Windows.Forms.Panel j_pan;
 
             for (int i = 1; i < 6; i++)
             {
                 string Panel_nm = "Week" + i.ToString() + "_panel"; // 해당 패널에 삽입
                 Panel WeekPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
 
+                j_pan = new Panel();
+                j_pan.VerticalScroll.Minimum = 0;
+                j_pan.VerticalScroll.Maximum = 0;
+                j_pan.VerticalScroll.Visible = false;
+                j_pan.HorizontalScroll.Minimum = 0;
+                j_pan.HorizontalScroll.Maximum = 0;
+                j_pan.HorizontalScroll.Visible = false;
+                j_pan.AutoSize = false;
+                j_pan.AutoScroll = true;
+                j_pan.Location = new System.Drawing.Point(0, 0);
+                j_pan.Name = "j_week" + i.ToString() + "_pan";
+                j_pan.Size = WeekPanel.Size;
+                j_pan.Height += 100;
+                j_pan.BackColor = Color.AliceBlue;
+
+                //j_pan.MouseWheel += new MouseEventHandler(jw_MouseWheel);
+
+                WeekPanel.Controls.Add(j_pan);
+
                 for (int j = 1; j < 8; j++)
                 {
                     int day_n = j + (7*(i-1));
 
-                    pan = new System.Windows.Forms.Panel(); // 일정 패널 동적 생성
+                    pan = new Panel(); // 일정 패널 동적 생성
                     pan.VerticalScroll.Minimum = 0;
                     pan.VerticalScroll.Maximum = 0;
                     pan.VerticalScroll.Visible = false;
@@ -126,19 +144,12 @@ namespace WindowsFormsApplication1
                     pan.AutoScroll = true;
                     pan.Location = new System.Drawing.Point(135*(j-1), 0);
                     pan.Name = "Sc" + day_n.ToString() + "_pan";
-                    pan.Size = new System.Drawing.Size(135, WeekPanel.Height);
+                    pan.Size = new System.Drawing.Size(135, 75);
 
                     pan.Click += new System.EventHandler(this.dm_pan_Click);
 
                     // 일주일 패널 추가
-                    WeekPanel.VerticalScroll.Minimum = 0;
-                    WeekPanel.VerticalScroll.Maximum = 0;
-                    WeekPanel.VerticalScroll.Visible = false;
-                    WeekPanel.HorizontalScroll.Minimum = 0;
-                    WeekPanel.HorizontalScroll.Maximum = 0;
-                    WeekPanel.HorizontalScroll.Visible = false;
-                    pan.AutoScroll = true;
-                    WeekPanel.Controls.Add(pan);
+                    j_pan.Controls.Add(pan);
                 }
             }
         }
@@ -166,9 +177,24 @@ namespace WindowsFormsApplication1
                     MonthPanel.Controls[0].Dispose();
                 }
 
-                string sc_Panel_nm = "Sc" + i.ToString() + "_pan"; ; // 해당 일정 클리어
-                Panel scPanel = (Panel)this.Controls.Find(sc_Panel_nm, true)[0];
-                scPanel.Controls.Clear();
+                //string sc_Panel_nm = "Sc" + i.ToString() + "_pan"; ; // 해당 일정 클리어
+                //Panel scPanel = (Panel)this.Controls.Find(sc_Panel_nm, true)[0];
+                //scPanel.Controls.Clear();
+            }
+
+            for (int i = 1; i < 5; i++)
+            {
+                string Panel_nm = "Week" + i.ToString() + "_panel"; // 해당 패널 클리어
+                Panel WeekPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
+                WeekPanel.VerticalScroll.Minimum = 0;
+                WeekPanel.VerticalScroll.Maximum = 0;
+                WeekPanel.VerticalScroll.Visible = false;
+                WeekPanel.HorizontalScroll.Minimum = 0;
+                WeekPanel.HorizontalScroll.Maximum = 0;
+                WeekPanel.HorizontalScroll.Visible = false;
+                WeekPanel.AutoSize = false;
+                WeekPanel.AutoScroll = true;
+                WeekPanel.Controls.Clear();
             }
 
             DateTime m_today = m_focus_dt;
@@ -233,6 +259,8 @@ namespace WindowsFormsApplication1
 
         }
 
+
+
         private void Set_Schedule(DateTime NowDay, int DayPenel_num)
         {
             // 일정 표시 함수
@@ -240,37 +268,65 @@ namespace WindowsFormsApplication1
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
 
-            string Panel_nm = "Sc" + DayPenel_num.ToString() + "_pan"; // 해당 패널에 삽입
-            Panel ScPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
+            int now_loX = 135 * ((DayPenel_num % 7)-1);
+            if (now_loX == -135) now_loX = 810;
 
-            int bs_sc = ScPanel.Controls.Count; // 이어지던 일정
-            int bs_y = 0; // 이어지는 일정의 로케이션
-            int lo_y = -25; // 이어이는 일정 위의 로케이션
-            List<int> bs_lo = new List<int>(); // 비어있는 로케이션 리스트
-            int lo_nm = 0; // 로케이션 리스트 커서
-            int add_lbl_now = 0;
-
-            if (bs_sc > 0) // 이어지던 일정이 있을 시
+            int w_n;
+            switch ((DayPenel_num-1)/7)
             {
-                for (int i = 0; i < bs_sc; i++)
-                {
-                    int now_bs = Convert.ToInt32(ScPanel.Controls[i].Name.Substring(ScPanel.Controls[i].Name.Length-1,1))-1;
-                    if (ScPanel.Controls[i].Location.Y != 25*now_bs) // 중간에 비어있는 공간이 있으면
-                    {
-                        bs_lo.Add(25 * i);
-                    }
-                }
+                case 0:
+                    w_n = 1;
+                    break;
+                case 1:
+                    w_n = 2;
+                    break;
+                case 2:
+                    w_n = 3;
+                    break;
+                case 3:
+                    w_n = 4;
+                    break;
+                default:
+                    w_n = 5;
+                    break;
+            }
 
-                if (ScPanel.Controls[0].Location.Y > 0) // 이어지던 일정이 상위에 존재하지 않을시
+            string Panel_nm = "Week" + w_n.ToString() + "_panel"; // 해당 패널에 삽입
+            Panel WeekPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
+            List<int> bs_lo = new List<int>(); // 비어있는 로케이션 리스트
+
+            int bs_sc = 0;
+            int lo_y = -25; // 이어이는 일정 위의 로케이션
+
+            for (int i = 0; i < WeekPanel.Controls.Count; i++)
+            {
+                int sc_cnt = 0;
+                int now_bs; // 현재 베이스 일정
+                string now_bs_nm = WeekPanel.Controls[i].Name;
+                int now_bs_nmL = now_bs_nm.Length;
+
+                if (DayPenel_num < 10)
                 {
-                    bs_y = ScPanel.Controls[0].Location.Y - 25;
+                    if (now_bs_nmL < 10) now_bs = Convert.ToInt32(now_bs_nm.Substring(7, now_bs_nmL - 7));
+                    else now_bs = Convert.ToInt32(now_bs_nm.Substring(11, now_bs_nmL - 11));
                 }
                 else
                 {
-                    lo_y = bs_sc;
+                    if (now_bs_nmL < 11) now_bs = Convert.ToInt32(now_bs_nm.Substring(8, now_bs_nmL - 8));
+                    else now_bs = Convert.ToInt32(now_bs_nm.Substring(12, now_bs_nmL - 12));
                 }
 
+                if (WeekPanel.Controls[i].Location.X == now_loX) // 현재 X로케이션에 존재하는 레이블만
+                {
+                    if (WeekPanel.Controls[i].Location.Y != (25 * now_bs)) bs_lo.Add(25 * bs_sc); // 중간에 비어있는 공간이 있으면
+                    if (!(sc_cnt == 0 && WeekPanel.Controls[i].Location.Y > 0)) lo_y = bs_sc; // 이어지는 레이블 로케이션 지정
+                    bs_sc++;
+                    sc_cnt++;
+                }
             }
+
+            int lo_nm = 0; // 로케이션 리스트 커서
+            int add_lbl_now = 0;
 
             System.Windows.Forms.Label label;
             for (int i = 0; i < rows.Length; i++)
@@ -279,9 +335,9 @@ namespace WindowsFormsApplication1
                 lo_y += 25;
 
                 label = new System.Windows.Forms.Label(); // 레이블 동적 생성
-                label.Location = new System.Drawing.Point(0, lo_y); // 이어지는 일정 밑에 삽입
+                label.Location = new System.Drawing.Point(now_loX, lo_y); // 이어지는 일정 밑에 삽입
                 label.Name = "sc" + lbl_nm.ToString() + "_lbl" + i.ToString();
-                label.Size = new System.Drawing.Size(ScPanel.Width, 25);
+                label.Size = new System.Drawing.Size(135, 25);
                 label.Padding = new Padding(5, 0, 5, 0);
                 label.Text = rows[i]["SC_NM"].ToString();
                 label.TextAlign = ContentAlignment.MiddleLeft;
@@ -290,13 +346,13 @@ namespace WindowsFormsApplication1
 
                 if (bs_lo.Count > lo_nm)
                 {
-                    
+
                     if (lo_y < bs_lo[lo_nm]) // 겹치는 일정에 삽입된다면
                     {
                         lo_y = bs_lo[lo_nm];
-                        label.Location = new System.Drawing.Point(0, lo_y); ;
+                        label.Location = new System.Drawing.Point(now_loX, lo_y); ;
                     }
-                    lo_nm += 1;
+                    lo_nm ++;
 
                 }
 
@@ -323,21 +379,34 @@ namespace WindowsFormsApplication1
                     if (df_time.Hours > 0 || df_time.Days > 1) // 다음날까지 이어지는 일정이라면 다음 패널에도 레이블 추가
                     {
                         if (df_time.Hours > 0) { df_time = df_time.Add(TimeSpan.FromDays(1)); } // 시간이 넘는다면 패널을 하나 더 생성
+
+                        int add_loX = now_loX;
                         for (int j = 1; j < df_time.Days; j++) // 차이나는 일자만큼 해당 패널에 추가레이블 생성
                         {
-                            if(j == 1) add_lbl_now += 1;
+                            int add_day = lbl_nm + j;
+
+                            int add_w_n = ((add_day - 1) / 7) + 1;
+                            string add_wpan_nm = "Week" + add_w_n.ToString() + "_panel";
+                            Panel add_wpan = (Panel)this.Controls.Find(add_wpan_nm, true)[0];
+
+                            add_loX += 135;
+                            if (WeekPanel.Name != add_wpan.Name)
+                            {
+                                add_loX = 135 * ((add_day % 7) - 1);
+                                if (add_loX == -135) add_loX = 810;
+                            }
+
+                            if (j == 1) add_lbl_now += 1;
                             System.Windows.Forms.Label add_label;
                             add_label = new System.Windows.Forms.Label();
-                            add_label.Location = new System.Drawing.Point(0, label.Location.Y);
-                            add_label.Name = "add_sc" + (lbl_nm + j).ToString() + "_lbl" + (bs_sc + add_lbl_now).ToString();
-                            add_label.Size = new System.Drawing.Size(ScPanel.Width, 25);
+                            add_label.Location = new System.Drawing.Point(add_loX, label.Location.Y);
+                            add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc + add_lbl_now).ToString();
+                            add_label.Size = new System.Drawing.Size(135, 25);
                             add_label.BackColor = sc_cr_bs;
-                            
-                            add_label.Click += new System.EventHandler(this.dm_sc_Click);
 
-                            string Add_Panel_nm = "Sc" + (DayPenel_num+j).ToString() + "_pan"; // 해당 패널에 삽입
-                            Panel Add_ScPanel = (Panel)this.Controls.Find(Add_Panel_nm, true)[0];
-                            Add_ScPanel.Controls.Add(add_label);
+                            add_label.Click += new System.EventHandler(this.dm_sc_Click);
+                            
+                            add_wpan.Controls.Add(add_label);
                         }
                     }
                 }
@@ -347,16 +416,14 @@ namespace WindowsFormsApplication1
                     label.ForeColor = sc_cr_bs;
                 }
 
-
-                ScPanel.Controls.Add(label); // 패널에 레이블 추가
+                WeekPanel.Controls.Add(label); // 패널에 레이블 추가
             }
-
+            
         }
 
         private void Month_Load(object sender, EventArgs e)
         {
             Set_Month_Today(); // 오늘 날짜 세팅
-
         }
 
         private void LastMonth_btn_Click(object sender, EventArgs e) // 전 달 보기
