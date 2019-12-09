@@ -25,15 +25,17 @@ namespace WindowsFormsApplication1
         int checkHeight = 0;
         int[,] location = new int[10,2];
 
-      DateTime nowDate = new DateTime( 2019,12, 24); // 생성자에 넣어서 월간에서 넘겨 받는다
+        DateTime nowDate; // 생성자에 넣어서 월간에서 넘겨 받는다
 
         private bool dragging = false;
         private Point offset;
 
-        public Day()//DateTime date
+        public Day(DateTime nowDate)//DateTime date
         {
             InitializeComponent();
             pre = null;
+            this.nowDate = nowDate;
+
         }
         public enum color
         {
