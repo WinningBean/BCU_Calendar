@@ -79,8 +79,8 @@ namespace WindowsFormsApplication1
         {
             // Insert_Schedule(사용자/그룹구분, 사용자/그룹 코드, 일정제목, 일정내용, 공개상태, 시작일시, 종료일시, 사진fk, 컬러fk)
 
-            string st_day_str = st_day.ToString("yyyy/MM/dd hh24:mi"); // 시작일시 스트링 포맷
-            string end_day_str = end_day.ToString("yyyy/MM/dd hh24:mi"); // 시작일시 스트링 포맷
+            string st_day_str = st_day.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+            string end_day_str = end_day.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
 
             sql = "insert into SCHEDULE_TB values('S'||to_char(seq_sccd.NEXTVAL), '" + title + "', ";
 
@@ -117,7 +117,7 @@ namespace WindowsFormsApplication1
         {
             // Update_Schedule overloading - 시작일시, 종료일시 업데이트
             // Update_Schedule(스케줄코드, 업데이트될 컬럼명, 업데이트 데이터)
-            string sc_data_str = sc_data.ToString("yyyy/MM/dd hh24:mi");
+            string sc_data_str = sc_data.ToString("yyyy/MM/dd H:mm");
             sql = "update SCHEDULE_TB set " + column_name + " = to_date('" + sc_data + "', 'yyyy/MM/dd hh24:mi') where SC_CD = '" + sc_cd + "'";
             db.ExecuteNonQuery(sql);
         }
