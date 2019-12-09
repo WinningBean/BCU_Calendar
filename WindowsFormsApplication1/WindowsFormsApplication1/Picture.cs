@@ -17,6 +17,10 @@ namespace WindowsFormsApplication1
     {
         const int WHEELSPEED = 25;
         bool isZoomBtn;
+        bool isNotMain = false;
+
+        public string selectCD;
+        public Image selectImage;
 
         DBConnection db = Program.DB;
         DataSet PictureDS = null;
@@ -28,6 +32,29 @@ namespace WindowsFormsApplication1
 
         Panel insidePan;
 
+        public Picture()
+        {
+            InitializeComponent();
+            // 생성시 초기화
+            this.Size = new Size(this.Size.Width, 689);
+            Picture_pan.Size = new Size(Picture_pan.Size.Width, 689 - 68);
+            pictureLocation = 0;
+            rowNum = 0;
+            isZoomBtn = true;
+            Picture_pan.VerticalScroll.Maximum = 0;
+            Picture_pan.VerticalScroll.Maximum = 0;
+            Picture_pan.VerticalScroll.Visible = false;
+            Picture_pan.AutoScroll = true;
+            widthPanList = new List<Panel>();
+
+            // 패널 안에 똑같은 패널을 만든다 
+            // why? : 바깥 패널 안에있는 패널에 사진을넣고 위치값을 바꿀경우 위치가 변해도 바깥 패널밖으로 나가지않음
+            insidePan = new Panel();
+            insidePan.Size = new Size(Picture_pan.Size.Width, 0);
+            insidePan.Location = new Point(0, 0);
+            // 안 패널을 바깥패널에 넣는다
+            Picture_pan.Controls.Add(insidePan);
+        }
 
         public Picture(Main main)
         {
@@ -389,15 +416,24 @@ namespace WindowsFormsApplication1
 
         private void OnPicClick(object sender, EventArgs e)
         { // 삭제기능 구현
-            int rowNum = Int32.Parse(((PictureBox)sender).Name);
-            Picture_Modify pm = new Picture_Modify(drList[rowNum]);
-            DialogResult dr = pm.ShowDialog();
-            if(dr == DialogResult.No) // 삭제를 눌렀다면
+            if (isNotMain)
             {
-                PictureClear();
-                PictureLoad();
-                preDate = new DateTime(); // PictureShow 에서 preDate로 현재날짜와 전날짜를 비교한다
-                PictureShow();
+                selectCD = ((PictureBox)sender).Name;
+                selectImage = ((PictureBox)sender).Image;
+                Close();
+            }
+            else
+            {
+                int rowNum = Int32.Parse(((PictureBox)sender).Name);
+                Picture_Modify pm = new Picture_Modify(drList[rowNum]);
+                DialogResult dr = pm.ShowDialog();
+                if (dr == DialogResult.No) // 삭제를 눌렀다면
+                {
+                    PictureClear();
+                    PictureLoad();
+                    preDate = new DateTime(); // PictureShow 에서 preDate로 현재날짜와 전날짜를 비교한다
+                    PictureShow();
+                }
             }
         }
 
