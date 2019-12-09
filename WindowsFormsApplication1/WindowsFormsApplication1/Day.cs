@@ -287,9 +287,7 @@ namespace WindowsFormsApplication1
             day.AutoSize = true;
             day.AutoScroll = false;
             day.Location = new Point(0, 70);
-            day.MouseDown += new MouseEventHandler(Panel_MouseDown);
-            day.MouseMove += new MouseEventHandler(Panel_MouseMove);
-            day.MouseUp += new MouseEventHandler(Panel_MouseUp);
+
 
             paintPan.Location = new Point(0, 0);
             paintPan.Size = new Size(2910, 70);
@@ -450,29 +448,7 @@ namespace WindowsFormsApplication1
             }
 
         }
-       private void Panel_MouseDown(object sender, MouseEventArgs e)
-        {
-            dragging = true;
-            offset = new Point(e.X, e.Y);
-        }
-
-        private void Panel_MouseMove(object sender, MouseEventArgs e)
-        {
-           
-                if (dragging)
-                {
-                    Panel selPanel = (Panel)sender;
-                    selPanel.Left = e.X + selPanel.Left - offset.X;
-                    selPanel.Top = e.Y + selPanel.Top - offset.Y;
-                }
-            
-          
-        }
-
-        private void Panel_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-        }
+    
 
         private void 확인_Click(object sender, EventArgs e)
         {
