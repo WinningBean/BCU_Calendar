@@ -363,6 +363,8 @@ namespace WindowsFormsApplication1
         {
             Picture pic = new Picture();
             pic.ShowDialog();
+            pic_CD = pic.selectCD;
+            ImagePic = pic.selectImage;
 
         }
     }
