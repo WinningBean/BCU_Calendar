@@ -17,12 +17,19 @@ namespace WindowsFormsApplication1
         DBConnection db = Program.DB;
         DBSchedule dbs = new DBSchedule();
         Panel paintPan = new Panel();
+      
+        Panel day = new Panel();
         Panel pre = new Panel();
         DataTable GET_DAY_SC_TB = null;
 
-        DateTime nowDate = new DateTime( 2019,12, 25); // 생성자에 넣어서 월간에서 넘겨 받는다
+        int checkHeight = 0;
+        int[,] location = new int[10,2];
 
-        
+      DateTime nowDate = new DateTime( 2019,12, 24); // 생성자에 넣어서 월간에서 넘겨 받는다
+
+        private bool dragging = false;
+        private Point offset;
+
         public Day()//DateTime date
         {
             InitializeComponent();
@@ -36,16 +43,10 @@ namespace WindowsFormsApplication1
         private void Get_chedule()
         {
             db.UR_CD = "U100000";
-          
-            string sql = "select * from SCHEDULE_TB where SC_UR_FK = 'U100000' and SC_STR_DT >= '2019-12-25' and SC_STR_DT < '2019-12-26'";
-            db.AdapterOpen(sql);
-            DataSet ds = new DataSet();
-            db.Adapter.Fill(ds, "GET_DAY_SC_TB");
-         
-            GET_DAY_SC_TB = ds.Tables["GET_DAY_SC_TB"];
- 
+            GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, "U100000", nowDate);
+
             for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
-            {
+            {   
                 DataRow currRow = GET_DAY_SC_TB.Rows[i];
                 Create_Day(currRow, i);
             }
@@ -54,30 +55,64 @@ namespace WindowsFormsApplication1
 
         private void Check(Panel curr, Label name, Label color)
         {
-            if (pre.Top == curr.Top && ((pre.Left < curr.Left && pre.Right > curr.Left) || (pre.Left < curr.Right && pre.Right > curr.Right)))
+            if (location[curr.TabIndex,1] != 0)
             {
-                curr.Location = new Point(curr.Location.X, curr.Location.Y + 120);
-                name.Location = new Point(name.Location.X, name.Location.Y + 120);
-                color.Location = new Point(color.Location.X, color.Location.Y + 120);
-                Check(curr, name, color);
-            }
 
+                if (location[curr.TabIndex,0] == curr.Left || location[curr.TabIndex,1] > curr.Left)
+                {
+                    curr.Location = new Point(curr.Location.X, curr.Location.Y + 120);
+                    name.Location = new Point(name.Location.X, name.Location.Y + 120);
+                    color.Location = new Point(color.Location.X, color.Location.Y + 120);
+                    curr.TabIndex++;
+                    Check(curr, name, color);
+
+                }
+                else
+                {
+                    location[curr.TabIndex,0] = curr.Left;
+                    location[curr.TabIndex,1] = curr.Right;
+                }
+            }
+            else
+            {
+                location[curr.TabIndex,0] = curr.Left;
+                location[curr.TabIndex,1] = curr.Right;
+
+                if (pre.TabIndex < curr.TabIndex)
+                {
+                    checkHeight = curr.TabIndex;
+                }
+               
+            }
             pre = curr;
         }
 
         private void Create_Day(DataRow dr, int i)
         {
-            int y = 100;
+            int y = 0;
+            
             Color color = randomColor();
             DateTime strSC = Convert.ToDateTime(dr[4].ToString()); 
             DateTime endSC = Convert.ToDateTime(dr[5].ToString());
-            int scheduleTimeSize = (endSC.Hour * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
+
+            int scheduleTimeSize;
+
+            if (endSC.Hour == 0)
+            {
+                scheduleTimeSize = (24 * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
+            }
+            else
+            {
+               scheduleTimeSize = (endSC.Hour * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
+            }
+            
 
             Panel cre = new Panel();
             cre.Size = new Size(scheduleTimeSize,80);
             cre.Location = new Point(strSC.Hour * 120 + strSC.Minute * 2 + 10, y);
-            cre.BorderStyle = BorderStyle.FixedSingle;
-            cre.TabIndex = i;
+           // cre.BorderStyle = BorderStyle.FixedSingle;
+            cre.TabIndex = 0;
+            cre.Tag = i;
             cre.BackColor = color;
            // cre.Click += new EventHandler(Schedule_Click);
 
@@ -126,25 +161,24 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-       
 
-            paintPan.Controls.Add(cre);
-            paintPan.Controls.Add(scheduleName);
-            paintPan.Controls.Add(scheduleNameColor);
+
+            day.Controls.Add(cre);
+            day.Controls.Add(scheduleName);
+            day.Controls.Add(scheduleNameColor);
             cre.Controls.Add(label);
-
-
-
 
             if (pre == null)
             {
                 pre = cre;
+                checkHeight = pre.TabIndex;
+
             }
             else
             {
-                Check(cre, scheduleName, scheduleNameColor);  
+                Check(cre, scheduleName, scheduleNameColor);
             }
-        
+
         }
 
         private Image FineImage(DataRow dr, int i)
@@ -167,8 +201,8 @@ namespace WindowsFormsApplication1
             //int imgHeight = (int)((float)img.Height / hpercent);
             //int imgWidth = (int)((float)img.Width / wpercent);
 
-            pb.Size = new Size(120, 80);
-            pb.Location = new Point(0,0);
+            pb.Size = new Size(115, 80);
+            pb.Location = new Point(5,0);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             pb.TabIndex = i;
             pb.Image = img;
@@ -211,36 +245,18 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < 25; i++)
             {
                 Panel pan = new Panel();
-                graphics.DrawLine(pen, x, 0, x, 47);
+                graphics.DrawLine(pen, x, 0, x, 30);
                 x += 120;
+               // paintPan.Controls.Add(pan);
             }
             for (int i = 0; i < 25; i++)
             {
                 Panel pan = new Panel();
-                graphics.DrawLine(pen, y, 0, y, 20);
+                graphics.DrawLine(pen, y, 0, y, 15);
                 y += 120;
+               // paintPan.Controls.Add(pan);
             }
-        }
-
-        private void Day_Load(object sender, EventArgs e)
-        {
-            
-            paintPan.Location = new Point(0, 0);
-            paintPan.Size = new Size(2910, 325);
-            paintPan.Show();
-            paintPan.Paint += new System.Windows.Forms.PaintEventHandler(Draw_Line);
-
-            panel2.Controls.Add(paintPan);
-
-            Draw_Time();
-            panel2.VerticalScroll.Maximum = 0;
-            panel2.HorizontalScroll.Maximum = 0;
-            panel2.VerticalScroll.Visible = false;
-            panel2.AutoScroll = true;
-
-            Get_chedule();
-            Get_TodoList();
-
+        
         }
         private void Draw_Time()
         {
@@ -252,7 +268,7 @@ namespace WindowsFormsApplication1
 
 
                 timeLable.AutoSize = true;
-                timeLable.Location = new Point(x, 55);
+                timeLable.Location = new Point(x, 40);
 
                 //pan.BorderStyle = BorderStyle.FixedSingle;
 
@@ -264,20 +280,62 @@ namespace WindowsFormsApplication1
                 paintPan.Controls.Add(timeLable);
 
             }
-            }
+        }
+        private void Day_Load(object sender, EventArgs e)
+        {
+            label1.Text = nowDate.ToString("yyyy년mm월dd일 ddd"); 
+            day.AutoSize = true;
+            day.AutoScroll = false;
+            day.Location = new Point(0, 70);
+            day.MouseDown += new MouseEventHandler(Panel_MouseDown);
+            day.MouseMove += new MouseEventHandler(Panel_MouseMove);
+            day.MouseUp += new MouseEventHandler(Panel_MouseUp);
+
+            paintPan.Location = new Point(0, 0);
+            paintPan.Size = new Size(2910, 70);
+            paintPan.Show();
+            paintPan.Paint += new System.Windows.Forms.PaintEventHandler(Draw_Line);
+            paintPan.BackColor = Color.Transparent;
+
+            panel2.Controls.Add(paintPan);
+            panel2.Controls.Add(day);
+            panel2.Size = new Size(595, 810);
+
+            Draw_Time();
+            panel2.VerticalScroll.Maximum = 0;
+            panel2.HorizontalScroll.Maximum = 0;
+            panel2.VerticalScroll.Visible = false;
+            panel2.VerticalScroll.Enabled = true;
+            panel2.AutoScroll = true;
+
+
+            button1.Enabled = false;
+
+            Get_chedule();
+            Get_TodoList();
+           
+
+        }
+       
 
         private void Label_Click(object render, EventArgs e)
         {
             Label myPan = (Label)render;
             int i = myPan.TabIndex;
             DataRow curr = GET_DAY_SC_TB.Rows[i];
+            DateTime strSC = Convert.ToDateTime(curr[4].ToString());
+            DateTime endSC = Convert.ToDateTime(curr[5].ToString());
 
             ModifySchedule dlg = new ModifySchedule();
             dlg.NameTxt = curr["SC_NM"].ToString();
             dlg.ExTxt = curr["SC_EX"].ToString();
             dlg.StrDate = (DateTime)curr["SC_STR_DT"];
             dlg.EndDate = (DateTime)curr["SC_END_DT"];
-            dlg.StateCheck = Convert.ToInt32( curr["SC_PB_ST"]);
+            dlg.StrHour = strSC.Hour.ToString();
+            dlg.StrMin = strSC.Minute.ToString();
+            dlg.EndHour = endSC.Hour.ToString();
+            dlg.EndMin = endSC.Minute.ToString();
+            // dlg.StateCheck = Convert.ToInt32( curr["SC_PB_ST"]);
 
             string sql = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
             db.ExecuteReader(sql);
@@ -310,12 +368,19 @@ namespace WindowsFormsApplication1
             PictureBox myPic = (PictureBox)render;
             int i = myPic.TabIndex;
             DataRow curr = GET_DAY_SC_TB.Rows[i];
+            DateTime strSC = Convert.ToDateTime(curr[4].ToString());
+            DateTime endSC = Convert.ToDateTime(curr[5].ToString());
 
             ModifySchedule dlg = new ModifySchedule();
             dlg.NameTxt = curr["SC_NM"].ToString();
             dlg.ExTxt = curr["SC_EX"].ToString();
-            dlg.StrDate = (DateTime)curr["SC_STR_DT"];
-            dlg.EndDate = (DateTime)curr["SC_END_DT"];
+            dlg.StrDate = strSC;
+            dlg.EndDate = endSC;
+            dlg.StrHour = strSC.Hour.ToString();
+            dlg.StrMin = strSC.Minute.ToString();
+            dlg.EndHour = endSC.Hour.ToString();
+            dlg.EndMin = endSC.Minute.ToString();
+
             //dlg.StateCheck = true;
 
             string sql = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
@@ -385,10 +450,58 @@ namespace WindowsFormsApplication1
             }
 
         }
+       private void Panel_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            offset = new Point(e.X, e.Y);
+        }
+
+        private void Panel_MouseMove(object sender, MouseEventArgs e)
+        {
+           
+                if (dragging)
+                {
+                    Panel selPanel = (Panel)sender;
+                    selPanel.Left = e.X + selPanel.Left - offset.X;
+                    selPanel.Top = e.Y + selPanel.Top - offset.Y;
+                }
+            
+          
+        }
+
+        private void Panel_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        }
 
         private void 확인_Click(object sender, EventArgs e)
         {
-            this.Close();
+            button1.Enabled = true;
+            if (day.Location.Y < - (checkHeight+1)*110+340+80)
+            { // 최대일정깊이? * 110(일정하나의 크기) + 340(폼에서 한번에 보이는 크기) +(원래 위치)
+            
+                Down.Enabled = false;
+            }
+            day.Location = new Point(day.Location.X, day.Location.Y - 80);
+           
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Down.Enabled = true;
+            if (day.Location.Y == -10)
+            {
+                day.Location = new Point(day.Location.X, day.Location.Y + 80);
+                button1.Enabled = false;
+                
+            }
+            else
+            {
+                day.Location = new Point(day.Location.X, day.Location.Y + 80);
+            }
+           
+        }
+
+  
     }
 }
