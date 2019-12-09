@@ -78,6 +78,12 @@
     <Compile Include="Day.Designer.cs">
       <DependentUpon>Day.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diary.Designer.cs">
+      <DependentUpon>Diary.cs</DependentUpon>
+    </Compile>
     <Compile Include="FriendCheck.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Day.resx">
       <DependentUpon>Day.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diary.resx">
+      <DependentUpon>Diary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FriendCheck.resx">
       <DependentUpon>FriendCheck.cs</DependentUpon>
