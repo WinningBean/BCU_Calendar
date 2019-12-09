@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
-            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'ORDER BY  SC_STR_DT ASC";
 
             DS = new DataSet();
             db.AdapterOpen(sql);
@@ -66,7 +66,7 @@ namespace WindowsFormsApplication1
             return GET_DAY_SC_TB;
         }
 
-        public void Insert_Schedule(Boolean is_UR, string m_URorGR_CD, string title, string ex, int st, DateTime st_day, DateTime end_day, string p_fk , string cr_fk)
+        public void Insert_Schedule(Boolean is_UR, string m_URorGR_CD, string title, string ex, int st, DateTime st_day, DateTime end_day, object p_fk , object cr_fk)
         {
             // Insert_Schedule(사용자/그룹구분, 사용자/그룹 코드, 일정제목, 일정내용, 공개상태, 시작일시, 종료일시, 사진fk, 컬러fk)
 
