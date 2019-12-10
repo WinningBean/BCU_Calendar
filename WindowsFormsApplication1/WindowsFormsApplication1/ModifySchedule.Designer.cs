@@ -49,29 +49,32 @@
             this.strMin = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.endMin = new System.Windows.Forms.ComboBox();
-            this.endHour = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.colorCom = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.endMin = new System.Windows.Forms.ComboBox();
+            this.endHour = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.imagePic)).BeginInit();
             this.SuspendLayout();
             // 
             // strDate
             // 
             this.strDate.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.strDate.Location = new System.Drawing.Point(130, 191);
+            this.strDate.Location = new System.Drawing.Point(130, 169);
             this.strDate.Name = "strDate";
             this.strDate.Size = new System.Drawing.Size(149, 30);
             this.strDate.TabIndex = 0;
             // 
             // endDate
             // 
-            this.endDate.Location = new System.Drawing.Point(130, 237);
+            this.endDate.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.endDate.Location = new System.Drawing.Point(130, 213);
             this.endDate.Name = "endDate";
-            this.endDate.Size = new System.Drawing.Size(149, 25);
+            this.endDate.Size = new System.Drawing.Size(149, 30);
             this.endDate.TabIndex = 1;
             // 
             // label1
@@ -88,7 +91,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(26, 190);
+            this.label2.Location = new System.Drawing.Point(26, 169);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 26);
             this.label2.TabIndex = 3;
@@ -98,7 +101,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(26, 286);
+            this.label4.Location = new System.Drawing.Point(26, 299);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 26);
             this.label4.TabIndex = 5;
@@ -108,7 +111,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(26, 236);
+            this.label5.Location = new System.Drawing.Point(26, 213);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 26);
             this.label5.TabIndex = 6;
@@ -117,9 +120,9 @@
             // imagePic
             // 
             this.imagePic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imagePic.Location = new System.Drawing.Point(130, 286);
+            this.imagePic.Location = new System.Drawing.Point(130, 299);
             this.imagePic.Name = "imagePic";
-            this.imagePic.Size = new System.Drawing.Size(255, 130);
+            this.imagePic.Size = new System.Drawing.Size(241, 131);
             this.imagePic.TabIndex = 7;
             this.imagePic.TabStop = false;
             // 
@@ -127,7 +130,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(45, 34);
+            this.label3.Location = new System.Drawing.Point(45, 24);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 26);
             this.label3.TabIndex = 8;
@@ -137,7 +140,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(26, 81);
+            this.label6.Location = new System.Drawing.Point(26, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 26);
             this.label6.TabIndex = 9;
@@ -146,7 +149,7 @@
             // exTxt
             // 
             this.exTxt.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.exTxt.Location = new System.Drawing.Point(130, 81);
+            this.exTxt.Location = new System.Drawing.Point(130, 70);
             this.exTxt.Multiline = true;
             this.exTxt.Name = "exTxt";
             this.exTxt.Size = new System.Drawing.Size(235, 89);
@@ -155,7 +158,7 @@
             // nameTxt
             // 
             this.nameTxt.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.nameTxt.Location = new System.Drawing.Point(130, 34);
+            this.nameTxt.Location = new System.Drawing.Point(130, 24);
             this.nameTxt.Name = "nameTxt";
             this.nameTxt.Size = new System.Drawing.Size(140, 33);
             this.nameTxt.TabIndex = 11;
@@ -164,7 +167,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(26, 486);
+            this.label7.Location = new System.Drawing.Point(26, 491);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 26);
             this.label7.TabIndex = 12;
@@ -174,7 +177,7 @@
             // 
             this.stateCheck.AutoSize = true;
             this.stateCheck.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.stateCheck.Location = new System.Drawing.Point(130, 486);
+            this.stateCheck.Location = new System.Drawing.Point(130, 491);
             this.stateCheck.Name = "stateCheck";
             this.stateCheck.Size = new System.Drawing.Size(91, 30);
             this.stateCheck.TabIndex = 13;
@@ -183,7 +186,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(146, 539);
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(177, 556);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 14;
@@ -193,7 +197,8 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(265, 539);
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button2.Location = new System.Drawing.Point(290, 556);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 15;
@@ -203,16 +208,17 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(407, 393);
+            this.button3.Location = new System.Drawing.Point(392, 408);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 16;
             this.button3.Text = "불러오기";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(407, 357);
+            this.button4.Location = new System.Drawing.Point(392, 373);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 17;
@@ -222,26 +228,28 @@
             // 
             // strHour
             // 
+            this.strHour.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.strHour.FormattingEnabled = true;
-            this.strHour.Location = new System.Drawing.Point(289, 191);
+            this.strHour.Location = new System.Drawing.Point(289, 169);
             this.strHour.Name = "strHour";
-            this.strHour.Size = new System.Drawing.Size(42, 23);
+            this.strHour.Size = new System.Drawing.Size(42, 30);
             this.strHour.TabIndex = 19;
             this.strHour.SelectedIndexChanged += new System.EventHandler(this.strHour_SelectedIndexChanged);
             // 
             // strMin
             // 
+            this.strMin.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.strMin.FormattingEnabled = true;
-            this.strMin.Location = new System.Drawing.Point(371, 190);
+            this.strMin.Location = new System.Drawing.Point(367, 172);
             this.strMin.Name = "strMin";
-            this.strMin.Size = new System.Drawing.Size(48, 23);
+            this.strMin.Size = new System.Drawing.Size(48, 30);
             this.strMin.TabIndex = 20;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label8.Location = new System.Drawing.Point(337, 195);
+            this.label8.Location = new System.Drawing.Point(337, 176);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(24, 19);
             this.label8.TabIndex = 21;
@@ -250,42 +258,27 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(193, 450);
+            this.label11.Font = new System.Drawing.Font("함초롬돋움", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label11.Location = new System.Drawing.Point(227, 447);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(53, 15);
+            this.label11.Size = new System.Drawing.Size(39, 33);
             this.label11.TabIndex = 25;
-            this.label11.Text = "label11";
+            this.label11.Text = "●";
             // 
-            // endMin
+            // colorCom
             // 
-            this.endMin.FormattingEnabled = true;
-            this.endMin.Location = new System.Drawing.Point(371, 237);
-            this.endMin.Name = "endMin";
-            this.endMin.Size = new System.Drawing.Size(48, 23);
-            this.endMin.TabIndex = 24;
-            // 
-            // endHour
-            // 
-            this.endHour.FormattingEnabled = true;
-            this.endHour.Location = new System.Drawing.Point(289, 237);
-            this.endHour.Name = "endHour";
-            this.endHour.Size = new System.Drawing.Size(42, 23);
-            this.endHour.TabIndex = 23;
-            this.endHour.SelectedIndexChanged += new System.EventHandler(this.endHour_SelectedIndexChanged);
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(130, 447);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(48, 23);
-            this.comboBox5.TabIndex = 27;
+            this.colorCom.FormattingEnabled = true;
+            this.colorCom.Location = new System.Drawing.Point(130, 452);
+            this.colorCom.Name = "colorCom";
+            this.colorCom.Size = new System.Drawing.Size(91, 23);
+            this.colorCom.TabIndex = 27;
+            this.colorCom.SelectedIndexChanged += new System.EventHandler(this.colorCom_SelectedIndexChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label12.Location = new System.Drawing.Point(26, 442);
+            this.label12.Location = new System.Drawing.Point(26, 447);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(88, 26);
             this.label12.TabIndex = 28;
@@ -295,7 +288,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label9.Location = new System.Drawing.Point(337, 240);
+            this.label9.Location = new System.Drawing.Point(337, 224);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(24, 19);
             this.label9.TabIndex = 29;
@@ -305,7 +298,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label10.Location = new System.Drawing.Point(421, 194);
+            this.label10.Location = new System.Drawing.Point(421, 177);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(24, 19);
             this.label10.TabIndex = 30;
@@ -315,25 +308,69 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label13.Location = new System.Drawing.Point(421, 240);
+            this.label13.Location = new System.Drawing.Point(421, 221);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(24, 19);
             this.label13.TabIndex = 31;
             this.label13.Text = "분";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox1.ForeColor = System.Drawing.Color.Crimson;
+            this.checkBox1.Location = new System.Drawing.Point(372, 249);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(110, 30);
+            this.checkBox1.TabIndex = 32;
+            this.checkBox1.Text = "하루종일";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(392, 335);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 33;
+            this.button5.Text = "지우기";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // endMin
+            // 
+            this.endMin.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.endMin.FormattingEnabled = true;
+            this.endMin.Location = new System.Drawing.Point(367, 213);
+            this.endMin.Name = "endMin";
+            this.endMin.Size = new System.Drawing.Size(48, 30);
+            this.endMin.TabIndex = 34;
+            // 
+            // endHour
+            // 
+            this.endHour.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.endHour.FormattingEnabled = true;
+            this.endHour.Location = new System.Drawing.Point(289, 221);
+            this.endHour.Name = "endHour";
+            this.endHour.Size = new System.Drawing.Size(42, 30);
+            this.endHour.TabIndex = 35;
+            // 
             // ModifySchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(536, 591);
+            this.Controls.Add(this.endHour);
+            this.Controls.Add(this.endMin);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.colorCom);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.endMin);
-            this.Controls.Add(this.endHour);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.strMin);
             this.Controls.Add(this.strHour);
@@ -387,12 +424,14 @@
         private System.Windows.Forms.ComboBox strMin;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox endMin;
-        private System.Windows.Forms.ComboBox endHour;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox colorCom;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ComboBox endMin;
+        private System.Windows.Forms.ComboBox endHour;
     }
 }

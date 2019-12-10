@@ -97,8 +97,8 @@ namespace WindowsFormsApplication1
         {
             isShowPic = false; // 사진폼 띄우지않음
 
-            m_Today_lbl.Text = sc_db.TODAY.ToString("yyyy.MM.dd"); // 오늘 날짜 설정
-            mnt.FOCUS_DT = week.FOCUS_DT = m_focus_dt = sc_db.TODAY;
+            //m_Today_lbl.Text = sc_db.TODAY.ToString("yyyy.MM.dd"); // 오늘 날짜 설정
+            //mnt.FOCUS_DT = week.FOCUS_DT = m_focus_dt = sc_db.TODAY;
 
             setCenterMonthPanel(); // 월간보기로 기본설정
             Set_UserProfile();
@@ -194,5 +194,11 @@ namespace WindowsFormsApplication1
             }
 
        }
+
+        private void 일정추가ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ModifySchedule modifySchedule = new ModifySchedule();
+            modifySchedule.ShowDialog();
+        }
     }
 }

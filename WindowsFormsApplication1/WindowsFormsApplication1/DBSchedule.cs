@@ -101,12 +101,12 @@ namespace WindowsFormsApplication1
             return GET_DAY_SC_TB;
         }
 
-        public void Insert_Schedule(Boolean is_UR, string m_URorGR_CD, string title, string ex, int st, DateTime st_day, DateTime end_day, object p_fk , object cr_fk)
+        public void Insert_Schedule(Boolean is_UR, string m_URorGR_CD, string title, string ex, int st, DateTime st_day, DateTime end_day, string p_fk , string cr_fk)
         {
             // Insert_Schedule(사용자/그룹구분, 사용자/그룹 코드, 일정제목, 일정내용, 공개상태, 시작일시, 종료일시, 사진fk, 컬러fk)
 
-            string st_day_str = st_day.ToString("yyyy/MM/dd hh24:mi"); // 시작일시 스트링 포맷
-            string end_day_str = end_day.ToString("yyyy/MM/dd hh24:mi"); // 시작일시 스트링 포맷
+            string st_day_str = st_day.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+            string end_day_str = end_day.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
 
             sql = "insert into SCHEDULE_TB values('S'||to_char(seq_sccd.NEXTVAL), '" + title + "', ";
 

@@ -36,6 +36,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             // 생성시 초기화
+            isNotMain = true;
             this.Size = new Size(this.Size.Width, 689);
             Picture_pan.Size = new Size(Picture_pan.Size.Width, 689 - 68);
             pictureLocation = 0;
