@@ -126,8 +126,8 @@ namespace WindowsFormsApplication1
 
 
             Panel cre = new Panel();
-            cre.Size = new Size(scheduleTimeSize,80);
-            cre.Location = new Point(strSC.Hour * 120 + strSC.Minute * 2 + 30, y);
+            cre.Size = new System.Drawing.Size(scheduleTimeSize,80);
+            cre.Location = new System.Drawing.Point(strSC.Hour * 120 + strSC.Minute * 2 + 30, y);
            // cre.BorderStyle = BorderStyle.FixedSingle;
             cre.TabIndex = 0;
             cre.Tag = i;
@@ -138,20 +138,20 @@ namespace WindowsFormsApplication1
             Label scheduleNameColor = new Label();
             scheduleNameColor.ForeColor = color;
             scheduleNameColor.Text = "●";
-            scheduleNameColor.Size = new Size(30, 30);
-            scheduleNameColor.Location = new Point(cre.Location.X, cre.Location.Y + 80);
+            scheduleNameColor.Size = new System.Drawing.Size(30, 30);
+            scheduleNameColor.Location = new System.Drawing.Point(cre.Location.X, cre.Location.Y + 80);
             scheduleNameColor.Font=new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Label scheduleName = new Label();
             scheduleName.Text = dr[1].ToString();
-            scheduleName.Size = new Size(scheduleTimeSize - 30, 30);
-            scheduleName.Location = new Point(scheduleNameColor.Location.X + 30, scheduleNameColor.Location.Y);
+            scheduleName.Size = new System.Drawing.Size(scheduleTimeSize - 30, 30);
+            scheduleName.Location = new System.Drawing.Point(scheduleNameColor.Location.X + 30, scheduleNameColor.Location.Y);
             scheduleName.Font = new System.Drawing.Font("함초롬돋움",12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Label label = new Label();
             label.Text = dr[2].ToString();
             label.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            label.Size = new Size(scheduleTimeSize, 80);
+            label.Size = new System.Drawing.Size(scheduleTimeSize, 80);
             label.TabIndex = i;
             label.Click += new EventHandler(Label_Click);
 
@@ -228,35 +228,21 @@ namespace WindowsFormsApplication1
             pb.Show();
         }
 
-        private Color SelectColor(color c) // 지정한 색을 리턴
-        {
-            switch (c)
-            {
-                case color.Green: // 투명도 0 ~ 255
-                    return Color.FromArgb(100, 85, 239, 196);// green
-                case color.Yellow:
-                    return Color.FromArgb(100, 253, 203, 110); // yellow
-                case color.Orange:
-                    return Color.FromArgb(100, 225, 112, 85); //orange
-                case color.Mint:
-                    return Color.FromArgb(100, 129, 236, 236); //mint
-                case color.Gray:
-                    return Color.FromArgb(100, 178, 190, 195); // gray
-            }
-            return Color.FromArgb(50, 0, 255, 0); // 기본 컬러
-        }
 
         private void Draw_Line(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            int x = 30;
-            int y = 90;
-            Label label = new Label();
-            label.Size = new Size(30, 70);
+            int x = 40;
+            int y = 100;
+           Button label = new Button();
+            label.Size = new System.Drawing.Size(30, 70);
             paintPan.Controls.Add(label);
-            label.Location = new Point(0, 0);
-            label.Text = " ◀";
-            label.Click += new System.EventHandler(preDay_Click); 
-            label.Font = new System.Drawing.Font("함초롬돋움", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label.Location = new System.Drawing.Point(0, 0);
+            label.Text = "◀";
+            label.Click += new System.EventHandler(preDay_Click);
+            label.BackColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            label.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            label.FlatAppearance.BorderSize = 0;
+            label.Font = new System.Drawing.Font("함초롬돋움", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             Graphics graphics = e.Graphics;
             Pen pen = new Pen(Color.Black);
 
@@ -275,17 +261,17 @@ namespace WindowsFormsApplication1
                // paintPan.Controls.Add(pan);
             }
 
-            Label label1 = new Label();
-            label1.Size = new Size(30, 70);
+            Button label1 = new Button();
+            label1.Size = new System.Drawing.Size(30, 70);
             paintPan.Controls.Add(label1);
-            label1.Location = new Point(2950, 0);
-            label1.Text = " ▶";
+            label1.Location = new System.Drawing.Point(2950, 0);
+            label1.Text = "▶";
             label1.Click += new System.EventHandler(nextDay_Click);
-            label1.Font = new System.Drawing.Font("함초롬돋움", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label1.Font = new System.Drawing.Font("함초롬돋움", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
         }
         private void Draw_Time()
         {
-            int x = 21;
+            int x = 31;
             for (int i = 0; i < 25; i++)
             {
                 Label timeLable = new Label();
@@ -299,7 +285,7 @@ namespace WindowsFormsApplication1
 
                 timeLable.TextAlign = ContentAlignment.TopRight;
                 timeLable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                timeLable.ForeColor = Color.Black;
+                timeLable.ForeColor = System.Drawing.Color.Black;
                 x += 120;
                 timeLable.Show();
                 paintPan.Controls.Add(timeLable);
@@ -318,14 +304,14 @@ namespace WindowsFormsApplication1
 
 
             paintPan.Location = new Point(0, 0);
-            paintPan.Size = new Size(2990, 70);
+            paintPan.Size = new System.Drawing.Size(2990, 70);
             paintPan.Show();
             paintPan.Paint += new System.Windows.Forms.PaintEventHandler(Draw_Line);
             paintPan.BackColor = Color.Transparent;
 
             panel2.Controls.Add(paintPan);
             panel2.Controls.Add(day);
-            panel2.Size = new Size(595, 2210);
+            panel2.Size = new System.Drawing.Size(595, 2210);
 
             Draw_Time();
             panel2.VerticalScroll.Maximum = 0;
@@ -461,7 +447,7 @@ namespace WindowsFormsApplication1
                 Label todoColor = new Label();
                 todoColor.Text = "●";
                 todoColor.AutoSize = true;
-                todoColor.Location = new Point(10, y);
+                todoColor.Location = new System.Drawing.Point(10, y);
                 //todoColor.ForeColor = color;
                 todoColor.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoColor);
@@ -470,7 +456,7 @@ namespace WindowsFormsApplication1
                 Label todoName = new Label();
                 todoName.Text = db.Reader["TD_EX"].ToString();
                 todoName.AutoSize = true;
-                todoName.Location = new Point(35, y);
+                todoName.Location = new System.Drawing.Point(35, y);
                 todoName.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoName);
                 y += 20;
@@ -480,7 +466,7 @@ namespace WindowsFormsApplication1
                     Label todoDate = new Label();
                     todoDate.Text = db.Reader["TD_DT"].ToString();
                     todoDate.AutoSize = true;
-                    todoDate.Location = new Point(15, y);
+                    todoDate.Location = new System.Drawing.Point(15, y);
                     todoDate.Font = new System.Drawing.Font("함초롬돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                     panel1.Controls.Add(todoDate);
                     y += 40;

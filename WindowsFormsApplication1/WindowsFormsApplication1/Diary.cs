@@ -15,12 +15,13 @@ namespace WindowsFormsApplication1
     {
         DBConnection db = Program.DB;
         private string diaryCD = null;
-        
+        DateTime nowDate;
 
         public Diary(DateTime nowDate)
         {
             InitializeComponent();
             //this.nowDate = nowDate;
+
             NowDate = nowDate;
         }
         public Diary()
@@ -31,7 +32,7 @@ namespace WindowsFormsApplication1
         public DateTime NowDate
         {
             get { return date.Value; }
-            set { date.Value = value; }
+            set { date.Value= value; }
         }
 
         public string DiaryCD
@@ -83,7 +84,30 @@ namespace WindowsFormsApplication1
 
         private void Diary_Load(object sender, EventArgs e)
         {
+            if(date.Value != null)
+            {
+                string date = NowDate.ToString("yyyy/MM/dd 00:00");
+                string sql = " select  * from DIARY_TB where DR_DT =to_date('" + date + "', 'yyyy/MM/dd hh24:mi')";
+                db.ExecuteReader(sql);
+                if(db.Reader.Read())
+                {
+                    textBox1.Text = db.Reader[0].ToString();
+                }
+                else
+                {
+                    if (MessageBox.Show("등록된 일기가없습니다 .일기를 쓰시겠습니까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.No)
+                    {
+                        this.Close();
+                    }
+ 
+                }
+            }
+           
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
