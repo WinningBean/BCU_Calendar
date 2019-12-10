@@ -50,7 +50,7 @@ namespace WindowsFormsApplication1
         {
             db.UR_CD = "U100000";
             GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, "U100000", nowDate);
-            location = new int[10, 2];
+            location = new int[15, 2];
 
             for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
             {   
@@ -60,13 +60,17 @@ namespace WindowsFormsApplication1
            // dt.Clear();
         }
 
-        private void Check(Panel curr, Label name, Label color)
+        private void Check(Panel curr, Label name, Label color) // 일정 위치 검사 겹치면 내림 !! 
         {
-            if (location[curr.TabIndex,1] != 0)
+            if (location[curr.TabIndex,1] != 0) // 같은 열에 이미 값이 들어 있으면 비교하고
             {
+                // location[curr.TabIndex,1]    curr.TabIndex은  깊이 확인용
+                // location[curr.TabIndex,1]    0왼쪽 X값
+                // location[curr.TabIndex,1]    1은 오는쪽 X값
 
-                if (location[curr.TabIndex,0] == curr.Left || location[curr.TabIndex,1] > curr.Left)
+                if (location[curr.TabIndex,0] == curr.Left || location[curr.TabIndex,1] > curr.Left) //겹치는 조건 
                 {
+                    //겹치면 Y값을 조정 
                     curr.Location = new Point(curr.Location.X, curr.Location.Y + 120);
                     name.Location = new Point(name.Location.X, name.Location.Y + 120);
                     color.Location = new Point(color.Location.X, color.Location.Y + 120);
@@ -74,19 +78,20 @@ namespace WindowsFormsApplication1
                     Check(curr, name, color);
 
                 }
-                else
+                else // 아니면 저장 
                 {
                     location[curr.TabIndex,0] = curr.Left;
                     location[curr.TabIndex,1] = curr.Right;
                 }
             }
-            else
+            else// 깉은 열에 아직 값이 없으면 저장 
             {
                 location[curr.TabIndex,0] = curr.Left;
                 location[curr.TabIndex,1] = curr.Right;
 
                 if (pre.TabIndex < curr.TabIndex)
                 {
+                    // 버튼으로 일정을 내리기 위해서 일정이 몇개가 겹치는지 알아야함
                     checkHeight = curr.TabIndex;
                 }
                
@@ -104,19 +109,24 @@ namespace WindowsFormsApplication1
 
             int scheduleTimeSize;
 
-            if (endSC.Hour == 0)
+            if (endSC.Hour == 0 )
             {
                 scheduleTimeSize = (24 * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
+            }
+            else if(strSC.Day != endSC.Day)
+            {
+                scheduleTimeSize = (25 * 120 ) - (strSC.Hour * 120 + strSC.Minute * 2);
             }
             else
             {
                scheduleTimeSize = (endSC.Hour * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
             }
-            
+
+
 
             Panel cre = new Panel();
             cre.Size = new Size(scheduleTimeSize,80);
-            cre.Location = new Point(strSC.Hour * 120 + strSC.Minute * 2 + 10, y);
+            cre.Location = new Point(strSC.Hour * 120 + strSC.Minute * 2 + 30, y);
            // cre.BorderStyle = BorderStyle.FixedSingle;
             cre.TabIndex = 0;
             cre.Tag = i;
@@ -237,9 +247,15 @@ namespace WindowsFormsApplication1
 
         private void Draw_Line(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            int x = 10;
-            int y = 70;
-            //int y = 60;
+            int x = 30;
+            int y = 90;
+            Label label = new Label();
+            label.Size = new Size(30, 70);
+            paintPan.Controls.Add(label);
+            label.Location = new Point(0, 0);
+            label.Text = " ◀";
+            label.Click += new System.EventHandler(preDay_Click); 
+            label.Font = new System.Drawing.Font("함초롬돋움", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             Graphics graphics = e.Graphics;
             Pen pen = new Pen(Color.Black);
 
@@ -250,18 +266,25 @@ namespace WindowsFormsApplication1
                 x += 120;
                // paintPan.Controls.Add(pan);
             }
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 24; i++)
             {
                 Panel pan = new Panel();
                 graphics.DrawLine(pen, y, 0, y, 15);
                 y += 120;
                // paintPan.Controls.Add(pan);
             }
-        
+
+            Label label1 = new Label();
+            label1.Size = new Size(30, 70);
+            paintPan.Controls.Add(label1);
+            label1.Location = new Point(2950, 0);
+            label1.Text = " ▶";
+            label1.Click += new System.EventHandler(nextDay_Click);
+            label1.Font = new System.Drawing.Font("함초롬돋움", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
         }
         private void Draw_Time()
         {
-            int x = 1;
+            int x = 21;
             for (int i = 0; i < 25; i++)
             {
                 Label timeLable = new Label();
@@ -284,14 +307,14 @@ namespace WindowsFormsApplication1
         }
         private void Day_Load(object sender, EventArgs e)
         {
-            label1.Text = nowDate.ToString("yyyy년mm월dd일 ddd"); 
+            label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd"); 
             day.AutoSize = true;
             day.AutoScroll = false;
             day.Location = new Point(0, 70);
 
 
             paintPan.Location = new Point(0, 0);
-            paintPan.Size = new Size(2910, 70);
+            paintPan.Size = new Size(3000, 70);
             paintPan.Show();
             paintPan.Paint += new System.Windows.Forms.PaintEventHandler(Draw_Line);
             paintPan.BackColor = Color.Transparent;
@@ -311,6 +334,9 @@ namespace WindowsFormsApplication1
             button1.Enabled = false;
 
             Get_chedule();
+            day.Controls.Clear(); //버그인가??
+            Get_chedule();
+
             Get_TodoList();
            
 
@@ -489,7 +515,25 @@ namespace WindowsFormsApplication1
             }
            
         }
+        private void nextDay_Click(object sender, EventArgs e)
+        {
+            nowDate = nowDate.AddDays(1);
+            label1.Text = nowDate.ToString("yyyy년mm월dd일 ddd");
+            day.Controls.Clear();
+            Get_chedule();
+        }
+        private void preDay_Click(object sender, EventArgs e)
+        {
+            nowDate = nowDate.AddDays(-1);
+            label1.Text = nowDate.ToString("yyyy년mm월dd일 ddd");
+            day.Controls.Clear();
+            Get_chedule();
+        }
 
-  
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Diary diary = new Diary();
+            diary.ShowDialog();
+        }
     }
 }
