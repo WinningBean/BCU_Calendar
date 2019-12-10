@@ -522,14 +522,14 @@ namespace WindowsFormsApplication1
         private void nextDay_Click(object sender, EventArgs e)
         {
             nowDate = nowDate.AddDays(1);
-            label1.Text = nowDate.ToString("yyyy년mm월dd일 ddd");
+            label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
             Get_chedule();
         }
         private void preDay_Click(object sender, EventArgs e)
         {
             nowDate = nowDate.AddDays(-1);
-            label1.Text = nowDate.ToString("yyyy년mm월dd일 ddd");
+            label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
             Get_chedule();
         }
