@@ -13,11 +13,20 @@ namespace WindowsFormsApplication1
         public DBSchedule()
         {
             // DBSchedule 생성자
+            db.ExecuteReader("select SYSDATE from dual"); // 오라클 서버 시간 가져오기
+            db.Reader.Read();
+            s_today = db.Reader.GetDateTime(0);
         }
 
         DBConnection db = Program.DB;
         private string sql;
         private DataSet DS;
+
+        private static DateTime s_today; // 오늘 시간
+        public DateTime TODAY
+        {
+            get { return s_today; }
+        }
 
         // DB상 Schedule 가져오기 클래스
 
@@ -54,7 +63,33 @@ namespace WindowsFormsApplication1
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
-            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'ORDER BY  SC_STR_DT ASC";
+            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") 
+                + "' ORDER BY  SC_STR_DT ASC";
+
+            DS = new DataSet();
+            db.AdapterOpen(sql);
+            db.Adapter.Fill(DS, "GET_DAY_SC_TB");
+
+            DataTable GET_DAY_SC_TB = new DataTable();
+            GET_DAY_SC_TB = DS.Tables["GET_DAY_SC_TB"];
+
+            return GET_DAY_SC_TB;
+        }
+
+        public DataTable Get_Week_Schedule(Boolean is_UR, string m_URorGR_CD, DateTime day, int turm) // day + turm
+        {
+            // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
+            if (is_UR == true) // 회원이라면
+            {
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+            }
+            else // 그룹이라면
+            {
+                sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
+            }
+            sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") 
+                + "' and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd")
+                + "' ORDER BY  SC_STR_DT ASC"; // 일주일 범위 안에 들어오면 무조건
 
             DS = new DataSet();
             db.AdapterOpen(sql);
