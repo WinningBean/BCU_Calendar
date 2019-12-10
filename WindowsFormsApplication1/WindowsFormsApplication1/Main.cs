@@ -199,16 +199,21 @@ namespace WindowsFormsApplication1
 
        }
 
-        private void 일정추가ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ModifySchedule modifySchedule = new ModifySchedule();
-            modifySchedule.ShowDialog();
-        }
-
         private void 일기쓰기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ModifySchedule modifySchedule = new ModifySchedule();
-            modifySchedule.ShowDialog();
+            Diary diary = new Diary();
+            diary.ShowDialog();
+        }
+
+        private void 일정추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModifySchedule modiSche = new ModifySchedule();
+            modiSche.ShowDialog();
+        }
+
+        private void 최소화toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
