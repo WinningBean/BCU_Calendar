@@ -17,11 +17,11 @@ namespace WindowsFormsApplication1
         public ModifySchedule()
         {
             InitializeComponent();
-            db.UR_CD = "U100000";
+            //db.UR_CD = "U100000";
         }
 
         DBConnection db = Program.DB;
-        DBSchedule dbs = new DBSchedule();
+        DBSchedule dbs = null;
         string pic_CD=null;
         
 
@@ -100,7 +100,7 @@ namespace WindowsFormsApplication1
 
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
-
+            dbs = new DBSchedule();
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";
 

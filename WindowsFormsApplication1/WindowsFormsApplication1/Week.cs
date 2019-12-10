@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 namespace WindowsFormsApplication1
 {
     #region 부드러운 판넬
+    // 사용시 윈폼 디자인 안보이네
     class DoubleBufferPanel : Panel
     {
         public DoubleBufferPanel()
@@ -30,6 +31,7 @@ namespace WindowsFormsApplication1
     // 일정 추가 finish
     // 색상 지정 finish
     // 주간 이동 (부분완성) finish
+    // 다음주로 넘어가는 일정 만들기 
     // 현재 시간표시 커서로 -> 현재날짜 탑 색칠, 왼쪽 시간에 표시하는걸로
 
     // 탑에 시간설정
@@ -68,7 +70,6 @@ namespace WindowsFormsApplication1
             insideMain.BackColor = Color.Transparent;
             insideMain.MouseClick += new MouseEventHandler(OnMainClick);
             m_Main_pan.Controls.Add(insideMain);
-
             m_Main_pan.VerticalScroll.Minimum = 0;
             m_Main_pan.VerticalScroll.Maximum = 0;
             m_Main_pan.VerticalScroll.Visible = false;
@@ -122,7 +123,7 @@ namespace WindowsFormsApplication1
 
         private void OnRealTime(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            
+
         }
 
         private void makeTime()
@@ -209,7 +210,12 @@ namespace WindowsFormsApplication1
             if (pan.Name == "0")
             {
                 if (weekSunday.AddDays(1 - weekSunday.Day) > weekSunday.AddDays(-7)) // 첫일 넘어가면
-                    weekSunday = weekSunday.AddDays(-1 * weekSunday.Day);
+                {
+                    if (weekSunday.Day == weekSunday.AddDays(1 - weekSunday.Day).Day)
+                        weekSunday = weekSunday.AddDays(-1 * weekSunday.Day);
+                    else
+                        weekSunday = weekSunday.AddDays(1 - weekSunday.Day);
+                }
                 else
                     weekSunday = weekSunday.AddDays(-7);
             }
@@ -290,9 +296,15 @@ namespace WindowsFormsApplication1
 
         DateTime weekSunday;
 
+        DateTime startWeekDate;
+        DateTime endWeekDate;
+        int startWeek;
+        int endWeek;
+
         private void CurrWeek()
         { // 현재날짜가 몇주차인지 구하는 메서드 -> 현재 주에 월요일부터 표현하기위해
-            //현재시간을 년 월 일로 나눔
+          //현재시간을 년 월 일로 나눔
+
             int currYear = Int32.Parse(m_focus_dt.ToString("yyyy"));
             int currMonth = Int32.Parse(m_focus_dt.ToString("MM"));
             int currDay = Int32.Parse(m_focus_dt.ToString("dd"));
@@ -303,9 +315,11 @@ namespace WindowsFormsApplication1
                 {
                     if (first.DayOfWeek == DayOfWeek.Sunday)
                     {
-                        int start1 = (int)((new DateTime(currYear, currMonth, currDay)).DayOfWeek);
-                        int end1 = 7;
-                        createWeek(first.AddDays(-7), start1, end1);
+                        startWeek = (int)((new DateTime(currYear, currMonth, currDay)).DayOfWeek);
+                        startWeekDate = new DateTime(currYear, currMonth, currDay);
+                        endWeek = 7;
+                        endWeekDate = new DateTime(currYear, currMonth, currDay + endWeek - startWeek); // 하루 더 많음
+                        createWeek(first.AddDays(-7));
                         return;
                     }
                     first = first.AddDays(1);
@@ -329,13 +343,17 @@ namespace WindowsFormsApplication1
                     weekCount++;
                 }
             }
-            int start = 0;
-            int end = 7;
+            startWeek = 0;
+            startWeekDate = weekSunday;
+            endWeek = 7;
+            endWeekDate = startWeekDate.AddDays(7);
             if (weekSunday.Day + 7 > DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month))
-                end = (DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month) + 1) - weekSunday.Day;
+            {
+                endWeek = (DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month) + 1) - weekSunday.Day;
+                endWeekDate = weekSunday.AddDays(endWeek - startWeek);
+            }
 
-
-            createWeek(weekSunday, start, end);
+            createWeek(weekSunday);
         }
 
         private void createObject()
@@ -359,30 +377,29 @@ namespace WindowsFormsApplication1
         List<List<int>> overlapSCList = null;
         List<DataRow> dataRowList = null;
 
-        private void createWeek(DateTime weekSunday, int start, int end)
+        private void createWeek(DateTime weekSunday)
         {
             createObject();
 
-            for (int i = start; i < end; i++)
-            {
-                DataTable dt = dbs.Get_Day_Schedule(true, "U100000", weekSunday.AddDays(i));
-                m_Top_pan.Controls[i].Controls[0].ForeColor = Color.Black;
-                for (int k = 0; k < dt.Rows.Count; k++)
-                {
-                    DataRow dr = dt.Rows[k];
-                    scList.Add(new List<DateTime>());
-                    scList.Last().Add(DateTime.Parse(dr[4].ToString()));
-                    scList.Last().Add(DateTime.Parse(dr[5].ToString()));
-                    overlapSCList.Add(new List<int>());
-                    overlapSCList.Last().Add(0); // 곂치는 카운트
-                    overlapSCList.Last().Add(0); // 순서
-                    dataRowList.Add(dr);
-                    //CreateSCPan(ref dr, i);
-                    //MessageBox.Show(i.ToString() + " : " + Convert.ToDateTime(dr[4].ToString()).Hour.ToString());
-                }
-                //dt.Clear();
 
+            int turm = endWeek - startWeek;
+            DataTable dt = dbs.Get_Week_Schedule(true, "U100000", weekSunday.AddDays(startWeek), turm);
+            for (int i = startWeek; i < endWeek; i++)
+                m_Top_pan.Controls[i].Controls[0].ForeColor = Color.Black;
+            for (int k = 0; k < dt.Rows.Count; k++)
+            {
+                DataRow dr = dt.Rows[k];
+                scList.Add(new List<DateTime>());
+                scList.Last().Add(DateTime.Parse(dr[4].ToString()));
+                scList.Last().Add(DateTime.Parse(dr[5].ToString()));
+                overlapSCList.Add(new List<int>());
+                overlapSCList.Last().Add(0); // 곂치는 카운트
+                overlapSCList.Last().Add(0); // 순서
+                dataRowList.Add(dr);
+                //CreateSCPan(ref dr, i);
+                //MessageBox.Show(i.ToString() + " : " + Convert.ToDateTime(dr[4].ToString()).Hour.ToString());
             }
+            //dt.Clear();
             overlapMethod();
             CreateSCPan();
         }
@@ -437,6 +454,8 @@ namespace WindowsFormsApplication1
             return size;
         }
 
+        List<List<DateTime>> overDate = new List<List<DateTime>>();
+
         int[] panCountWidth = { 125, 63, 42, 31 }; //125, 62.5 , 41.66... ,31.25
         int[] panCountPosition = { 0, 63, 42, 31 }; // 사이즈만큼 더해줌여
         float[] panTextSize = { 14F, 11F, 10F, 8F };
@@ -453,6 +472,12 @@ namespace WindowsFormsApplication1
                 Panel endPanel = day[(int)endDate.DayOfWeek][endDate.Hour];
                 int endMinute = scList[k][1].Minute / 10;
                 int plusMinute = endMinute * 8; // 끝나는시간에 더 추가해야할 height 크기
+
+                if (startWeekDate > startDate)
+                {
+                    startDate = startWeekDate;
+                    startPanel = day[0][0];
+                }
 
                 Panel pan = new DoubleBufferPanel();
                 pan.Name = dataRowList[k][0].ToString(); // 판넬에 코드 부여
@@ -482,8 +507,14 @@ namespace WindowsFormsApplication1
                 Label lb = CreateSCText(dataRowList[k], panTextSize[overlapNum]); // 텍스트를 만들어줌
                 pan.Controls.Add(lb);
 
-                if (startDate.Day != endDate.Day) // 시작일 끝일이 다름
+                if (startDate.Year != endDate.Year|| startDate.Month != endDate.Month || startDate.Day != endDate.Day) // 시작일 끝일이 다름
                 {
+                    if (endWeekDate <= endDate) // 일주일 표시를 넘어가면
+                    {
+                        endDate = endWeekDate.AddSeconds(-1);
+                        endPanel = day[6][23];
+                        plusMinute = 48;
+                    }
                     pan.Location = new Point(startPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
                         , startPanel.Location.Y);
                     pan.Size = new Size(panCountWidth[overlapNum], insideMain.Size.Height - startPanel.Top);
@@ -508,7 +539,7 @@ namespace WindowsFormsApplication1
                     last.Name = pan.Name;
                     last.BackColor = pan.BackColor;
                     last.Location = new Point(endPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1]), 0);
-                    last.Size = new Size(panCountWidth[overlapNum], endPanel.Bottom);
+                    last.Size = new Size(panCountWidth[overlapNum], endPanel.Top + plusMinute);
                     last.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, last.Size.Width, last.Size.Height, 13, 13));
                     last.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
                     last.MouseClick += new MouseEventHandler(OnPanelClick);
@@ -535,7 +566,8 @@ namespace WindowsFormsApplication1
         {
             Panel pan = (Panel)sender;
             db.ExecuteReader("select * from SCHEDULE_TB where SC_CD = '" + pan.Name + "'");
-            db.Reader.Read();
+            if (!db.Reader.Read())
+                return;
             if (e.Clicks == 1)
             {
                 clickPanel.BorderStyle = BorderStyle.None;
@@ -611,7 +643,7 @@ namespace WindowsFormsApplication1
                     break;
                 }
             }
-            DateTime clickDate = weekSunday.AddDays(x);
+            DateTime clickDate = weekSunday.AddDays(x - startWeek);
             clickDate = clickDate.AddHours(y);
             m_focus_dt = clickDate;
             m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
