@@ -15,8 +15,8 @@ namespace WindowsFormsApplication1
     public partial class Day : Form
     {
         DBConnection db = Program.DB;
-        DBSchedule dbs = new DBSchedule();
-        DBColor dbc = new DBColor();
+        DBSchedule dbs =null;
+        DBColor dbc = null;
 
         Panel paintPan = new Panel();
         Panel day = new Panel();
@@ -33,6 +33,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             pre = null;
+
         }
         public Day(DateTime nowDate)//DateTime date
         {
@@ -307,6 +308,9 @@ namespace WindowsFormsApplication1
         }
         private void Day_Load(object sender, EventArgs e)
         {
+            dbs = new DBSchedule();
+            dbc = new DBColor();
+
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd"); 
             day.AutoSize = true;
             day.AutoScroll = false;
@@ -314,7 +318,7 @@ namespace WindowsFormsApplication1
 
 
             paintPan.Location = new Point(0, 0);
-            paintPan.Size = new Size(3000, 70);
+            paintPan.Size = new Size(2990, 70);
             paintPan.Show();
             paintPan.Paint += new System.Windows.Forms.PaintEventHandler(Draw_Line);
             paintPan.BackColor = Color.Transparent;
@@ -532,8 +536,13 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Diary diary = new Diary();
+            Diary diary = new Diary(nowDate);
             diary.ShowDialog();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
