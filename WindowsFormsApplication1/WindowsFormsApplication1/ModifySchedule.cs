@@ -167,12 +167,16 @@ namespace WindowsFormsApplication1
         {
             if(strHour.SelectedIndex == 24)
             {
-                strMin.Text = "00";
-                strMin.Enabled = false;
+                strHour.Text = "0";
+                StrDate = StrDate.AddDays(1);
+
             }
-            else
+        }
+        private void endHour_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (endHour.SelectedIndex == 24)
             {
-                strMin.Enabled = true;
+                EndDate = EndDate.AddDays(1);
             }
         }
         private void Clear_Controls()
@@ -186,18 +190,7 @@ namespace WindowsFormsApplication1
             StateCheck = 1;
         }
 
-        private void endHour_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (endHour.SelectedIndex == 24)
-            {
-                endMin.Text = "00";
-                endMin.Enabled = false;
-            }
-            else
-            {
-                endMin.Enabled = true;
-            }
-        }
+
         private void FileSave(string filePath, DateTime dt)
         {
             // 입력받은 파일을 바이트 배열에 저장
@@ -389,5 +382,7 @@ namespace WindowsFormsApplication1
                 pic_CD = db.Reader["PIC_CD"].ToString(); // PIC_CD 저장 
             }
         }
+
+ 
     }
 }

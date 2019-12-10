@@ -354,6 +354,7 @@
             this.endHour.Name = "endHour";
             this.endHour.Size = new System.Drawing.Size(42, 30);
             this.endHour.TabIndex = 35;
+            this.endHour.SelectedIndexChanged += new System.EventHandler(this.endHour_SelectedIndexChanged);
             // 
             // ModifySchedule
             // 
