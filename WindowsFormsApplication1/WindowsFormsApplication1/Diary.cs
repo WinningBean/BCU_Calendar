@@ -63,7 +63,7 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             string date = EndDate.ToString("yyyy/MM/dd 00:00");
-            db.UR_CD = "U100000";
+ 
             string sql;
             try
             {

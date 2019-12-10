@@ -18,13 +18,11 @@ namespace WindowsFormsApplication1
         public ModifySchedule(Main main ) // 메인에서 호출 
         {
             InitializeComponent();
-            db.UR_CD = "U100000";
             this.main = main;
         }
         public ModifySchedule() // 그냥 ?
         {
             InitializeComponent();
-            //db.UR_CD = "U100000";
         }
 
         DBConnection db = Program.DB;

@@ -95,7 +95,6 @@ namespace WindowsFormsApplication1
         }
         private void GetFriendsList() //친구 목록 가져오기
         {
-            db.UR_CD = "U100000";
             db.AdapterOpen("select  UR_NM ,UR_CD from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "') ORDER BY  UR_NM ASC");
 
             DataSet DS = new DataSet();
