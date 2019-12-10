@@ -134,6 +134,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Day";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Day";
             this.Load += new System.EventHandler(this.Day_Load);
             this.panel1.ResumeLayout(false);

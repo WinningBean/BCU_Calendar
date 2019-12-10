@@ -24,6 +24,14 @@ namespace WindowsFormsApplication1
 
         DataTable GET_DAY_SC_TB = null;
 
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        { // 현재 포커스날짜 프로퍼티
+            set { m_focus_dt = value; }
+        }
+        public DateTime Get_focus_dt() { return m_focus_dt; }
+
+
         int checkHeight = 0;
         int[,] location;
 
