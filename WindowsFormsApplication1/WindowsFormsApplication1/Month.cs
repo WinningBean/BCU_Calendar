@@ -264,32 +264,25 @@ namespace WindowsFormsApplication1
             List<int> bs_lo = new List<int>(); // 비어있는 로케이션 리스트
 
             int bs_sc = 0;
-
-            int sc_cnt = 0;
-            int now_bs = 0; // 현재 베이스 일정
-
+            int lastY = 0;
+            List<int> nowSc_Y_lst = new List<int>(); // 현재 X좌표 레이블
+            
             for (int i = 0; i < WeekPanel.Controls.Count; i++)
             {
-                string now_bs_nm = WeekPanel.Controls[i].Name;
-                int now_bs_nmL = now_bs_nm.Length;
-
                 if (WeekPanel.Controls[i].Location.X == now_loX) // 현재 X로케이션에 존재하는 레이블만
                 {
-                    if (DayPenel_num < 8)
-                    {
-                        if (now_bs_nmL < 10) now_bs = Convert.ToInt32(now_bs_nm.Substring(7, now_bs_nmL - 7)) - 1;
-                        else now_bs = Convert.ToInt32(now_bs_nm.Substring(11, now_bs_nmL - 11)) - 1;
-                    }
-                    else
-                    {
-                        if (now_bs_nmL < 11) now_bs = Convert.ToInt32(now_bs_nm.Substring(8, now_bs_nmL - 8)) - 1;
-                        else now_bs = Convert.ToInt32(now_bs_nm.Substring(12, now_bs_nmL - 12)) - 1;
-                    }
+                    nowSc_Y_lst.Add(WeekPanel.Controls[i].Location.Y);
+                    lastY = WeekPanel.Controls[i].Location.Y + 25;
+                }
+            }
 
-                    if (WeekPanel.Controls[i].Location.Y != (25 * now_bs)) bs_lo.Add(25 * bs_sc); // 중간에 비어있는 공간이 있으면
-                    //if (sc_cnt != 0 && WeekPanel.Controls[i].Location.Y == 0) lo_y = 0; // 이어지는 레이블 로케이션 지정
-                    bs_sc++;
-                    sc_cnt++;
+            if (nowSc_Y_lst.Count > 0)
+            {
+                int lst_cnt = 0;
+                for (int i = 0; i < lastY; i += 25)
+                {
+                    if (i != nowSc_Y_lst[lst_cnt]) bs_lo.Add(i);
+                    else lst_cnt++;
                 }
             }
 
@@ -303,35 +296,24 @@ namespace WindowsFormsApplication1
             DataTable sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay);
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
-            
-            int lo_nm = 0; // 로케이션 리스트 커서
-            int lo_y = -25; // 이어이는 일정 위의 로케이션
+            int lo_y = -25; // 이어이는 일정 뒤의 로케이션
 
             System.Windows.Forms.Label label;
             for (int i = 0; i < rows.Length; i++)
-            {
-                lo_y += 25;
+            { 
 
                 label = new System.Windows.Forms.Label(); // 레이블 동적 생성
-                label.Location = new System.Drawing.Point(now_loX, lo_y); // 이어지는 일정 밑에 삽입
                 label.Name = "sc" + lbl_nm.ToString() + "_lbl" + (i+1).ToString();
                 label.Size = new System.Drawing.Size(135, 25);
                 label.Padding = new Padding(5, 0, 5, 0);
                 label.Text = rows[i]["SC_NM"].ToString();
                 label.TextAlign = ContentAlignment.MiddleLeft;
-                label.Text = label.Name;
 
                 label.Click += new System.EventHandler(this.dm_sc_Click);
 
-                if (bs_lo.Count > lo_nm)
-                {
-                    if (lo_y < bs_lo[lo_nm]) // 겹치는 일정에 삽입된다면
-                    {
-                        lo_y = bs_lo[lo_nm];
-                        label.Location = new System.Drawing.Point(now_loX, lo_y); ;
-                    }
-                    lo_nm ++;
-                }
+                if (bs_lo.Count > i) lo_y = bs_lo[i];
+                else lo_y += 25;
+                label.Location = new System.Drawing.Point(now_loX, lo_y); // 이어지는 일정 밑에 삽입
 
                 Color sc_cr_bs; // 일정의 SC_CR_FK - 베이스컬러
                 Color sc_cr_ft; // 일정의 SC_CR_FK - 글자컬러
@@ -397,7 +379,6 @@ namespace WindowsFormsApplication1
                     add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc + add_lbl_now).ToString();
                     add_label.Size = new System.Drawing.Size(135, 25);
                     add_label.BackColor = sc_cr_bs;
-                    add_label.Text = add_label.Name;
 
                     add_label.Click += new System.EventHandler(this.dm_sc_Click);
 
