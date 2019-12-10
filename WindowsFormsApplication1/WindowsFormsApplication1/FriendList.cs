@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1
             location = 0;
         }
 
-        private Control Create_FriendProfile(int i, DataTable dataTable)
+        private Control Create_FriendProfile(int i, DataTable dataTable) //친구 프로필 생성
         {
             DataRow currRow = dataTable.Rows[i];
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();          
@@ -74,7 +74,7 @@ namespace WindowsFormsApplication1
                 pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
             }
 
-            for (int i = 0; i < friend_group_tb.Rows.Count; i++) // ***CreateGroupButton 함수로 뺄까...? // 그룹추가 할떄 
+            for (int i = 0; i < friend_group_tb.Rows.Count; i++) 
             {
                 DataRow currRow;
                 currRow = friend_group_tb.Rows[i];
@@ -93,7 +93,7 @@ namespace WindowsFormsApplication1
             }
 
         }
-        private void GetFriendsList()
+        private void GetFriendsList() //친구 목록 가져오기
         {
             db.UR_CD = "U100000";
             db.AdapterOpen("select  UR_NM ,UR_CD from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "') ORDER BY  UR_NM ASC");
@@ -117,6 +117,8 @@ namespace WindowsFormsApplication1
             GetGroupList();
             UploadeList();
             GetGroupMamber();
+
+            panel2.Controls.Add(button2);
         }
 
         private void GetGroupList()
@@ -145,7 +147,7 @@ namespace WindowsFormsApplication1
                 db.Adapter.Fill(rs, "groupMemberTb");
                 DataTable groupMemberTb = rs.Tables["groupMemberTb"];
 
-                for (int j = 0; j < groupMemberTb.Rows.Count; j++)
+                for (int j = 0; j < groupMemberTb.Rows.Count; j++) // 그룹 목록에 그룹원 추가
                 {
                     pan[i + 1].Controls.Add( Create_FriendProfile(j, groupMemberTb));
                 }
@@ -158,16 +160,18 @@ namespace WindowsFormsApplication1
             Button mybtn = (Button)render;
             i = mybtn.TabIndex ;
        
-            if (!pan[i].Visible)
+            if (!pan[i].Visible) //i 번쨰리스트가 보이지 않는 상태이면 ( 리스트를 펼칠때)
             {
-                for (int j = i +1 ; j < friend_group_tb.Rows.Count + 1; j++)
+                //리스트 펼치는 버튼 밑에만 생각 하면됨 
+                //리스트판넬의 위치를 잡을떄 목록버튼 밑에다가 둬서 버튼이동만 생각 
+                for (int j = i +1 ; j < friend_group_tb.Rows.Count + 1; j++) //최대 그룹리스트 갯수만큼 +1 은 기본그룹
                 {
                     btn[j].Location = new Point(btn[j].Location.X, btn[j].Location.Y + pan[i].Size.Height);
-                    pan[j].Location = new System.Drawing.Point(btn[j].Location.X, btn[j].Location.Y + 32);
+                    pan[j].Location = new System.Drawing.Point(btn[j].Location.X, btn[j].Location.Y + 32); //32는 버튼 size
                 }
                 pan[i].Visible = true;
             }
-            else
+            else //리스트를 닫을떄
             {
                 for (int j = i+1; j < friend_group_tb.Rows.Count + 1; j++)
                 {
@@ -180,8 +184,10 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            panel2.Visible = false;
             location = 0;
             panel3.Controls.Clear();
+            panel3.Controls.Add(button2);
             bool check = false;
             for (int i = 0; i < friendTable.Rows.Count; i++)
             {
@@ -215,7 +221,10 @@ namespace WindowsFormsApplication1
           
         }
 
-     
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel3.Visible = false;
+        }
     }
 }
 
