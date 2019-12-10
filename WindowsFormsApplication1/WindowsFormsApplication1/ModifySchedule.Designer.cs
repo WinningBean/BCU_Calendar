@@ -394,6 +394,7 @@
             this.Controls.Add(this.strDate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ModifySchedule";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ModifySchedule";
             this.Load += new System.EventHandler(this.ModifySchedule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imagePic)).EndInit();

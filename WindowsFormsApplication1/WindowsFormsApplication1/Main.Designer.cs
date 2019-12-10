@@ -14,13 +14,16 @@
         protected override void Dispose(bool disposing)
         {
             db.Close(); // DB 연결 해제
+
             log.Close(); // 로그인 폼 종료
+
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
             base.Dispose(disposing);
         }
+
 
         #region Windows Form 디자이너에서 생성한 코드
 
@@ -48,6 +51,8 @@
             this.친구ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.친구추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.친구그룹추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.일정추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.일정추가ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.할일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.할일추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.할일모두완료ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +66,6 @@
             this.MainCenter_pan = new System.Windows.Forms.Panel();
             this.MainUser_pan = new System.Windows.Forms.Panel();
             this.UserProfile_prof = new UserCustomControl.Profile();
-            this.일정추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.일정추가ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTop_pan.SuspendLayout();
             this.MainHeader_menustp.SuspendLayout();
             this.MainLeft_pan.SuspendLayout();
@@ -165,15 +168,15 @@
             this.사용자ToolStripMenuItem,
             this.그룹ToolStripMenuItem,
             this.친구ToolStripMenuItem,
+            this.일정추가ToolStripMenuItem,
             this.할일ToolStripMenuItem,
             this.사진ToolStripMenuItem,
             this.xToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.일정추가ToolStripMenuItem});
+            this.toolStripMenuItem1});
             this.MainHeader_menustp.Location = new System.Drawing.Point(0, 0);
             this.MainHeader_menustp.Name = "MainHeader_menustp";
             this.MainHeader_menustp.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.MainHeader_menustp.Size = new System.Drawing.Size(1212, 28);
+            this.MainHeader_menustp.Size = new System.Drawing.Size(1212, 27);
             this.MainHeader_menustp.TabIndex = 4;
             this.MainHeader_menustp.Text = "menuStrip1";
             this.MainHeader_menustp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainHeader_menustp_MouseDown);
@@ -187,24 +190,24 @@
             this.toolStripMenuItem3,
             this.로그아웃ToolStripMenuItem});
             this.사용자ToolStripMenuItem.Name = "사용자ToolStripMenuItem";
-            this.사용자ToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.사용자ToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
             this.사용자ToolStripMenuItem.Text = "UserID";
             // 
             // 사용자정보ToolStripMenuItem
             // 
             this.사용자정보ToolStripMenuItem.Name = "사용자정보ToolStripMenuItem";
-            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
             this.사용자정보ToolStripMenuItem.Text = "사용자 정보";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(213, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(161, 6);
             // 
             // 로그아웃ToolStripMenuItem
             // 
             this.로그아웃ToolStripMenuItem.Name = "로그아웃ToolStripMenuItem";
-            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
             this.로그아웃ToolStripMenuItem.Text = "로그아웃";
             // 
             // 그룹ToolStripMenuItem
@@ -212,7 +215,7 @@
             this.그룹ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.그룹추가ToolStripMenuItem});
             this.그룹ToolStripMenuItem.Name = "그룹ToolStripMenuItem";
-            this.그룹ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.그룹ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
             this.그룹ToolStripMenuItem.Text = "그룹";
             // 
             // 그룹추가ToolStripMenuItem
@@ -227,7 +230,7 @@
             this.친구추가ToolStripMenuItem,
             this.친구그룹추가ToolStripMenuItem});
             this.친구ToolStripMenuItem.Name = "친구ToolStripMenuItem";
-            this.친구ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.친구ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
             this.친구ToolStripMenuItem.Text = "친구";
             // 
             // 친구추가ToolStripMenuItem
@@ -242,6 +245,21 @@
             this.친구그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.친구그룹추가ToolStripMenuItem.Text = "친구 그룹 추가";
             // 
+            // 일정추가ToolStripMenuItem
+            // 
+            this.일정추가ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.일정추가ToolStripMenuItem1});
+            this.일정추가ToolStripMenuItem.Name = "일정추가ToolStripMenuItem";
+            this.일정추가ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
+            this.일정추가ToolStripMenuItem.Text = "일정";
+            // 
+            // 일정추가ToolStripMenuItem1
+            // 
+            this.일정추가ToolStripMenuItem1.Name = "일정추가ToolStripMenuItem1";
+            this.일정추가ToolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
+            this.일정추가ToolStripMenuItem1.Text = "일정추가";
+            this.일정추가ToolStripMenuItem1.Click += new System.EventHandler(this.일정추가ToolStripMenuItem1_Click);
+            // 
             // 할일ToolStripMenuItem
             // 
             this.할일ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -249,7 +267,7 @@
             this.할일모두완료ToolStripMenuItem,
             this.할일모두삭제ToolStripMenuItem});
             this.할일ToolStripMenuItem.Name = "할일ToolStripMenuItem";
-            this.할일ToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+            this.할일ToolStripMenuItem.Size = new System.Drawing.Size(56, 23);
             this.할일ToolStripMenuItem.Text = "할 일";
             // 
             // 할일추가ToolStripMenuItem
@@ -275,7 +293,7 @@
             this.사진ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사진추가ToolStripMenuItem});
             this.사진ToolStripMenuItem.Name = "사진ToolStripMenuItem";
-            this.사진ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.사진ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
             this.사진ToolStripMenuItem.Text = "사진";
             // 
             // 사진추가ToolStripMenuItem
@@ -288,7 +306,7 @@
             // 
             this.xToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(30, 24);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(30, 23);
             this.xToolStripMenuItem.Text = "X";
             this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
@@ -296,7 +314,7 @@
             // 
             this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(36, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(36, 23);
             this.toolStripMenuItem1.Text = "─";
             // 
             // MainLeft_pan
@@ -342,21 +360,6 @@
             this.UserProfile_prof.TabIndex = 0;
             this.UserProfile_prof.USERNAME = "UserName";
             this.UserProfile_prof.USERPIC = ((System.Drawing.Image)(resources.GetObject("UserProfile_prof.USERPIC")));
-            // 
-            // 일정추가ToolStripMenuItem
-            // 
-            this.일정추가ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.일정추가ToolStripMenuItem1});
-            this.일정추가ToolStripMenuItem.Name = "일정추가ToolStripMenuItem";
-            this.일정추가ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
-            this.일정추가ToolStripMenuItem.Text = "일정";
-            // 
-            // 일정추가ToolStripMenuItem1
-            // 
-            this.일정추가ToolStripMenuItem1.Name = "일정추가ToolStripMenuItem1";
-            this.일정추가ToolStripMenuItem1.Size = new System.Drawing.Size(216, 26);
-            this.일정추가ToolStripMenuItem1.Text = "일정추가";
-            this.일정추가ToolStripMenuItem1.Click += new System.EventHandler(this.일정추가ToolStripMenuItem1_Click);
             // 
             // Main
             // 

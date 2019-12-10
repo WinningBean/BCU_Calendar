@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.Down = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +58,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(169, 480);
             this.panel1.TabIndex = 3;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button2.Location = new System.Drawing.Point(31, 409);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(105, 44);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "일기보기";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label5
             // 
@@ -98,17 +109,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2.Location = new System.Drawing.Point(31, 409);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 44);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "일기보기";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Day
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -121,6 +121,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Day";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Day";
             this.Load += new System.EventHandler(this.Day_Load);
             this.panel1.ResumeLayout(false);

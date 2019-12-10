@@ -155,6 +155,12 @@ namespace WindowsFormsApplication1
 
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
+
+            ModifySchedule modiSche = new ModifySchedule(); // 일정 수정 폼 띄우기
+            int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
+            int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
+            modiSche.Location = new Point(f_loX, f_loY);
+            modiSche.ShowDialog();
         }
 
         private void dm_dt_Click(object sender, EventArgs e)// 날짜 클릭시 이벤트 처리
@@ -162,8 +168,14 @@ namespace WindowsFormsApplication1
             clear_lbl_cr();
             ((Label)sender).BackColor = Color.Gainsboro;
             m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(((Label)sender).Text.ToString()));
+            Panel fc_pan = (Panel)((Label)sender).Parent;
 
-            Day day = new Day(m_focus_dt);
+            ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
+            Add_SC_btn.Dispose();
+            Set_Add_SC_btn();
+            fc_pan.Controls.Add(Add_SC_btn);
+
+            Day day = new Day(m_focus_dt); // 일간 폼 띄우기
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - day.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - day.Height / 2;
             day.Location = new Point(f_loX, f_loY);
@@ -474,7 +486,11 @@ namespace WindowsFormsApplication1
 
         private void Add_SC_btn_Click(object sender, EventArgs e)// 일정 클릭시 이벤트 처리
         {
-            MessageBox.Show("여기에 일정 추가폼을 띄웁니다");
+            ModifySchedule modiSche = new ModifySchedule(); // 일정 추가 폼 띄우기
+            int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
+            int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
+            modiSche.Location = new Point(f_loX, f_loY);
+            modiSche.ShowDialog();
         }
     }
 }
