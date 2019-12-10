@@ -58,13 +58,13 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.일정추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.일정추가ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.일기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.일기쓰기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainLeft_pan = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.MainCenter_pan = new System.Windows.Forms.Panel();
             this.MainUser_pan = new System.Windows.Forms.Panel();
             this.UserProfile_prof = new UserCustomControl.Profile();
-            this.일기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.일기쓰기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTop_pan.SuspendLayout();
             this.MainHeader_menustp.SuspendLayout();
             this.MainLeft_pan.SuspendLayout();
@@ -317,6 +317,21 @@
             this.일정추가ToolStripMenuItem1.Text = "일정추가";
             this.일정추가ToolStripMenuItem1.Click += new System.EventHandler(this.일정추가ToolStripMenuItem1_Click);
             // 
+            // 일기ToolStripMenuItem
+            // 
+            this.일기ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.일기쓰기ToolStripMenuItem});
+            this.일기ToolStripMenuItem.Name = "일기ToolStripMenuItem";
+            this.일기ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.일기ToolStripMenuItem.Text = "일기";
+            // 
+            // 일기쓰기ToolStripMenuItem
+            // 
+            this.일기쓰기ToolStripMenuItem.Name = "일기쓰기ToolStripMenuItem";
+            this.일기쓰기ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.일기쓰기ToolStripMenuItem.Text = "일기쓰기";
+            this.일기쓰기ToolStripMenuItem.Click += new System.EventHandler(this.일기쓰기ToolStripMenuItem_Click);
+            // 
             // MainLeft_pan
             // 
             this.MainLeft_pan.BackColor = System.Drawing.Color.SandyBrown;
@@ -360,21 +375,6 @@
             this.UserProfile_prof.TabIndex = 0;
             this.UserProfile_prof.USERNAME = "UserName";
             this.UserProfile_prof.USERPIC = ((System.Drawing.Image)(resources.GetObject("UserProfile_prof.USERPIC")));
-            // 
-            // 일기ToolStripMenuItem
-            // 
-            this.일기ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.일기쓰기ToolStripMenuItem});
-            this.일기ToolStripMenuItem.Name = "일기ToolStripMenuItem";
-            this.일기ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
-            this.일기ToolStripMenuItem.Text = "일기";
-            // 
-            // 일기쓰기ToolStripMenuItem
-            // 
-            this.일기쓰기ToolStripMenuItem.Name = "일기쓰기ToolStripMenuItem";
-            this.일기쓰기ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.일기쓰기ToolStripMenuItem.Text = "일기쓰기";
-            this.일기쓰기ToolStripMenuItem.Click += new System.EventHandler(this.일기쓰기ToolStripMenuItem_Click);
             // 
             // Main
             // 

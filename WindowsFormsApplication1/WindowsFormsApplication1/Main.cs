@@ -204,5 +204,11 @@ namespace WindowsFormsApplication1
             ModifySchedule modifySchedule = new ModifySchedule();
             modifySchedule.ShowDialog();
         }
+
+        private void 일기쓰기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModifySchedule modifySchedule = new ModifySchedule();
+            modifySchedule.ShowDialog();
+        }
     }
 }
