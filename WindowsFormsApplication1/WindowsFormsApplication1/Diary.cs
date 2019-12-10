@@ -15,6 +15,7 @@ namespace WindowsFormsApplication1
     {
         DBConnection db = Program.DB;
         private string diaryCD = null;
+        
 
         public Diary(DateTime nowDate)
         {
@@ -62,17 +63,18 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             string date = EndDate.ToString("yyyy/MM/dd 00:00");
+            db.UR_CD = "U100000";
             string sql;
             try
             {
-                sql = "insert into DIARY_TB values('D'||to_char(seq_drcd.NEXTVAL),'" + textBox1.Text + "' , to_date('" + date + "', 'yyyy/MM/dd hh24:mi'),'" + db.UR_CD + "', null )";
+                sql = "insert into DIARY_TB values('" + textBox1.Text + "' , to_date('" + date + "', 'yyyy/MM/dd hh24:mi'),'" + db.UR_CD + "', '" + StateCheck + "')";
                 db.ExecuteNonQuery(sql);
                 MessageBox.Show("일기를 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
             }
             catch (Exception E)
             {
-                MessageBox.Show("데이터베이스 오류!! \n" + E.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("오늘자 일기를 이미 작성하셨습니다." , "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             textBox1.Text = "";
