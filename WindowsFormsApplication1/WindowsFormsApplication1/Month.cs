@@ -331,11 +331,19 @@ namespace WindowsFormsApplication1
 
                 if (lbl_nm < Convert.ToDateTime(rows[i]["SC_END_DT"]).Day) // 하루종일 이상의 일정이라면 백컬러 지정
                 {
-                    label.BackColor = sc_cr_bs;
-                    label.ForeColor = Color.Black;
+                    if (Convert.ToDateTime(rows[i]["SC_STR_DT"]).Hour != 0 && Convert.ToDateTime(rows[i]["SC_END_DT"]).Hour == 0)
+                    {
+                        label.BackColor = Color.Transparent;
+                        label.ForeColor = sc_cr_bs;
+                    }
+                    else
+                    {
+                        label.BackColor = sc_cr_bs;
+                        label.ForeColor = Color.Black;
 
-                    TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]).Subtract(Convert.ToDateTime(rows[i]["SC_STR_DT"]));
-                    Add_Set_Schedule(df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
+                        TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]).Subtract(Convert.ToDateTime(rows[i]["SC_STR_DT"]));
+                        Add_Set_Schedule(df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
+                    }
                 }
                 else
                 {
