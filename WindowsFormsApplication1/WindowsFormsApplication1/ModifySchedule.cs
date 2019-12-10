@@ -384,6 +384,15 @@ namespace WindowsFormsApplication1
             }
         }
 
- 
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            if(ScheduleCD == null)
+            {
+                MessageBox.Show(" 삭제할 일정이 없습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            dbs.Delete_Schedule(ScheduleCD);
+            MessageBox.Show(" 삭제 되었습니다 ", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            Clear_Controls();
+        }
     }
 }
