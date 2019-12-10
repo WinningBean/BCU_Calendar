@@ -21,7 +21,7 @@ namespace WindowsFormsApplication1
             db.UR_CD = "U100000";
             this.main = main;
         }
-        public ModifySchedule() // 
+        public ModifySchedule() // 그냥 ?
         {
             InitializeComponent();
             db.UR_CD = "U100000";
@@ -32,8 +32,13 @@ namespace WindowsFormsApplication1
         DBColor dbc = new DBColor();
         string pic_CD=null;
         bool check = false;
-        
+        private string scheduleCD = null;
 
+        public string ScheduleCD
+        {
+            get { return scheduleCD; }
+            set { scheduleCD = value.ToString(); }
+        }
         public string NameTxt
         {
             get { return nameTxt.Text; }
@@ -115,14 +120,14 @@ namespace WindowsFormsApplication1
         }
         public string ColorCom
         {
-            get { return dbc.ColorDic.ElementAt(colorCom.SelectedIndex).Key; }
+            get { return dbc.GetColorCode(colorCom.Text); }
             set { colorCom.Text = value; }
         }
 
 
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
-
+            label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";
 
@@ -271,7 +276,7 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if (EndHour=="" || StrHour == "")
+            if (EndHour == "" || StrHour == "")
             {
                 MessageBox.Show("시간을 설정해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -281,18 +286,30 @@ namespace WindowsFormsApplication1
             }
 
             else
-            {
+            {//EndHour, EndMin
                 DateTime end_Date = EndDate;
                 TimeSpan endts = new TimeSpan(int.Parse(EndHour), int.Parse(EndMin), 0);
-                end_Date = end_Date += endts;
+                end_Date = end_Date.Date + endts;
 
                 DateTime str_Date = StrDate;
                 TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
                 str_Date = str_Date.Date + strts;
 
-                dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
-                MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                Clear_Controls();
+                if (scheduleCD ==  null)
+                {
+                    dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
+                    MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    Clear_Controls();
+                }
+                else
+                {
+                    string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+                    string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+                    string sql = "  update SCHEDULE_TB set SC_NM = '" + NameTxt + "', SC_EX = '" + ExTxt + "', SC_PB_ST =  '" + StateCheck + "', SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi'), SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi'),  SC_PIC_FK =  '" + pic_CD + "', SC_CR_FK =  '" + ColorCom + "' where SC_CD =  '" + ScheduleCD + "'";
+                    db.ExecuteNonQuery(sql);
+                    MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    Clear_Controls();
+                }
             }
 
         }
@@ -365,7 +382,12 @@ namespace WindowsFormsApplication1
             pic.ShowDialog();
             pic_CD = pic.selectCD;
             ImagePic = pic.selectImage;
-
+            string str = "select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' ORDER BY PIC_CD DESC";
+            db.ExecuteReader(str);
+            if (db.Reader.Read())
+            {
+                pic_CD = db.Reader["PIC_CD"].ToString(); // PIC_CD 저장 
+            }
         }
     }
 }

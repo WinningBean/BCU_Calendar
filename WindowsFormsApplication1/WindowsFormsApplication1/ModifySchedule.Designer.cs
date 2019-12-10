@@ -49,8 +49,6 @@
             this.strMin = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.endMin = new System.Windows.Forms.ComboBox();
-            this.endHour = new System.Windows.Forms.ComboBox();
             this.colorCom = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -58,6 +56,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
+            this.endMin = new System.Windows.Forms.ComboBox();
+            this.endHour = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.imagePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,6 +186,7 @@
             // 
             // button1
             // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Location = new System.Drawing.Point(177, 556);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -196,6 +197,7 @@
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Location = new System.Drawing.Point(290, 556);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
@@ -262,25 +264,6 @@
             this.label11.Size = new System.Drawing.Size(39, 33);
             this.label11.TabIndex = 25;
             this.label11.Text = "●";
-            // 
-            // endMin
-            // 
-            this.endMin.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.endMin.FormattingEnabled = true;
-            this.endMin.Location = new System.Drawing.Point(367, 213);
-            this.endMin.Name = "endMin";
-            this.endMin.Size = new System.Drawing.Size(48, 30);
-            this.endMin.TabIndex = 24;
-            // 
-            // endHour
-            // 
-            this.endHour.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.endHour.FormattingEnabled = true;
-            this.endHour.Location = new System.Drawing.Point(289, 213);
-            this.endHour.Name = "endHour";
-            this.endHour.Size = new System.Drawing.Size(42, 30);
-            this.endHour.TabIndex = 23;
-            this.endHour.SelectedIndexChanged += new System.EventHandler(this.endHour_SelectedIndexChanged);
             // 
             // colorCom
             // 
@@ -354,12 +337,32 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // endMin
+            // 
+            this.endMin.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.endMin.FormattingEnabled = true;
+            this.endMin.Location = new System.Drawing.Point(367, 213);
+            this.endMin.Name = "endMin";
+            this.endMin.Size = new System.Drawing.Size(48, 30);
+            this.endMin.TabIndex = 34;
+            // 
+            // endHour
+            // 
+            this.endHour.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.endHour.FormattingEnabled = true;
+            this.endHour.Location = new System.Drawing.Point(289, 221);
+            this.endHour.Name = "endHour";
+            this.endHour.Size = new System.Drawing.Size(42, 30);
+            this.endHour.TabIndex = 35;
+            // 
             // ModifySchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(536, 591);
+            this.Controls.Add(this.endHour);
+            this.Controls.Add(this.endMin);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label13);
@@ -368,8 +371,6 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.colorCom);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.endMin);
-            this.Controls.Add(this.endHour);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.strMin);
             this.Controls.Add(this.strHour);
@@ -423,8 +424,6 @@
         private System.Windows.Forms.ComboBox strMin;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox endMin;
-        private System.Windows.Forms.ComboBox endHour;
         private System.Windows.Forms.ComboBox colorCom;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label9;
@@ -432,5 +431,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ComboBox endMin;
+        private System.Windows.Forms.ComboBox endHour;
     }
 }

@@ -16,20 +16,24 @@ namespace WindowsFormsApplication1
     {
         DBConnection db = Program.DB;
         DBSchedule dbs = new DBSchedule();
+        DBColor dbc = new DBColor();
+
         Panel paintPan = new Panel();
-      
         Panel day = new Panel();
         Panel pre = new Panel();
+
         DataTable GET_DAY_SC_TB = null;
 
         int checkHeight = 0;
-        int[,] location = new int[10,2];
+        int[,] location;
 
-        DateTime nowDate; // 생성자에 넣어서 월간에서 넘겨 받는다
+        DateTime nowDate = new DateTime(2019, 12, 24); // 생성자에 넣어서 월간에서 넘겨 받는다
 
-        private bool dragging = false;
-        private Point offset;
-
+        public Day()//DateTime date
+        {
+            InitializeComponent();
+            pre = null;
+        }
         public Day(DateTime nowDate)//DateTime date
         {
             InitializeComponent();
@@ -46,6 +50,7 @@ namespace WindowsFormsApplication1
         {
             db.UR_CD = "U100000";
             GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, "U100000", nowDate);
+            location = new int[10, 2];
 
             for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
             {   
@@ -92,8 +97,8 @@ namespace WindowsFormsApplication1
         private void Create_Day(DataRow dr, int i)
         {
             int y = 0;
-            
-            Color color = randomColor();
+
+            Color color = dbc.GetColorInsertCRCD(dr[7].ToString());
             DateTime strSC = Convert.ToDateTime(dr[4].ToString()); 
             DateTime endSC = Convert.ToDateTime(dr[5].ToString());
 
@@ -212,12 +217,6 @@ namespace WindowsFormsApplication1
             pb.Show();
         }
 
-        private Color randomColor() // 색을 랜덤으로 만들어줌
-        {
-            Random r = new Random();
-            color c = (color)(r.Next() % 5);
-            return SelectColor(c);
-        }
         private Color SelectColor(color c) // 지정한 색을 리턴
         {
             switch (c)
@@ -299,7 +298,7 @@ namespace WindowsFormsApplication1
 
             panel2.Controls.Add(paintPan);
             panel2.Controls.Add(day);
-            panel2.Size = new Size(595, 810);
+            panel2.Size = new Size(595, 2210);
 
             Draw_Time();
             panel2.VerticalScroll.Maximum = 0;
@@ -335,7 +334,11 @@ namespace WindowsFormsApplication1
             dlg.StrMin = strSC.Minute.ToString();
             dlg.EndHour = endSC.Hour.ToString();
             dlg.EndMin = endSC.Minute.ToString();
-            // dlg.StateCheck = Convert.ToInt32( curr["SC_PB_ST"]);
+            dlg.StateCheck = Convert.ToInt32(curr["SC_PB_ST"]);
+            dlg.ColorCom = dbc.GetColorName(curr[7].ToString());
+            dlg.ScheduleCD = curr[0].ToString();
+
+
 
             string sql = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
             db.ExecuteReader(sql);
@@ -344,7 +347,7 @@ namespace WindowsFormsApplication1
                 Byte[] b = (Byte[])(db.Reader["PIC_DATA"]);
                 MemoryStream stmBlobData = new MemoryStream(b);
                 Image img = Image.FromStream(stmBlobData);
-              
+
                 dlg.ImagePic = img;
             }
             else
@@ -354,13 +357,15 @@ namespace WindowsFormsApplication1
 
             dlg.ShowDialog();
 
-            //if (dlg.ShowDialog() == DialogResult.OK)
-            //{
-            //    label1.Left = dlg.LabelX;
-            //    label1.Top = dlg.LabelY;
-            //    label1.Text = dlg.LabelText;
-            //}
-            dlg.Dispose();
+            if (dlg.ShowDialog() == DialogResult.Cancel)
+            {
+
+                dlg.Dispose();
+
+                day.Controls.Clear();
+                Get_chedule();
+            }
+
 
         }
         private void PictureBox_Click(object render, EventArgs e)
@@ -374,14 +379,17 @@ namespace WindowsFormsApplication1
             ModifySchedule dlg = new ModifySchedule();
             dlg.NameTxt = curr["SC_NM"].ToString();
             dlg.ExTxt = curr["SC_EX"].ToString();
-            dlg.StrDate = strSC;
-            dlg.EndDate = endSC;
+            dlg.StrDate = (DateTime)curr["SC_STR_DT"];
+            dlg.EndDate = (DateTime)curr["SC_END_DT"];
             dlg.StrHour = strSC.Hour.ToString();
             dlg.StrMin = strSC.Minute.ToString();
             dlg.EndHour = endSC.Hour.ToString();
             dlg.EndMin = endSC.Minute.ToString();
+            dlg.StateCheck = Convert.ToInt32(curr["SC_PB_ST"]);
+            dlg.ColorCom = dbc.GetColorName(curr[7].ToString());
+            dlg.ScheduleCD = curr[0].ToString();
 
-            //dlg.StateCheck = true;
+
 
             string sql = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
             db.ExecuteReader(sql);
@@ -400,13 +408,15 @@ namespace WindowsFormsApplication1
 
             dlg.ShowDialog();
 
-            //if (dlg.ShowDialog() == DialogResult.OK)
-            //{
-            //    label1.Left = dlg.LabelX;
-            //    label1.Top = dlg.LabelY;
-            //    label1.Text = dlg.LabelText;
-            //}
-            dlg.Dispose();
+            if (dlg.ShowDialog() == DialogResult.Cancel)
+            {
+
+                dlg.Dispose();
+
+                day.Controls.Clear();
+                Get_chedule();
+            }
+
 
         }
 
@@ -415,14 +425,14 @@ namespace WindowsFormsApplication1
             string sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "'";
             db.ExecuteReader(sql);
             int y = 75;
-            Color color = randomColor();
+         //   Color color = randomColor();
             while (db.Reader.Read())
             {
                 Label todoColor = new Label();
                 todoColor.Text = "●";
                 todoColor.AutoSize = true;
                 todoColor.Location = new Point(10, y);
-                todoColor.ForeColor = color;
+                //todoColor.ForeColor = color;
                 todoColor.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoColor);
                 
