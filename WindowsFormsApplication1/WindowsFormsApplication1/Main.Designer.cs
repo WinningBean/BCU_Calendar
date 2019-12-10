@@ -339,7 +339,7 @@
             // 
             // MainLeft_pan
             // 
-            this.MainLeft_pan.BackColor = System.Drawing.Color.SandyBrown;
+            this.MainLeft_pan.BackColor = System.Drawing.Color.Gainsboro;
             this.MainLeft_pan.Controls.Add(this.panel3);
             this.MainLeft_pan.Location = new System.Drawing.Point(0, 92);
             this.MainLeft_pan.Name = "MainLeft_pan";

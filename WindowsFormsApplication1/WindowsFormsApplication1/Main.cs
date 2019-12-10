@@ -41,6 +41,11 @@ namespace WindowsFormsApplication1
             week.TopMost = true;
             week.Parent = this;
             week.Location = new Point(0, 0);
+
+            bs_leftTab.TopLevel = false;
+            bs_leftTab.TopMost = true;
+            bs_leftTab.Parent = this;
+            bs_leftTab.Location = new Point(0, 0);
         }
 
         public UserCustomControl.Profile USERPROFILE
@@ -57,7 +62,13 @@ namespace WindowsFormsApplication1
             set { 사용자ToolStripMenuItem.Text = value; }
         }
 
-        
+        LeftTab bs_leftTab = new LeftTab();
+        private void setLeftBasicPanel()
+        { // 센터패널 설정 함수 (주간 폼 가져오기)
+            MainLeft_pan.Controls.Add(bs_leftTab);
+            bs_leftTab.Show();
+        }
+
         Month mnt = new Month();
         private void setCenterMonthPanel()
         { // 센터패널 설정 함수 (월간 폼 가져오기)
@@ -71,8 +82,6 @@ namespace WindowsFormsApplication1
 
             Check_FriendRequest(); // -----------------------------어디다가 넣어야 메인이 띄워지고 메세지 박스가 뜰까?????
         }
-
-
 
         Week week = new Week();
         private void setCenterWeekPanel()
@@ -103,6 +112,7 @@ namespace WindowsFormsApplication1
             mnt.FOCUS_DT = week.FOCUS_DT = m_focus_dt = sc_db.TODAY;
 
             setCenterMonthPanel(); // 월간보기로 기본설정
+            setLeftBasicPanel(); // LeftTab으로 기본설정
             Set_UserProfile();
            
         }
