@@ -40,10 +40,18 @@ namespace WindowsFormsApplication1
 
         public string GetColorCode(string str) // 컬러코드 리턴
         {
-            db.ExecuteReader("select * from COLOR_TB where CR_CD = '" + str + "'");
+            db.ExecuteReader("select * from COLOR_TB where CR_NM = '" + str + "'");
             if (!db.Reader.Read())
                 return "Do not exist";
             return db.Reader[0].ToString();
+        }
+
+        public string GetColorName(string str) // 컬명 리턴
+        {
+            db.ExecuteReader("select * from COLOR_TB where CR_CD = '" + str + "'");
+            if (!db.Reader.Read())
+                return "Do not exist";
+            return db.Reader[1].ToString();
         }
 
         public Color GetColorInsertCRCD(string CR_CD, int alpha = 255) // 지정한 색을 리턴
