@@ -21,13 +21,14 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             //this.nowDate = nowDate;
+            NowDate = nowDate;
         }
         public Diary()
         {
             InitializeComponent();
 
         }
-        public DateTime EndDate
+        public DateTime NowDate
         {
             get { return date.Value; }
             set { date.Value = value; }
@@ -62,7 +63,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string date = EndDate.ToString("yyyy/MM/dd 00:00");
+            string date = NowDate.ToString("yyyy/MM/dd 00:00");
  
             string sql;
             try
