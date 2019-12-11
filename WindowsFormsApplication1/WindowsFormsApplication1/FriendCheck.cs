@@ -31,11 +31,18 @@ namespace WindowsFormsApplication1
                 db.ExecuteReader(sql);
                 int i = 0;
                 y = 0;
-                while (db.Reader.Read())
+                if (db.Reader.Read())
                 {
+                    while (db.Reader.Read())
+                    {
 
-                    panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString()));
-                    i++;
+                        panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString()));
+                        i++;
+                    }
+                }
+                else
+                {
+                    this.Close();
                 }
             }
             catch
