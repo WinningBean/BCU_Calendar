@@ -344,7 +344,7 @@ namespace WindowsFormsApplication1
         private void Set_Schedule(DateTime NowDay, Panel WeekPanel, List<int> bs_lo, int now_loX, int bs_sc)
         {
             // 일정 표시 함수
-            DataTable sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay);
+            DataTable sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
             int lo_y = -25; // 이어이는 일정 뒤의 로케이션

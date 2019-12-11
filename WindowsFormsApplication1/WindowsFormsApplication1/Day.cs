@@ -57,8 +57,7 @@ namespace WindowsFormsApplication1
         
         private void Get_chedule()
         {
-            db.UR_CD = "U100000";
-            GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, "U100000", nowDate);
+            GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
             location = new int[15, 2];
 
             for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
