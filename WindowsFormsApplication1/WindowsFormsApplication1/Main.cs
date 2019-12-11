@@ -101,10 +101,15 @@ namespace WindowsFormsApplication1
             grp.Show();
             bs_leftTab.Hide();
 
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
+
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
             
             grp.CLOSE_btn.Click += new System.EventHandler(this.Close_btn_Click);
+            grp.GROUP_NM_lbl.Click += new System.EventHandler(this.GR_nm_lbl_Click);
+
             for (int i = 0; i < MemProf_lst.Count; i++)
             {
                 MemProf_lst[i].Click += new System.EventHandler(this.Mem_prof_Click);
@@ -112,13 +117,20 @@ namespace WindowsFormsApplication1
                 MemProf_lst[i].USERPIC.Click += new System.EventHandler(this.Mem_prof_pic_Click);
             }
         }
-        
+
+        private void GR_nm_lbl_Click(object sender, EventArgs e)
+        {
+            db.FR_CD = null;
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
+        }
+
         private void Close_btn_Click(object sender, EventArgs e)
         {
             db.GR_CD = null;
             db.FR_CD = null;
 
-            fr_mnt.Dispose();
+            //fr_mnt.Dispose();
             //fr_week.Dispose(); 생성시 디스포스
 
             if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
@@ -133,8 +145,8 @@ namespace WindowsFormsApplication1
             string prof_nm = ((UserCustomControl.Profile)sender).Name;
             int prof_lst_n = Convert.ToInt32(prof_nm.Substring(10, prof_nm.Length - 10));
             db.FR_CD = MemCD_lst[prof_lst_n];
-            if (MonthForm_btn.Enabled == false) Show_FR_Mnt(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
-            else MessageBox.Show("친구 일정 주간 보기");
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
         }
 
         private void Mem_prof_lbl_Click(object sender, EventArgs e)
@@ -142,8 +154,8 @@ namespace WindowsFormsApplication1
             string prof_nm = ((UserCustomControl.Profile)((Label)sender).Parent).Name;
             int prof_lst_n = Convert.ToInt32(prof_nm.Substring(10, prof_nm.Length - 10));
             db.FR_CD = MemCD_lst[prof_lst_n];
-            if (MonthForm_btn.Enabled == false) Show_FR_Mnt(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
-            else MessageBox.Show("친구 일정 주간 보기");
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
         }
 
         private void Mem_prof_pic_Click(object sender, EventArgs e)
@@ -151,8 +163,8 @@ namespace WindowsFormsApplication1
             string prof_nm = ((UserCustomControl.Profile)((UserCustomControl.RoundPictureBox)sender).Parent).Name;
             int prof_lst_n = Convert.ToInt32(prof_nm.Substring(10, prof_nm.Length - 10));
             db.FR_CD = MemCD_lst[prof_lst_n];
-            if (MonthForm_btn.Enabled == false) Show_FR_Mnt(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
-            else MessageBox.Show("친구 일정 주간 보기");
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
         }
 
         // ---------- Friend Month ----------

@@ -40,7 +40,7 @@ namespace WindowsFormsApplication1
             get { return MemProf_lst; }
         }
         public Label CLOSE_btn { get { return Close_btn; } } // 클로즈 버튼 프로퍼티
-
+        public Label GROUP_NM_lbl { get { return GR_nm_lbl; } } // 그룹 이름 레이블 프로퍼티
 
         private void Set_Groupbs() // 그룹 기본 정보 설정
         {
@@ -86,6 +86,7 @@ namespace WindowsFormsApplication1
                 Mem_prof.Size = new Size(213, 30);
                 Mem_prof.Location = new Point(5, MemCD_lst.Count * 35);
                 Mem_prof.Set_Profile_Size(FontStyle.Regular);
+                if (db.Reader["UR_CD"].ToString() == db.UR_CD) Mem_prof.Enabled = false;
 
                 MemCD_lst.Add(db.Reader["UR_CD"].ToString());
                 MemProf_lst.Add(Mem_prof);

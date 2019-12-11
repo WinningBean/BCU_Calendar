@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Group));
             this.label1 = new System.Windows.Forms.Label();
             this.MasterProfile_prof = new UserCustomControl.Profile();
             this.line_0 = new System.Windows.Forms.Label();
@@ -59,13 +58,12 @@
             // MasterProfile_prof
             // 
             this.MasterProfile_prof.BackColor = System.Drawing.Color.Transparent;
+            this.MasterProfile_prof.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.MasterProfile_prof.Location = new System.Drawing.Point(70, 46);
             this.MasterProfile_prof.Margin = new System.Windows.Forms.Padding(0);
             this.MasterProfile_prof.Name = "MasterProfile_prof";
             this.MasterProfile_prof.Size = new System.Drawing.Size(155, 29);
             this.MasterProfile_prof.TabIndex = 1;
-            this.MasterProfile_prof.USERNAME.Text = "UserName";
-            this.MasterProfile_prof.USERPIC.Image = ((System.Drawing.Image)(resources.GetObject("MasterProfile_prof.USERPIC")));
             // 
             // line_0
             // 
@@ -89,7 +87,7 @@
             // 
             // GR_nm_lbl
             // 
-            this.GR_nm_lbl.Cursor = System.Windows.Forms.Cursors.Default;
+            this.GR_nm_lbl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GR_nm_lbl.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.GR_nm_lbl.ForeColor = System.Drawing.Color.Black;
             this.GR_nm_lbl.Location = new System.Drawing.Point(10, 2);
