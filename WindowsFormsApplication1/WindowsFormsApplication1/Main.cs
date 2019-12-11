@@ -31,7 +31,11 @@ namespace WindowsFormsApplication1
             this.log = log;    // 로그인 폼 종료 코드는 Dispose (Main.Designer.cs) 메서드에 정의되어있음
 
             InitializeComponent();
-
+            Set_BS_ctr();
+        }
+        
+        private void Set_BS_ctr()
+        {
             mnt.TopLevel = false;
             mnt.TopMost = true;
             mnt.Parent = this;
@@ -51,6 +55,7 @@ namespace WindowsFormsApplication1
             fr_tab.TopMost = true;
             fr_tab.Parent = this;
             fr_tab.Location = new Point(0, 0);
+
         }
 
         public UserCustomControl.Profile USERPROFILE
@@ -128,6 +133,7 @@ namespace WindowsFormsApplication1
         {
             // UserProfile_pro 초기 설정 함수
             UserProfile_prof.Set_Profile_Size(FontStyle.Bold);
+            UserProfile_prof.Width = UserProfile_prof.USERPIC.Width + 5 + UserProfile_prof.USERNAME.Width;
             UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
         }
@@ -222,7 +228,7 @@ namespace WindowsFormsApplication1
         }
 
 
-       private void Check_FriendRequest() // 메인이 실행 될때 친구친청 온게 있는지 확인 - CJE 
+       private void Check_FriendRequest() // 메인이 실행 될때 친구신청 온게 있는지 확인 - CJE 
        {
             string command = "select * from FRIEND_TB where FR_FR_FK ='" + db.UR_CD + "' and FR_ACEP_ST = 0";
             db.ExecuteReader(command);
@@ -266,6 +272,26 @@ namespace WindowsFormsApplication1
             LeftTabForm_btn.Visible = false;
             setLeftBasicPanel();
             FreindForm_btn.Visible = true;
+        }
+
+        private void 오늘일정보기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Day day = new Day(sc_db.TODAY);
+            day.StartPosition = FormStartPosition.CenterParent;
+            day.ShowDialog();
+        }
+
+        private void 로그아웃ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Restart();
+        }
+
+        private void 친구추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddFriend addfr = new AddFriend();
+            addfr.StartPosition = FormStartPosition.CenterParent;
+            addfr.ShowDialog();
         }
     }
 }
