@@ -188,12 +188,6 @@
     <Compile Include="Week.Designer.cs">
       <DependentUpon>Week.cs</DependentUpon>
     </Compile>
-    <Compile Include="TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Group.resx">
       <DependentUpon>Group.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,9 +233,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Week.resx">
       <DependentUpon>Week.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Week_MoreInfo.resx">
       <DependentUpon>Week_MoreInfo.cs</DependentUpon>
