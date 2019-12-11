@@ -64,6 +64,7 @@
             this.MasterProfile_prof.Name = "MasterProfile_prof";
             this.MasterProfile_prof.Size = new System.Drawing.Size(155, 29);
             this.MasterProfile_prof.TabIndex = 1;
+            this.MasterProfile_prof.USERNAME = "UserName";
             this.MasterProfile_prof.USERPIC = ((System.Drawing.Image)(resources.GetObject("MasterProfile_prof.USERPIC")));
             // 
             // line_0
@@ -150,6 +151,7 @@
             this.Add_MB_btn.TabIndex = 16;
             this.Add_MB_btn.Text = "+";
             this.Add_MB_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Add_MB_btn.Click += new System.EventHandler(this.Add_MB_btn_Click);
             // 
             // Member_lbl
             // 

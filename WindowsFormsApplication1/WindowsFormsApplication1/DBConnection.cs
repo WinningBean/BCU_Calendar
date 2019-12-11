@@ -23,8 +23,8 @@ namespace WindowsFormsApplication1
 
         // 전역 데이터 설정
         private string ur_cd; // 유저 코드
-        private string gr_cd; // 그룹 코드
-        private string fr_cd; // 친구 코드
+        private string gr_cd = null; // 그룹 코드
+        private string fr_cd = null; // 친구 코드
 
         public string UR_CD {
             get { return ur_cd; }

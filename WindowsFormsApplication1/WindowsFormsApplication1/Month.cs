@@ -163,6 +163,7 @@ namespace WindowsFormsApplication1
             modiSche.ShowDialog();
         }
 
+        Day day = new Day(); // 일간 폼 띄우기
         private void dm_dt_Click(object sender, EventArgs e)// 날짜 클릭시 이벤트 처리
         {
             clear_lbl_cr();
@@ -175,11 +176,14 @@ namespace WindowsFormsApplication1
             Set_Add_SC_btn();
             fc_pan.Controls.Add(Add_SC_btn);
 
-            Day day = new Day(m_focus_dt); // 일간 폼 띄우기
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - day.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - day.Height / 2;
             day.Location = new Point(f_loX, f_loY);
+            day.FOCUS_DT = m_focus_dt;
             day.ShowDialog();
+
+            m_focus_dt = day.Get_focus_dt();
+            Set_Month_Today();
         }
 
 

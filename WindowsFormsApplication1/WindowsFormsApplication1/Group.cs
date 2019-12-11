@@ -59,6 +59,7 @@ namespace WindowsFormsApplication1
                 // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
                 if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) MasterProfile_prof.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(3));
             }
+            db.Reader.Close();
         }
         
         List<UserCustomControl.Profile> MemProf_lst;
@@ -93,6 +94,7 @@ namespace WindowsFormsApplication1
                 GRMember_pan.Controls.Add(Mem_prof);
             }
             Member_lbl.Text = "그룹원 총 " + MemProf_lst.Count + "명";
+            db.Reader.Close();
         }
 
 
@@ -101,6 +103,11 @@ namespace WindowsFormsApplication1
         {
             Set_Groupbs();
             Set_GroupMem();
+        }
+
+        private void Add_MB_btn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("여기에 멤버 추가폼을 띄웁니다");
         }
     }
 }
