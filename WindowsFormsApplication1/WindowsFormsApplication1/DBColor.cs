@@ -32,7 +32,7 @@ namespace WindowsFormsApplication1
             Random r = new Random();
             db.ExecuteReader("select * from COLOR_TB");
             int num = r.Next() % db.Reader.FieldCount;
-            for (int i = 0; i <= num; i++)
+            for (int i = 1; i < num; i++)
                 db.Reader.Read();
 
             return Color.FromArgb(alpha, Int32.Parse(db.Reader[2].ToString()), Int32.Parse(db.Reader[3].ToString()), Int32.Parse(db.Reader[4].ToString()));
@@ -58,7 +58,7 @@ namespace WindowsFormsApplication1
         {
             db.ExecuteReader("select * from COLOR_TB where CR_CD = '" + CR_CD + "'");
             if (!db.Reader.Read())
-                return new Color();
+                return randomColor(alpha);
 
             return Color.FromArgb(alpha, Int32.Parse(db.Reader[2].ToString()), Int32.Parse(db.Reader[3].ToString()), Int32.Parse(db.Reader[4].ToString()));
         }

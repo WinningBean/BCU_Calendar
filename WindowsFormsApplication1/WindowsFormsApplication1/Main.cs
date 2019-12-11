@@ -75,7 +75,8 @@ namespace WindowsFormsApplication1
             week.TopLevel = false;
             week.TopMost = true;
 
-            m_focus_dt = mnt.FOCUS_DT;
+            //m_focus_dt = mnt.FOCUS_DT;
+            m_focus_dt = sc_db.TODAY;
             week.FOCUS_DT = m_focus_dt;
 
             week.Parent = this;

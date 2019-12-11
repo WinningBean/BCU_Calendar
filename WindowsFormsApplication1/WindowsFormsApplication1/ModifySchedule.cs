@@ -18,7 +18,7 @@ namespace WindowsFormsApplication1
         public ModifySchedule(Main main ) // 메인에서 호출 
         {
             InitializeComponent();
-            db.UR_CD = "U100000";
+            //db.UR_CD = "U100000";
             this.main = main;
         }
         public ModifySchedule() // 그냥 ?
@@ -29,7 +29,7 @@ namespace WindowsFormsApplication1
 
         DBConnection db = Program.DB;
         DBSchedule dbs = null;
-        DBColor dbc = new DBColor();
+        DBColor dbc = null;
         string pic_CD=null;
         bool check = false;
         private string scheduleCD = null;
@@ -128,6 +128,7 @@ namespace WindowsFormsApplication1
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
             dbs = new DBSchedule();
+            dbc = new DBColor();
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";
