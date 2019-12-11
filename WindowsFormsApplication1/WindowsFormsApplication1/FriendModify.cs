@@ -49,8 +49,12 @@ namespace WindowsFormsApplication1
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string sql = "delete from SCHEDULE_TB where SC_CD = '" + curr["UR_CD"].ToString() + "'";
-            db.ExecuteNonQuery(sql);
+            if (MessageBox.Show("w친구가 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                string sql = "delete from SCHEDULE_TB where SC_CD = '" + curr["UR_CD"].ToString() + "'";
+                db.ExecuteNonQuery(sql);
+            }
+
         }
 
         private void button4_Click(object sender, EventArgs e)
