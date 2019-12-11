@@ -43,7 +43,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(13, 18);
+            this.label1.Location = new System.Drawing.Point(3, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 24);
             this.label1.TabIndex = 0;
@@ -62,6 +62,9 @@
             // 
             // button2
             // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button2.Location = new System.Drawing.Point(31, 409);
             this.button2.Name = "button2";
@@ -74,17 +77,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("함초롬돋움", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(11, 42);
+            this.label5.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Location = new System.Drawing.Point(27, 52);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(137, 32);
+            this.label5.Size = new System.Drawing.Size(106, 24);
             this.label5.TabIndex = 8;
             this.label5.Text = "오늘의 할일";
             // 
             // Down
             // 
+            this.Down.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Down.FlatAppearance.BorderSize = 0;
+            this.Down.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Down.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Down.Location = new System.Drawing.Point(501, 448);
+            this.Down.Location = new System.Drawing.Point(491, 448);
             this.Down.Name = "Down";
             this.Down.Size = new System.Drawing.Size(343, 33);
             this.Down.TabIndex = 4;
@@ -94,15 +100,18 @@
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(174, 1);
+            this.panel2.Location = new System.Drawing.Point(162, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(352, 358);
+            this.panel2.Size = new System.Drawing.Size(376, 318);
             this.panel2.TabIndex = 4;
             // 
             // button1
             // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(174, 448);
+            this.button1.Location = new System.Drawing.Point(162, 448);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(333, 33);
             this.button1.TabIndex = 5;
@@ -114,7 +123,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("함초롬돋움", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(814, 1);
+            this.label2.Location = new System.Drawing.Point(804, 1);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 32);
             this.label2.TabIndex = 6;
@@ -126,7 +135,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(846, 480);
+            this.ClientSize = new System.Drawing.Size(835, 480);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Down);
