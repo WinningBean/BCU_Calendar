@@ -26,17 +26,19 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             int infoNum = scInfo.Length / 7;
-            for(int i =0; i<infoNum; i++)
+            DataSet ds = new DataSet("SCHEDULE_TB");
+            for (int i =0; i<infoNum; i++)
             {
                 string subStr = scInfo.Substring(7 * i, 7);
-                db.ExecuteReader("select * from SCHEDULE_TB where SC_CD = '" + subStr + "'");
-                if (db.Reader.Read())
-                {
-                    m_LiView_info.Items.Add(db.Reader[1].ToString());
-                    m_LiView_info.Items[i].SubItems.Add(db.Reader[4].ToString());
-                    m_LiView_info.Items[i].SubItems.Add(db.Reader[5].ToString());
-                    m_LiView_info.Items[i].Name = db.Reader[0].ToString();
-                }
+                db.AdapterOpen("select * from SCHEDULE_TB where SC_CD = '" + subStr + "'");
+                db.Adapter.Fill(ds, "SCHEDULE_TB");
+            }
+            DataTable dt = ds.Tables["SCHEDULE_TB"];
+            for(int i= 0; i< dt.Rows.Count; i++) {
+                m_LiView_info.Items.Add(dt.Rows[i][1].ToString());
+                m_LiView_info.Items[i].SubItems.Add(dt.Rows[i][4].ToString());
+                m_LiView_info.Items[i].SubItems.Add(dt.Rows[i][5].ToString());
+                m_LiView_info.Items[i].Name = dt.Rows[i][0].ToString();
             }
         }
 

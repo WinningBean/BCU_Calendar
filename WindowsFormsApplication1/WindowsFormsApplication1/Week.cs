@@ -543,13 +543,14 @@ namespace WindowsFormsApplication1
                     Panel morePan = (Panel)insideMain.Controls[insideMain.Controls.Count - 1]; // 마지막
                     morePan.BackColor = (new DBColor()).GetColorInsertName("GRAY", 200);
                     Label moreLabel = (Label)morePan.Controls[0];
-                    moreLabel.Text = ". . .";
                     moreLabel.Location = new Point(0, 0);
                     moreLabel.AutoSize = false;
                     moreLabel.Size = morePan.Size;
                     moreLabel.TextAlign = ContentAlignment.MiddleCenter;
                     morePan.Name += dataRowList[k][0].ToString(); // 네임을 더 추가해줌
-                    moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
+                    if (!moreLabel.Text.Equals(". . ."))
+                        moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
+                    moreLabel.Text = ". . .";
                     continue;
                 }
                 int overlapNum = overlapSCList[k][0] > 3 ? 3 : overlapSCList[k][0];
