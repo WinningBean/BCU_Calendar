@@ -16,18 +16,20 @@ namespace WindowsFormsApplication1
         DBConnection db = Program.DB;
         DataTable friendTable = null;
         DataTable friend_group_tb = null;
-
+        
         Panel[] pan;
         Label[] label;
         Button[] btn;
 
         int location;
+        int panLotaion;
         int[] flag;
 
         public FriendList()
         {
             InitializeComponent();
             location = 0;
+            panLotaion = 0;
         }
 
         private Control Create_FriendProfile(int i, DataTable dataTable) //친구 프로필 생성
@@ -38,11 +40,17 @@ namespace WindowsFormsApplication1
             FriendProfile.USERNAME = currRow["UR_NM"].ToString();
             FriendProfile.Location = new System.Drawing.Point(0, 10 + location * 30);
             FriendProfile.Size = new System.Drawing.Size(150, 25);
+            FriendProfile.MouseClick += new MouseEventHandler(mouse_MouseClick);
+         //   FriendProfile.SendToBack();
 
-            location++; // 전역
+
+            //FriendProfile.TabIndex = i;
+            
+           location++; // 전역
 
             return FriendProfile;
         }
+        
 
         private void UploadeList()
         {
@@ -72,21 +80,27 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < friendTable.Rows.Count; i++)
             {             
                 pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
+ 
             }
+           
 
             for (int i = 0; i < friend_group_tb.Rows.Count; i++) 
             {
+                //int location = 0;
                 DataRow currRow;
                 currRow = friend_group_tb.Rows[i];
                 btn[i + 1] = new Button();
                 btn[i + 1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                btn[i + 1].Location = new System.Drawing.Point(20, 45 + location * 30);
+                btn[i + 1].Location = new System.Drawing.Point(20, 45 + location * 40);
                 btn[i + 1].Name = "btn" + i.ToString();
                 btn[i + 1].Size = new System.Drawing.Size(130, 32);
                 btn[i + 1].TabIndex = i+1;
                 btn[i + 1].Text = currRow["FRGR_NM"].ToString() + "       ▼";
                 btn[i + 1].Click += new EventHandler(GroupList_Click);
+              
+                btn[i + 1].Visible = true;
                 panel1.Controls.Add(btn[i + 1]);
+                btn[i + 1].BringToFront();
 
                 location++;
                 flag[i + 1] = 0;
@@ -106,6 +120,15 @@ namespace WindowsFormsApplication1
 
         private void FriendList_Load(object sender, EventArgs e)
         {
+            button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button4.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+
+            button1.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button4.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+
+            db.UR_CD = "U100000";
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
             panel1.AutoScroll = false;
@@ -117,7 +140,7 @@ namespace WindowsFormsApplication1
             UploadeList();
             GetGroupMamber();
 
-            panel2.Controls.Add(button2);
+
         }
 
         private void GetGroupList()
@@ -158,10 +181,22 @@ namespace WindowsFormsApplication1
             int i = 0;
             Button mybtn = (Button)render;
             i = mybtn.TabIndex ;
-       
+            
+          
             if (!pan[i].Visible) //i 번쨰리스트가 보이지 않는 상태이면 ( 리스트를 펼칠때)
             {
-                //리스트 펼치는 버튼 밑에만 생각 하면됨 
+                if(i == 0)
+                {
+                    btn[0].Text= "기본그룹    ▲";
+                }
+                else
+                {
+                    i -= 1;
+                    DataRow currRow = friend_group_tb.Rows[i];
+                    btn[i+1].Text = currRow["FRGR_NM"].ToString() + "     ▲";
+                    i += 1;
+                }
+                                //리스트 펼치는 버튼 밑에만 생각 하면됨 
                 //리스트판넬의 위치를 잡을떄 목록버튼 밑에다가 둬서 버튼이동만 생각 
                 for (int j = i +1 ; j < friend_group_tb.Rows.Count + 1; j++) //최대 그룹리스트 갯수만큼 +1 은 기본그룹
                 {
@@ -172,6 +207,17 @@ namespace WindowsFormsApplication1
             }
             else //리스트를 닫을떄
             {
+                if (i == 0)
+                {
+                    btn[0].Text = "기본그룹     ▼";
+                }
+                else
+                {
+                    i -= 1;
+                    DataRow currRow = friend_group_tb.Rows[i];
+                    btn[i+1].Text = currRow["FRGR_NM"].ToString() + "     ▼";
+                    i += 1;
+                }
                 for (int j = i+1; j < friend_group_tb.Rows.Count + 1; j++)
                 {
                     btn[j].Location = new Point(btn[j].Location.X, btn[j].Location.Y - pan[i].Size.Height);
@@ -185,21 +231,25 @@ namespace WindowsFormsApplication1
         {
             panel2.Visible = false;
             location = 0;
-            panel3.Controls.Clear();
-            panel3.Controls.Add(button2);
             bool check = false;
-            for (int i = 0; i < friendTable.Rows.Count; i++)
+
+            string sql = "select  UR_NM ,UR_ID from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "') and (UR_NM ='" + textBox1.Text + "' OR UR_ID='" + textBox1.Text + "') ORDER BY  UR_NM ASC" ;
+
+            db.ExecuteReader(sql);
+            if (db.Reader.Read())
             {
-                DataRow currRow = friendTable.Rows[i];
-                if (currRow["UR_NM"].ToString().Equals(textBox1.Text))
-                {
-                    check = true;
-                    panel3.Controls.Add( Create_FriendProfile(i, friendTable));
-                    panel3.Visible = true;
-                }       
+                db.AdapterOpen(sql);
+                DataSet rs = new DataSet();
+                db.Adapter.Fill(rs, "search");
+                DataTable search = rs.Tables["search"];
+
+                FriendSearch friendSearch = new FriendSearch(search);
+                friendSearch.ShowDialog();
+                check = true;
+
             }
-           
-            if(!check)
+         
+            if (!check)
             {
                 panel1.Visible = false;
                 panel2.Visible = true;
@@ -215,15 +265,36 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
+            panel2.Visible = false;
             AddFriend addFriend = new AddFriend();
             addFriend.ShowDialog();
           
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void mouse_MouseClick(object sender, MouseEventArgs e)
         {
-            panel3.Visible = false;
+
+                UserCustomControl.Profile myPan = (UserCustomControl.Profile)sender;
+                int i = myPan.TabIndex;
+                DataRow currRow = friendTable.Rows[i];
+                Point mousePoint = new Point(e.X, e.Y);
+                FriendModify friendModify = new FriendModify(currRow, friend_group_tb, mousePoint);
+                friendModify.ShowDialog();
+
         }
+ 
+
+        private void OnTopPanMouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.SlateGray;
+        }
+        private void OnTopPanMouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.Transparent;
+        }
+
+
     }
 }
 
