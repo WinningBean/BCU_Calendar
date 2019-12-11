@@ -29,6 +29,14 @@ namespace WindowsFormsApplication1
             panel1.Visible = false;
             Get_GroupList();
             GetFriendsList();
+
+            button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button2.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+
+            button1.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button2.MouseEnter += new EventHandler(OnTopPanMouseLeave);
         }
 
         private void Get_GroupList()
@@ -118,8 +126,9 @@ namespace WindowsFormsApplication1
             else
             {
                 MessageBox.Show("친구 신청 보넸습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                panel1.Enabled = true;
+               panel1.Enabled = true;
                 panel1.Visible = true;
+                this.Close();
             }
 
         }
@@ -128,5 +137,17 @@ namespace WindowsFormsApplication1
         {
             this.Close();
         }
+
+        private void OnTopPanMouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.SlateGray;
+        }
+        private void OnTopPanMouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.Transparent;
+        }
+
     }
 }
