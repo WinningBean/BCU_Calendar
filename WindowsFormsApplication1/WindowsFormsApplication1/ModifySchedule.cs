@@ -15,10 +15,17 @@ namespace WindowsFormsApplication1
     public partial class ModifySchedule : Form
     {
         Main main = null;
+        DataRow curr = null;
+
         public ModifySchedule(Main main ) // 메인에서 호출 
         {
             InitializeComponent();
             this.main = main;
+        }
+        public ModifySchedule(DataRow dr) 
+        {
+            InitializeComponent();
+            this.curr = dr;
         }
         public ModifySchedule() // 그냥 ?
         {
@@ -31,6 +38,16 @@ namespace WindowsFormsApplication1
         string pic_CD=null;
         bool check = false;
         private string scheduleCD = null;
+
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern System.IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect
+        , int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+        private static extern bool DeleteObject(System.IntPtr hObject);
+
+
+
 
         public string ScheduleCD
         {
@@ -133,7 +150,21 @@ namespace WindowsFormsApplication1
             endDate.Format = DateTimePickerFormat.Custom;
             endDate.CustomFormat = "yyyy/MM/dd ddd";
 
-            for(int i =0; i < 25; i++)
+            button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button2.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button4.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button5.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            deleteBtn.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button1.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button2.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button4.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button5.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            deleteBtn.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+
+
+            for (int i =0; i < 25; i++)
             {
                 strHour.Items.Add(i);
                 endHour.Items.Add(i);
@@ -152,10 +183,56 @@ namespace WindowsFormsApplication1
                 
                 colorCom.Items.Add(dbc.ColorDic.ElementAt(i).Value);
             }
-          
-            
+
+
+            if (curr != null)
+            {
+                DateTime strSC = Convert.ToDateTime(curr[4].ToString());
+                DateTime endSC = Convert.ToDateTime(curr[5].ToString());
+
+                NameTxt = curr["SC_NM"].ToString();
+                ExTxt = curr["SC_EX"].ToString();
+                StrDate = (DateTime)curr["SC_STR_DT"];
+                EndDate = (DateTime)curr["SC_END_DT"];
+                StrHour = strSC.Hour.ToString();
+                StrMin = strSC.Minute.ToString();
+                EndHour = endSC.Hour.ToString();
+                EndMin = endSC.Minute.ToString();
+                StateCheck = Convert.ToInt32(curr["SC_PB_ST"]);
+                ColorCom = dbc.GetColorName(curr[7].ToString());
+                ScheduleCD = curr[0].ToString();
+
+                string sql = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
+                db.ExecuteReader(sql);
+                if (db.Reader.Read())
+                {
+                    Byte[] b = (Byte[])(db.Reader["PIC_DATA"]);
+                    MemoryStream stmBlobData = new MemoryStream(b);
+                    Image img = Image.FromStream(stmBlobData);
+
+                    ImagePic = img;
+                    pic_CD = db.Reader["PIC_CD"].ToString();
+                }
+                else
+                {
+                    ImagePic = null;
+                }
+            }
 
         }
+
+        private void OnTopPanMouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.SlateGray;
+        }
+        private void OnTopPanMouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.Transparent;
+        }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -297,7 +374,17 @@ namespace WindowsFormsApplication1
                 {
                     string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
                     string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
-                    string sql = "  update SCHEDULE_TB set SC_NM = '" + NameTxt + "', SC_EX = '" + ExTxt + "', SC_PB_ST =  '" + StateCheck + "', SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi'), SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi'),  SC_PIC_FK =  '" + pic_CD + "', SC_CR_FK =  '" + ColorCom + "' where SC_CD =  '" + ScheduleCD + "'";
+
+                    string sql = "update SCHEDULE_TB";
+                    sql += " set SC_NM = '" + NameTxt + "'";
+                    sql += ", SC_EX = '" + ExTxt + "'";
+                    sql += ", SC_PB_ST =  '" + StateCheck + "'";
+                    sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                    sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                    sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
+                    sql += ", SC_CR_FK =  '" + ColorCom + "'";
+                    sql += " where SC_CD =  '" + ScheduleCD + "'";
+
                     db.ExecuteNonQuery(sql);
                     MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     Clear_Controls();
@@ -374,12 +461,7 @@ namespace WindowsFormsApplication1
             pic.ShowDialog();
             pic_CD = pic.selectCD;
             ImagePic = pic.selectImage;
-            string str = "select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' ORDER BY PIC_CD DESC";
-            db.ExecuteReader(str);
-            if (db.Reader.Read())
-            {
-                pic_CD = db.Reader["PIC_CD"].ToString(); // PIC_CD 저장 
-            }
+           
         }
 
         private void deleteBtn_Click(object sender, EventArgs e)
@@ -392,5 +474,14 @@ namespace WindowsFormsApplication1
             MessageBox.Show(" 삭제 되었습니다 ", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             Clear_Controls();
         }
+
+        private void ModifySchedule_Paint(object sender, PaintEventArgs e)
+        {
+            System.IntPtr ptr = CreateRoundRectRgn(0, 0, this.Width, this.Height, 10, 10);
+            this.Region = System.Drawing.Region.FromHrgn(ptr);
+            DeleteObject(ptr);
+        }
+
+   
     }
 }
