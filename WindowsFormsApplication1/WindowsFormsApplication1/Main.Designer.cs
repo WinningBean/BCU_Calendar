@@ -35,6 +35,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.MainTop_pan = new System.Windows.Forms.Panel();
+            this.LeftTabForm_btn = new System.Windows.Forms.Label();
             this.PictureForm_btn = new System.Windows.Forms.Button();
             this.TodoForm_btn = new System.Windows.Forms.Button();
             this.WeekForm_btn = new System.Windows.Forms.Button();
@@ -77,6 +78,7 @@
             // MainTop_pan
             // 
             this.MainTop_pan.BackColor = System.Drawing.Color.White;
+            this.MainTop_pan.Controls.Add(this.LeftTabForm_btn);
             this.MainTop_pan.Controls.Add(this.PictureForm_btn);
             this.MainTop_pan.Controls.Add(this.TodoForm_btn);
             this.MainTop_pan.Controls.Add(this.WeekForm_btn);
@@ -88,6 +90,18 @@
             this.MainTop_pan.Name = "MainTop_pan";
             this.MainTop_pan.Size = new System.Drawing.Size(969, 69);
             this.MainTop_pan.TabIndex = 1;
+            // 
+            // LeftTabForm_btn
+            // 
+            this.LeftTabForm_btn.AutoSize = true;
+            this.LeftTabForm_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LeftTabForm_btn.Location = new System.Drawing.Point(17, 26);
+            this.LeftTabForm_btn.Name = "LeftTabForm_btn";
+            this.LeftTabForm_btn.Size = new System.Drawing.Size(110, 19);
+            this.LeftTabForm_btn.TabIndex = 12;
+            this.LeftTabForm_btn.Text = "일정/그룹 목록";
+            this.LeftTabForm_btn.Visible = false;
+            this.LeftTabForm_btn.Click += new System.EventHandler(this.LeftTabForm_btn_Click);
             // 
             // PictureForm_btn
             // 
@@ -130,11 +144,13 @@
             // FreindForm_btn
             // 
             this.FreindForm_btn.AutoSize = true;
+            this.FreindForm_btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FreindForm_btn.Location = new System.Drawing.Point(17, 26);
             this.FreindForm_btn.Name = "FreindForm_btn";
             this.FreindForm_btn.Size = new System.Drawing.Size(74, 19);
             this.FreindForm_btn.TabIndex = 8;
             this.FreindForm_btn.Text = "친구 목록";
+            this.FreindForm_btn.Click += new System.EventHandler(this.FreindForm_btn_Click);
             // 
             // m_Today_lbl
             // 
@@ -339,7 +355,7 @@
             // 
             // MainLeft_pan
             // 
-            this.MainLeft_pan.BackColor = System.Drawing.Color.SandyBrown;
+            this.MainLeft_pan.BackColor = System.Drawing.Color.Gainsboro;
             this.MainLeft_pan.Controls.Add(this.panel3);
             this.MainLeft_pan.Location = new System.Drawing.Point(0, 92);
             this.MainLeft_pan.Name = "MainLeft_pan";
@@ -448,6 +464,7 @@
         private System.Windows.Forms.ToolStripMenuItem 일정추가ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 오늘일정보기ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 최소화toolStripMenuItem;
+        private System.Windows.Forms.Label LeftTabForm_btn;
     }
 }
 

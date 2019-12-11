@@ -95,6 +95,18 @@
     </Compile>
     <Compile Include="DBColor.cs" />
     <Compile Include="DBSchedule.cs" />
+    <Compile Include="Group.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Group.Designer.cs">
+      <DependentUpon>Group.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LeftTab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LeftTab.Designer.cs">
+      <DependentUpon>LeftTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModifySchedule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +194,12 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Group.resx">
+      <DependentUpon>Group.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LeftTab.resx">
+      <DependentUpon>LeftTab.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModifySchedule.resx">
       <DependentUpon>ModifySchedule.cs</DependentUpon>
     </EmbeddedResource>

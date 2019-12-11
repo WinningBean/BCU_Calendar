@@ -41,6 +41,8 @@ namespace WindowsFormsApplication1
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
+            sql += " order by SC_STR_DT ASC";
+
             DS = new DataSet();
             db.AdapterOpen(sql);
             db.Adapter.Fill(DS, "GET_SC_TB");
@@ -63,8 +65,8 @@ namespace WindowsFormsApplication1
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
-            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") 
-                + "' ORDER BY  SC_STR_DT ASC";
+            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " order by SC_STR_DT ASC";
 
             DS = new DataSet();
             db.AdapterOpen(sql);
@@ -87,9 +89,9 @@ namespace WindowsFormsApplication1
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
-            sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") 
-                + "' and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd")
-                + "' ORDER BY  SC_STR_DT ASC"; // 일주일 범위 안에 들어오면 무조건
+            sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd") + "'";
+            sql += " order by  SC_STR_DT ASC"; // 일주일 범위 안에 들어오면 무조건
 
             DS = new DataSet();
             db.AdapterOpen(sql);
