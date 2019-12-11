@@ -67,6 +67,7 @@ namespace WindowsFormsApplication1
             }
         }
 
+        System.Windows.Forms.Label Add_SC_btn; // 일정추가 버튼
         private void Set_Add_SC_btn() { // 일정 추가 폼 동적 생성
             Add_SC_btn = new System.Windows.Forms.Label(); // 일정 추가 버튼
             Add_SC_btn.Location = new System.Drawing.Point(109, 2);
@@ -84,7 +85,6 @@ namespace WindowsFormsApplication1
             Add_SC_btn.Click += new System.EventHandler(this.Add_SC_btn_Click);
         }
 
-        System.Windows.Forms.Label Add_SC_btn; // 일정추가 버튼
         private void set_pass_Month(Panel fc_pan, int fc_pan_n)
         {
             if (fc_pan.Controls.Count > 0)
@@ -135,7 +135,7 @@ namespace WindowsFormsApplication1
             int dt_x = e.X / 135 + 1;
             int dt_y = (((Panel)sender).Location.Y - 25) / 100;
             int fc_pan_n = dt_x + (dt_y * 7);
-            
+
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
         }
@@ -192,6 +192,8 @@ namespace WindowsFormsApplication1
         private DateTime m_FirstDay; // 현재 월의 1일
         private int m_LastDay; // 현재 월의 마지막 날
         private int m_FirstWeek; // 현재 월의 1일 요일
+
+        public void SET_MONTH() { Set_Month_Today(); } // 다른 폼에서 Set_Month_Today(); 부르고 싶을 때
 
         private void Set_Month_Today()
         {
@@ -438,11 +440,6 @@ namespace WindowsFormsApplication1
                     add_wpan.Controls.Add(add_label);
                 }
             }
-        }
-
-        private void Month_Load(object sender, EventArgs e)
-        {
-            Set_Month_Today(); // 오늘 날짜 세팅
         }
 
         private void LastMonth_btn_Click(object sender, EventArgs e) // 전 달 보기
