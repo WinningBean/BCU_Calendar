@@ -143,7 +143,7 @@ namespace WindowsFormsApplication1
         {
             // Update_Schedule overloading - 시작일시, 종료일시 업데이트
             // Update_Schedule(스케줄코드, 업데이트될 컬럼명, 업데이트 데이터)
-            string sc_data_str = sc_data.ToString("yyyy/MM/dd hh24:mi");
+            string sc_data_str = sc_data.ToString("yyyy/MM/dd H:mm");
             sql = "update SCHEDULE_TB set " + column_name + " = to_date('" + sc_data + "', 'yyyy/MM/dd hh24:mi') where SC_CD = '" + sc_cd + "'";
             db.ExecuteNonQuery(sql);
         }

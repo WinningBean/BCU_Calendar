@@ -18,13 +18,11 @@ namespace WindowsFormsApplication1
         public ModifySchedule(Main main ) // 메인에서 호출 
         {
             InitializeComponent();
-            //db.UR_CD = "U100000";
             this.main = main;
         }
         public ModifySchedule() // 그냥 ?
         {
             InitializeComponent();
-            //db.UR_CD = "U100000";
         }
 
         DBConnection db = Program.DB;
@@ -169,12 +167,16 @@ namespace WindowsFormsApplication1
         {
             if(strHour.SelectedIndex == 24)
             {
-                strMin.Text = "00";
-                strMin.Enabled = false;
+                strHour.Text = "0";
+                StrDate = StrDate.AddDays(1);
+
             }
-            else
+        }
+        private void endHour_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (endHour.SelectedIndex == 24)
             {
-                strMin.Enabled = true;
+                EndDate = EndDate.AddDays(1);
             }
         }
         private void Clear_Controls()
@@ -188,18 +190,7 @@ namespace WindowsFormsApplication1
             StateCheck = 1;
         }
 
-        private void endHour_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (endHour.SelectedIndex == 24)
-            {
-                endMin.Text = "00";
-                endMin.Enabled = false;
-            }
-            else
-            {
-                endMin.Enabled = true;
-            }
-        }
+
         private void FileSave(string filePath, DateTime dt)
         {
             // 입력받은 파일을 바이트 배열에 저장
@@ -390,6 +381,17 @@ namespace WindowsFormsApplication1
             {
                 pic_CD = db.Reader["PIC_CD"].ToString(); // PIC_CD 저장 
             }
+        }
+
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            if(ScheduleCD == null)
+            {
+                MessageBox.Show(" 삭제할 일정이 없습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            dbs.Delete_Schedule(ScheduleCD);
+            MessageBox.Show(" 삭제 되었습니다 ", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            Clear_Controls();
         }
     }
 }

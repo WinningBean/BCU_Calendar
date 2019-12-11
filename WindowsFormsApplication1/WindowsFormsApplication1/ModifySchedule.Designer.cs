@@ -58,6 +58,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.endMin = new System.Windows.Forms.ComboBox();
             this.endHour = new System.Windows.Forms.ComboBox();
+            this.deleteBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imagePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -187,7 +188,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(177, 556);
+            this.button1.Location = new System.Drawing.Point(107, 565);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 14;
@@ -198,7 +199,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(290, 556);
+            this.button2.Location = new System.Drawing.Point(341, 565);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 15;
@@ -354,6 +355,18 @@
             this.endHour.Name = "endHour";
             this.endHour.Size = new System.Drawing.Size(42, 30);
             this.endHour.TabIndex = 35;
+            this.endHour.SelectedIndexChanged += new System.EventHandler(this.endHour_SelectedIndexChanged);
+            // 
+            // deleteBtn
+            // 
+            this.deleteBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.deleteBtn.Location = new System.Drawing.Point(233, 565);
+            this.deleteBtn.Name = "deleteBtn";
+            this.deleteBtn.Size = new System.Drawing.Size(75, 23);
+            this.deleteBtn.TabIndex = 36;
+            this.deleteBtn.Text = "삭제";
+            this.deleteBtn.UseVisualStyleBackColor = true;
+            this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
             // ModifySchedule
             // 
@@ -361,6 +374,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(536, 591);
+            this.Controls.Add(this.deleteBtn);
             this.Controls.Add(this.endHour);
             this.Controls.Add(this.endMin);
             this.Controls.Add(this.button5);
@@ -393,6 +407,7 @@
             this.Controls.Add(this.strDate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ModifySchedule";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ModifySchedule";
             this.Load += new System.EventHandler(this.ModifySchedule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imagePic)).EndInit();
@@ -433,5 +448,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ComboBox endMin;
         private System.Windows.Forms.ComboBox endHour;
+        private System.Windows.Forms.Button deleteBtn;
     }
 }
