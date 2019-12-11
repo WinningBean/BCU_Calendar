@@ -64,8 +64,8 @@
             this.MasterProfile_prof.Name = "MasterProfile_prof";
             this.MasterProfile_prof.Size = new System.Drawing.Size(155, 29);
             this.MasterProfile_prof.TabIndex = 1;
-            this.MasterProfile_prof.USERNAME = "UserName";
-            this.MasterProfile_prof.USERPIC = ((System.Drawing.Image)(resources.GetObject("MasterProfile_prof.USERPIC")));
+            this.MasterProfile_prof.USERNAME.Text = "UserName";
+            this.MasterProfile_prof.USERPIC.Image = ((System.Drawing.Image)(resources.GetObject("MasterProfile_prof.USERPIC")));
             // 
             // line_0
             // 

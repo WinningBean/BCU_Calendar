@@ -37,7 +37,7 @@
             // 
             this.m_UserName_lbl.AutoSize = true;
             this.m_UserName_lbl.Font = new System.Drawing.Font("함초롬돋움", 20F, System.Drawing.FontStyle.Bold);
-            this.m_UserName_lbl.Location = new System.Drawing.Point(75, 0);
+            this.m_UserName_lbl.Location = new System.Drawing.Point(84, 0);
             this.m_UserName_lbl.Name = "m_UserName_lbl";
             this.m_UserName_lbl.Size = new System.Drawing.Size(189, 44);
             this.m_UserName_lbl.TabIndex = 1;
@@ -48,21 +48,24 @@
             // 
             this.m_UserPic_rpic.Image = global::UserCustomControl.Properties.Resources.user_null;
             this.m_UserPic_rpic.Location = new System.Drawing.Point(0, 0);
+            this.m_UserPic_rpic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.m_UserPic_rpic.Name = "m_UserPic_rpic";
-            this.m_UserPic_rpic.Size = new System.Drawing.Size(70, 70);
+            this.m_UserPic_rpic.Size = new System.Drawing.Size(79, 89);
             this.m_UserPic_rpic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.m_UserPic_rpic.TabIndex = 0;
             this.m_UserPic_rpic.TabStop = false;
             // 
             // Profile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.m_UserName_lbl);
             this.Controls.Add(this.m_UserPic_rpic);
+            this.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Profile";
-            this.Size = new System.Drawing.Size(268, 70);
+            this.Size = new System.Drawing.Size(304, 70);
             ((System.ComponentModel.ISupportInitialize)(this.m_UserPic_rpic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
