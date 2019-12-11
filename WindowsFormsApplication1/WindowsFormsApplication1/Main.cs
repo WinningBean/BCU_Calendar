@@ -71,6 +71,8 @@ namespace WindowsFormsApplication1
         private void setLeftBasicPanel()
         { // 센터패널 설정 함수 (주간 폼 가져오기)
             fr_tab.Hide();
+            bs_leftTab.PUBLIC_BTN.Click += new System.EventHandler(this.Public_SC_btn_Click);
+            bs_leftTab.PRIVATE_BTN.Click += new System.EventHandler(this.Private_SC_btn_Click);
             MainLeft_pan.Controls.Add(bs_leftTab);
             bs_leftTab.Show();
         }
@@ -81,6 +83,18 @@ namespace WindowsFormsApplication1
             bs_leftTab.Hide();
             MainLeft_pan.Controls.Add(fr_tab);
             fr_tab.Show();
+        }
+
+        private void Public_SC_btn_Click(object sender, EventArgs e)
+        {
+            db.IS_PB = 1;
+            mnt.SET_MONTH();
+        }
+
+        private void Private_SC_btn_Click(object sender, EventArgs e)
+        {
+            db.IS_PB = 0;
+            mnt.SET_MONTH();
         }
 
         Month mnt = new Month();
@@ -118,7 +132,6 @@ namespace WindowsFormsApplication1
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
         }
         
-        //abcabc hello
         private void Main_Load(object sender, EventArgs e)
         {
             isShowPic = false; // 사진폼 띄우지않음

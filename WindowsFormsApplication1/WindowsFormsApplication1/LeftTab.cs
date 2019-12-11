@@ -22,6 +22,14 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
+        public Label PUBLIC_BTN
+        {
+            get { return Public_SC_btn; }
+        }
+        public Label PRIVATE_BTN {
+            get { return Private_SC_btn; }
+        }
+
         private void Add_GR_btn_Click(object sender, EventArgs e) // 그룹 추가 버튼
         {
             MessageBox.Show("여기에 그룹 추가 폼을 띄웁니다");
