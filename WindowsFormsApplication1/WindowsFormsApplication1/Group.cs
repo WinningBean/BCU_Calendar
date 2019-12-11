@@ -25,21 +25,22 @@ namespace WindowsFormsApplication1
 
         public UserCustomControl.Profile MASTERPROFILE
         {
-            // Userprofile 프로퍼티 -> login에서 값 넘겨줌
+            // MASTERPROFILE 프로퍼티
             get { return MasterProfile_prof; }
             set { MasterProfile_prof = value; }
         }
-
-        private void Close_btn_Click(object sender, EventArgs e)
+        public List<string> MEMBER_CD_lst
         {
-            this.Parent.Visible = false;
-            Close();
+            // 그룹 멤버 코드 리스트 프로퍼티
+            get { return MemCD_lst;}
         }
-
-        private void Mem_prof_Click(object sender, EventArgs e)
+        public List<UserCustomControl.Profile> MEMBER_PROF_lst
         {
-            MessageBox.Show(((UserCustomControl.Profile)sender).Name.Substring(10, ((UserCustomControl.Profile)sender).Name.Length - 10));
+            // 그룹 프로필 리스트 프로퍼티
+            get { return MemProf_lst; }
         }
+        public Label CLOSE_btn { get { return Close_btn; } } // 클로즈 버튼 프로퍼티
+
 
         private void Set_Groupbs() // 그룹 기본 정보 설정
         {
@@ -62,8 +63,8 @@ namespace WindowsFormsApplication1
             db.Reader.Close();
         }
         
-        //List<UserCustomControl.Profile> MemProf_lst;
-        List<string> MemCD_lst;
+        private List<UserCustomControl.Profile> MemProf_lst;
+        private List<string> MemCD_lst;
         private void Set_GroupMem() // 그룹원 설정
         {
             sql = "select UR_CD, UR_NM, UR_PIC from USER_TB";
@@ -74,6 +75,7 @@ namespace WindowsFormsApplication1
             db.ExecuteReader(sql);
             
             MemCD_lst = new List<string>();
+            MemProf_lst = new List<UserCustomControl.Profile>();
             UserCustomControl.Profile Mem_prof;
             while (db.Reader.Read())
             {
@@ -85,9 +87,8 @@ namespace WindowsFormsApplication1
                 Mem_prof.Location = new Point(5, MemCD_lst.Count * 35);
                 Mem_prof.Set_Profile_Size(FontStyle.Regular);
 
-                Mem_prof.Click += new System.EventHandler(this.Mem_prof_Click);
-
                 MemCD_lst.Add(db.Reader["UR_CD"].ToString());
+                MemProf_lst.Add(Mem_prof);
                 GRMember_pan.Controls.Add(Mem_prof);
             }
             Member_lbl.Text = "그룹원 총 " + MemCD_lst.Count + "명";

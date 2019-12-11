@@ -15,19 +15,32 @@ namespace WindowsFormsApplication1
         DBConnection db = Program.DB;
         string sql;
 
-        List<string> Group_lst;
+        private List<string> Group_CD_lst;
 
         public LeftTab()
         {
             InitializeComponent();
         }
 
+        public List<string> GROUP_CD_lst
+        {
+            // 그룹 코드 리스트 프로퍼티
+            get { return Group_CD_lst; }
+        }
         public Label PUBLIC_BTN
         {
+            // 공개 일정 버튼 프로퍼티
             get { return Public_SC_btn; }
         }
-        public Label PRIVATE_BTN {
+        public Label PRIVATE_BTN
+        {
+            // 공개 일정 버튼 프로퍼티
             get { return Private_SC_btn; }
+        }
+        public ListBox GROUP_lstbox
+        {
+            // 그룹 리스트박스 프로퍼티
+            get { return Group_lstbox; }
         }
 
         private void Add_GR_btn_Click(object sender, EventArgs e) // 그룹 추가 버튼
@@ -38,7 +51,7 @@ namespace WindowsFormsApplication1
         int MstGr_cnt = 0;
         private void Set_MstGroupList() // 유저가 마스터인 그룹
         {
-            Group_lst = new List<string>();
+            Group_CD_lst = new List<string>();
 
             sql = "select GR_CD, GR_NM from GROUP_TB";
             sql += " where GR_MST_UR_FK = '" + db.UR_CD + "'";
@@ -47,7 +60,7 @@ namespace WindowsFormsApplication1
 
             while (db.Reader.Read())
             {
-                Group_lst.Add(db.Reader.GetString(0));
+                Group_CD_lst.Add(db.Reader.GetString(0));
                 Group_lstbox.Items.Add(db.Reader.GetString(1));
                 MstGr_cnt++;
             }
@@ -66,7 +79,7 @@ namespace WindowsFormsApplication1
 
             while (db.Reader.Read())
             {
-                Group_lst.Add(db.Reader.GetString(0));
+                Group_CD_lst.Add(db.Reader.GetString(0));
                 Group_lstbox.Items.Add(db.Reader.GetString(1));
             }
         }
@@ -96,19 +109,6 @@ namespace WindowsFormsApplication1
 
                 e.Graphics.DrawString(item.ToString(), font, brush, e.Bounds.Left + 5, e.Bounds.Top + (e.Bounds.Height / 2 - size.Height / 2));
             }
-        }
-
-        private void Group_lstbox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            db.GR_CD = Group_lst[Group_lstbox.SelectedIndex];
-            Group grp = new Group();
-            grp.TopLevel = false;
-            grp.TopMost = true;
-            grp.Parent = this;
-            grp.Location = new Point(0, 0);
-            Tab_panel.Controls.Add(grp);
-            Tab_panel.Visible = true;
-            grp.Show();
         }
     }
 }

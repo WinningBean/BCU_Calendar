@@ -184,7 +184,6 @@
             this.Close_btn.TabIndex = 18;
             this.Close_btn.Text = "◀";
             this.Close_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Close_btn.Click += new System.EventHandler(this.Close_btn_Click);
             // 
             // Group
             // 
