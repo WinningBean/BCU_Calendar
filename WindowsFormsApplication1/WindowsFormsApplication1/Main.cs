@@ -46,6 +46,11 @@ namespace WindowsFormsApplication1
             bs_leftTab.TopMost = true;
             bs_leftTab.Parent = this;
             bs_leftTab.Location = new Point(0, 0);
+
+            fr_tab.TopLevel = false;
+            fr_tab.TopMost = true;
+            fr_tab.Parent = this;
+            fr_tab.Location = new Point(0, 0);
         }
 
         public UserCustomControl.Profile USERPROFILE
@@ -65,8 +70,17 @@ namespace WindowsFormsApplication1
         LeftTab bs_leftTab = new LeftTab();
         private void setLeftBasicPanel()
         { // 센터패널 설정 함수 (주간 폼 가져오기)
+            fr_tab.Hide();
             MainLeft_pan.Controls.Add(bs_leftTab);
             bs_leftTab.Show();
+        }
+
+        FriendList fr_tab = new FriendList();
+        private void setLeftFriendPanel()
+        { // 센터패널 설정 함수 (주간 폼 가져오기)
+            bs_leftTab.Hide();
+            MainLeft_pan.Controls.Add(fr_tab);
+            fr_tab.Show();
         }
 
         Month mnt = new Month();
@@ -79,6 +93,7 @@ namespace WindowsFormsApplication1
             
             MainCenter_pan.Controls.Add(mnt);
             mnt.Show();
+            mnt.SET_MONTH();
 
             Check_FriendRequest(); // -----------------------------어디다가 넣어야 메인이 띄워지고 메세지 박스가 뜰까?????
         }
@@ -98,7 +113,7 @@ namespace WindowsFormsApplication1
         private void Set_UserProfile()
         {
             // UserProfile_pro 초기 설정 함수
-            UserProfile_prof.Set_Profile_Size(UserProfile_prof.Height, FontStyle.Bold);
+            UserProfile_prof.Set_Profile_Size(FontStyle.Bold);
             UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
         }
@@ -224,6 +239,20 @@ namespace WindowsFormsApplication1
         private void 최소화toolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void FreindForm_btn_Click(object sender, EventArgs e)
+        {
+            FreindForm_btn.Visible = false;
+            setLeftFriendPanel();
+            LeftTabForm_btn.Visible = true;
+        }
+
+        private void LeftTabForm_btn_Click(object sender, EventArgs e)
+        {
+            LeftTabForm_btn.Visible = false;
+            setLeftBasicPanel();
+            FreindForm_btn.Visible = true;
         }
     }
 }

@@ -144,13 +144,18 @@ namespace WindowsFormsApplication1
             string user_id = db.Reader.GetString(1);
             string user_nm = db.Reader.GetString(3);
             Image user_pic = null;
+            bool b_pic = false;
             // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
-            if (!(db.Reader[4].Equals(System.DBNull.Value))) user_pic = Image.FromStream(db.Reader.GetOracleBlob(4));
+            if (!(db.Reader[4].Equals(System.DBNull.Value)))
+            {
+                user_pic = Image.FromStream(db.Reader.GetOracleBlob(4));
+                b_pic = true;
+            }
 
             Main main = new Main(this);
             main.USERID = user_id; // 프로퍼티로 ID값 넘겨줌
             main.USERPROFILE.USERNAME = user_nm; // 프로퍼티로 NAME값 넘겨줌
-            main.USERPROFILE.USERPIC = user_pic; // 프로퍼티로 PIC값 넘겨줌
+            if (b_pic == true) main.USERPROFILE.USERPIC = user_pic; // 프로퍼티로 PIC값 넘겨줌
             main.Show();
         }
 
