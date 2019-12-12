@@ -14,18 +14,16 @@ namespace WindowsFormsApplication1
 {
     public partial class ModifySchedule : Form
     {
-        Main main = null;
+
         DataRow curr = null;
 
-        public ModifySchedule(Main main ) // 메인에서 호출 
-        {
-            InitializeComponent();
-            this.main = main;
-        }
+
+
         public ModifySchedule(DataRow dr) 
         {
             InitializeComponent();
             this.curr = dr;
+
         }
         public ModifySchedule() // 그냥 ?
         {
@@ -118,7 +116,7 @@ namespace WindowsFormsApplication1
         }
         public int StateCheck
         {
-            get { return Convert.ToInt32(stateCheck.Checked); }
+            get { return Convert.ToInt32(!stateCheck.Checked); }
             set
             {
                 int check = value;
@@ -135,8 +133,15 @@ namespace WindowsFormsApplication1
         }
         public string ColorCom
         {
-            get { return dbc.GetColorCode(colorCom.Text); }
-            set { colorCom.Text = value; }
+            get {
+                if (colorCom.Text == "")
+                return null;
+                return dbc.GetColorCode(colorCom.Text);
+            }
+            set { colorCom.Text = "";
+                colorCom.Text = value;
+
+            }
         }
 
 
@@ -144,6 +149,7 @@ namespace WindowsFormsApplication1
         {
             dbs = new DBSchedule();
             dbc = new DBColor();
+
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";
@@ -183,8 +189,13 @@ namespace WindowsFormsApplication1
             { 
                 
                 colorCom.Items.Add(dbc.ColorDic.ElementAt(i).Value);
-            }
 
+            }
+            if(db.GR_CD != null)
+            {
+                StateCheck = 1;
+                stateCheck.Enabled = false;
+            }
 
             if (curr != null)
             {
@@ -217,6 +228,7 @@ namespace WindowsFormsApplication1
                 else
                 {
                     ImagePic = null;
+                    ColorCom = null;
                 }
             }
 
@@ -324,15 +336,10 @@ namespace WindowsFormsApplication1
                         return true;
                     }
 
-                    Picture_SelectDate ps = new Picture_SelectDate();
-
-                    if (ps.ShowDialog() == DialogResult.OK)
-                    {
-                        DateTime dt = ps.dt;
+                        DateTime dt = StrDate;
                         FileSave(file, dt);
                         return true;
-                    }
-                    return true;
+ 
                 }
                 catch (Exception e)
                 {
@@ -350,11 +357,14 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("시간을 설정해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else if(EndDate < StrDate ||( EndDate.Date == StrDate.Date && strHour.SelectedIndex > endHour.SelectedIndex))
+            {
+                MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else if (NameTxt == "")
             {
                 MessageBox.Show("일정명을 등록하세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
             else
             {//EndHour, EndMin
                 DateTime end_Date = EndDate;
@@ -365,30 +375,69 @@ namespace WindowsFormsApplication1
                 TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
                 str_Date = str_Date.Date + strts;
 
-                if (scheduleCD ==  null)
+                if(ColorCom is null)
                 {
-                    dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
-                    MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    Clear_Controls();
+                    ColorCom = null;
                 }
-                else
+
+                if (db.GR_CD != null)// 그룹일때 
                 {
-                    string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
-                    string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
 
-                    string sql = "update SCHEDULE_TB";
-                    sql += " set SC_NM = '" + NameTxt + "'";
-                    sql += ", SC_EX = '" + ExTxt + "'";
-                    sql += ", SC_PB_ST =  '" + StateCheck + "'";
-                    sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
-                    sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
-                    sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
-                    sql += ", SC_CR_FK =  '" + ColorCom + "'";
-                    sql += " where SC_CD =  '" + ScheduleCD + "'";
+                    if (scheduleCD == null)
+                    {
+                        dbs.Insert_Schedule(false, db.GR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
+                        MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+                    }
+                    else//SC_GR_FK
+                    {
+                        string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+                        string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
 
-                    db.ExecuteNonQuery(sql);
-                    MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    Clear_Controls();
+                        string sql = "update SCHEDULE_TB";
+                        sql += " set SC_NM = '" + NameTxt + "'";
+                        sql += ", SC_EX = '" + ExTxt + "'";
+                        sql += ", SC_PB_ST =  '" + StateCheck + "'";
+                        sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
+                        sql += ", SC_CR_FK =  '" + ColorCom + "'";
+                        sql += ", SC_GR_FK =  '" + db.GR_CD + "'";
+                        sql += " where SC_CD =  '" + ScheduleCD + "'";
+
+                        db.ExecuteNonQuery(sql);
+                        MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+                    }
+                }
+                else // 개인일때
+                {
+                    if (scheduleCD == null) // 등록
+                    {
+                        dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
+                        MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+                    }
+                    else //수정
+                    {
+                        string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+                        string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+
+                        string sql = "update SCHEDULE_TB";
+                        sql += " set SC_NM = '" + NameTxt + "'";
+                        sql += ", SC_EX = '" + ExTxt + "'";
+                        sql += ", SC_PB_ST =  '" + StateCheck + "'";
+                        sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
+                        sql += ", SC_CR_FK =  '" + ColorCom + "'";
+                        sql += ", SC_UR_FK =  '" + db.UR_CD + "'";
+                        sql += " where SC_CD =  '" + ScheduleCD + "'";
+
+                        db.ExecuteNonQuery(sql);
+                        MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+                    }
                 }
             }
 
@@ -435,6 +484,7 @@ namespace WindowsFormsApplication1
                 strMin.Enabled = false;
                 strHour.Text = "0";
                 strHour.Enabled = false;
+
                 if(StrDate.Date == EndDate.Date)//하루종일인데 날짜가 같을 경우 +1
                 {
                     EndDate = EndDate.AddDays(1) ;
@@ -482,7 +532,5 @@ namespace WindowsFormsApplication1
             this.Region = System.Drawing.Region.FromHrgn(ptr);
             DeleteObject(ptr);
         }
-
-   
     }
 }
