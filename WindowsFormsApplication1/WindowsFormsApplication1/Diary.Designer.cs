@@ -40,7 +40,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.textBox1.Location = new System.Drawing.Point(33, 143);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -59,7 +59,7 @@
             // 
             // date
             // 
-            this.date.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.date.Location = new System.Drawing.Point(33, 106);
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(243, 31);
@@ -67,7 +67,7 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button1.Location = new System.Drawing.Point(107, 568);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 42);
@@ -79,7 +79,7 @@
             // stateCheck
             // 
             this.stateCheck.AutoSize = true;
-            this.stateCheck.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.stateCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.stateCheck.Location = new System.Drawing.Point(132, 486);
             this.stateCheck.Name = "stateCheck";
             this.stateCheck.Size = new System.Drawing.Size(91, 30);
@@ -90,7 +90,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.Location = new System.Drawing.Point(28, 486);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 26);
@@ -99,7 +99,7 @@
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button2.Location = new System.Drawing.Point(223, 568);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(84, 42);
@@ -110,7 +110,7 @@
             // 
             // button3
             // 
-            this.button3.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button3.Location = new System.Drawing.Point(340, 568);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(84, 42);
@@ -121,7 +121,7 @@
             // Diary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(514, 635);
             this.Controls.Add(this.button3);

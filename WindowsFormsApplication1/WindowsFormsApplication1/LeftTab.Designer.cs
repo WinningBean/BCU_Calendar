@@ -43,7 +43,7 @@
             // label1
             // 
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label1.Font = new System.Drawing.Font("함초롬돋움", 10F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label1.ForeColor = System.Drawing.Color.DimGray;
             this.label1.Location = new System.Drawing.Point(10, 2);
             this.label1.Name = "label1";
@@ -107,7 +107,7 @@
             // Goup_lbl
             // 
             this.Goup_lbl.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Goup_lbl.Font = new System.Drawing.Font("함초롬돋움", 10F);
+            this.Goup_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Goup_lbl.ForeColor = System.Drawing.Color.DimGray;
             this.Goup_lbl.Location = new System.Drawing.Point(10, 114);
             this.Goup_lbl.Name = "Goup_lbl";
@@ -130,6 +130,7 @@
             // 
             this.Group_lstbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Group_lstbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.Group_lstbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Group_lstbox.FormattingEnabled = true;
             this.Group_lstbox.ItemHeight = 30;
             this.Group_lstbox.Location = new System.Drawing.Point(15, 160);
@@ -142,7 +143,7 @@
             // 
             this.Add_GR_btn.BackColor = System.Drawing.Color.Silver;
             this.Add_GR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Add_GR_btn.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Add_GR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Add_GR_btn.ForeColor = System.Drawing.Color.White;
             this.Add_GR_btn.Location = new System.Drawing.Point(203, 122);
             this.Add_GR_btn.Name = "Add_GR_btn";
@@ -154,8 +155,7 @@
             // 
             // LeftTab
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(243, 596);
             this.Controls.Add(this.Add_GR_btn);
@@ -169,7 +169,7 @@
             this.Controls.Add(this.line_1);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LeftTab";

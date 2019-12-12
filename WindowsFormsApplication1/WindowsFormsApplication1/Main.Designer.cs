@@ -35,13 +35,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.MainTop_pan = new System.Windows.Forms.Panel();
-            this.LeftTabForm_btn = new System.Windows.Forms.Label();
             this.PictureForm_btn = new System.Windows.Forms.Button();
             this.TodoForm_btn = new System.Windows.Forms.Button();
             this.WeekForm_btn = new System.Windows.Forms.Button();
             this.FreindForm_btn = new System.Windows.Forms.Label();
             this.m_Today_lbl = new System.Windows.Forms.Label();
             this.MonthForm_btn = new System.Windows.Forms.Button();
+            this.LeftTabForm_btn = new System.Windows.Forms.Label();
             this.MainHeader_menustp = new System.Windows.Forms.MenuStrip();
             this.사용자ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.사용자정보ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,18 +90,6 @@
             this.MainTop_pan.Name = "MainTop_pan";
             this.MainTop_pan.Size = new System.Drawing.Size(969, 69);
             this.MainTop_pan.TabIndex = 1;
-            // 
-            // LeftTabForm_btn
-            // 
-            this.LeftTabForm_btn.AutoSize = true;
-            this.LeftTabForm_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LeftTabForm_btn.Location = new System.Drawing.Point(15, 26);
-            this.LeftTabForm_btn.Name = "LeftTabForm_btn";
-            this.LeftTabForm_btn.Size = new System.Drawing.Size(94, 18);
-            this.LeftTabForm_btn.TabIndex = 12;
-            this.LeftTabForm_btn.Text = "일정/그룹 목록";
-            this.LeftTabForm_btn.Visible = false;
-            this.LeftTabForm_btn.Click += new System.EventHandler(this.LeftTabForm_btn_Click);
             // 
             // PictureForm_btn
             // 
@@ -155,7 +143,7 @@
             // 
             // m_Today_lbl
             // 
-            this.m_Today_lbl.Font = new System.Drawing.Font("함초롬돋움", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Today_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Today_lbl.Location = new System.Drawing.Point(384, 19);
             this.m_Today_lbl.Name = "m_Today_lbl";
             this.m_Today_lbl.Size = new System.Drawing.Size(200, 30);
@@ -178,10 +166,22 @@
             this.MonthForm_btn.UseVisualStyleBackColor = false;
             this.MonthForm_btn.Click += new System.EventHandler(this.MonthForm_btn_Click);
             // 
+            // LeftTabForm_btn
+            // 
+            this.LeftTabForm_btn.AutoSize = true;
+            this.LeftTabForm_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LeftTabForm_btn.Location = new System.Drawing.Point(15, 26);
+            this.LeftTabForm_btn.Name = "LeftTabForm_btn";
+            this.LeftTabForm_btn.Size = new System.Drawing.Size(94, 18);
+            this.LeftTabForm_btn.TabIndex = 12;
+            this.LeftTabForm_btn.Text = "일정/그룹 목록";
+            this.LeftTabForm_btn.Visible = false;
+            this.LeftTabForm_btn.Click += new System.EventHandler(this.LeftTabForm_btn_Click);
+            // 
             // MainHeader_menustp
             // 
             this.MainHeader_menustp.BackColor = System.Drawing.Color.Black;
-            this.MainHeader_menustp.Font = new System.Drawing.Font("함초롬돋움", 9F);
+            this.MainHeader_menustp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.MainHeader_menustp.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainHeader_menustp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사용자ToolStripMenuItem,
@@ -430,7 +430,7 @@
             // UserProfile_prof
             // 
             this.UserProfile_prof.BackColor = System.Drawing.Color.Transparent;
-            this.UserProfile_prof.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.UserProfile_prof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.UserProfile_prof.Location = new System.Drawing.Point(0, 0);
             this.UserProfile_prof.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.UserProfile_prof.Name = "UserProfile_prof";
@@ -439,8 +439,7 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1212, 689);
