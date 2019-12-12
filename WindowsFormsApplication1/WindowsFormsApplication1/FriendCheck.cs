@@ -26,15 +26,17 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                string sql ="select  UR_NM , UR_CD from USER_TB  WHERE ur_cd  in (select FR_UR_FK from FRIEND_TB where  FR_FR_FK= '" + db.UR_CD + "' and FR_ACEP_ST = '0') ";
+                string sql = "select  UR_NM , UR_CD, UR_PIC  from USER_TB  WHERE ur_cd  in (select FR_UR_FK from FRIEND_TB where  FR_FR_FK= '" + db.UR_CD + "' and FR_ACEP_ST = '0') ";
                 db.ExecuteReader(sql);
                 int i = 0;
                 y = 0;
                 if (db.Reader.Read())
                 {
+                    panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString()));
+                    i++;
+
                     while (db.Reader.Read())
                     {
-
                         panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString()));
                         i++;
                     }
@@ -54,36 +56,40 @@ namespace WindowsFormsApplication1
         private Panel Create_Control(int i, string name, string code)
         {        
             Panel boardPan = new Panel();
-            boardPan.Size = new Size(210, 60);
+            boardPan.Size = new Size(180, 30);
             panel1.Controls.Add(boardPan);
             boardPan.Location = new Point(2, y);
-            y += 53;
+            y += 40;
           
             Button button2 = new Button();
             boardPan.Controls.Add(button2);
-            button2.Location = new System.Drawing.Point(145, 19);
+            button2.Location = new System.Drawing.Point(135, 5);
             button2.Name = code;
-            button2.Size = new System.Drawing.Size(35, 35);
+            button2.Size = new System.Drawing.Size(45, 25);
             button2.TabIndex = i;
             button2.Text = "무시";
+            button2.BackColor = Color.White;
             button2.UseVisualStyleBackColor = true;
             button2.Click += new EventHandler(Ignoring_Click);
+            button2.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Button button1 = new Button();
+            button1.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             boardPan.Controls.Add(button1);
-            button1.Location = new System.Drawing.Point(107, 19);
+            button1.Location = new System.Drawing.Point(91, 5);
             button1.Name = code;
-            button1.Size = new System.Drawing.Size(35, 35);
+            button1.Size = new System.Drawing.Size(45, 25);
             button1.TabIndex = i;
             button1.Text = "수락";
+            button1.BackColor = Color.White;
             button1.UseVisualStyleBackColor = true;
             button1.Click += new EventHandler(Accept_Click);
 
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
-            FriendProfile.Size = new System.Drawing.Size(100, 35);
+            FriendProfile.Size = new System.Drawing.Size(100, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
             boardPan.Controls.Add(FriendProfile);
-            FriendProfile.Location = new System.Drawing.Point(5, 19);
+            FriendProfile.Location = new System.Drawing.Point(5, 5);
             FriendProfile.USERNAME.Text = name;
             FriendProfile.TabIndex = i;
 
@@ -128,6 +134,7 @@ namespace WindowsFormsApplication1
 
         private void FriendCheck_Load(object sender, EventArgs e)
         {
+            db.UR_CD = "U100003";
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
             panel1.AutoScroll = false;
@@ -137,7 +144,8 @@ namespace WindowsFormsApplication1
             Get_List();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+        private void label2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
