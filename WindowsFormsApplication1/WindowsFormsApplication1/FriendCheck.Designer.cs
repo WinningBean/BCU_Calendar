@@ -43,9 +43,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(81, 366);
+            this.button3.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button3.Location = new System.Drawing.Point(89, 365);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(81, 33);
             this.button3.TabIndex = 2;
             this.button3.Text = "닫기";
             this.button3.UseVisualStyleBackColor = true;

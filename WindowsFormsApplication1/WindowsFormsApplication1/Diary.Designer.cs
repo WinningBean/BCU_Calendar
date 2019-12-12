@@ -36,22 +36,23 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("함초롬돋움", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.textBox1.Location = new System.Drawing.Point(33, 143);
+            this.textBox1.Location = new System.Drawing.Point(19, 113);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(420, 319);
+            this.textBox1.Size = new System.Drawing.Size(354, 258);
             this.textBox1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(38, 28);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 38);
             this.label1.TabIndex = 1;
@@ -60,7 +61,7 @@
             // date
             // 
             this.date.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.date.Location = new System.Drawing.Point(33, 106);
+            this.date.Location = new System.Drawing.Point(19, 76);
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(243, 31);
             this.date.TabIndex = 2;
@@ -68,9 +69,9 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(107, 568);
+            this.button1.Location = new System.Drawing.Point(34, 465);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 42);
+            this.button1.Size = new System.Drawing.Size(67, 32);
             this.button1.TabIndex = 3;
             this.button1.Text = "저장";
             this.button1.UseVisualStyleBackColor = true;
@@ -80,7 +81,7 @@
             // 
             this.stateCheck.AutoSize = true;
             this.stateCheck.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.stateCheck.Location = new System.Drawing.Point(132, 486);
+            this.stateCheck.Location = new System.Drawing.Point(121, 406);
             this.stateCheck.Name = "stateCheck";
             this.stateCheck.Size = new System.Drawing.Size(91, 30);
             this.stateCheck.TabIndex = 15;
@@ -91,7 +92,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(28, 486);
+            this.label7.Location = new System.Drawing.Point(17, 406);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 26);
             this.label7.TabIndex = 14;
@@ -100,9 +101,9 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2.Location = new System.Drawing.Point(223, 568);
+            this.button2.Location = new System.Drawing.Point(166, 465);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(84, 42);
+            this.button2.Size = new System.Drawing.Size(67, 32);
             this.button2.TabIndex = 16;
             this.button2.Text = "닫기";
             this.button2.UseVisualStyleBackColor = true;
@@ -111,19 +112,30 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("함초롬돋움", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button3.Location = new System.Drawing.Point(340, 568);
+            this.button3.Location = new System.Drawing.Point(298, 465);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(84, 42);
+            this.button3.Size = new System.Drawing.Size(67, 32);
             this.button3.TabIndex = 17;
             this.button3.Text = "삭제";
             this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.DimGray;
+            this.label2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label2.Location = new System.Drawing.Point(13, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(366, 1);
+            this.label2.TabIndex = 19;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Diary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(514, 635);
+            this.ClientSize = new System.Drawing.Size(401, 509);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.stateCheck);
@@ -151,5 +163,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label2;
     }
 }
