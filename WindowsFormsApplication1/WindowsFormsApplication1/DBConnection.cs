@@ -22,11 +22,29 @@ namespace WindowsFormsApplication1
         public OracleDataAdapter Adapter { get { return adapter; } }
 
         // 전역 데이터 설정
-        private string ur_cd;
+        private string ur_cd; // 유저 코드
+        private string gr_cd = null; // 그룹 코드
+        private string fr_cd = null; // 친구 코드
+        private int is_PB = 1; // 공개 상태
 
         public string UR_CD {
             get { return ur_cd; }
             set { ur_cd = value; }
+        }
+        public string GR_CD
+        {
+            get { return gr_cd; }
+            set { gr_cd = value; }
+        }
+        public string FR_CD
+        {
+            get { return fr_cd; }
+            set { fr_cd = value; }
+        }
+        public int IS_PB
+        {
+            get { return is_PB; }
+            set { is_PB = value; }
         }
 
         public DBConnection()

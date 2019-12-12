@@ -437,7 +437,7 @@ namespace WindowsFormsApplication1
                 m_Top_pan.Controls[i].Controls[1].Text = weekSunday.AddDays(i).Day.ToString();
 
             int turm = endWeek - startWeek;
-            DataTable dt = dbs.Get_Week_Schedule(true, "U100000", weekSunday.AddDays(startWeek), turm);
+            DataTable dt = dbs.Get_Week_Schedule(true, db.UR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);
             for (int i = startWeek; i < endWeek; i++)
             {
                 if (i == 0)

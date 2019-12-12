@@ -33,11 +33,11 @@ namespace WindowsFormsApplication1
         private Control Create_FriendProfile(int i, DataTable dataTable) //친구 프로필 생성
         {
             DataRow currRow = dataTable.Rows[i];
-            UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();          
-            FriendProfile.Set_Profile_Size(30, FontStyle.Bold);
-            FriendProfile.USERNAME = currRow["UR_NM"].ToString();
-            FriendProfile.Location = new System.Drawing.Point(0, 10 + location * 30);
+            UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
             FriendProfile.Size = new System.Drawing.Size(150, 25);
+            FriendProfile.Set_Profile_Size(FontStyle.Bold);
+            FriendProfile.USERNAME.Text = currRow["UR_NM"].ToString();
+            FriendProfile.Location = new System.Drawing.Point(0, 10 + location * 30);
 
             location++; // 전역
 

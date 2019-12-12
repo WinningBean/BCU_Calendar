@@ -12,10 +12,12 @@ namespace WindowsFormsApplication1
 {
     public partial class Month : Form
     {
-
         private DBConnection db = Program.DB;
         private DBSchedule sc_db = new DBSchedule();
         private DBColor cr_db = new DBColor();
+
+        private string created_FR; // 생성시 친구코드
+        private string created_GR; // 생성시 그룹코드
 
         private DateTime m_focus_dt; // 현재 포커스 날짜
         public DateTime FOCUS_DT { // 현재 포커스날짜 프로퍼티
@@ -67,6 +69,7 @@ namespace WindowsFormsApplication1
             }
         }
 
+        private Label Add_SC_btn; // 일정추가 버튼
         private void Set_Add_SC_btn() { // 일정 추가 폼 동적 생성
             Add_SC_btn = new System.Windows.Forms.Label(); // 일정 추가 버튼
             Add_SC_btn.Location = new System.Drawing.Point(109, 2);
@@ -84,7 +87,6 @@ namespace WindowsFormsApplication1
             Add_SC_btn.Click += new System.EventHandler(this.Add_SC_btn_Click);
         }
 
-        System.Windows.Forms.Label Add_SC_btn; // 일정추가 버튼
         private void set_pass_Month(Panel fc_pan, int fc_pan_n)
         {
             if (fc_pan.Controls.Count > 0)
@@ -135,7 +137,7 @@ namespace WindowsFormsApplication1
             int dt_x = e.X / 135 + 1;
             int dt_y = (((Panel)sender).Location.Y - 25) / 100;
             int fc_pan_n = dt_x + (dt_y * 7);
-            
+
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
         }
@@ -161,8 +163,11 @@ namespace WindowsFormsApplication1
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
             modiSche.Location = new Point(f_loX, f_loY);
             modiSche.ShowDialog();
+
+            Set_Month_Today();
         }
 
+        private Day day = new Day(); // 일간 폼 띄우기
         private void dm_dt_Click(object sender, EventArgs e)// 날짜 클릭시 이벤트 처리
         {
             clear_lbl_cr();
@@ -175,14 +180,16 @@ namespace WindowsFormsApplication1
             Set_Add_SC_btn();
             fc_pan.Controls.Add(Add_SC_btn);
 
-            Day day = new Day(m_focus_dt); // 일간 폼 띄우기
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - day.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - day.Height / 2;
             day.Location = new Point(f_loX, f_loY);
+            day.FOCUS_DT = m_focus_dt;
             day.ShowDialog();
+
+            m_focus_dt = day.Get_focus_dt();
+            Set_Month_Today();
         }
-
-
+        
         // 클릭 되어 있는 날짜 설정
         private int m_nowYear; // 현재 연도
         private int m_nowMonth; // 현재 월
@@ -192,6 +199,8 @@ namespace WindowsFormsApplication1
         private DateTime m_FirstDay; // 현재 월의 1일
         private int m_LastDay; // 현재 월의 마지막 날
         private int m_FirstWeek; // 현재 월의 1일 요일
+
+        public void SET_MONTH() { Set_Month_Today(); } // 다른 폼에서 Set_Month_Today(); 부르고 싶을 때
 
         private void Set_Month_Today()
         {
@@ -226,7 +235,7 @@ namespace WindowsFormsApplication1
             Set_Month_Days();
         }
         
-        System.Windows.Forms.Label Day_n_lbl; // 날짜 레이블
+        private Label Day_n_lbl; // 날짜 레이블
         private void Set_Month_Days()
         {
             LastWeek_btn.Visible = false;
@@ -338,7 +347,20 @@ namespace WindowsFormsApplication1
         private void Set_Schedule(DateTime NowDay, Panel WeekPanel, List<int> bs_lo, int now_loX, int bs_sc)
         {
             // 일정 표시 함수
-            DataTable sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay);
+            DataTable sc_day_tb;
+            if (db.FR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+            {
+                sc_day_tb = sc_db.Get_Day_Schedule(true, db.FR_CD, NowDay, 1); // 친구일정은 공개일정만
+            }
+            else if (db.GR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+            {
+                sc_day_tb = sc_db.Get_Day_Schedule(false, db.GR_CD, NowDay, db.IS_PB);
+            }
+            else // 사용자의 일정 보여주기
+            {
+                sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
+            }
+
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
             int lo_y = -25; // 이어이는 일정 뒤의 로케이션
@@ -440,11 +462,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void Month_Load(object sender, EventArgs e)
-        {
-            Set_Month_Today(); // 오늘 날짜 세팅
-        }
-
         private void LastMonth_btn_Click(object sender, EventArgs e) // 전 달 보기
         {
             m_focus_dt = m_focus_dt.AddMonths(-1);
@@ -491,6 +508,8 @@ namespace WindowsFormsApplication1
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
             modiSche.Location = new Point(f_loX, f_loY);
             modiSche.ShowDialog();
+
+            Set_Month_Today();
         }
     }
 }
