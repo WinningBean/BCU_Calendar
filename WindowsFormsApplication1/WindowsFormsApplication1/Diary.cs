@@ -74,7 +74,7 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("일기를 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 
             }
-            catch (Exception E)
+            catch (Exception)
             {
                 MessageBox.Show("오늘자 일기를 이미 작성하셨습니다." , "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

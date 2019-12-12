@@ -92,7 +92,7 @@
             // PictureForm_btn
             // 
             this.PictureForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PictureForm_btn.Font = new System.Drawing.Font("함초롬돋움", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.PictureForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.PictureForm_btn.Location = new System.Drawing.Point(725, 23);
             this.PictureForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.PictureForm_btn.Name = "PictureForm_btn";
@@ -105,7 +105,7 @@
             // TodoForm_btn
             // 
             this.TodoForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TodoForm_btn.Font = new System.Drawing.Font("함초롬돋움", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.TodoForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.TodoForm_btn.Location = new System.Drawing.Point(670, 23);
             this.TodoForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.TodoForm_btn.Name = "TodoForm_btn";
@@ -113,11 +113,12 @@
             this.TodoForm_btn.TabIndex = 10;
             this.TodoForm_btn.Text = "할 일";
             this.TodoForm_btn.UseVisualStyleBackColor = true;
+            this.TodoForm_btn.Click += new System.EventHandler(this.TodoForm_btn_Click);
             // 
             // WeekForm_btn
             // 
             this.WeekForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WeekForm_btn.Font = new System.Drawing.Font("함초롬돋움", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.WeekForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.WeekForm_btn.Location = new System.Drawing.Point(245, 23);
             this.WeekForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.WeekForm_btn.Name = "WeekForm_btn";
@@ -132,17 +133,17 @@
             this.FreindForm_btn.AutoSize = true;
             this.FreindForm_btn.Location = new System.Drawing.Point(17, 26);
             this.FreindForm_btn.Name = "FreindForm_btn";
-            this.FreindForm_btn.Size = new System.Drawing.Size(74, 19);
+            this.FreindForm_btn.Size = new System.Drawing.Size(64, 18);
             this.FreindForm_btn.TabIndex = 8;
             this.FreindForm_btn.Text = "친구 목록";
             // 
             // m_Today_lbl
             // 
             this.m_Today_lbl.AutoSize = true;
-            this.m_Today_lbl.Font = new System.Drawing.Font("함초롬돋움", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.m_Today_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_Today_lbl.Location = new System.Drawing.Point(449, 23);
             this.m_Today_lbl.Name = "m_Today_lbl";
-            this.m_Today_lbl.Size = new System.Drawing.Size(90, 32);
+            this.m_Today_lbl.Size = new System.Drawing.Size(101, 29);
             this.m_Today_lbl.TabIndex = 6;
             this.m_Today_lbl.Text = "TODAY";
             // 
@@ -151,7 +152,7 @@
             this.MonthForm_btn.BackColor = System.Drawing.Color.White;
             this.MonthForm_btn.Enabled = false;
             this.MonthForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MonthForm_btn.Font = new System.Drawing.Font("함초롬돋움", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.MonthForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.MonthForm_btn.Location = new System.Drawing.Point(190, 23);
             this.MonthForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.MonthForm_btn.Name = "MonthForm_btn";
@@ -164,7 +165,7 @@
             // MainHeader_menustp
             // 
             this.MainHeader_menustp.BackColor = System.Drawing.Color.Gainsboro;
-            this.MainHeader_menustp.Font = new System.Drawing.Font("함초롬돋움", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.MainHeader_menustp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.MainHeader_menustp.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainHeader_menustp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사용자ToolStripMenuItem,
@@ -179,7 +180,7 @@
             this.MainHeader_menustp.Location = new System.Drawing.Point(0, 0);
             this.MainHeader_menustp.Name = "MainHeader_menustp";
             this.MainHeader_menustp.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.MainHeader_menustp.Size = new System.Drawing.Size(1212, 27);
+            this.MainHeader_menustp.Size = new System.Drawing.Size(1212, 26);
             this.MainHeader_menustp.TabIndex = 4;
             this.MainHeader_menustp.Text = "menuStrip1";
             this.MainHeader_menustp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainHeader_menustp_MouseDown);
@@ -192,19 +193,19 @@
             this.사용자정보ToolStripMenuItem,
             this.로그아웃ToolStripMenuItem});
             this.사용자ToolStripMenuItem.Name = "사용자ToolStripMenuItem";
-            this.사용자ToolStripMenuItem.Size = new System.Drawing.Size(71, 23);
+            this.사용자ToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             this.사용자ToolStripMenuItem.Text = "UserID";
             // 
             // 사용자정보ToolStripMenuItem
             // 
             this.사용자정보ToolStripMenuItem.Name = "사용자정보ToolStripMenuItem";
-            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.사용자정보ToolStripMenuItem.Text = "사용자 정보";
             // 
             // 로그아웃ToolStripMenuItem
             // 
             this.로그아웃ToolStripMenuItem.Name = "로그아웃ToolStripMenuItem";
-            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.로그아웃ToolStripMenuItem.Text = "로그아웃";
             // 
             // 그룹ToolStripMenuItem
@@ -212,13 +213,13 @@
             this.그룹ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.그룹추가ToolStripMenuItem});
             this.그룹ToolStripMenuItem.Name = "그룹ToolStripMenuItem";
-            this.그룹ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
+            this.그룹ToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.그룹ToolStripMenuItem.Text = "그룹";
             // 
             // 그룹추가ToolStripMenuItem
             // 
             this.그룹추가ToolStripMenuItem.Name = "그룹추가ToolStripMenuItem";
-            this.그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.그룹추가ToolStripMenuItem.Text = "그룹 추가";
             // 
             // 친구ToolStripMenuItem
@@ -227,19 +228,19 @@
             this.친구추가ToolStripMenuItem,
             this.친구그룹추가ToolStripMenuItem});
             this.친구ToolStripMenuItem.Name = "친구ToolStripMenuItem";
-            this.친구ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
+            this.친구ToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.친구ToolStripMenuItem.Text = "친구";
             // 
             // 친구추가ToolStripMenuItem
             // 
             this.친구추가ToolStripMenuItem.Name = "친구추가ToolStripMenuItem";
-            this.친구추가ToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.친구추가ToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
             this.친구추가ToolStripMenuItem.Text = "친구 추가";
             // 
             // 친구그룹추가ToolStripMenuItem
             // 
             this.친구그룹추가ToolStripMenuItem.Name = "친구그룹추가ToolStripMenuItem";
-            this.친구그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.친구그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
             this.친구그룹추가ToolStripMenuItem.Text = "친구 그룹 추가";
             // 
             // 일정ToolStripMenuItem
@@ -248,20 +249,20 @@
             this.일정추가ToolStripMenuItem,
             this.오늘일정보기ToolStripMenuItem});
             this.일정ToolStripMenuItem.Name = "일정ToolStripMenuItem";
-            this.일정ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
+            this.일정ToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.일정ToolStripMenuItem.Text = "일정";
             // 
             // 일정추가ToolStripMenuItem
             // 
             this.일정추가ToolStripMenuItem.Name = "일정추가ToolStripMenuItem";
-            this.일정추가ToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.일정추가ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.일정추가ToolStripMenuItem.Text = "일정 추가";
             this.일정추가ToolStripMenuItem.Click += new System.EventHandler(this.일정추가ToolStripMenuItem_Click);
             // 
             // 오늘일정보기ToolStripMenuItem
             // 
             this.오늘일정보기ToolStripMenuItem.Name = "오늘일정보기ToolStripMenuItem";
-            this.오늘일정보기ToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.오늘일정보기ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.오늘일정보기ToolStripMenuItem.Text = "오늘 일정보기";
             // 
             // 할일ToolStripMenuItem
@@ -271,39 +272,42 @@
             this.할일모두완료ToolStripMenuItem,
             this.할일모두삭제ToolStripMenuItem});
             this.할일ToolStripMenuItem.Name = "할일ToolStripMenuItem";
-            this.할일ToolStripMenuItem.Size = new System.Drawing.Size(56, 23);
+            this.할일ToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
             this.할일ToolStripMenuItem.Text = "할 일";
             // 
             // 할일추가ToolStripMenuItem
             // 
             this.할일추가ToolStripMenuItem.Name = "할일추가ToolStripMenuItem";
-            this.할일추가ToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
+            this.할일추가ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.할일추가ToolStripMenuItem.Text = "할 일 추가";
+            this.할일추가ToolStripMenuItem.Click += new System.EventHandler(this.할일추가ToolStripMenuItem_Click);
             // 
             // 할일모두완료ToolStripMenuItem
             // 
             this.할일모두완료ToolStripMenuItem.Name = "할일모두완료ToolStripMenuItem";
-            this.할일모두완료ToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
+            this.할일모두완료ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.할일모두완료ToolStripMenuItem.Text = "할 일 모두 완료";
+            this.할일모두완료ToolStripMenuItem.Click += new System.EventHandler(this.할일모두완료ToolStripMenuItem_Click);
             // 
             // 할일모두삭제ToolStripMenuItem
             // 
             this.할일모두삭제ToolStripMenuItem.Name = "할일모두삭제ToolStripMenuItem";
-            this.할일모두삭제ToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
+            this.할일모두삭제ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.할일모두삭제ToolStripMenuItem.Text = "할 일 모두 삭제";
+            this.할일모두삭제ToolStripMenuItem.Click += new System.EventHandler(this.할일모두삭제ToolStripMenuItem_Click);
             // 
             // 일기ToolStripMenuItem
             // 
             this.일기ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.일기쓰기ToolStripMenuItem});
             this.일기ToolStripMenuItem.Name = "일기ToolStripMenuItem";
-            this.일기ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
+            this.일기ToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.일기ToolStripMenuItem.Text = "일기";
             // 
             // 일기쓰기ToolStripMenuItem
             // 
             this.일기쓰기ToolStripMenuItem.Name = "일기쓰기ToolStripMenuItem";
-            this.일기쓰기ToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.일기쓰기ToolStripMenuItem.Size = new System.Drawing.Size(134, 26);
             this.일기쓰기ToolStripMenuItem.Text = "일기쓰기";
             this.일기쓰기ToolStripMenuItem.Click += new System.EventHandler(this.일기쓰기ToolStripMenuItem_Click);
             // 
@@ -312,20 +316,20 @@
             this.사진ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사진추가ToolStripMenuItem});
             this.사진ToolStripMenuItem.Name = "사진ToolStripMenuItem";
-            this.사진ToolStripMenuItem.Size = new System.Drawing.Size(51, 23);
+            this.사진ToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.사진ToolStripMenuItem.Text = "사진";
             // 
             // 사진추가ToolStripMenuItem
             // 
             this.사진추가ToolStripMenuItem.Name = "사진추가ToolStripMenuItem";
-            this.사진추가ToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.사진추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.사진추가ToolStripMenuItem.Text = "사진 추가";
             // 
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(30, 23);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(30, 24);
             this.xToolStripMenuItem.Text = "X";
             this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
@@ -333,7 +337,7 @@
             // 
             this.최소화toolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.최소화toolStripMenuItem.Name = "최소화toolStripMenuItem";
-            this.최소화toolStripMenuItem.Size = new System.Drawing.Size(36, 23);
+            this.최소화toolStripMenuItem.Size = new System.Drawing.Size(31, 24);
             this.최소화toolStripMenuItem.Text = "─";
             this.최소화toolStripMenuItem.Click += new System.EventHandler(this.최소화toolStripMenuItem_Click);
             // 
@@ -383,7 +387,7 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
@@ -393,7 +397,7 @@
             this.Controls.Add(this.MainLeft_pan);
             this.Controls.Add(this.MainTop_pan);
             this.Controls.Add(this.MainHeader_menustp);
-            this.Font = new System.Drawing.Font("함초롬돋움", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;

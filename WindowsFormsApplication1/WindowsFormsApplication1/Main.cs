@@ -18,6 +18,7 @@ namespace WindowsFormsApplication1
         Picture pic = null;
         Login log = null;
         bool isShowPic;
+        bool isShowToDo;
 
         private DateTime m_focus_dt; // 현재 포커스 날짜
         public DateTime FOCUS_DT
@@ -98,6 +99,7 @@ namespace WindowsFormsApplication1
         private void Main_Load(object sender, EventArgs e)
         {
             isShowPic = false; // 사진폼 띄우지않음
+            isShowToDo = false; // 할일폼 띄우지않음
 
             m_Today_lbl.Text = sc_db.TODAY.ToString("yyyy.MM.dd"); // 오늘 날짜 설정
             mnt.FOCUS_DT = week.FOCUS_DT = m_focus_dt = sc_db.TODAY;
@@ -153,6 +155,10 @@ namespace WindowsFormsApplication1
                 if (isShowPic) // 사진폼이 띄어져있으면 사진폼도 이동
                 {
                     pic.Location = new Point(pic.Left - (fPt.X - e.X), pic.Top - (fPt.Y - e.Y));
+                }// 폼 Location 재지정
+                if (isShowToDo) // 사진폼이 띄어져있으면 사진폼도 이동
+                {
+                    tdl.Location = new Point(tdl.Left - (fPt.X - e.X), tdl.Top - (fPt.Y - e.Y));
                 }// 폼 Location 재지정
             }
         }
@@ -214,6 +220,55 @@ namespace WindowsFormsApplication1
         private void 최소화toolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void 할일모두완료ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1");
+
+            if (isShowToDo)
+                tdl.reset();
+        }
+
+        private void 할일모두삭제ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            db.ExecuteNonQuery("delete From TODO_TB");
+
+            if (isShowToDo)
+                tdl.reset();
+        }
+
+        private void 할일추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToDoList_Add tda = new ToDoList_Add(db.UR_CD);
+            tda.Location = tda.PointToScreen(Cursor.Position);
+            if(tda.ShowDialog() == DialogResult.OK)
+            {
+                if (isShowToDo)
+                    tdl.reset();
+            }
+        }
+
+        ToDoList tdl = null;
+
+        private void TodoForm_btn_Click(object sender, EventArgs e)
+        {
+            if(isShowToDo) // 열려있으면
+            {
+                tdl.Close();
+                tdl.Dispose();
+                isShowToDo = false;
+
+            }else // 닫혀있으면
+            {
+                tdl = new ToDoList();
+
+                tdl.StartPosition = FormStartPosition.Manual; // 사진 폼 시작 포지션 설정
+                tdl.Location = new Point(this.Location.X + this.ClientSize.Width, this.Location.Y); // 현재 폼의 X좌표+현재폼의 길이, 현재폼의 Y좌표
+
+                tdl.Show();
+                isShowToDo = true;
+            }
         }
     }
 }

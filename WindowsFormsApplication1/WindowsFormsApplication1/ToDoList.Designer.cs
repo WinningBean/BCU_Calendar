@@ -38,6 +38,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ToDoList";
             this.Text = "ToDoList";
+            this.Load += new System.EventHandler(this.ToDoList_Load);
             this.ResumeLayout(false);
 
         }
