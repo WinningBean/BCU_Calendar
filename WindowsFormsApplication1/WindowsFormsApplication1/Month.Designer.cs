@@ -101,9 +101,9 @@
             // m_MonthNum
             // 
             this.m_MonthNum.Font = new System.Drawing.Font("함초롬돋움", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.m_MonthNum.Location = new System.Drawing.Point(447, -1);
+            this.m_MonthNum.Location = new System.Drawing.Point(442, 0);
             this.m_MonthNum.Name = "m_MonthNum";
-            this.m_MonthNum.Size = new System.Drawing.Size(86, 60);
+            this.m_MonthNum.Size = new System.Drawing.Size(84, 60);
             this.m_MonthNum.TabIndex = 0;
             this.m_MonthNum.Text = "월";
             this.m_MonthNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -114,10 +114,10 @@
             this.LastMonth_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LastMonth_btn.Font = new System.Drawing.Font("함초롬돋움", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LastMonth_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.LastMonth_btn.Location = new System.Drawing.Point(424, 10);
+            this.LastMonth_btn.Location = new System.Drawing.Point(420, 10);
             this.LastMonth_btn.Margin = new System.Windows.Forms.Padding(0);
             this.LastMonth_btn.Name = "LastMonth_btn";
-            this.LastMonth_btn.Size = new System.Drawing.Size(22, 38);
+            this.LastMonth_btn.Size = new System.Drawing.Size(22, 40);
             this.LastMonth_btn.TabIndex = 1;
             this.LastMonth_btn.Text = "◀";
             this.LastMonth_btn.UseVisualStyleBackColor = true;
@@ -129,10 +129,10 @@
             this.NextMonth_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NextMonth_btn.Font = new System.Drawing.Font("함초롬돋움", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.NextMonth_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.NextMonth_btn.Location = new System.Drawing.Point(532, 10);
+            this.NextMonth_btn.Location = new System.Drawing.Point(526, 10);
             this.NextMonth_btn.Margin = new System.Windows.Forms.Padding(0);
             this.NextMonth_btn.Name = "NextMonth_btn";
-            this.NextMonth_btn.Size = new System.Drawing.Size(22, 38);
+            this.NextMonth_btn.Size = new System.Drawing.Size(22, 40);
             this.NextMonth_btn.TabIndex = 2;
             this.NextMonth_btn.Text = "▶";
             this.NextMonth_btn.UseVisualStyleBackColor = true;
