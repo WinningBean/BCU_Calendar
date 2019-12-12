@@ -47,7 +47,7 @@
             // 
             this.m_Month_lab.AutoSize = true;
             this.m_Month_lab.BackColor = System.Drawing.Color.Transparent;
-            this.m_Month_lab.Font = new System.Drawing.Font("Ink Free", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Month_lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Month_lab.Location = new System.Drawing.Point(44, 27);
             this.m_Month_lab.Name = "m_Month_lab";
             this.m_Month_lab.Size = new System.Drawing.Size(98, 34);
@@ -67,7 +67,7 @@
             // 
             this.m_Year_lab.AutoSize = true;
             this.m_Year_lab.BackColor = System.Drawing.Color.Transparent;
-            this.m_Year_lab.Font = new System.Drawing.Font("Ink Free", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Year_lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Year_lab.Location = new System.Drawing.Point(-1, 0);
             this.m_Year_lab.Name = "m_Year_lab";
             this.m_Year_lab.Size = new System.Drawing.Size(100, 41);

@@ -38,7 +38,6 @@
             this.line_0 = new System.Windows.Forms.Label();
             this.Group_lstbox = new System.Windows.Forms.ListBox();
             this.Add_GR_btn = new System.Windows.Forms.Label();
-            this.Tab_panel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // label1
@@ -138,7 +137,6 @@
             this.Group_lstbox.Size = new System.Drawing.Size(213, 420);
             this.Group_lstbox.TabIndex = 8;
             this.Group_lstbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.Group_lst_DrawItem);
-            this.Group_lstbox.SelectedIndexChanged += new System.EventHandler(this.Group_lstbox_SelectedIndexChanged);
             // 
             // Add_GR_btn
             // 
@@ -154,22 +152,12 @@
             this.Add_GR_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Add_GR_btn.Click += new System.EventHandler(this.Add_GR_btn_Click);
             // 
-            // Tab_panel
-            // 
-            this.Tab_panel.BackColor = System.Drawing.Color.Transparent;
-            this.Tab_panel.Location = new System.Drawing.Point(0, 0);
-            this.Tab_panel.Name = "Tab_panel";
-            this.Tab_panel.Size = new System.Drawing.Size(243, 596);
-            this.Tab_panel.TabIndex = 10;
-            this.Tab_panel.Visible = false;
-            // 
             // LeftTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(243, 596);
-            this.Controls.Add(this.Tab_panel);
             this.Controls.Add(this.Add_GR_btn);
             this.Controls.Add(this.Group_lstbox);
             this.Controls.Add(this.line_0);
@@ -203,6 +191,5 @@
         private System.Windows.Forms.Label line_0;
         private System.Windows.Forms.ListBox Group_lstbox;
         private System.Windows.Forms.Label Add_GR_btn;
-        private System.Windows.Forms.Panel Tab_panel;
     }
 }

@@ -386,6 +386,7 @@ namespace WindowsFormsApplication1
             pb.Location = new Point(width, 0);
             width += imgWidth + 10;
             pb.SizeMode = PictureBoxSizeMode.Zoom;
+            pb.Name = drList[(drList.Count - 1)][0].ToString(); // 사진코드도 넣어줌
             pb.Image = img;
             pb.Show();
 
@@ -407,7 +408,7 @@ namespace WindowsFormsApplication1
             pb.Size = new Size(365, imgHeight);
             pb.Location = new Point(0, location);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
-            pb.Name = (drList.Count -1).ToString(); // 사진코드도 넣어줌
+            pb.Name = drList[(drList.Count - 1)][0].ToString(); // 사진코드도 넣어줌
             //pb.BorderStyle = BorderStyle.FixedSingle;
             pb.Image = img;
             pb.Show();

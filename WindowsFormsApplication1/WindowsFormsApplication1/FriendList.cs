@@ -39,6 +39,7 @@ namespace WindowsFormsApplication1
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
             FriendProfile.Size = new System.Drawing.Size(150, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
+
             FriendProfile.USERNAME = currRow["UR_NM"].ToString();
             FriendProfile.Location = new System.Drawing.Point(0,location * 25);
             FriendProfile.MouseClick += new MouseEventHandler(mouse_MouseClick);
@@ -48,6 +49,7 @@ namespace WindowsFormsApplication1
           //   FriendProfile.SendToBack();
 
           //FriendProfile.TabIndex = i;
+
 
           location++; // 전역
 

@@ -80,11 +80,11 @@ namespace WindowsFormsApplication1
             button1.Click += new EventHandler(Accept_Click);
 
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
+            FriendProfile.Size = new System.Drawing.Size(100, 35);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
             boardPan.Controls.Add(FriendProfile);
             FriendProfile.Location = new System.Drawing.Point(5, 19);
-            FriendProfile.USERNAME = name;
-            FriendProfile.Size = new System.Drawing.Size(100, 35);
+            FriendProfile.USERNAME.Text = name;
             FriendProfile.TabIndex = i;
 
             return boardPan;

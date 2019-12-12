@@ -85,9 +85,17 @@ namespace WindowsFormsApplication1
                     String strID = textBox1.Text;
                     String strPass = textBox2.Text;
                     String strName = textBox3.Text;
+
+                    db.ExecuteReader("select * from USER_TB where UR_ID = '" + strID + "'");
+                    if (db.Reader.Read())
+                    {
+                        MessageBox.Show("동일한 아이디가 이미 존재합니다", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     try
                     {
-                        string command = "insert into USER_TB values('U' || seq_urcd.nextval, '" + strID + "', '" + strPass + "', '" + strName + "')";
+                        string command = "insert into USER_TB values('U' || seq_urcd.nextval, '" + strID + "', '" + strPass + "', '" + strName + "', null)";
 
                         if (db.ExecuteNonQuery(command) < 1)
                         {
@@ -154,8 +162,8 @@ namespace WindowsFormsApplication1
 
             Main main = new Main(this);
             main.USERID = user_id; // 프로퍼티로 ID값 넘겨줌
-            main.USERPROFILE.USERNAME = user_nm; // 프로퍼티로 NAME값 넘겨줌
-            if (b_pic == true) main.USERPROFILE.USERPIC = user_pic; // 프로퍼티로 PIC값 넘겨줌
+            main.USERPROFILE.USERNAME.Text = user_nm; // 프로퍼티로 NAME값 넘겨줌
+            if (b_pic == true) main.USERPROFILE.USERPIC.Image = user_pic; // 프로퍼티로 PIC값 넘겨줌
             main.Show();
         }
 

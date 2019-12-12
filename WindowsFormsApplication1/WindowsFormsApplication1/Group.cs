@@ -25,21 +25,22 @@ namespace WindowsFormsApplication1
 
         public UserCustomControl.Profile MASTERPROFILE
         {
-            // Userprofile 프로퍼티 -> login에서 값 넘겨줌
+            // MASTERPROFILE 프로퍼티
             get { return MasterProfile_prof; }
             set { MasterProfile_prof = value; }
         }
-
-        private void Close_btn_Click(object sender, EventArgs e)
+        public List<string> MEMBER_CD_lst
         {
-            this.Parent.Visible = false;
-            Close();
+            // 그룹 멤버 코드 리스트 프로퍼티
+            get { return MemCD_lst;}
         }
-
-        private void Mem_prof_Click(object sender, EventArgs e)
+        public List<UserCustomControl.Profile> MEMBER_PROF_lst
         {
-            MessageBox.Show(((UserCustomControl.Profile)sender).Name.Substring(10, ((UserCustomControl.Profile)sender).Name.Length - 10));
+            // 그룹 프로필 리스트 프로퍼티
+            get { return MemProf_lst; }
         }
+        public Label CLOSE_btn { get { return Close_btn; } } // 클로즈 버튼 프로퍼티
+        public Label GROUP_NM_lbl { get { return GR_nm_lbl; } } // 그룹 이름 레이블 프로퍼티
 
         private void Set_Groupbs() // 그룹 기본 정보 설정
         {
@@ -55,15 +56,15 @@ namespace WindowsFormsApplication1
                 if (!(db.Reader["GR_EX"].Equals(System.DBNull.Value))) GR_ex_lbl.Text = db.Reader["GR_EX"].ToString();
                 else GR_ex_lbl.Text = "그룹설명이 없습니다.";
 
-                MasterProfile_prof.USERNAME = db.Reader["UR_NM"].ToString();
+                MasterProfile_prof.USERNAME.Text = db.Reader["UR_NM"].ToString();
                 // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
-                if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) MasterProfile_prof.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(3));
+                if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) MasterProfile_prof.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(3));
             }
             db.Reader.Close();
         }
         
-        List<UserCustomControl.Profile> MemProf_lst;
-        List<string> MemCD_lst;
+        private List<UserCustomControl.Profile> MemProf_lst;
+        private List<string> MemCD_lst;
         private void Set_GroupMem() // 그룹원 설정
         {
             sql = "select UR_CD, UR_NM, UR_PIC from USER_TB";
@@ -72,32 +73,28 @@ namespace WindowsFormsApplication1
             sql += " where GRMB_FK = '" + db.GR_CD + "')";
             sql += " order by UR_NM ASC";
             db.ExecuteReader(sql);
-
-            MemProf_lst = new List<UserCustomControl.Profile>();
+            
             MemCD_lst = new List<string>();
+            MemProf_lst = new List<UserCustomControl.Profile>();
             UserCustomControl.Profile Mem_prof;
             while (db.Reader.Read())
             {
-                MemCD_lst.Add(db.Reader["UR_CD"].ToString());
                 Mem_prof = new UserCustomControl.Profile();
-                
-                Mem_prof.USERNAME = db.Reader["UR_NM"].ToString();
-                if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) Mem_prof.USERPIC = Image.FromStream(db.Reader.GetOracleBlob(2));
-                Mem_prof.Name = "GRMem_prof" + (MemProf_lst.Count);
-                Mem_prof.Size = new Size(GRMember_pan.Width - 10, 28);
-                Mem_prof.Location = new Point(5, MemProf_lst.Count * 30 + 5);
+                Mem_prof.USERNAME.Text = db.Reader["UR_NM"].ToString();
+                if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) Mem_prof.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
+                Mem_prof.Name = "GRMem_prof" + (MemCD_lst.Count);
+                Mem_prof.Size = new Size(213, 30);
+                Mem_prof.Location = new Point(5, MemCD_lst.Count * 35);
                 Mem_prof.Set_Profile_Size(FontStyle.Regular);
+                if (db.Reader["UR_CD"].ToString() == db.UR_CD) Mem_prof.Enabled = false;
 
-                Mem_prof.Click += new System.EventHandler(this.Mem_prof_Click);
-
+                MemCD_lst.Add(db.Reader["UR_CD"].ToString());
                 MemProf_lst.Add(Mem_prof);
                 GRMember_pan.Controls.Add(Mem_prof);
             }
-            Member_lbl.Text = "그룹원 총 " + MemProf_lst.Count + "명";
+            Member_lbl.Text = "그룹원 총 " + MemCD_lst.Count + "명";
             db.Reader.Close();
         }
-
-
 
         private void Group_Load(object sender, EventArgs e)
         {

@@ -176,6 +176,12 @@
     <Compile Include="ToDoList.Designer.cs">
       <DependentUpon>ToDoList.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToDoList_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToDoList_Add.Designer.cs">
+      <DependentUpon>ToDoList_Add.cs</DependentUpon>
+    </Compile>
     <Compile Include="Week_MoreInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +254,9 @@
     </Compile>
     <EmbeddedResource Include="ToDoList.resx">
       <DependentUpon>ToDoList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToDoList_Add.resx">
+      <DependentUpon>ToDoList_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Week.resx">
       <DependentUpon>Week.cs</DependentUpon>

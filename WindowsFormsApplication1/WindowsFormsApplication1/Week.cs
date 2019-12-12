@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Threading;
 
 namespace WindowsFormsApplication1
 {
@@ -42,6 +43,9 @@ namespace WindowsFormsApplication1
 
         DBSchedule dbs = new DBSchedule();
         DBConnection db = Program.DB;
+
+        bool isMainClick = false;
+        Panel clickPan;
 
         #region 둥근 모서리
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -118,6 +122,10 @@ namespace WindowsFormsApplication1
             }
             pen.Dispose();
 
+            if (isMainClick)
+            {
+                graphics.DrawRectangle(new Pen(Color.FromArgb(150, Color.Black) ,2), new Rectangle(clickPan.Location, clickPan.Size));
+            }
         }
 
         private void OnRealTime(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -136,7 +144,7 @@ namespace WindowsFormsApplication1
                 //pan.BorderStyle = BorderStyle.FixedSingle;
 
                 pan.TextAlign = ContentAlignment.TopRight;
-                pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 pan.ForeColor = Color.DimGray;
 
                 if (i < 12)
@@ -149,7 +157,7 @@ namespace WindowsFormsApplication1
                 {
                     pan.Text = "Noon";
                     pan.ForeColor = Color.Black;
-                    pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
                 else
                     pan.Text = "0 AM";
@@ -175,7 +183,7 @@ namespace WindowsFormsApplication1
                 pan.Name = j.ToString();
 
                 Label day = new Label();
-                day.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                day.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 day.AutoSize = true;
                 day.Location = new Point(10, 10);
                 day.Text = dayEnum[j];
@@ -211,11 +219,13 @@ namespace WindowsFormsApplication1
 
         private void OnDayMouseClick(object sender, MouseEventArgs e)
         {
+            isMainClick = false;
+            insideMain.Invalidate();
             Panel pan = (Panel)sender;
             int x = 0;
             for (int i = 0; i < 7; i++)
             {
-                if (day[i][0].Right >= e.Location.X)
+                if (day[i][0].Left >= pan.Location.X)
                 {
                     x = i;
                     break;
@@ -245,6 +255,8 @@ namespace WindowsFormsApplication1
 
             clearObject();
             CurrWeek();
+
+            Thread.Sleep(100); // 너무빨리 계속 누를경우 DB 에러발생 강제로 지연
         }
 
         private void m_Right_btn_Click(object sender, EventArgs e)
@@ -261,6 +273,8 @@ namespace WindowsFormsApplication1
 
             clearObject();
             CurrWeek();
+
+            Thread.Sleep(100);
         }
 
 
@@ -395,14 +409,20 @@ namespace WindowsFormsApplication1
 
         private void clearObject()
         {
+            isMainClick = false;
+            insideMain.Invalidate();
             insideMain.Controls.Clear();
             scList.Clear();
             overlapSCList.Clear();
             dataRowList.Clear();
+            scPan.Clear();
+            for (int i = 3; i < m_Mid_pan.Controls.Count; i++)
+                m_Mid_pan.Controls[i].Visible = false;
+
             for (int i = 0; i < 7; i++)
             {
-                    m_Top_pan.Controls[i].Controls[0].ForeColor = Color.LightGray;
-                    m_Top_pan.Controls[i].Controls[1].ForeColor = Color.LightGray;
+                m_Top_pan.Controls[i].Controls[0].ForeColor = Color.LightGray;
+                m_Top_pan.Controls[i].Controls[1].ForeColor = Color.LightGray;
             }
         }
         List<List<DateTime>> scList = null;
@@ -505,6 +525,7 @@ namespace WindowsFormsApplication1
         }
 
         List<List<DateTime>> overDate = new List<List<DateTime>>();
+        List<List<Panel>> scPan = new List<List<Panel>>();
 
         int[] panCountWidth = { 125, 63, 42, 31 }; //125, 62.5 , 41.66... ,31.25
         int[] panCountPosition = { 0, 63, 42, 31 }; // 사이즈만큼 더해줌여
@@ -540,25 +561,38 @@ namespace WindowsFormsApplication1
 
                 if (overlapSCList[k][1] > 3) // 4개 이상 넘어가면
                 {
-                    Panel morePan = (Panel)insideMain.Controls[insideMain.Controls.Count - 1]; // 마지막
-                    morePan.BackColor = (new DBColor()).GetColorInsertName("GRAY", 200);
-                    Label moreLabel = (Label)morePan.Controls[0];
-                    moreLabel.Location = new Point(0, 0);
-                    moreLabel.AutoSize = false;
-                    moreLabel.Size = morePan.Size;
-                    moreLabel.TextAlign = ContentAlignment.MiddleCenter;
-                    morePan.Name += dataRowList[k][0].ToString(); // 네임을 더 추가해줌
-                    if (!moreLabel.Text.Equals(". . ."))
-                        moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
-                    moreLabel.Text = ". . .";
+                    for (int i = 0; i < scPan.Last().Count; i++)
+                    {
+                        Panel morePan = scPan.Last()[i];
+                        morePan.BackColor = (new DBColor()).GetColorInsertName("GRAY", 200);
+                        Label moreLabel;
+                        if (morePan.Controls.Count == 0)
+                        {
+                            moreLabel = new Label();
+                            moreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                            moreLabel.BackColor = Color.Transparent;
+                            morePan.Controls.Add(moreLabel);
+                        }
+                        moreLabel = (Label)morePan.Controls[0];
+                        moreLabel.Location = new Point(0, 0);
+                        moreLabel.AutoSize = false;
+                        moreLabel.Size = morePan.Size;
+                        moreLabel.TextAlign = ContentAlignment.MiddleCenter;
+                        morePan.Name += dataRowList[k][0].ToString(); // 네임을 더 추가해줌
+                        if (!moreLabel.Text.Equals(". . ."))
+                            moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
+                        moreLabel.Text = ". . .";
+                    }
                     continue;
                 }
+
+                scPan.Add(new List<Panel>());
                 int overlapNum = overlapSCList[k][0] > 3 ? 3 : overlapSCList[k][0];
 
                 Label lb = CreateSCText(dataRowList[k], panTextSize[overlapNum]); // 텍스트를 만들어줌
                 pan.Controls.Add(lb);
 
-                if (startDate.Year != endDate.Year|| startDate.Month != endDate.Month || startDate.Day != endDate.Day) // 시작일 끝일이 다름
+                if (startDate.Year != endDate.Year || startDate.Month != endDate.Month || startDate.Day != endDate.Day) // 시작일 끝일이 다름
                 {
                     if (endWeekDate <= endDate) // 일주일 표시를 넘어가면
                     {
@@ -571,6 +605,7 @@ namespace WindowsFormsApplication1
                     pan.Size = new Size(panCountWidth[overlapNum], insideMain.Size.Height - startPanel.Top);
                     pan.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pan.Size.Width, pan.Size.Height, 13, 13));
                     pan.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                    scPan.Last().Add(pan);
                     insideMain.Controls.Add(pan);
                     for (int m = (int)startDate.DayOfWeek + 1; m < (int)endDate.DayOfWeek; m++) // 시작일 끝나는일 중간 일정
                     {
@@ -584,6 +619,7 @@ namespace WindowsFormsApplication1
                         middle.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
                         middle.MouseClick += new MouseEventHandler(OnPanelClick);
                         middle.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
+                        scPan.Last().Add(middle);
                         insideMain.Controls.Add(middle);
                     }
                     if (startDate.DayOfWeek != DayOfWeek.Saturday)
@@ -597,6 +633,7 @@ namespace WindowsFormsApplication1
                         last.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
                         last.MouseClick += new MouseEventHandler(OnPanelClick);
                         last.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
+                        scPan.Last().Add(last);
                         insideMain.Controls.Add(last);
                     }
                 }
@@ -611,6 +648,7 @@ namespace WindowsFormsApplication1
                     //pan.BorderStyle = BorderStyle.FixedSingle;
                     // 사이즈 조절
                     pan.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                    scPan.Last().Add(pan);
                     insideMain.Controls.Add(pan);
                 }
             }
@@ -618,6 +656,8 @@ namespace WindowsFormsApplication1
         Panel clickPanel = new Panel();
         private void OnPanelClick(object sender, MouseEventArgs e)
         {
+            isMainClick = false;
+            insideMain.Invalidate();
             Panel pan = (Panel)sender;
             db.ExecuteReader("select * from SCHEDULE_TB where SC_CD = '" + pan.Name + "'");
             if (!db.Reader.Read())
@@ -701,15 +741,33 @@ namespace WindowsFormsApplication1
             clickDate = clickDate.AddHours(y);
             m_focus_dt = clickDate;
             m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+
+            isMainClick = true;
+            clickPan = day[x][y];
+            insideMain.Invalidate();
         }
 
         private void OnColorClick(object sender, EventArgs e)
         {
             Panel pan = (Panel)sender;
             DBColor dbc = new DBColor();
+
             db.ExecuteNonQuery("UPDATE SCHEDULE_TB SET SC_CR_FK = '" + pan.Name +
                 "' WHERE SC_CD = '" + clickPanel.Name + "'");
-            clickPanel.BackColor = dbc.GetColorInsertCRCD(pan.Name, 200);
+            //clickPanel.BackColor = dbc.GetColorInsertCRCD(pan.Name, 200);
+            Color c = dbc.GetColorInsertCRCD(pan.Name, 200);
+            int i = 0;
+            for (; i < scPan.Count;)
+            {
+                if (clickPanel.Name == scPan[i][0].Name)
+                    break;
+                i++;
+            }
+
+            for(int k = 0; k < scPan[i].Count; k++)
+            {
+                scPan[i][k].BackColor = c;
+            }
         }
 
 

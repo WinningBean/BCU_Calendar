@@ -26,21 +26,18 @@ namespace UserCustomControl
 
             this.m_UserName_lbl.Left = this.Height + 5;
             this.m_UserName_lbl.Font = new System.Drawing.Font("함초롬돋움", m_fontSize, m_fontStyle);
-            this.m_UserName_lbl.Top = this.Height / 2 - this.m_UserName_lbl.Height / 2;
-            this.Width = this.m_UserPic_rpic.Width + 5 + this.m_UserName_lbl.Width;
+            this.m_UserName_lbl.Top = (this.Height - this.m_UserName_lbl.Height) / 2;
         }
 
-        public Image USERPIC
+        public PictureBox USERPIC
         {
-            // m_UserPic 프로퍼티
-            get { return this.m_UserPic_rpic.Image; }
-            set { m_UserPic_rpic.Image = value; }
+            // m_UserPic get 프로퍼티
+            get { return this.m_UserPic_rpic; }
         }
-        public string USERNAME
+        public Label USERNAME
         {
-            // m_UserName 프로퍼티
-            get { return this.m_UserName_lbl.Text; }
-            set { m_UserName_lbl.Text = value; }
+            // m_UserName get 프로퍼티
+            get { return this.m_UserName_lbl; }
         }
     }
 }
