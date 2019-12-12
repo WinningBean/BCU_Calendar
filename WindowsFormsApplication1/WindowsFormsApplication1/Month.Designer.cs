@@ -674,7 +674,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(969, 598);
+            this.ClientSize = new System.Drawing.Size(969, 596);
             this.Controls.Add(this.FirstWeek_btn);
             this.Controls.Add(this.LastWeek_btn);
             this.Controls.Add(this.m_Year_txt);
@@ -685,12 +685,10 @@
             this.Controls.Add(this.m_MonthNum);
             this.Font = new System.Drawing.Font("함초롬돋움", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Location = new System.Drawing.Point(-5, 64);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Month";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Month";
-            this.Load += new System.EventHandler(this.Month_Load);
             this.Month_panel.ResumeLayout(false);
             this.weeknm_pan.ResumeLayout(false);
             this.weeknm_pan.PerformLayout();

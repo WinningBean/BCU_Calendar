@@ -26,15 +26,14 @@ namespace WindowsFormsApplication1
     }
     #endregion
 
-    // 4개 넘어가면 ... 으로 만들기 finish
-    // 판넬 클릭시 정보 finish
-    // 일정 추가 finish
-    // 색상 지정 finish
-    // 주간 이동 (부분완성) finish
-    // 다음주로 넘어가는 일정 만들기 
-    // 현재 시간표시 커서로 -> 현재날짜 탑 색칠, 왼쪽 시간에 표시하는걸로
-
-    // 탑에 시간설정
+    //4개 넘어가면...으로 만들기 finish
+    //판넬 클릭시 정보 finish
+    //일정 추가 finish
+    //색상 지정 finish
+    //주간 이동 (부분완성) finish
+    //다음주로 넘어가는 일정 만들기 finish
+    //현재 시간표시 커서로 -> 현재날짜 탑 색칠, 왼쪽 시간에 표시하는걸로
+    //탑에 시간설정 finish
 
     public partial class Week : Form
     {
@@ -178,56 +177,85 @@ namespace WindowsFormsApplication1
                 Label day = new Label();
                 day.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 day.AutoSize = true;
-                day.Location = new Point(60, 30);
+                day.Location = new Point(10, 10);
                 day.Text = dayEnum[j];
                 day.ForeColor = Color.LightGray;
                 pan.Controls.Add(day);
+
+                Label num = new Label();
+                num.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                num.AutoSize = true;
+                num.Location = new Point(70, 30);
+                num.ForeColor = Color.LightGray;
+                pan.Controls.Add(num);
+
+                pan.MouseEnter += new EventHandler(OnMouseEnter);
+                pan.MouseLeave += new EventHandler(OnMouseLeave);
+                pan.MouseClick += new MouseEventHandler(OnDayMouseClick);
                 m_Top_pan.Controls.Add(pan);
                 x += 125;
-
-                if (j == 0 || j == 6)
-                {
-                    pan.MouseEnter += new EventHandler(OnTopPanMouseEnter);
-                    pan.MouseLeave += new EventHandler(OnTopPanMouseLeave);
-                    pan.MouseClick += new MouseEventHandler(OnTopPanMouseClick);
-                }
             }
         }
 
-        private void OnTopPanMouseEnter(object sender, EventArgs e)
+        private void OnMouseEnter(object sender, EventArgs e)
         {
             Panel pan = (Panel)sender;
-            pan.BackColor = Color.SlateGray;
+            pan.BackColor = Color.Gray;
         }
-        private void OnTopPanMouseLeave(object sender, EventArgs e)
+
+        private void OnMouseLeave(object sender, EventArgs e)
         {
             Panel pan = (Panel)sender;
             pan.BackColor = Color.Transparent;
         }
-        private void OnTopPanMouseClick(object sender, MouseEventArgs e)
+
+        private void OnDayMouseClick(object sender, MouseEventArgs e)
         {
             Panel pan = (Panel)sender;
-            if (pan.Name == "0")
+            int x = 0;
+            for (int i = 0; i < 7; i++)
             {
-                if (weekSunday.AddDays(1 - weekSunday.Day) > weekSunday.AddDays(-7)) // 첫일 넘어가면
+                if (day[i][0].Right >= e.Location.X)
                 {
-                    if (weekSunday.Day == weekSunday.AddDays(1 - weekSunday.Day).Day)
-                        weekSunday = weekSunday.AddDays(-1 * weekSunday.Day);
-                    else
-                        weekSunday = weekSunday.AddDays(1 - weekSunday.Day);
+                    x = i;
+                    break;
                 }
-                else
-                    weekSunday = weekSunday.AddDays(-7);
             }
-            else if (pan.Name == "6")
+            DateTime days = weekSunday.AddDays(x);
+            Day d = new Day(days);
+            d.ShowDialog();
+        }
+
+        private void m_Left_btn_Click(object sender, EventArgs e)
+        {
+            if (weekSunday.AddDays(1 - weekSunday.Day) > weekSunday.AddDays(-7)) // 첫일 넘어가면
             {
-                if (DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month) < weekSunday.Day + 7) // 끝일 넘어가면
-                    weekSunday = weekSunday.AddDays(DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month) - weekSunday.Day + 1);
+                if (weekSunday.Day == weekSunday.AddDays(1 - weekSunday.Day).Day)
+                    weekSunday = weekSunday.AddDays(-1 * weekSunday.Day);
                 else
-                    weekSunday = weekSunday.AddDays(7);
+                    weekSunday = weekSunday.AddDays(1 - weekSunday.Day);
             }
+            else
+                weekSunday = weekSunday.AddDays(-7);
             m_focus_dt = weekSunday;
             m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            m_Year_lab.Text = m_focus_dt.ToString("yyyy");
+            m_Month_lab.Text = m_focus_dt.ToString("MM");
+
+
+            clearObject();
+            CurrWeek();
+        }
+
+        private void m_Right_btn_Click(object sender, EventArgs e)
+        {
+            if (DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month) < weekSunday.Day + 7) // 끝일 넘어가면
+                weekSunday = weekSunday.AddDays(DateTime.DaysInMonth(weekSunday.Year, weekSunday.Month) - weekSunday.Day + 1);
+            else
+                weekSunday = weekSunday.AddDays(7);
+            m_focus_dt = weekSunday;
+            m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            m_Year_lab.Text = m_focus_dt.ToString("yyyy");
             m_Month_lab.Text = m_focus_dt.ToString("MM");
 
 
@@ -265,7 +293,7 @@ namespace WindowsFormsApplication1
             DataSet ds = new DataSet();
             db.Adapter.Fill(ds, "COLOR_TB");
             DataTable dt = ds.Tables["COLOR_TB"];
-            int loca = m_Mid_pan.Width - 22;
+            int loca = m_Mid_pan.Width - 80;
             DBColor dbc = new DBColor();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -288,6 +316,7 @@ namespace WindowsFormsApplication1
         private void Week_Load(object sender, EventArgs e)
         {
             m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            m_Year_lab.Text = m_focus_dt.ToString("yyyy");
             m_Month_lab.Text = m_focus_dt.ToString("MM");
 
             m_Main_pan.AutoScrollPosition = new Point(0, 348); // 휠 포지션을 가운데로 설정
@@ -371,7 +400,10 @@ namespace WindowsFormsApplication1
             overlapSCList.Clear();
             dataRowList.Clear();
             for (int i = 0; i < 7; i++)
-                m_Top_pan.Controls[i].Controls[0].ForeColor = Color.LightGray;
+            {
+                    m_Top_pan.Controls[i].Controls[0].ForeColor = Color.LightGray;
+                    m_Top_pan.Controls[i].Controls[1].ForeColor = Color.LightGray;
+            }
         }
         List<List<DateTime>> scList = null;
         List<List<int>> overlapSCList = null;
@@ -381,11 +413,29 @@ namespace WindowsFormsApplication1
         {
             createObject();
 
+            for (int i = 0; i < 7; i++) // 몇일인지 표시
+                m_Top_pan.Controls[i].Controls[1].Text = weekSunday.AddDays(i).Day.ToString();
 
             int turm = endWeek - startWeek;
-            DataTable dt = dbs.Get_Week_Schedule(true, "U100000", weekSunday.AddDays(startWeek), turm);
+            DataTable dt = dbs.Get_Week_Schedule(true, db.UR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);
             for (int i = startWeek; i < endWeek; i++)
-                m_Top_pan.Controls[i].Controls[0].ForeColor = Color.Black;
+            {
+                if (i == 0)
+                {
+                    m_Top_pan.Controls[i].Controls[0].ForeColor = Color.Red;
+                    m_Top_pan.Controls[i].Controls[1].ForeColor = Color.Red;
+                }
+                else if (i == 6)
+                {
+                    m_Top_pan.Controls[i].Controls[0].ForeColor = Color.Blue;
+                    m_Top_pan.Controls[i].Controls[1].ForeColor = Color.Blue;
+                }
+                else
+                {
+                    m_Top_pan.Controls[i].Controls[0].ForeColor = Color.Black;
+                    m_Top_pan.Controls[i].Controls[1].ForeColor = Color.Black;
+                }
+            }
             for (int k = 0; k < dt.Rows.Count; k++)
             {
                 DataRow dr = dt.Rows[k];
@@ -493,13 +543,14 @@ namespace WindowsFormsApplication1
                     Panel morePan = (Panel)insideMain.Controls[insideMain.Controls.Count - 1]; // 마지막
                     morePan.BackColor = (new DBColor()).GetColorInsertName("GRAY", 200);
                     Label moreLabel = (Label)morePan.Controls[0];
-                    moreLabel.Text = ". . .";
                     moreLabel.Location = new Point(0, 0);
                     moreLabel.AutoSize = false;
                     moreLabel.Size = morePan.Size;
                     moreLabel.TextAlign = ContentAlignment.MiddleCenter;
                     morePan.Name += dataRowList[k][0].ToString(); // 네임을 더 추가해줌
-                    moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
+                    if (!moreLabel.Text.Equals(". . ."))
+                        moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
+                    moreLabel.Text = ". . .";
                     continue;
                 }
                 int overlapNum = overlapSCList[k][0] > 3 ? 3 : overlapSCList[k][0];
@@ -535,16 +586,19 @@ namespace WindowsFormsApplication1
                         middle.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
                         insideMain.Controls.Add(middle);
                     }
-                    Panel last = new DoubleBufferPanel();
-                    last.Name = pan.Name;
-                    last.BackColor = pan.BackColor;
-                    last.Location = new Point(endPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1]), 0);
-                    last.Size = new Size(panCountWidth[overlapNum], endPanel.Top + plusMinute);
-                    last.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, last.Size.Width, last.Size.Height, 13, 13));
-                    last.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
-                    last.MouseClick += new MouseEventHandler(OnPanelClick);
-                    last.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
-                    insideMain.Controls.Add(last);
+                    if (startDate.DayOfWeek != DayOfWeek.Saturday)
+                    {
+                        Panel last = new DoubleBufferPanel();
+                        last.Name = pan.Name;
+                        last.BackColor = pan.BackColor;
+                        last.Location = new Point(endPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1]), 0);
+                        last.Size = new Size(panCountWidth[overlapNum], endPanel.Top + plusMinute);
+                        last.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, last.Size.Width, last.Size.Height, 13, 13));
+                        last.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
+                        last.MouseClick += new MouseEventHandler(OnPanelClick);
+                        last.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
+                        insideMain.Controls.Add(last);
+                    }
                 }
                 else // 시작일 끝일이 같을경우
                 {
@@ -575,7 +629,7 @@ namespace WindowsFormsApplication1
                 clickPanel = pan;
                 m_focus_dt = DateTime.Parse(db.Reader[4].ToString());
 
-                for (int i = 1; i < m_Mid_pan.Controls.Count; i++)
+                for (int i = 3; i < m_Mid_pan.Controls.Count; i++)
                     m_Mid_pan.Controls[i].Visible = true;
             }
             if (e.Clicks == 2)
@@ -622,7 +676,7 @@ namespace WindowsFormsApplication1
         private void OnMainClick(object sender, MouseEventArgs e)
         {// 클릭시 어디를 클릭했는지 찾고 찾는날에 시간을 반환해줌
             clickPanel.BorderStyle = BorderStyle.None;
-            for (int i = 1; i < m_Mid_pan.Controls.Count; i++)
+            for (int i = 3; i < m_Mid_pan.Controls.Count; i++)
                 m_Mid_pan.Controls[i].Visible = false;
 
             int x = 0;
@@ -809,5 +863,7 @@ namespace WindowsFormsApplication1
         //}
 
         #endregion
+
+
     }
 }

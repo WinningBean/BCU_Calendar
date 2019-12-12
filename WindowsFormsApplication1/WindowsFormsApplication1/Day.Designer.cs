@@ -57,7 +57,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(-1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(169, 480);
+            this.panel1.Size = new System.Drawing.Size(177, 480);
             this.panel1.TabIndex = 3;
             // 
             // button2
@@ -143,6 +143,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Day";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Day";
             this.Load += new System.EventHandler(this.Day_Load);
             this.panel1.ResumeLayout(false);

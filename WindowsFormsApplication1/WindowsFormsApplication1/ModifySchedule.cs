@@ -34,7 +34,7 @@ namespace WindowsFormsApplication1
 
         DBConnection db = Program.DB;
         DBSchedule dbs = null;
-        DBColor dbc = new DBColor();
+        DBColor dbc = null;
         string pic_CD=null;
         bool check = false;
         private string scheduleCD = null;
@@ -143,6 +143,7 @@ namespace WindowsFormsApplication1
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
             dbs = new DBSchedule();
+            dbc = new DBColor();
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";

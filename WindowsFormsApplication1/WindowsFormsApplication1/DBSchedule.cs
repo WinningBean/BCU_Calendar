@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1
 
         // DB상 Schedule 가져오기 클래스
 
-        public DataTable Get_Schedule(Boolean is_UR, string m_URorGR_CD)
+        public DataTable Get_Schedule(bool is_UR, string m_URorGR_CD, int is_PB)
         {
             // 해당 사용자에 대한 모든 일정 테이블 함수
             if (is_UR == true) // 회원이라면
@@ -41,6 +41,9 @@ namespace WindowsFormsApplication1
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
+            sql += " and SC_PB_ST = " + is_PB.ToString();
+            sql += " order by SC_STR_DT ASC";
+
             DS = new DataSet();
             db.AdapterOpen(sql);
             db.Adapter.Fill(DS, "GET_SC_TB");
@@ -51,7 +54,7 @@ namespace WindowsFormsApplication1
             return GET_SC_TB;
         }
         
-        public DataTable Get_Day_Schedule(Boolean is_UR, string m_URorGR_CD, DateTime day)
+        public DataTable Get_Day_Schedule(bool is_UR, string m_URorGR_CD, DateTime day, int is_PB)
         {
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
             if (is_UR == true) // 회원이라면
@@ -63,8 +66,9 @@ namespace WindowsFormsApplication1
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
             sql += " and SC_STR_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
-            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") 
-                + "' ORDER BY  SC_STR_DT ASC";
+            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_PB_ST = " + is_PB.ToString();
+            sql += " order by SC_STR_DT ASC";
 
             DS = new DataSet();
             db.AdapterOpen(sql);
@@ -76,7 +80,7 @@ namespace WindowsFormsApplication1
             return GET_DAY_SC_TB;
         }
 
-        public DataTable Get_Week_Schedule(Boolean is_UR, string m_URorGR_CD, DateTime day, int turm) // day + turm
+        public DataTable Get_Week_Schedule(bool is_UR, string m_URorGR_CD, DateTime day, int turm, int is_PB) // day + turm
         {
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
             if (is_UR == true) // 회원이라면
@@ -87,9 +91,10 @@ namespace WindowsFormsApplication1
             {
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
-            sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") 
-                + "' and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd")
-                + "' ORDER BY  SC_STR_DT ASC"; // 일주일 범위 안에 들어오면 무조건
+            sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_PB_ST = " + is_PB.ToString();
+            sql += " order by  SC_STR_DT ASC"; // 일주일 범위 안에 들어오면 무조건
 
             DS = new DataSet();
             db.AdapterOpen(sql);
@@ -101,7 +106,7 @@ namespace WindowsFormsApplication1
             return GET_DAY_SC_TB;
         }
 
-        public void Insert_Schedule(Boolean is_UR, string m_URorGR_CD, string title, string ex, int st, DateTime st_day, DateTime end_day, string p_fk , string cr_fk)
+        public void Insert_Schedule(bool is_UR, string m_URorGR_CD, string title, string ex, int is_PB, DateTime st_day, DateTime end_day, string p_fk , string cr_fk)
         {
             // Insert_Schedule(사용자/그룹구분, 사용자/그룹 코드, 일정제목, 일정내용, 공개상태, 시작일시, 종료일시, 사진fk, 컬러fk)
 
@@ -113,7 +118,9 @@ namespace WindowsFormsApplication1
             if (ex == null) { sql += "null, "; } // 일정설명
             else { sql += "'" + ex + "', "; }
 
-            sql += st.ToString() + ", to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi'), to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi'), ";
+            sql += is_PB.ToString() + ", ";
+            sql += "to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi'), ";
+            sql += "to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi'), ";
 
             if (p_fk == null) { sql += "null, "; } // 사진코드
             else { sql += "'" + p_fk + "', "; }
@@ -136,6 +143,15 @@ namespace WindowsFormsApplication1
         {
             // Update_Schedule(스케줄코드, 업데이트될 컬럼명, 업데이트 데이터)
             sql = "update SCHEDULE_TB set " + column_name + " = '" + sc_data + "' where SC_CD = '" + sc_cd + "'";
+            db.ExecuteNonQuery(sql);
+        }
+
+        public void Update_Schedule(string sc_cd, string column_name, int sc_data)
+        {
+            // Update_Schedule overloading - 공개상태 업데이트
+            // Update_Schedule(스케줄코드, 업데이트될 컬럼명, 업데이트 데이터)
+            string sc_data_str = sc_data.ToString("yyyy/MM/dd H:mm");
+            sql = "update SCHEDULE_TB set " + column_name + " = " + sc_data.ToString();
             db.ExecuteNonQuery(sql);
         }
 

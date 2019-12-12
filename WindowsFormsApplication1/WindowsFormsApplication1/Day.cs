@@ -24,6 +24,14 @@ namespace WindowsFormsApplication1
 
         DataTable GET_DAY_SC_TB = null;
 
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        { // 현재 포커스날짜 프로퍼티
+            set { m_focus_dt = value; }
+        }
+        public DateTime Get_focus_dt() { return m_focus_dt; }
+
+
         int checkHeight = 0;
         int[,] location;
 
@@ -53,8 +61,7 @@ namespace WindowsFormsApplication1
         
         private void Get_chedule()
         {
-            db.UR_CD = "U100000";
-            GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, "U100000", nowDate);
+            GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
             location = new int[15, 2];
 
             for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)

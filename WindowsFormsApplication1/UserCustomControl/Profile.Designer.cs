@@ -37,11 +37,12 @@
             // 
             this.m_UserName_lbl.AutoSize = true;
             this.m_UserName_lbl.Font = new System.Drawing.Font("함초롬돋움", 20F, System.Drawing.FontStyle.Bold);
-            this.m_UserName_lbl.Location = new System.Drawing.Point(75, 13);
+            this.m_UserName_lbl.Location = new System.Drawing.Point(75, 0);
             this.m_UserName_lbl.Name = "m_UserName_lbl";
             this.m_UserName_lbl.Size = new System.Drawing.Size(189, 44);
             this.m_UserName_lbl.TabIndex = 1;
             this.m_UserName_lbl.Text = "UserName";
+            this.m_UserName_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // m_UserPic_rpic
             // 

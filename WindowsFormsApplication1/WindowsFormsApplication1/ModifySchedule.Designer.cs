@@ -463,6 +463,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ModifySchedule";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ModifySchedule";
             this.Load += new System.EventHandler(this.ModifySchedule_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ModifySchedule_Paint);

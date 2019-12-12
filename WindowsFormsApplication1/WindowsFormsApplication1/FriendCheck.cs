@@ -15,7 +15,6 @@ namespace WindowsFormsApplication1
         public FriendCheck()
         {
             InitializeComponent();
-            db.UR_CD = "U100003";
         }
 
         DBConnection db = Program.DB;
@@ -81,7 +80,7 @@ namespace WindowsFormsApplication1
             button1.Click += new EventHandler(Accept_Click);
 
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
-            FriendProfile.Set_Profile_Size(30, FontStyle.Bold);
+            FriendProfile.Set_Profile_Size(FontStyle.Bold);
             boardPan.Controls.Add(FriendProfile);
             FriendProfile.Location = new System.Drawing.Point(5, 19);
             FriendProfile.USERNAME = name;
