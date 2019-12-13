@@ -37,21 +37,26 @@ namespace WindowsFormsApplication1
         {
             DataRow currRow = dataTable.Rows[i];
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
-            FriendProfile.Size = new System.Drawing.Size(150, 25);
+            FriendProfile.Size = new System.Drawing.Size(223, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
-
-            FriendProfile.USERNAME = currRow["UR_NM"].ToString();
+            FriendProfile.Name = currRow["UR_CD"].ToString();
+            if (!(currRow["UR_PIC"].Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
+            FriendProfile.USERNAME.Text = currRow["UR_NM"].ToString();
             FriendProfile.Location = new System.Drawing.Point(0,location * 25);
             FriendProfile.MouseClick += new MouseEventHandler(mouse_MouseClick);
-            FriendProfile.BackColor = Color.Aqua;
+            FriendProfile.USERPIC.MouseClick += new MouseEventHandler(mouse_MouseClick);
+            FriendProfile.USERNAME.MouseClick += new MouseEventHandler(mouse_MouseClick);
+            FriendProfile.USERNAME.Name = currRow["UR_CD"].ToString();
 
 
-          //   FriendProfile.SendToBack();
-
-          //FriendProfile.TabIndex = i;
 
 
-          location++; // 전역
+            //   FriendProfile.SendToBack();
+
+            //FriendProfile.TabIndex = i;
+
+
+            location++; // 전역
 
             return FriendProfile;
         }
@@ -74,7 +79,7 @@ namespace WindowsFormsApplication1
             FrGr_pan[0].Name = "btn";
             FrGr_pan[0].TabIndex = 0;
             FrGr_pan[0].Size = new System.Drawing.Size(223, 40);
-            FrGr_pan[0].BackColor = Color.Red;
+
           //  FrGr_pan[0].BringToFront();
 
             FrGr_pan[0].Click += new EventHandler(GroupList_Click);
@@ -139,15 +144,15 @@ namespace WindowsFormsApplication1
                 FrGr_pan[i + 1].Size = new System.Drawing.Size(223, 40);
                 FrGr_pan[i + 1].Location = new System.Drawing.Point(12, pan[0] .Location.Y + pan[0].Size.Height + i * FrGr_pan[i + 1].Size.Height);
                 FrGr_pan[i + 1].Name = "btn";
+
                 FrGr_pan[i + 1].TabIndex = i + 1; // 클릭 함수를 실행 했을때 몇번쨰 FrGr_pan 이눌렸는지 알려줄 값 설정
                 //FrGr_pan[i + 1].BringToFront();
-                FrGr_pan[i + 1].BackColor = Color.BurlyWood;
                 FrGr_pan[i + 1].Click += new EventHandler(GroupList_Click);
 
                 panel1.Controls.Add(FrGr_pan[i + 1]);
                 FrGr_pan[i + 1].Show();
 
-                flag[i + 1] = i + 1;
+               // flag[i + 1] = i + 1;
 
                 FrGr_Nmlabel[i + 1] = new Label();
                 FrGr_Nmlabel[i + 1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -188,17 +193,19 @@ namespace WindowsFormsApplication1
         }
         private void GetFriendsList() //친구 목록 가져오기
         {
-            db.AdapterOpen("select  UR_NM ,UR_CD from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "') ORDER BY  UR_NM ASC");
+            db.AdapterOpen("select  UR_NM ,UR_CD,UR_PIC from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "' and FR_ACEP_ST = '1') ORDER BY  UR_NM ASC");
 
             DataSet DS = new DataSet();
             db.Adapter.Fill(DS, "friend_tb");
             friendTable = DS.Tables["friend_tb"];
+            friendTable.PrimaryKey = new DataColumn[] { friendTable.Columns["UR_CD"] };
 
             //db.Close();
         }
 
         private void FriendList_Load(object sender, EventArgs e)
         {
+            db.UR_CD = "U100000";
             button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button4.MouseEnter += new EventHandler(OnTopPanMouseEnter);
@@ -207,7 +214,8 @@ namespace WindowsFormsApplication1
             button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
             button4.MouseEnter += new EventHandler(OnTopPanMouseLeave);
 
-            db.UR_CD = "U100000";
+
+            panel2.Location = new Point(panel1.Location.X, panel2.Location.Y);
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
             panel1.AutoScroll = false;
@@ -224,7 +232,7 @@ namespace WindowsFormsApplication1
 
         private void GetGroupList()
         {
-            db.AdapterOpen("select FRGR_CD, FRGR_NM from FRIEND_GROUP_TB WHERE FRGR_UR_FK = '" + db.UR_CD + "' ORDER BY FRGR_NM DESC");
+            db.AdapterOpen("select FRGR_CD, FRGR_NM from FRIEND_GROUP_TB WHERE FRGR_UR_FK = '" + db.UR_CD + "'  ORDER BY FRGR_NM DESC");
             DataSet ds = new DataSet();
             db.Adapter.Fill(ds, "friend_group_tb");
             friend_group_tb = ds.Tables["friend_group_tb"];
@@ -238,12 +246,12 @@ namespace WindowsFormsApplication1
                 location = 0;
                 pan[i + 1] = new Panel();
                 panel1.Controls.Add(pan[i + 1]);
-                pan[i + 1].Location = new System.Drawing.Point(FrGr_pan[i + 1].Location.X, FrGr_pan[i + 1].Location.Y + FrGr_pan[i + 1].Size.Height+10);
-                pan[i + 1].BackColor = Color.Blue;
+                pan[i + 1].Location = new System.Drawing.Point(FrGr_pan[i + 1].Location.X, FrGr_pan[i + 1].Location.Y + FrGr_pan[i + 1].Size.Height);
+
                 pan[i + 1].Visible = false;
                 DataRow currRow = friend_group_tb.Rows[i];
 
-                db.AdapterOpen("select  UR_NM from USER_TB  where UR_CD in (select FR_FR_FK from FRIEND_TB where FR_FRGR_FK = '" + currRow["FRGR_CD"].ToString() + "') ORDER BY  UR_NM ASC");
+                db.AdapterOpen("select  UR_NM, UR_PIC, UR_CD from USER_TB  where UR_CD in (select FR_FR_FK from FRIEND_TB where FR_FRGR_FK = '" + currRow["FRGR_CD"].ToString() + "' and FR_ACEP_ST = '1') ORDER BY  UR_NM ASC");
 
                 DataSet rs = new DataSet();
                 db.Adapter.Fill(rs, "groupMemberTb");
@@ -251,12 +259,12 @@ namespace WindowsFormsApplication1
                 
                 if (groupMemberTb.Rows.Count != 0)
                 {
-                    pan[i + 1].Size = new System.Drawing.Size(150, 25 * (groupMemberTb.Rows.Count));
+                    pan[i + 1].Size = new System.Drawing.Size(223, 25 * (groupMemberTb.Rows.Count));
                    
                 }
                 else
                 {
-                    pan[i + 1].Size = new System.Drawing.Size(150, 25 * groupMemberTb.Rows.Count );
+                    pan[i + 1].Size = new System.Drawing.Size(223, 25 * groupMemberTb.Rows.Count );
                 }
                
                 for (int j = 0; j < groupMemberTb.Rows.Count; j++) // 그룹 목록에 그룹원 추가
@@ -266,7 +274,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void GroupList_Click(object render, EventArgs e)// 위치 조절 함수
+        private void GroupList_Click(object render, EventArgs e)
         {
             int i = 0;
             Panel myPan = (Panel)render;
@@ -281,7 +289,8 @@ namespace WindowsFormsApplication1
             i = myPan.TabIndex;
             Check_visible(i);
         }
-        private void  Check_visible(int i)
+
+        private void  Check_visible(int i)// 위치 조절 함수
         {
 
             if (!pan[i].Visible) //i 번쨰리스트가 보이지 않는 상태이면 ( 리스트를 펼칠때)
@@ -334,7 +343,7 @@ namespace WindowsFormsApplication1
             location = 0;
             bool check = false;
 
-            string sql = "select  UR_NM ,UR_ID from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "') and (UR_NM ='" + textBox1.Text + "' OR UR_ID='" + textBox1.Text + "') ORDER BY  UR_NM ASC" ;
+            string sql = "select  UR_NM ,UR_ID from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "' and FR_ACEP_ST = '1') and (UR_NM ='" + textBox1.Text + "' OR UR_ID='" + textBox1.Text + "') ORDER BY  UR_NM ASC" ;
 
             db.ExecuteReader(sql);
             if (db.Reader.Read())
@@ -343,10 +352,11 @@ namespace WindowsFormsApplication1
                 DataSet rs = new DataSet();
                 db.Adapter.Fill(rs, "search");
                 DataTable search = rs.Tables["search"];
-
+                
                 FriendSearch friendSearch = new FriendSearch(search);
                 friendSearch.ShowDialog();
                 check = true;
+                
 
             }
          
@@ -367,22 +377,35 @@ namespace WindowsFormsApplication1
         private void button3_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
+            panel1.Visible = true;
             AddFriend addFriend = new AddFriend();
             addFriend.ShowDialog();
           
         }
         private void mouse_MouseClick(object sender, MouseEventArgs e)
         {
-
-                UserCustomControl.Profile myPan = (UserCustomControl.Profile)sender;
-                int i = myPan.TabIndex;
-                DataRow currRow = friendTable.Rows[i];
+            if (e.Button == MouseButtons.Right)
+            {
+                //UserCustomControl.Profile myPan = (UserCustomControl.Profile)sender;
+                Label myPan = (Label)sender;
                 Point mousePoint = new Point(e.X, e.Y);
-                FriendModify friendModify = new FriendModify(currRow, friend_group_tb, mousePoint);
-                friendModify.ShowDialog();
+                string friendCD = myPan.Name;
 
+                DataRow currRow = friendTable.Rows.Find(friendCD);
+                FriendModify friendModify = new FriendModify(currRow, friend_group_tb, mousePoint);
+                friendModify.FormClosed += new FormClosedEventHandler(FriendModify_FormClosed);
+                friendModify.ShowDialog();
+            }
         }
- 
+
+        private void FriendModify_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            panel1.Controls.Clear();
+            GetFriendsList();
+            GetGroupList();
+            UploadeList();
+            GetGroupMamber();
+        }
 
         private void OnTopPanMouseEnter(object sender, EventArgs e)
         {
