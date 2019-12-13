@@ -100,10 +100,10 @@
             // 
             // m_MonthNum
             // 
-            this.m_MonthNum.Font = new System.Drawing.Font("함초롬돋움", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.m_MonthNum.Location = new System.Drawing.Point(447, -1);
+            this.m_MonthNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.m_MonthNum.Location = new System.Drawing.Point(442, 0);
             this.m_MonthNum.Name = "m_MonthNum";
-            this.m_MonthNum.Size = new System.Drawing.Size(86, 60);
+            this.m_MonthNum.Size = new System.Drawing.Size(84, 60);
             this.m_MonthNum.TabIndex = 0;
             this.m_MonthNum.Text = "월";
             this.m_MonthNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -112,12 +112,12 @@
             // 
             this.LastMonth_btn.FlatAppearance.BorderSize = 0;
             this.LastMonth_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LastMonth_btn.Font = new System.Drawing.Font("함초롬돋움", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LastMonth_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LastMonth_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.LastMonth_btn.Location = new System.Drawing.Point(424, 10);
+            this.LastMonth_btn.Location = new System.Drawing.Point(420, 10);
             this.LastMonth_btn.Margin = new System.Windows.Forms.Padding(0);
             this.LastMonth_btn.Name = "LastMonth_btn";
-            this.LastMonth_btn.Size = new System.Drawing.Size(22, 38);
+            this.LastMonth_btn.Size = new System.Drawing.Size(22, 40);
             this.LastMonth_btn.TabIndex = 1;
             this.LastMonth_btn.Text = "◀";
             this.LastMonth_btn.UseVisualStyleBackColor = true;
@@ -127,12 +127,12 @@
             // 
             this.NextMonth_btn.FlatAppearance.BorderSize = 0;
             this.NextMonth_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NextMonth_btn.Font = new System.Drawing.Font("함초롬돋움", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.NextMonth_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.NextMonth_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.NextMonth_btn.Location = new System.Drawing.Point(532, 10);
+            this.NextMonth_btn.Location = new System.Drawing.Point(526, 10);
             this.NextMonth_btn.Margin = new System.Windows.Forms.Padding(0);
             this.NextMonth_btn.Name = "NextMonth_btn";
-            this.NextMonth_btn.Size = new System.Drawing.Size(22, 38);
+            this.NextMonth_btn.Size = new System.Drawing.Size(22, 40);
             this.NextMonth_btn.TabIndex = 2;
             this.NextMonth_btn.Text = "▶";
             this.NextMonth_btn.UseVisualStyleBackColor = true;
@@ -622,7 +622,7 @@
             // TodayBtn
             // 
             this.TodayBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TodayBtn.Font = new System.Drawing.Font("함초롬돋움", 12F);
+            this.TodayBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.TodayBtn.Location = new System.Drawing.Point(907, 22);
             this.TodayBtn.Name = "TodayBtn";
             this.TodayBtn.Size = new System.Drawing.Size(50, 26);
@@ -633,7 +633,7 @@
             // m_Year_txt
             // 
             this.m_Year_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.m_Year_txt.Font = new System.Drawing.Font("함초롬돋움", 12F);
+            this.m_Year_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.m_Year_txt.Location = new System.Drawing.Point(13, 22);
             this.m_Year_txt.Name = "m_Year_txt";
             this.m_Year_txt.Size = new System.Drawing.Size(51, 26);
@@ -672,7 +672,7 @@
             // Month
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(969, 596);
             this.Controls.Add(this.FirstWeek_btn);
@@ -683,7 +683,7 @@
             this.Controls.Add(this.NextMonth_btn);
             this.Controls.Add(this.LastMonth_btn);
             this.Controls.Add(this.m_MonthNum);
-            this.Font = new System.Drawing.Font("함초롬돋움", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Month";

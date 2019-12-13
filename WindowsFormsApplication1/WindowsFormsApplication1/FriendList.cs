@@ -53,7 +53,7 @@ namespace WindowsFormsApplication1
 
             //기본적으로 생성해주는 모든친구 버튼과 목록이 저장되는 판넬 생성 
             btn[0] = new Button();
-            btn[0].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            btn[0].Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             btn[0].Location = new System.Drawing.Point(20, 10);
             btn[0].Name = "btn";
             btn[0].TabIndex = 0;
@@ -79,7 +79,7 @@ namespace WindowsFormsApplication1
                 DataRow currRow;
                 currRow = friend_group_tb.Rows[i];
                 btn[i + 1] = new Button();
-                btn[i + 1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                btn[i + 1].Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 btn[i + 1].Location = new System.Drawing.Point(20, 45 + location * 30);
                 btn[i + 1].Name = "btn" + i.ToString();
                 btn[i + 1].Size = new System.Drawing.Size(130, 32);

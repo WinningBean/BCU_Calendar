@@ -46,7 +46,7 @@
             // m_CD_lb
             // 
             this.m_CD_lb.AutoSize = true;
-            this.m_CD_lb.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_CD_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_CD_lb.Location = new System.Drawing.Point(18, 33);
             this.m_CD_lb.Name = "m_CD_lb";
             this.m_CD_lb.Size = new System.Drawing.Size(56, 18);
@@ -56,7 +56,7 @@
             // DT_lb
             // 
             this.DT_lb.AutoSize = true;
-            this.DT_lb.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DT_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DT_lb.Location = new System.Drawing.Point(6, 2);
             this.DT_lb.Name = "DT_lb";
             this.DT_lb.Size = new System.Drawing.Size(87, 18);
@@ -66,7 +66,7 @@
             // m_DT_lb
             // 
             this.m_DT_lb.AutoSize = true;
-            this.m_DT_lb.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_DT_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_DT_lb.Location = new System.Drawing.Point(99, 2);
             this.m_DT_lb.Name = "m_DT_lb";
             this.m_DT_lb.Size = new System.Drawing.Size(36, 18);
@@ -77,7 +77,7 @@
             // PB_lb
             // 
             this.PB_lb.AutoSize = true;
-            this.PB_lb.Font = new System.Drawing.Font("Lucida Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PB_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PB_lb.Location = new System.Drawing.Point(6, 24);
             this.PB_lb.Name = "PB_lb";
             this.PB_lb.Size = new System.Drawing.Size(74, 18);
