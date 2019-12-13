@@ -36,28 +36,18 @@ namespace WindowsFormsApplication1
         int[,] location;
 
        
-        DateTime nowDate = new DateTime(2019, 12, 24); // 생성자에 넣어서 월간에서 넘겨 받는다
+       DateTime nowDate;
 
         public Day()//DateTime date
         {
             InitializeComponent();
             pre = null;
         }
-        public Day(DateTime nowDate)//DateTime date
-        {
-            InitializeComponent();
-            pre = null;
-            this.nowDate = nowDate;
-
-        }
-        public enum color
-        {
-            Green, Yellow, Orange, Mint, Gray
-        };
+ 
         
         private void Get_chedule()
         {
-            if(db.GR_CD != null)
+            if(db.GR_CD == null)
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
@@ -323,7 +313,7 @@ namespace WindowsFormsApplication1
         {
             dbs = new DBSchedule();
             dbc = new DBColor();
-
+            nowDate = m_focus_dt;
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd"); 
             day.AutoSize = true;
             day.AutoScroll = false;
@@ -354,6 +344,7 @@ namespace WindowsFormsApplication1
             day.Controls.Clear(); 
             Get_chedule();
             Get_TodoList();
+
             if(checkHeight<4)
             {
                 button1.Visible = false;
@@ -377,7 +368,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void Dlg_FormClosing(object sender,FormClosedEventArgs e)
+        private void Dlg_FormClosing(object sender,FormClosedEventArgs e) // 일정 수정 폼이 닫히면 스케줄 다시불러오기
         {
             day.Controls.Clear();
             Get_chedule();
@@ -404,11 +395,12 @@ namespace WindowsFormsApplication1
          //   Color color = randomColor();
             while (db.Reader.Read())
             {
+                Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
                 Label todoColor = new Label();
                 todoColor.Text = "●";
                 todoColor.AutoSize = true;
                 todoColor.Location = new System.Drawing.Point(10, y);
-                //todoColor.ForeColor = color;
+                todoColor.ForeColor = color;
                 todoColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoColor);
                 
@@ -465,6 +457,7 @@ namespace WindowsFormsApplication1
         private void nextDay_Click(object sender, EventArgs e)
         {
             nowDate = nowDate.AddDays(1);
+            m_focus_dt = nowDate;
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
             checkHeight = 0;
@@ -490,6 +483,7 @@ namespace WindowsFormsApplication1
         private void preDay_Click(object sender, EventArgs e)
         {
             nowDate = nowDate.AddDays(-1);
+            m_focus_dt = nowDate;
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
             checkHeight = 0;
