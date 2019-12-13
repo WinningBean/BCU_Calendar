@@ -18,6 +18,7 @@ namespace WindowsFormsApplication1
         }
 
         DBConnection db = Program.DB;
+
         
        
        int y = 5;
@@ -32,12 +33,12 @@ namespace WindowsFormsApplication1
                 y = 0;
                 if (db.Reader.Read())
                 {
-                    panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString()));
+                    panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString(), db.Reader[2].ToString()));
                     i++;
 
                     while (db.Reader.Read())
                     {
-                        panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString()));
+                        panel1.Controls.Add(Create_Control(i, db.Reader[0].ToString(), db.Reader[1].ToString(), db.Reader[2].ToString()));
                         i++;
                     }
                 }
@@ -53,7 +54,7 @@ namespace WindowsFormsApplication1
       
         }
 
-        private Panel Create_Control(int i, string name, string code)
+        private Panel Create_Control(int i, string name, string code, string pic)
         {        
             Panel boardPan = new Panel();
             boardPan.Size = new Size(180, 30);
@@ -89,6 +90,7 @@ namespace WindowsFormsApplication1
             FriendProfile.Size = new System.Drawing.Size(100, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
             boardPan.Controls.Add(FriendProfile);
+           // if (!(pic.Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
             FriendProfile.Location = new System.Drawing.Point(5, 5);
             FriendProfile.USERNAME.Text = name;
             FriendProfile.TabIndex = i;
