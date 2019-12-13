@@ -44,8 +44,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
+
             this.label1.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(12, 9);
+
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 26);
             this.label1.TabIndex = 3;
@@ -65,7 +67,7 @@
             // FriendCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(235, 286);
             this.Controls.Add(this.label2);

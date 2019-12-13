@@ -164,17 +164,17 @@ namespace WindowsFormsApplication1
             scheduleNameColor.Text = "●";
             scheduleNameColor.Size = new System.Drawing.Size(30, 30);
             scheduleNameColor.Location = new System.Drawing.Point(cre.Location.X, cre.Location.Y + 80);
-            scheduleNameColor.Font=new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            scheduleNameColor.Font=new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Label scheduleName = new Label();
             scheduleName.Text = dr[1].ToString();
             scheduleName.Size = new System.Drawing.Size(scheduleTimeSize - 30, 30);
             scheduleName.Location = new System.Drawing.Point(scheduleNameColor.Location.X + 30, scheduleNameColor.Location.Y);
-            scheduleName.Font = new System.Drawing.Font("함초롬돋움",12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            scheduleName.Font = new System.Drawing.Font("Microsoft Sans Serif",12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Label label = new Label();
             label.Text = dr[2].ToString();
-            label.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label.Size = new System.Drawing.Size(scheduleTimeSize, 80);
             label.TabIndex = i;
             label.Click += new EventHandler(Label_Click);
@@ -266,7 +266,7 @@ namespace WindowsFormsApplication1
             label.BackColor = System.Drawing.Color.FromArgb(230, 230, 230);
             label.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             label.FlatAppearance.BorderSize = 0;
-            label.Font = new System.Drawing.Font("함초롬돋움", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             Graphics graphics = e.Graphics;
             Pen pen = new Pen(Color.Black);
 
@@ -294,7 +294,7 @@ namespace WindowsFormsApplication1
             label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             label1.FlatAppearance.BorderSize = 0;
             label1.Click += new System.EventHandler(nextDay_Click);
-            label1.Font = new System.Drawing.Font("함초롬돋움", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
         }
         private void Draw_Time()
         {
@@ -409,7 +409,7 @@ namespace WindowsFormsApplication1
                 todoColor.AutoSize = true;
                 todoColor.Location = new System.Drawing.Point(10, y);
                 //todoColor.ForeColor = color;
-                todoColor.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                todoColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoColor);
                 
 
@@ -417,7 +417,7 @@ namespace WindowsFormsApplication1
                 todoName.Text = db.Reader["TD_EX"].ToString();
                 todoName.AutoSize = true;
                 todoName.Location = new System.Drawing.Point(35, y);
-                todoName.Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                todoName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoName);
                 y += 20;
 
@@ -427,7 +427,7 @@ namespace WindowsFormsApplication1
                     todoDate.Text = db.Reader["TD_DT"].ToString();
                     todoDate.AutoSize = true;
                     todoDate.Location = new System.Drawing.Point(15, y);
-                    todoDate.Font = new System.Drawing.Font("함초롬돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                    todoDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                     panel1.Controls.Add(todoDate);
                     y += 40;
                 }

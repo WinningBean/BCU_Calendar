@@ -102,12 +102,13 @@ namespace WindowsFormsApplication1
 
                 Font font;
 
-                if (e.Index < MstGr_cnt) font = new Font("함초롬돋움", 9, FontStyle.Bold);
-                else font = new Font("함초롬돋움", 9, FontStyle.Regular);
+                if (e.Index < MstGr_cnt) font = new System.Drawing.Font("맑은 고딕", 9F, FontStyle.Bold);
+                else font = new Font("맑은 고딕", 9F, FontStyle.Regular);
 
                 SizeF size = e.Graphics.MeasureString(item.ToString(), font);
 
                 e.Graphics.DrawString(item.ToString(), font, brush, e.Bounds.Left + 5, e.Bounds.Top + (e.Bounds.Height / 2 - size.Height / 2));
+
             }
         }
     }

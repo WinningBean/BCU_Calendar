@@ -68,6 +68,7 @@ namespace WindowsFormsApplication1
             label = new Label[friendTable.Rows.Count];
             FrGr_pan = new Panel[friend_group_tb.Rows.Count + 1];
             pan = new Panel[friend_group_tb.Rows.Count + 1];
+
             FrGr_btnlabel = new Label[friend_group_tb.Rows.Count + 1];
             Label[] FrGr_Nmlabel = new Label[friend_group_tb.Rows.Count + 1];
             
@@ -85,6 +86,7 @@ namespace WindowsFormsApplication1
             FrGr_pan[0].Click += new EventHandler(GroupList_Click);
             panel1.Controls.Add(FrGr_pan[0]);
             FrGr_pan[0].Show();
+
             flag[0] = 1;
 
             FrGr_Nmlabel[0] = new Label();
@@ -139,6 +141,7 @@ namespace WindowsFormsApplication1
                 //int location = 0;
                 DataRow currRow;
                 currRow = friend_group_tb.Rows[i];
+
                 FrGr_pan[i + 1] = new Panel();
                 FrGr_pan[i + 1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 FrGr_pan[i + 1].Size = new System.Drawing.Size(223, 40);

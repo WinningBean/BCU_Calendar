@@ -64,6 +64,7 @@
             // 
             // strDate
             // 
+
             this.strDate.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.strDate.Location = new System.Drawing.Point(96, 217);
             this.strDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -74,9 +75,11 @@
             // 
             // endDate
             // 
+
             this.endDate.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.endDate.Location = new System.Drawing.Point(96, 257);
             this.endDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+
             this.endDate.Name = "endDate";
             this.endDate.Size = new System.Drawing.Size(167, 27);
             this.endDate.TabIndex = 1;
@@ -272,6 +275,7 @@
             // 
             // strMin
             // 
+
             this.strMin.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.strMin.FormattingEnabled = true;
             this.strMin.Location = new System.Drawing.Point(374, 220);
@@ -384,6 +388,7 @@
             // 
             // endMin
             // 
+
             this.endMin.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.endMin.FormattingEnabled = true;
             this.endMin.Location = new System.Drawing.Point(372, 260);
@@ -423,8 +428,9 @@
             // 
             // ModifySchedule
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(480, 629);
             this.Controls.Add(this.deleteBtn);
