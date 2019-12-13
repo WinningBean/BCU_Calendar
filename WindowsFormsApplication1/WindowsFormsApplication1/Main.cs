@@ -95,11 +95,11 @@ namespace WindowsFormsApplication1
 
         private List<UserCustomControl.Profile> MemProf_lst;
         private List<string> MemCD_lst;
-
+        private Group grp;
         private void Group_lstbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             db.GR_CD = bs_leftTab.GROUP_CD_lst[((ListBox)sender).SelectedIndex];
-            Group grp = new Group();
+            grp = new Group();
             grp.TopLevel = false;
             grp.TopMost = true;
             grp.Parent = this;
@@ -120,7 +120,6 @@ namespace WindowsFormsApplication1
             if (isShowPic)
                 pic.reset();
                 
-
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
             
@@ -242,12 +241,48 @@ namespace WindowsFormsApplication1
 
         // ---------- FriendList ----------
 
+        private List<UserCustomControl.Profile> FrProf_lst;
+
         private FriendList fr_tab = new FriendList();
         private void setLeftFriendPanel()
         { // 왼쪽 패널 설정 함수 (친구목록 폼 가져오기)
             bs_leftTab.Hide();
             MainLeft_pan.Controls.Add(fr_tab);
             fr_tab.Show();
+
+            FrProf_lst = new List<UserCustomControl.Profile>();
+            FrProf_lst = fr_tab.FRIEND_PROF_lst;
+
+            for (int i = 0; i < FrProf_lst.Count; i++)
+            {
+                FrProf_lst[i].Click += new System.EventHandler(this.Frd_prof_Click);
+                FrProf_lst[i].USERNAME.Click += new System.EventHandler(this.Frd_prof_lbl_Click);
+                FrProf_lst[i].USERPIC.Click += new System.EventHandler(this.Frd_prof_pic_Click);
+            }
+        }
+
+        private void Frd_prof_Click(object sender, EventArgs e)
+        {
+            string prof_nm = ((UserCustomControl.Profile)sender).Name;
+            db.FR_CD = prof_nm;
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
+        }
+
+        private void Frd_prof_lbl_Click(object sender, EventArgs e)
+        {
+            string prof_nm = ((UserCustomControl.Profile)((Label)sender).Parent).Name;
+            db.FR_CD = prof_nm;
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
+        }
+
+        private void Frd_prof_pic_Click(object sender, EventArgs e)
+        {
+            string prof_nm = ((UserCustomControl.Profile)((UserCustomControl.Profile)sender).Parent).Name;
+            db.FR_CD = prof_nm;
+            if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
+            else setCenterWeekPanel();
         }
 
         // ---------- Month ----------
@@ -498,9 +533,11 @@ namespace WindowsFormsApplication1
         }
         private void FreindForm_btn_Click(object sender, EventArgs e)
         {
+            db.FR_CD = null;
             FreindForm_btn.Visible = false;
             setLeftFriendPanel();
             LeftTabForm_btn.Visible = true;
+            db.GR_CD = null;
         }
 
         private void LeftTabForm_btn_Click(object sender, EventArgs e)
@@ -508,6 +545,7 @@ namespace WindowsFormsApplication1
             LeftTabForm_btn.Visible = false;
             setLeftBasicPanel();
             FreindForm_btn.Visible = true;
+            db.FR_CD = null;
         }
 
         private void 오늘일정보기ToolStripMenuItem_Click(object sender, EventArgs e)

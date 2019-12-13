@@ -375,7 +375,7 @@ namespace WindowsFormsApplication1
                 TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
                 str_Date = str_Date.Date + strts;
 
-                if(ColorCom is null)
+                if(ColorCom == null)
                 {
                     ColorCom = null;
                 }

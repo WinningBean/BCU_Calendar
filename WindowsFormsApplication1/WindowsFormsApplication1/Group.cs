@@ -111,7 +111,8 @@ namespace WindowsFormsApplication1
 
         private void Add_MB_btn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("여기에 멤버 추가폼을 띄웁니다");
+            AddFriend addMem_frm = new AddFriend();
+            addMem_frm.ShowDialog();
         }
     }
 }
