@@ -42,10 +42,6 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             pre = null;
-
-          
-            
-
         }
         public Day(DateTime nowDate)//DateTime date
         {
@@ -61,15 +57,32 @@ namespace WindowsFormsApplication1
         
         private void Get_chedule()
         {
-            GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
-            location = new int[15, 2];
+            if(db.GR_CD != null)
+            {
+                GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
+                location = new int[15, 2];
 
-            for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
-            {   
-                DataRow currRow = GET_DAY_SC_TB.Rows[i];
-                Create_Day(currRow, i);
+                for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
+                {
+                    DataRow currRow = GET_DAY_SC_TB.Rows[i];
+                    Create_Day(currRow, i);
+                }
             }
-           // dt.Clear();
+            else
+            {
+                GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
+                location = new int[15, 2];
+
+                for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
+                {
+                    DataRow currRow = GET_DAY_SC_TB.Rows[i];
+                    Create_Day(currRow, i);
+                }
+            }
+          
+            // dt.Clear();
+            //그룹이라면 
+            //GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.UR_CD, nowDate, db.IS_PB);
         }
 
         private void Check(Panel curr, Label name, Label color) // 일정 위치 검사 겹치면 내림 !! 
@@ -275,8 +288,11 @@ namespace WindowsFormsApplication1
             Button label1 = new Button();
             label1.Size = new System.Drawing.Size(30, 70);
             paintPan.Controls.Add(label1);
-            label1.Location = new System.Drawing.Point(2950, 0);
+            label1.Location = new System.Drawing.Point(2940, 0);
             label1.Text = "▶";
+            label1.BackColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            label1.FlatAppearance.BorderSize = 0;
             label1.Click += new System.EventHandler(nextDay_Click);
             label1.Font = new System.Drawing.Font("함초롬돋움", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
         }
@@ -322,7 +338,7 @@ namespace WindowsFormsApplication1
 
             panel2.Controls.Add(paintPan);
             panel2.Controls.Add(day);
-            panel2.Size = new System.Drawing.Size(595, 2210);
+            panel2.Size = new System.Drawing.Size(575, 2230);
 
             Draw_Time();
             panel2.VerticalScroll.Maximum = 0;
