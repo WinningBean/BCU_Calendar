@@ -16,9 +16,6 @@ namespace WindowsFormsApplication1
         private DBSchedule sc_db = new DBSchedule();
         private DBColor cr_db = new DBColor();
 
-        private string created_FR; // 생성시 친구코드
-        private string created_GR; // 생성시 그룹코드
-
         private DateTime m_focus_dt; // 현재 포커스 날짜
         public DateTime FOCUS_DT { // 현재 포커스날짜 프로퍼티
             set { m_focus_dt = value; }
@@ -348,18 +345,36 @@ namespace WindowsFormsApplication1
         {
             // 일정 표시 함수
             DataTable sc_day_tb;
-            if (db.FR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
-            {
-                sc_day_tb = sc_db.Get_Day_Schedule(true, db.FR_CD, NowDay, 1); // 친구일정은 공개일정만
+            if (NowDay.Day == 1) {
+                if (db.FR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                {
+                    sc_day_tb = sc_db.Get_DayAll_Schedule(true, db.FR_CD, NowDay, 1); ; // 친구일정은 공개일정만
+                }
+                else if (db.GR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                {
+                    sc_day_tb = sc_db.Get_DayAll_Schedule(false, db.GR_CD, NowDay, 1); // 그룹일정은 공개일정만
+                }
+                else // 사용자의 일정 보여주기
+                {
+                    sc_day_tb = sc_db.Get_DayAll_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
+                }
             }
-            else if (db.GR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+            else
             {
-                sc_day_tb = sc_db.Get_Day_Schedule(false, db.GR_CD, NowDay, db.IS_PB);
+                if (db.FR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                {
+                    sc_day_tb = sc_db.Get_Day_Schedule(true, db.FR_CD, NowDay, 1); // 친구일정은 공개일정만
+                }
+                else if (db.GR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                {
+                    sc_day_tb = sc_db.Get_Day_Schedule(false, db.GR_CD, NowDay, 1); // 그룹일정은 공개일정만
+                }
+                else // 사용자의 일정 보여주기
+                {
+                    sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
+                }
             }
-            else // 사용자의 일정 보여주기
-            {
-                sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
-            }
+
 
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
@@ -396,19 +411,27 @@ namespace WindowsFormsApplication1
                     sc_cr_ft = Color.Black;
                 }
 
-                if (lbl_nm < Convert.ToDateTime(rows[i]["SC_END_DT"]).Day) // 하루종일 이상의 일정이라면 백컬러 지정
+                if (lbl_nm < Convert.ToDateTime(rows[i]["SC_END_DT"]).Day || Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month) // 하루종일 이상의 일정이라면 백컬러 지정
                 {
-                    if (Convert.ToDateTime(rows[i]["SC_STR_DT"]).Hour != 0 && Convert.ToDateTime(rows[i]["SC_END_DT"]).Hour == 0)
+                    TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - NowDay;
+                    if (df_time.Days == 0)
                     {
-                        label.BackColor = Color.Transparent;
-                        label.ForeColor = sc_cr_bs;
+                        if (Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month)
+                        {
+                            label.BackColor = sc_cr_bs;
+                            label.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            label.BackColor = Color.Transparent;
+                            label.ForeColor = sc_cr_bs;
+                        }
                     }
                     else
                     {
                         label.BackColor = sc_cr_bs;
                         label.ForeColor = Color.Black;
 
-                        TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]).Subtract(Convert.ToDateTime(rows[i]["SC_STR_DT"]));
                         Add_Set_Schedule(df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
                     }
                 }

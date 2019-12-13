@@ -33,6 +33,14 @@ namespace WindowsFormsApplication1
             locationbtn = 0;
         }
 
+        
+        public List<UserCustomControl.Profile> FRIEND_PROF_lst
+        {
+            // 그룹 프로필 리스트 프로퍼티
+            get { return FrProf_lst; }
+        }
+        private List<UserCustomControl.Profile> FrProf_lst;
+
         private Control Create_FriendProfile(int i, DataTable dataTable) //친구 프로필 생성
         {
             DataRow currRow = dataTable.Rows[i];
@@ -40,16 +48,15 @@ namespace WindowsFormsApplication1
             FriendProfile.Size = new System.Drawing.Size(223, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
             FriendProfile.Name = currRow["UR_CD"].ToString();
-            if (!(currRow["UR_PIC"].Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
+            //if (!(currRow["UR_PIC"].Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
             FriendProfile.USERNAME.Text = currRow["UR_NM"].ToString();
             FriendProfile.Location = new System.Drawing.Point(0,location * 25);
             FriendProfile.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERPIC.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.Name = currRow["UR_CD"].ToString();
-
-
-
+            
+            FrProf_lst.Add(FriendProfile);
 
             //   FriendProfile.SendToBack();
 
@@ -127,6 +134,8 @@ namespace WindowsFormsApplication1
             pan[0].Location = new Point(FrGr_pan[0].Location.X, FrGr_pan[0].Location.Y + 40);
            
             panel1.Controls.Add(pan[0]);
+
+            FrProf_lst = new List<UserCustomControl.Profile>();
 
             for (int i = 0; i < friendTable.Rows.Count; i++)
             {             
@@ -208,7 +217,6 @@ namespace WindowsFormsApplication1
 
         private void FriendList_Load(object sender, EventArgs e)
         {
-            db.UR_CD = "U100000";
             button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button4.MouseEnter += new EventHandler(OnTopPanMouseEnter);
@@ -272,7 +280,7 @@ namespace WindowsFormsApplication1
                
                 for (int j = 0; j < groupMemberTb.Rows.Count; j++) // 그룹 목록에 그룹원 추가
                 {
-                    pan[i + 1].Controls.Add( Create_FriendProfile(j, groupMemberTb));
+                    pan[i + 1].Controls.Add(Create_FriendProfile(j, groupMemberTb));
                 }
             }
         }

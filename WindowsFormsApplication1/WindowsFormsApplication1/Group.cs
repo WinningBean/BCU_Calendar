@@ -13,8 +13,10 @@ namespace WindowsFormsApplication1
     public partial class Group : Form
     {
 
-        DBConnection db = Program.DB;
-        string sql;
+        private DBConnection db = Program.DB;
+        private string sql;
+
+        private static string bs_grEX = "그룹설명이 없습니다.\n그룹 일정 수정/삭제는 그룹장과 글쓴이만 가능합니다.";
 
         public Group()
         {
@@ -40,11 +42,15 @@ namespace WindowsFormsApplication1
             get { return MemProf_lst; }
         }
         public Label CLOSE_btn { get { return Close_btn; } } // 클로즈 버튼 프로퍼티
+        public Label MODI_GR_btn { get { return Modi_GR_btn; } } // 그룹 수정/삭제 버튼 프로퍼티
         public Label GROUP_NM_lbl { get { return GR_nm_lbl; } } // 그룹 이름 레이블 프로퍼티
+        public Label GROUP_EX_lbl { get { return GR_ex_lbl; } } // 그룹 설명 레이블 프로퍼티
+        public string BS_GREX { get { return bs_grEX; } }
+        public void SET_GROUPBS () { Set_Groupbs(); }
 
         private void Set_Groupbs() // 그룹 기본 정보 설정
         {
-            sql = "select GR_NM, GR_EX, UR_NM, UR_PIC from USER_TB, GROUP_TB";
+            sql = "select GR_NM, GR_EX, UR_CD, UR_NM, UR_PIC from USER_TB, GROUP_TB";
             sql += " where UR_CD = (select GR_MST_UR_FK from GROUP_TB where GR_CD = '" + db.GR_CD + "')";
             sql += " and GR_CD = '" + db.GR_CD + "'";
             db.ExecuteReader(sql);
@@ -54,11 +60,12 @@ namespace WindowsFormsApplication1
 
                 // GR_EX 값이 null이 아니라면 설명을 가져와 주세요
                 if (!(db.Reader["GR_EX"].Equals(System.DBNull.Value))) GR_ex_lbl.Text = db.Reader["GR_EX"].ToString();
-                else GR_ex_lbl.Text = "그룹설명이 없습니다.";
+                else GR_ex_lbl.Text = bs_grEX;
 
+                if (db.Reader["UR_CD"].ToString() == db.UR_CD) Modi_GR_btn.Visible = true;
                 MasterProfile_prof.USERNAME.Text = db.Reader["UR_NM"].ToString();
                 // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
-                if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) MasterProfile_prof.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(3));
+                if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) MasterProfile_prof.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(4));
             }
             db.Reader.Close();
         }
@@ -104,7 +111,8 @@ namespace WindowsFormsApplication1
 
         private void Add_MB_btn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("여기에 멤버 추가폼을 띄웁니다");
+            AddFriend addMem_frm = new AddFriend();
+            addMem_frm.ShowDialog();
         }
     }
 }

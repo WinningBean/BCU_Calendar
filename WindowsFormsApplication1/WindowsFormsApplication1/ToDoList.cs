@@ -94,10 +94,17 @@ namespace WindowsFormsApplication1
         private void CreateToDo()
         {
             DataSet ds = new DataSet("TODO_TB");
-            string sql = "select * from TODO_TB where TD_COMP_ST = 0 ORDER BY TD_DT";
+            string sql;
+            if (db.GR_CD != null) // 그룹이라면 그룹스케줄 표시
+                sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_GR_FK = '"+ db.GR_CD +"'ORDER BY TD_DT";
+            else
+                sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_UR_FK = '"+db.UR_CD+"' ORDER BY TD_DT";
             db.AdapterOpen(sql);
             db.Adapter.Fill(ds, "TODO_TB");
-            sql = "select * from TODO_TB where TD_COMP_ST = 1 ORDER BY TD_DT";
+            if (db.GR_CD != null) // 완료된것도 표시해야한다
+                sql = "select * from TODO_TB where TD_COMP_ST = 1 AND TD_GR_FK = '" + db.GR_CD + "'ORDER BY TD_DT";
+            else
+                sql = "select * from TODO_TB where TD_COMP_ST = 1 AND TD_UR_FK = '" + db.UR_CD + "' ORDER BY TD_DT";
             db.AdapterOpen(sql);
             db.Adapter.Fill(ds, "TODO_TB");
             DataTable dt = ds.Tables["TODO_TB"];
@@ -226,6 +233,7 @@ namespace WindowsFormsApplication1
         private void OnButtonPaint(object sender, PaintEventArgs e)
         {
             Panel pan = (Panel)sender;
+            Thread.Sleep(25);
             db.ExecuteReader("select * from TODO_TB where TD_CD = '" + tdList[Int32.Parse(pan.Name)][0] + "'");
             db.Reader.Read();
             Color c = new Color();

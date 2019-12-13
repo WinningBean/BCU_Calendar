@@ -39,16 +39,19 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (!(isSighUp))
+            if (!(isSighUp)) // 회원가입 버튼 누르면
             {
                 panel5.Visible = true;
                 panel6.Visible = true;
                 textBox3.Visible = true;
                 textBox4.Visible = true;
                 button1.Text = "Sign-up";
+                button2.Text = "Sign-in";
+                label1.Text = "Sign-up";
                 textBox1.Text = "ID";
                 textBox2.Text = "Password";
                 textBox2.PasswordChar = '\0';
+                textBox4.PasswordChar = '\0';
                 textBox3.Text = "Name";
                 textBox4.Text = "Rewrite Password";
                 textBox1.ForeColor = Color.Gray;
@@ -64,8 +67,11 @@ namespace WindowsFormsApplication1
                 textBox3.Visible = false;
                 textBox4.Visible = false;
                 button1.Text = "Sign-in";
+                button2.Text = "Sign-up";
+                label1.Text = "Sign-in";
                 textBox1.Text = "ID";
                 textBox2.Text = "Password";
+                textBox2.PasswordChar = '\0';
                 label3.Visible = false;
                 textBox1.ForeColor = Color.Gray;
                 textBox2.ForeColor = Color.Gray;
@@ -164,6 +170,7 @@ namespace WindowsFormsApplication1
             main.USERID = user_id; // 프로퍼티로 ID값 넘겨줌
             main.USERPROFILE.USERNAME.Text = user_nm; // 프로퍼티로 NAME값 넘겨줌
             if (b_pic == true) main.USERPROFILE.USERPIC.Image = user_pic; // 프로퍼티로 PIC값 넘겨줌
+            main.Location = new Point(50, Screen.PrimaryScreen.Bounds.Height / 2 - main.Height / 2 - 50);
             main.Show();
         }
 

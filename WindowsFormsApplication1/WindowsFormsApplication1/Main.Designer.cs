@@ -137,7 +137,7 @@
             this.FreindForm_btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FreindForm_btn.Location = new System.Drawing.Point(15, 26);
             this.FreindForm_btn.Name = "FreindForm_btn";
-            this.FreindForm_btn.Size = new System.Drawing.Size(64, 18);
+            this.FreindForm_btn.Size = new System.Drawing.Size(58, 15);
             this.FreindForm_btn.TabIndex = 8;
             this.FreindForm_btn.Text = "친구 목록";
             this.FreindForm_btn.Click += new System.EventHandler(this.FreindForm_btn_Click);
@@ -202,7 +202,6 @@
             this.MainHeader_menustp.Text = "menuStrip1";
             this.MainHeader_menustp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainHeader_menustp_MouseDown);
             this.MainHeader_menustp.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainHeader_menustp_MouseMove);
-            this.MainHeader_menustp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainHeader_menustp_MouseUp);
             // 
             // 사용자ToolStripMenuItem
             // 
@@ -221,6 +220,7 @@
             this.사용자정보ToolStripMenuItem.Name = "사용자정보ToolStripMenuItem";
             this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.사용자정보ToolStripMenuItem.Text = "사용자 정보";
+            this.사용자정보ToolStripMenuItem.Click += new System.EventHandler(this.사용자정보ToolStripMenuItem_Click);
             // 
             // 로그아웃ToolStripMenuItem
             // 
@@ -465,7 +465,7 @@
             this.MainMenuStrip = this.MainHeader_menustp;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
             this.Shown += new System.EventHandler(this.Main_Shown);
