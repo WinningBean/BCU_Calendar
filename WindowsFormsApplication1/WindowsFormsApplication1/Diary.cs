@@ -127,5 +127,10 @@ namespace WindowsFormsApplication1
         {
             this.Close();
         }
+
+        private void date_ValueChanged(object sender, EventArgs e)
+        {
+            NowDate = date.Value;
+        }
     }
 }
