@@ -57,7 +57,11 @@ namespace WindowsFormsApplication1
 
         private void Add_GR_btn_Click(object sender, EventArgs e) // 그룹 추가 버튼
         {
-            MessageBox.Show("여기에 그룹 추가 폼을 띄웁니다");
+            Group_Modify grpAdd = new Group_Modify();
+            grpAdd.ShowDialog();
+            bsGroup_lstbox.Items.Clear();
+            bsGroup_lstbox.Height = 0;
+            Set_MstGroupList();
         }
 
         int MstGr_cnt = 0;

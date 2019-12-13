@@ -81,7 +81,7 @@
             // GR_ex_txt
             // 
             this.GR_ex_txt.Location = new System.Drawing.Point(94, 92);
-            this.GR_ex_txt.MaxLength = 100;
+            this.GR_ex_txt.MaxLength = 300;
             this.GR_ex_txt.Multiline = true;
             this.GR_ex_txt.Name = "GR_ex_txt";
             this.GR_ex_txt.Size = new System.Drawing.Size(235, 75);
@@ -90,7 +90,7 @@
             // GR_nm_txt
             // 
             this.GR_nm_txt.Location = new System.Drawing.Point(94, 57);
-            this.GR_nm_txt.MaxLength = 20;
+            this.GR_nm_txt.MaxLength = 50;
             this.GR_nm_txt.Name = "GR_nm_txt";
             this.GR_nm_txt.Size = new System.Drawing.Size(235, 24);
             this.GR_nm_txt.TabIndex = 5;
