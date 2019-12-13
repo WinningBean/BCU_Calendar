@@ -15,7 +15,7 @@ namespace WindowsFormsApplication1
     {
         DBConnection db = Program.DB;
         private string diaryCD = null;
-        DateTime nowDate;
+       DateTime nowDate;
 
         public Diary(DateTime nowDate)
         {
@@ -87,25 +87,43 @@ namespace WindowsFormsApplication1
             if(date.Value != null)
             {
                 string date = NowDate.ToString("yyyy/MM/dd 00:00");
-                string sql = " select  * from DIARY_TB where DR_DT =to_date('" + date + "', 'yyyy/MM/dd hh24:mi')";
+
+                string sql = "select * from DIARY_TB where DR_DT = to_date('" + date + "', 'yyyy/MM/dd hh24:mi')";
+
                 db.ExecuteReader(sql);
-                if(db.Reader.Read())
+                if (db.Reader.Read())
                 {
                     textBox1.Text = db.Reader[0].ToString();
                 }
                 else
                 {
-                    if (MessageBox.Show("등록된 일기가없습니다 .일기를 쓰시겠습니까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.No)
+                    if (MessageBox.Show("오늘 작성한 일기가 없습니다 . 일기를 작성하기겠습니까? ", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         this.Close();
                     }
- 
                 }
             }
-           
+            button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button1.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+  
+
+        private void OnTopPanMouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.SlateGray;
+        }
+        private void OnTopPanMouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.Transparent;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
             this.Close();
         }

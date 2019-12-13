@@ -87,6 +87,12 @@
     <Compile Include="Diary.Designer.cs">
       <DependentUpon>Diary.cs</DependentUpon>
     </Compile>
+    <Compile Include="DiaryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiaryList.Designer.cs">
+      <DependentUpon>DiaryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="FriendCheck.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,24 @@
     </Compile>
     <Compile Include="DBColor.cs" />
     <Compile Include="DBSchedule.cs" />
+    <Compile Include="FriendGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendGroup.Designer.cs">
+      <DependentUpon>FriendGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FriendModify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendModify.Designer.cs">
+      <DependentUpon>FriendModify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FriendSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FriendSearch.Designer.cs">
+      <DependentUpon>FriendSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Group.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +224,15 @@
     <Compile Include="Week.Designer.cs">
       <DependentUpon>Week.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FriendGroup.resx">
+      <DependentUpon>FriendGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendModify.resx">
+      <DependentUpon>FriendModify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendSearch.resx">
+      <DependentUpon>FriendSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Group.resx">
       <DependentUpon>Group.cs</DependentUpon>
     </EmbeddedResource>
