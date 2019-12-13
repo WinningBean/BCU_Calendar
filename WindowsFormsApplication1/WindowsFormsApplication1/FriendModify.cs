@@ -14,25 +14,78 @@ namespace WindowsFormsApplication1
     {
         DataRow curr;
         DataTable friendGoup;
+        DataTable friendTable = null;
         DBConnection db = Program.DB;
         Point point;
+ 
+        public string FrGrCom
+        {
+            get
+            {
+                if (friendGroupCom.Text == "기본그룹")
+                    return null;
+               else
+                {
+                    DataRow dataRow = friendGoup.Rows[friendGroupCom.SelectedIndex - 1];
+                       return dataRow["FRGR_CD"].ToString();
+                }
+            }
+            set
+            {
+                if (value == "")
+                {
+                    friendGroupCom.Text = "기본그룹";
+                }
+                else
+                {
+                    friendGroupCom.Text = value;
+                }
+                 
+            }
+        }
         public FriendModify(DataRow dr,DataTable dt, Point point)
         {
             InitializeComponent();
             this.curr = dr;
             this.point = point;
             this.friendGoup = dt;
+            this.Location = new Point(point.X, point.Y);
         }
 
 
         private void FriendModify_Load(object sender, EventArgs e)
         {
-            this.Location = point;
+            GetFriendsList();
+            FrGrCom = "";
+            friendGroupCom.Items.Add("기본그룹");
             nameLabel.Text = curr["UR_NM"].ToString();
-            button4.MouseEnter += new EventHandler(OnTopPanMouseLeave);
-            button5.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            DataRow currRow = friendTable.Rows.Find(curr["UR_CD"].ToString());
+            for (int i = 0; i < friendGoup.Rows.Count; i++ )
+            {
+                DataRow group = friendGoup.Rows[i];
+                friendGroupCom.Items.Add(group["FRGR_NM"].ToString());
+                if (currRow["FR_FRGR_FK"].ToString().Equals(group["FRGR_CD"].ToString()))
+                {
+                    FrGrCom = group["FRGR_NM"].ToString();
+
+                }           
+            }
+
             button4.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button5.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button4.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button5.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+        }
+        private void GetFriendsList() //친구 목록 가져오기
+        {
+            db.AdapterOpen("select FR_FR_FK, FR_FRGR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "' and FR_ACEP_ST = '1' ");
+
+            DataSet DS = new DataSet();
+            db.Adapter.Fill(DS, "friend_tb");
+            friendTable = DS.Tables["friend_tb"];
+            friendTable.PrimaryKey = new DataColumn[] { friendTable.Columns["FR_FR_FK"] };
+
+            //db.Close();
         }
 
         private void OnTopPanMouseEnter(object sender, EventArgs e)
@@ -49,22 +102,35 @@ namespace WindowsFormsApplication1
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("w친구가 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("친구가 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                string sql = "delete from SCHEDULE_TB where SC_CD = '" + curr["UR_CD"].ToString() + "'";
+                string sql = "delete from FRIEND_TB where FR_FR_FK = '" + curr["UR_CD"].ToString() + "'";
                 db.ExecuteNonQuery(sql);
+                this.Close();
             }
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            
+           string sql = "update FRIEND_TB set FR_FRGR_FK = '" + FrGrCom + "' where FR_UR_FK = '" + db.UR_CD + "' and FR_FR_FK = '" + curr["UR_CD"].ToString() + "'";
+            db.ExecuteNonQuery(sql);
 
+            MessageBox.Show("수정이 완료 되었습니다", "완료", MessageBoxButtons.OK);
+            
+                this.Close();
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void friendGroupCom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           // FrGrCom = 
         }
     }
 }
