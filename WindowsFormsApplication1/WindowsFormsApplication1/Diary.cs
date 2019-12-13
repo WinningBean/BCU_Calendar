@@ -103,10 +103,27 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
+            button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
+            button1.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
+            button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+  
+
+        private void OnTopPanMouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.SlateGray;
+        }
+        private void OnTopPanMouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.BackColor = Color.Transparent;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
             this.Close();
         }
