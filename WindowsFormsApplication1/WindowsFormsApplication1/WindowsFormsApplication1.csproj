@@ -125,6 +125,12 @@
     <Compile Include="Group.Designer.cs">
       <DependentUpon>Group.cs</DependentUpon>
     </Compile>
+    <Compile Include="Group_Modify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Group_Modify.Designer.cs">
+      <DependentUpon>Group_Modify.cs</DependentUpon>
+    </Compile>
     <Compile Include="LeftTab.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Group.resx">
       <DependentUpon>Group.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Group_Modify.resx">
+      <DependentUpon>Group_Modify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LeftTab.resx">
       <DependentUpon>LeftTab.cs</DependentUpon>

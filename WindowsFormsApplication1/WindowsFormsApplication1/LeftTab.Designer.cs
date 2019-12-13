@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.line_1 = new System.Windows.Forms.Label();
             this.Private_SC_btn = new System.Windows.Forms.Label();
@@ -36,8 +37,15 @@
             this.line_3 = new System.Windows.Forms.Label();
             this.Goup_lbl = new System.Windows.Forms.Label();
             this.line_0 = new System.Windows.Forms.Label();
-            this.Group_lstbox = new System.Windows.Forms.ListBox();
+            this.bsGroup_lstbox = new System.Windows.Forms.ListBox();
             this.Add_GR_btn = new System.Windows.Forms.Label();
+            this.SearchGR_txt = new System.Windows.Forms.TextBox();
+            this.SEARCH_GR_btn = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.searchLine = new System.Windows.Forms.Label();
+            this.schGroup_lstbox = new System.Windows.Forms.ListBox();
+            this.bsGR_pan = new System.Windows.Forms.Panel();
+            this.bsGR_pan.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -115,6 +123,8 @@
             this.Goup_lbl.TabIndex = 5;
             this.Goup_lbl.Text = "그룹";
             this.Goup_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Goup_lbl.Click += new System.EventHandler(this.Goup_lbl_Click);
+            this.Goup_lbl.MouseHover += new System.EventHandler(this.Goup_lbl_MouseHover);
             // 
             // line_0
             // 
@@ -126,18 +136,18 @@
             this.line_0.TabIndex = 7;
             this.line_0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Group_lstbox
+            // bsGroup_lstbox
             // 
-            this.Group_lstbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Group_lstbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Group_lstbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Group_lstbox.FormattingEnabled = true;
-            this.Group_lstbox.ItemHeight = 30;
-            this.Group_lstbox.Location = new System.Drawing.Point(15, 160);
-            this.Group_lstbox.Name = "Group_lstbox";
-            this.Group_lstbox.Size = new System.Drawing.Size(213, 420);
-            this.Group_lstbox.TabIndex = 8;
-            this.Group_lstbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.Group_lst_DrawItem);
+            this.bsGroup_lstbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.bsGroup_lstbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.bsGroup_lstbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bsGroup_lstbox.FormattingEnabled = true;
+            this.bsGroup_lstbox.ItemHeight = 30;
+            this.bsGroup_lstbox.Location = new System.Drawing.Point(0, 0);
+            this.bsGroup_lstbox.Name = "bsGroup_lstbox";
+            this.bsGroup_lstbox.Size = new System.Drawing.Size(213, 30);
+            this.bsGroup_lstbox.TabIndex = 8;
+            this.bsGroup_lstbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.Group_lst_DrawItem);
             // 
             // Add_GR_btn
             // 
@@ -149,17 +159,76 @@
             this.Add_GR_btn.Name = "Add_GR_btn";
             this.Add_GR_btn.Size = new System.Drawing.Size(25, 25);
             this.Add_GR_btn.TabIndex = 9;
-            this.Add_GR_btn.Text = "+";
+            this.Add_GR_btn.Text = "✚";
             this.Add_GR_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Add_GR_btn.Click += new System.EventHandler(this.Add_GR_btn_Click);
+            // 
+            // SearchGR_txt
+            // 
+            this.SearchGR_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.SearchGR_txt.Location = new System.Drawing.Point(15, 126);
+            this.SearchGR_txt.Name = "SearchGR_txt";
+            this.SearchGR_txt.Size = new System.Drawing.Size(183, 17);
+            this.SearchGR_txt.TabIndex = 10;
+            this.SearchGR_txt.Visible = false;
+            // 
+            // SEARCH_GR_btn
+            // 
+            this.SEARCH_GR_btn.BackColor = System.Drawing.Color.Silver;
+            this.SEARCH_GR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SEARCH_GR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEARCH_GR_btn.ForeColor = System.Drawing.Color.White;
+            this.SEARCH_GR_btn.Location = new System.Drawing.Point(203, 122);
+            this.SEARCH_GR_btn.Name = "SEARCH_GR_btn";
+            this.SEARCH_GR_btn.Size = new System.Drawing.Size(25, 25);
+            this.SEARCH_GR_btn.TabIndex = 11;
+            this.SEARCH_GR_btn.Text = "⌕";
+            this.SEARCH_GR_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SEARCH_GR_btn.Visible = false;
+            this.SEARCH_GR_btn.Click += new System.EventHandler(this.SEARCH_GR_btn_Click);
+            // 
+            // searchLine
+            // 
+            this.searchLine.BackColor = System.Drawing.Color.Gainsboro;
+            this.searchLine.Cursor = System.Windows.Forms.Cursors.Default;
+            this.searchLine.Location = new System.Drawing.Point(15, 147);
+            this.searchLine.Name = "searchLine";
+            this.searchLine.Size = new System.Drawing.Size(183, 1);
+            this.searchLine.TabIndex = 12;
+            this.searchLine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.searchLine.Visible = false;
+            // 
+            // schGroup_lstbox
+            // 
+            this.schGroup_lstbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.schGroup_lstbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.schGroup_lstbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.schGroup_lstbox.FormattingEnabled = true;
+            this.schGroup_lstbox.ItemHeight = 30;
+            this.schGroup_lstbox.Location = new System.Drawing.Point(15, 160);
+            this.schGroup_lstbox.Name = "schGroup_lstbox";
+            this.schGroup_lstbox.Size = new System.Drawing.Size(213, 30);
+            this.schGroup_lstbox.TabIndex = 8;
+            this.schGroup_lstbox.Visible = false;
+            this.schGroup_lstbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.SchGroup_lstbox_DrawItem);
+            // 
+            // bsGR_pan
+            // 
+            this.bsGR_pan.Controls.Add(this.bsGroup_lstbox);
+            this.bsGR_pan.Location = new System.Drawing.Point(15, 160);
+            this.bsGR_pan.Name = "bsGR_pan";
+            this.bsGR_pan.Size = new System.Drawing.Size(213, 424);
+            this.bsGR_pan.TabIndex = 13;
             // 
             // LeftTab
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(243, 596);
+            this.Controls.Add(this.searchLine);
+            this.Controls.Add(this.SEARCH_GR_btn);
+            this.Controls.Add(this.SearchGR_txt);
             this.Controls.Add(this.Add_GR_btn);
-            this.Controls.Add(this.Group_lstbox);
             this.Controls.Add(this.line_0);
             this.Controls.Add(this.line_3);
             this.Controls.Add(this.Goup_lbl);
@@ -168,6 +237,8 @@
             this.Controls.Add(this.Private_SC_btn);
             this.Controls.Add(this.line_1);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.bsGR_pan);
+            this.Controls.Add(this.schGroup_lstbox);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -175,7 +246,9 @@
             this.Name = "LeftTab";
             this.Text = "LeftTab";
             this.Load += new System.EventHandler(this.LeftTab_Load);
+            this.bsGR_pan.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -189,7 +262,13 @@
         private System.Windows.Forms.Label line_3;
         private System.Windows.Forms.Label Goup_lbl;
         private System.Windows.Forms.Label line_0;
-        private System.Windows.Forms.ListBox Group_lstbox;
+        private System.Windows.Forms.ListBox bsGroup_lstbox;
         private System.Windows.Forms.Label Add_GR_btn;
+        private System.Windows.Forms.TextBox SearchGR_txt;
+        private System.Windows.Forms.Label SEARCH_GR_btn;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label searchLine;
+        private System.Windows.Forms.ListBox schGroup_lstbox;
+        private System.Windows.Forms.Panel bsGR_pan;
     }
 }

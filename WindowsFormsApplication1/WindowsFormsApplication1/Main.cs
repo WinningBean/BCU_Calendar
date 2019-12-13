@@ -126,6 +126,7 @@ namespace WindowsFormsApplication1
             
             grp.CLOSE_btn.Click += new System.EventHandler(this.Close_btn_Click);
             grp.GROUP_NM_lbl.Click += new System.EventHandler(this.GR_nm_lbl_Click);
+            grp.MODI_GR_btn.Click += new System.EventHandler(this.Modi_GR_btn_Click);
 
             for (int i = 0; i < MemProf_lst.Count; i++)
             {
@@ -155,6 +156,26 @@ namespace WindowsFormsApplication1
 
             bs_leftTab.Show();
             ((Group)((Label)sender).Parent).Close();
+        }
+
+        private void Modi_GR_btn_Click(object sender, EventArgs e)
+        {
+            Group parentGrp = (Group)((Label)sender).Parent;
+
+            Group_Modify modiGR = new Group_Modify(1);
+            modiGR.Location = Cursor.Position;
+            modiGR.StartPosition = FormStartPosition.Manual;
+            modiGR.GRNM_txt = parentGrp.GROUP_NM_lbl.Text;
+            if (parentGrp.GROUP_EX_lbl.Text != parentGrp.BS_GREX) modiGR.GREX_txt = parentGrp.GROUP_EX_lbl.Text;
+
+            modiGR.ShowDialog();
+            if (db.GR_CD == null)
+            {
+                parentGrp.Close();
+                bs_leftTab.Show();
+                mnt.SET_MONTH();
+            }
+            parentGrp.SET_GROUPBS();
         }
 
         private void Mem_prof_Click(object sender, EventArgs e)
