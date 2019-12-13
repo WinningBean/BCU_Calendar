@@ -464,7 +464,7 @@ namespace WindowsFormsApplication1
 
         private void 오늘일정보기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Day day = new Day(sc_db.TODAY);
+            Day day = new Day();
             day.StartPosition = FormStartPosition.CenterParent;
             day.ShowDialog();
         }
@@ -485,6 +485,18 @@ namespace WindowsFormsApplication1
         private void Main_Shown(object sender, EventArgs e)
         {
             Check_FriendRequest();
+        }
+
+        private void 일기리스트ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DiaryList diaryList = new DiaryList();
+            diaryList.ShowDialog();
+        }
+
+        private void 친구그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FriendGroup friendGroup = new FriendGroup();
+            friendGroup.ShowDialog();
         }
     }
 }
