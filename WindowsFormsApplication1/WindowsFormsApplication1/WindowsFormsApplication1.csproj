@@ -209,6 +209,9 @@
     <EmbeddedResource Include="Diary.resx">
       <DependentUpon>Diary.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DiaryList.resx">
+      <DependentUpon>DiaryList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FriendCheck.resx">
       <DependentUpon>FriendCheck.cs</DependentUpon>
     </EmbeddedResource>
