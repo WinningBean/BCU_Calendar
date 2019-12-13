@@ -12,9 +12,15 @@ using Oracle.DataAccess.Client; // 오라클파라미터 쓸라면 추가해야�
 
 namespace WindowsFormsApplication1
 {
-
     public partial class Picture : Form
     {
+
+        #region 둥근 모서리
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect,
+          int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+        #endregion
+
         const int WHEELSPEED = 25;
         bool isZoomBtn;
         bool isNotMain = false;
@@ -38,7 +44,8 @@ namespace WindowsFormsApplication1
             // 생성시 초기화
             isNotMain = true;
             this.Size = new Size(this.Size.Width, 689);
-            Picture_pan.Size = new Size(Picture_pan.Size.Width, 689 - 68);
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
+            Picture_pan.Size = new Size(Picture_pan.Size.Width, this.Size.Height - panel1.Height + 1); //this.Size.Height - panel1.Height
             pictureLocation = 0;
             rowNum = 0;
             isZoomBtn = true;
@@ -62,7 +69,8 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             // 생성시 초기화
             this.Size = new Size(this.Size.Width, main.Size.Height);
-            Picture_pan.Size = new Size(Picture_pan.Size.Width, main.Size.Height - 68);
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
+            Picture_pan.Size = new Size(Picture_pan.Size.Width, this.Size.Height - panel1.Height + 1);
             pictureLocation = 0;
             rowNum = 0;
             isZoomBtn = true;
@@ -111,8 +119,10 @@ namespace WindowsFormsApplication1
             string currSeq = null;
             if (db.Reader.Read())
                 currSeq = db.Reader.GetString(0);
-
-            db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
+            if(db.GR_CD != null)
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , null, '"+db.GR_CD+"', :BINARYFILE)");
+            else
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
             db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
         }
 
@@ -184,7 +194,12 @@ namespace WindowsFormsApplication1
         }
         private void PictureLoad() // 폼이 처음 실행되거나 사진추가했을때 사진목록을 불러옴
         {
-            db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' ORDER BY PIC_DT DESC");
+            if(db.FR_CD != null)
+                db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.FR_CD + "' AND PIC_PB_ST = 1 ORDER BY PIC_DT DESC");
+            else if (db.GR_CD != null)
+                db.AdapterOpen("select * from PICTURE_TB where PIC_GR_FK = '" + db.GR_CD + "' ORDER BY PIC_DT DESC");
+            else
+                db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' AND PIC_PB_ST = "+ db.IS_PB+ " ORDER BY PIC_DT DESC");
             PictureDS = new DataSet();
             db.Adapter.Fill(PictureDS, "PICTURE_TB");
             PictureDT = PictureDS.Tables["PICTURE_TB"];
@@ -319,6 +334,8 @@ namespace WindowsFormsApplication1
                     MemoryStream stmBlobData = new MemoryStream(b);
                     Image img = Image.FromStream(stmBlobData);
 
+                    drList.Add(currRow);
+
                     // 다음 사진이 들어갈 위치와 이미지를 인자로 보내 사진을 만들고 그 다음 사진 위치를 받음
                     int currHeight = CreateSmallPicure(ref widthInsidePan, pictureLocation, ref width, img);
                     maxHeight = maxHeight < currHeight ? currHeight : maxHeight;
@@ -348,7 +365,7 @@ namespace WindowsFormsApplication1
             int panLocaY = widthPanList[level].Location.Y;
             if (panLocaX * -1 > 0)
             {
-                widthPanList[level].Location = new Point(panLocaX + 30, panLocaY);
+                widthPanList[level].Location = new Point(panLocaX + 50, panLocaY);
                 labelList[level][1].Visible = true;
             }
             else
@@ -364,7 +381,7 @@ namespace WindowsFormsApplication1
             int panLocaY = widthPanList[level].Location.Y;
             if (panLocaX * -1 < (widthPanList[level].Width - 350))
             {
-                widthPanList[level].Location = new Point(panLocaX - 30, panLocaY);
+                widthPanList[level].Location = new Point(panLocaX - 50, panLocaY);
                 labelList[level][0].Visible = true;
             }
             else
@@ -377,12 +394,12 @@ namespace WindowsFormsApplication1
         {
             PictureBox pb = new PictureBox();
             insidePan.Controls.Add(pb); // 페널 안에 넣는다
-
+            pb.Click += new System.EventHandler(OnPicClick);
 
             // 사진 비율 조정 : made by seungbeen
-            float percent = (float)img.Height / 100;
+            float percent = (float)img.Height / 75;
             int imgWidth = (int)((float)img.Width / percent);
-            pb.Size = new Size(imgWidth, 100);
+            pb.Size = new Size(imgWidth, 75);
             pb.Location = new Point(width, 0);
             width += imgWidth + 10;
             pb.SizeMode = PictureBoxSizeMode.Zoom;
@@ -402,10 +419,10 @@ namespace WindowsFormsApplication1
             insidePan.Controls.Add(pb); // 페널 안에 넣는다
 
             // 사진 비율 조정 : made by seungbeen
-            float percent = (float)img.Width / 365;
+            float percent = (float)img.Width / 245;
             int imgHeight = (int)((float)img.Height / percent);
 
-            pb.Size = new Size(365, imgHeight);
+            pb.Size = new Size(245, imgHeight);
             pb.Location = new Point(0, location);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             pb.Name = drList[(drList.Count - 1)][0].ToString(); // 사진코드도 넣어줌
@@ -426,8 +443,11 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                int rowNum = Int32.Parse(((PictureBox)sender).Name);
-                Picture_Modify pm = new Picture_Modify(drList[rowNum]);
+                //int rowNum = Int32.Parse(((PictureBox)sender).Name);
+                db.AdapterOpen("select * from PICTURE_TB where PIC_CD = '" + ((PictureBox)sender).Name + "'");
+                DataSet ds = new DataSet("PICTURE_TB");
+                db.Adapter.Fill(ds, "PICTURE_TB");
+                Picture_Modify pm = new Picture_Modify(ds.Tables["PICTURE_TB"].Rows[0], ((PictureBox)sender).Image);
                 DialogResult dr = pm.ShowDialog();
                 if (dr == DialogResult.No) // 삭제를 눌렀다면
                 {
@@ -516,6 +536,15 @@ namespace WindowsFormsApplication1
                 preDate = new DateTime(); // PictureShow 에서 preDate로 현재날짜와 전날짜를 비교한다
                 PictureShow();
             }
+        }
+
+        public void reset()
+        {
+            PictureClear();
+            isZoomBtn = true;
+            PictureLoad();
+            preDate = new DateTime(); // PictureShow 에서 preDate로 현재날짜와 전날짜를 비교한다
+            PictureShow();
         }
 
     }

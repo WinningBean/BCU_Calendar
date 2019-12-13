@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.m_Small_btn = new System.Windows.Forms.Label();
             this.m_Zoom_btn = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Picture_pan = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label5);
@@ -51,17 +51,48 @@
             this.panel1.Controls.Add(this.m_Zoom_btn);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(282, 64);
+            this.panel1.Size = new System.Drawing.Size(247, 51);
             this.panel1.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(96, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 18);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "label5";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(96, 2);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 18);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "label5";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(96, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 18);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "label5";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft New Tai Lue", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 36);
+            this.label4.Location = new System.Drawing.Point(10, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 22);
+            this.label4.Size = new System.Drawing.Size(38, 19);
             this.label4.TabIndex = 2;
             this.label4.Text = "ADD";
             this.label4.DoubleClick += new System.EventHandler(this.label4_DoubleClick);
@@ -72,9 +103,9 @@
             this.m_Small_btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.m_Small_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Small_btn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.m_Small_btn.Location = new System.Drawing.Point(198, 32);
+            this.m_Small_btn.Location = new System.Drawing.Point(173, 26);
             this.m_Small_btn.Name = "m_Small_btn";
-            this.m_Small_btn.Size = new System.Drawing.Size(72, 25);
+            this.m_Small_btn.Size = new System.Drawing.Size(57, 20);
             this.m_Small_btn.TabIndex = 1;
             this.m_Small_btn.Text = "목록보기";
             this.m_Small_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -86,9 +117,9 @@
             this.m_Zoom_btn.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.m_Zoom_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Zoom_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.m_Zoom_btn.Location = new System.Drawing.Point(198, 3);
+            this.m_Zoom_btn.Location = new System.Drawing.Point(173, 2);
             this.m_Zoom_btn.Name = "m_Zoom_btn";
-            this.m_Zoom_btn.Size = new System.Drawing.Size(72, 25);
+            this.m_Zoom_btn.Size = new System.Drawing.Size(57, 20);
             this.m_Zoom_btn.TabIndex = 0;
             this.m_Zoom_btn.Text = "크게보기";
             this.m_Zoom_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -98,60 +129,30 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(18, 4);
+            this.label1.Location = new System.Drawing.Point(16, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 29);
+            this.label1.Size = new System.Drawing.Size(68, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "Picture";
             // 
             // Picture_pan
             // 
-            this.Picture_pan.Location = new System.Drawing.Point(0, 61);
+            this.Picture_pan.Location = new System.Drawing.Point(0, 49);
+            this.Picture_pan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Picture_pan.Name = "Picture_pan";
-            this.Picture_pan.Size = new System.Drawing.Size(282, 587);
+            this.Picture_pan.Size = new System.Drawing.Size(247, 640);
             this.Picture_pan.TabIndex = 1;
             this.Picture_pan.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Picture_pan_MouseWheel);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(110, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 24);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "label5";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(110, 3);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 24);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "label5";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(110, 40);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 24);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "label5";
-            // 
             // Picture
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(282, 646);
+            this.ClientSize = new System.Drawing.Size(247, 689);
             this.Controls.Add(this.Picture_pan);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Picture";
             this.Text = "Picture";
             this.Load += new System.EventHandler(this.Picture_Load);

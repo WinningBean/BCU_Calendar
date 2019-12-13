@@ -73,12 +73,22 @@ namespace WindowsFormsApplication1
         {
             db.IS_PB = 1;
             mnt.SET_MONTH();
+            week.resetSchedual();
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
         }
 
         private void Private_SC_btn_Click(object sender, EventArgs e)
         {
             db.IS_PB = 0;
             mnt.SET_MONTH();
+            week.resetSchedual();
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
         }
 
         // ---------- Group ----------
@@ -104,6 +114,12 @@ namespace WindowsFormsApplication1
 
             if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
             else setCenterWeekPanel();
+
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
+                
 
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
@@ -240,6 +256,7 @@ namespace WindowsFormsApplication1
 
             MainCenter_pan.Controls.Add(week);
             week.Show();
+            week.resetSchedual();
         }
 
         // ---------- FUNCTION ----------
@@ -311,9 +328,9 @@ namespace WindowsFormsApplication1
             { // 마우스가 눌려지고, 왼쪽 버튼일 경우에 수행
                 Location = new Point(this.Left - (fPt.X - e.X), this.Top - (fPt.Y - e.Y));
                 if (isShowPic) // 사진폼이 띄어져있으면 사진폼도 이동
-                {
                     pic.Location = new Point(pic.Left - (fPt.X - e.X), pic.Top - (fPt.Y - e.Y));
-                }// 폼 Location 재지정
+                if (isShowToDo)
+                    tdl.Location = new Point(tdl.Left - (fPt.X - e.X), tdl.Top - (fPt.Y - e.Y));
             }
         }
 
@@ -401,7 +418,10 @@ namespace WindowsFormsApplication1
 
         private void 할일모두완료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1");
+            if (db.GR_CD != null)
+                db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_GR_FK = '" + db.GR_CD +"'");
+            else
+                db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_UR_FK = '" + db.UR_CD + "'");
 
             if (isShowToDo)
                 tdl.reset();
@@ -409,7 +429,10 @@ namespace WindowsFormsApplication1
 
         private void 할일모두삭제ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            db.ExecuteNonQuery("delete From TODO_TB");
+            if (db.GR_CD != null)
+                db.ExecuteNonQuery("delete From TODO_TB WHERE TD_GR_FK = '" + db.GR_CD + "'");
+            else
+                db.ExecuteNonQuery("delete From TODO_TB WHERE TD_UR_FK = '" + db.UR_CD + "'");
 
             if (isShowToDo)
                 tdl.reset();
@@ -417,7 +440,11 @@ namespace WindowsFormsApplication1
 
         private void 할일추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ToDoList_Add tda = new ToDoList_Add(db.UR_CD);
+            ToDoList_Add tda = null;
+            if (db.GR_CD != null)
+                tda = new ToDoList_Add(db.GR_CD);
+            else
+                tda = new ToDoList_Add(db.UR_CD);
             tda.Location = tda.PointToScreen(Cursor.Position);
             if(tda.ShowDialog() == DialogResult.OK)
             {
@@ -485,6 +512,11 @@ namespace WindowsFormsApplication1
         private void Main_Shown(object sender, EventArgs e)
         {
             Check_FriendRequest();
+        }
+
+        private void 사용자정보ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //UserInfo ui = new UserInfo(db.UR_CD);
         }
     }
 }

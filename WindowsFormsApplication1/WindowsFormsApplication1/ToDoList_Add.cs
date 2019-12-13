@@ -16,10 +16,10 @@ namespace WindowsFormsApplication1
         DBConnection db = Program.DB;
         string urcd;
 
-        public ToDoList_Add(string urcd)
+        public ToDoList_Add(string urcdOrgrcd)
         {
             InitializeComponent();
-            this.urcd = urcd;
+            this.urcd = urcdOrgrcd;
             makeColor();
         }
 
@@ -77,7 +77,7 @@ namespace WindowsFormsApplication1
                 textBox2.Text + "', '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") +
                 "', 0, '" + selectCD + "', '" + urcd + "', null)");
             }
-            else
+            else // 그룹이면
             {
                 db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
                 textBox2.Text + "', '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") +

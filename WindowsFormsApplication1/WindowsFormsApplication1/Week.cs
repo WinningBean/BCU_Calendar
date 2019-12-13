@@ -43,6 +43,7 @@ namespace WindowsFormsApplication1
 
         DBSchedule dbs = new DBSchedule();
         DBConnection db = Program.DB;
+        Color defaultColor = (new DBColor()).GetColorInsertName("GRAY", 100);
 
         bool isMainClick = false;
         Panel clickPan;
@@ -124,7 +125,7 @@ namespace WindowsFormsApplication1
 
             if (isMainClick)
             {
-                graphics.DrawRectangle(new Pen(Color.FromArgb(150, Color.Black) ,2), new Rectangle(clickPan.Location, clickPan.Size));
+                graphics.DrawRectangle(new Pen(Color.FromArgb(150, Color.Black), 2), new Rectangle(clickPan.Location, clickPan.Size));
             }
         }
 
@@ -257,6 +258,15 @@ namespace WindowsFormsApplication1
             CurrWeek();
 
             Thread.Sleep(100); // 너무빨리 계속 누를경우 DB 에러발생 강제로 지연
+        }
+
+        public void resetSchedual()
+        {
+            if (scList != null)
+                clearObject();
+            CurrWeek();
+
+            Thread.Sleep(100);
         }
 
         private void m_Right_btn_Click(object sender, EventArgs e)
@@ -437,7 +447,14 @@ namespace WindowsFormsApplication1
                 m_Top_pan.Controls[i].Controls[1].Text = weekSunday.AddDays(i).Day.ToString();
 
             int turm = endWeek - startWeek;
-            DataTable dt = dbs.Get_Week_Schedule(true, db.UR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);
+            DataTable dt = null;
+
+            if (db.FR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                dt = dbs.Get_Week_Schedule(true, db.FR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);
+            if (db.GR_CD != null) // 그룹이라면 그룹스케줄 표시
+                dt = dbs.Get_Week_Schedule(false, db.GR_CD, weekSunday.AddDays(startWeek), turm, 1);
+            else
+                dt = dbs.Get_Week_Schedule(true, db.UR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);
             for (int i = startWeek; i < endWeek; i++)
             {
                 if (i == 0)
@@ -564,24 +581,16 @@ namespace WindowsFormsApplication1
                     for (int i = 0; i < scPan.Last().Count; i++)
                     {
                         Panel morePan = scPan.Last()[i];
-                        morePan.BackColor = (new DBColor()).GetColorInsertName("GRAY", 200);
-                        Label moreLabel;
-                        if (morePan.Controls.Count == 0)
+
+                        if (morePan.Controls.Count != 0)
+                            morePan.Controls[0].Visible = false;
+                        if (morePan.Name.Length <= 7)
                         {
-                            moreLabel = new Label();
-                            moreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                            moreLabel.BackColor = Color.Transparent;
-                            morePan.Controls.Add(moreLabel);
+                            morePan.Paint += new PaintEventHandler(OnMorePaint);
+                            morePan.MouseClick += new MouseEventHandler(OnMorePanelClick);
                         }
-                        moreLabel = (Label)morePan.Controls[0];
-                        moreLabel.Location = new Point(0, 0);
-                        moreLabel.AutoSize = false;
-                        moreLabel.Size = morePan.Size;
-                        moreLabel.TextAlign = ContentAlignment.MiddleCenter;
-                        morePan.Name += dataRowList[k][0].ToString(); // 네임을 더 추가해줌
-                        if (!moreLabel.Text.Equals(". . ."))
-                            moreLabel.MouseClick += new MouseEventHandler(OnMorePanelClick);
-                        moreLabel.Text = ". . .";
+                        morePan.Name += dataRowList[k][0].ToString();
+                        morePan.BackColor = defaultColor;
                     }
                     continue;
                 }
@@ -653,6 +662,22 @@ namespace WindowsFormsApplication1
                 }
             }
         }
+
+        private void OnMorePaint(object sender, PaintEventArgs e)
+        {
+            var pan = (Panel)sender;
+            Graphics g = e.Graphics;
+            Pen p = new Pen(defaultColor, 3);
+            int y = 0;
+
+            while (y < pan.Height)
+            {
+                g.DrawLine(p, 0, y + 20, pan.Width, y);
+                y += 20;
+            }
+            p.Dispose();
+        }
+
         Panel clickPanel = new Panel();
         private void OnPanelClick(object sender, MouseEventArgs e)
         {
@@ -690,7 +715,7 @@ namespace WindowsFormsApplication1
 
         private void OnMorePanelClick(object sender, MouseEventArgs e)
         {// ...을 클릭했을경우
-            Panel pan = (Panel)((Label)sender).Parent;
+            Panel pan = (Panel)sender;
             Week_MoreInfo wm = new Week_MoreInfo(pan.Name);
             wm.Location = pan.PointToScreen(new Point(e.X, e.Y));
             wm.Show();
@@ -764,7 +789,7 @@ namespace WindowsFormsApplication1
                 i++;
             }
 
-            for(int k = 0; k < scPan[i].Count; k++)
+            for (int k = 0; k < scPan[i].Count; k++)
             {
                 scPan[i][k].BackColor = c;
             }
