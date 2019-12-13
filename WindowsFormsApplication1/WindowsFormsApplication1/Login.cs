@@ -164,6 +164,7 @@ namespace WindowsFormsApplication1
             main.USERID = user_id; // 프로퍼티로 ID값 넘겨줌
             main.USERPROFILE.USERNAME.Text = user_nm; // 프로퍼티로 NAME값 넘겨줌
             if (b_pic == true) main.USERPROFILE.USERPIC.Image = user_pic; // 프로퍼티로 PIC값 넘겨줌
+            main.Location = new Point(50, Screen.PrimaryScreen.Bounds.Height / 2 - main.Height / 2 - 50);
             main.Show();
         }
 
