@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1
 
         private void Add_MB_btn_Click(object sender, EventArgs e)
         {
-            AddFriend addMem_frm = new AddFriend();
+            Friend_Add addMem_frm = new Friend_Add();
             addMem_frm.ShowDialog();
         }
     }

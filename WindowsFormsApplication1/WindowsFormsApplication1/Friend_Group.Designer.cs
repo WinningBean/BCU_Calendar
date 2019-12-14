@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class FriendGroup
+    partial class Friend_Group
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.Location = new System.Drawing.Point(238, 22);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(22, 24);
+            this.label7.Size = new System.Drawing.Size(25, 24);
             this.label7.TabIndex = 47;
             this.label7.Text = "X";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -139,7 +139,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(12, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 22);
+            this.label1.Size = new System.Drawing.Size(87, 20);
             this.label1.TabIndex = 39;
             this.label1.Text = "친구 그룹생성";
             // 
@@ -174,9 +174,8 @@
             this.button3.Text = "선택";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // FriendGroup
+            // Friend_Group
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(270, 489);
@@ -195,8 +194,8 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FriendGroup";
-            this.Text = "FriendGroup";
+            this.Name = "Friend_Group";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.FriendGroup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

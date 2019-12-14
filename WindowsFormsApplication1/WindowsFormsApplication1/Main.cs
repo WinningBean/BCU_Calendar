@@ -41,7 +41,7 @@ namespace WindowsFormsApplication1
         }
 
         public UserCustomControl.Profile USERPROFILE
-        { 
+        {
             // Userprofile 프로퍼티 -> login에서 값 넘겨줌
             get { return UserProfile_prof; }
             set { UserProfile_prof = value; }
@@ -119,10 +119,10 @@ namespace WindowsFormsApplication1
                 tdl.reset();
             if (isShowPic)
                 pic.reset();
-                
+
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
-            
+
             grp.CLOSE_btn.Click += new System.EventHandler(this.Close_btn_Click);
             grp.GROUP_NM_lbl.Click += new System.EventHandler(this.GR_nm_lbl_Click);
             grp.MODI_GR_btn.Click += new System.EventHandler(this.Modi_GR_btn_Click);
@@ -294,7 +294,7 @@ namespace WindowsFormsApplication1
             m_focus_dt = week.Get_focus_dt();
             MainCenter_pan.Controls.Clear();
             mnt.FOCUS_DT = m_focus_dt;
-            
+
             MainCenter_pan.Controls.Add(mnt);
             mnt.Show();
             mnt.SET_MONTH();
@@ -349,7 +349,7 @@ namespace WindowsFormsApplication1
             UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
         }
-        
+
         private void Check_FriendRequest() // 메인이 실행 될때 친구신청 온게 있는지 확인 - CJE 
         {
             string command = "select * from FRIEND_TB where FR_FR_FK ='" + db.UR_CD + "' and FR_ACEP_ST = 0";
@@ -358,7 +358,7 @@ namespace WindowsFormsApplication1
             {
                 if (MessageBox.Show("친구 신청이 왔습니다 확인 하시겠습나까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    FriendCheck friendCheck = new FriendCheck();
+                    Friend_Check friendCheck = new Friend_Check();
                     friendCheck.ShowDialog();
                 }
             }
@@ -430,11 +430,11 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                pic.Dispose();  
+                pic.Dispose();
                 isShowPic = false;
             }
         }
-        
+
         private void MonthForm_btn_Click(object sender, EventArgs e) // 월간 일정 보기 클릭 시
         {
             MonthForm_btn.Enabled = false; // 월간 보기 버튼 비활성화
@@ -463,7 +463,7 @@ namespace WindowsFormsApplication1
 
         private void 일정추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ModifySchedule modiSche = new ModifySchedule();
+            Schedule_Modify modiSche = new Schedule_Modify();
             modiSche.ShowDialog();
         }
 
@@ -475,7 +475,7 @@ namespace WindowsFormsApplication1
         private void 할일모두완료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (db.GR_CD != null)
-                db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_GR_FK = '" + db.GR_CD +"'");
+                db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_GR_FK = '" + db.GR_CD + "'");
             else
                 db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_UR_FK = '" + db.UR_CD + "'");
 
@@ -502,7 +502,7 @@ namespace WindowsFormsApplication1
             else
                 tda = new ToDoList_Add(db.UR_CD);
             tda.Location = tda.PointToScreen(Cursor.Position);
-            if(tda.ShowDialog() == DialogResult.OK)
+            if (tda.ShowDialog() == DialogResult.OK)
             {
                 if (isShowToDo)
                     tdl.reset();
@@ -563,7 +563,7 @@ namespace WindowsFormsApplication1
 
         private void 친구추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddFriend addfr = new AddFriend();
+            Friend_Add addfr = new Friend_Add();
             addfr.StartPosition = FormStartPosition.CenterParent;
             addfr.ShowDialog();
         }
@@ -582,12 +582,8 @@ namespace WindowsFormsApplication1
 
         private void 친구그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FriendGroup friendGroup = new FriendGroup();
+            Friend_Group friendGroup = new Friend_Group();
             friendGroup.ShowDialog();
-
-        private void 사용자정보ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //UserInfo ui = new UserInfo(db.UR_CD);
 
         }
     }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class AddFriend : Form
+    public partial class Friend_Add : Form
     {
         DBConnection db = Program.DB;
         DataTable friendTable = null;
@@ -18,7 +18,7 @@ namespace WindowsFormsApplication1
         string strGroup;
         string strFriendID = null;
 
-        public AddFriend()
+        public Friend_Add()
         {
             InitializeComponent();
         }
@@ -80,8 +80,8 @@ namespace WindowsFormsApplication1
         }
 
         private void 친구신청_Click(object sender, EventArgs e)
-        {
-            string command = "select UR_ID,UR_NM from USER_TB where UR_ID = '" + textBox1.Text + "' or UR_NM = '" + textBox1.Text + "'";
+        {//GR_NM like '%" + SearchGR_txt.Text + "%'"
+            string command = "select UR_ID,UR_NM from USER_TB where UR_ID = '" + textBox1.Text + "' or UR_NM like '%" + textBox1.Text + "%'";
             db.AdapterOpen(command);
 
             DataSet ds = new DataSet();
@@ -107,7 +107,7 @@ namespace WindowsFormsApplication1
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // 확인 버튼 누를시
         {
             if(strFriendID == null || strFriendID == "아이디를 선택해주세요!!")
             {
@@ -178,7 +178,6 @@ namespace WindowsFormsApplication1
                 
                 dataGrid1.CurrentCell.Selected = false;
                 MessageBox.Show("아이디를 선택해주세요 ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
             else
             {

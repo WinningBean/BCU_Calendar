@@ -23,14 +23,11 @@ namespace WindowsFormsApplication1
         Label[] FrGr_btnlabel;
 
         int location;
-        int locationbtn;
-        int[] flag;
 
         public FriendList()
         {
             InitializeComponent();
             location = 0;
-            locationbtn = 0;
         }
 
         
@@ -55,7 +52,7 @@ namespace WindowsFormsApplication1
             FriendProfile.USERPIC.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.Name = currRow["UR_CD"].ToString();
-            
+            FriendProfile.Show();
             FrProf_lst.Add(FriendProfile);
 
             //   FriendProfile.SendToBack();
@@ -71,7 +68,6 @@ namespace WindowsFormsApplication1
 
         private void UploadeList()
         {
-            flag = new int[friendTable.Rows.Count + 1];
             label = new Label[friendTable.Rows.Count];
             FrGr_pan = new Panel[friend_group_tb.Rows.Count + 1];
             pan = new Panel[friend_group_tb.Rows.Count + 1];
@@ -94,7 +90,6 @@ namespace WindowsFormsApplication1
             panel1.Controls.Add(FrGr_pan[0]);
             FrGr_pan[0].Show();
 
-            flag[0] = 1;
 
             FrGr_Nmlabel[0] = new Label();
             FrGr_Nmlabel[0].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -169,10 +164,11 @@ namespace WindowsFormsApplication1
                 FrGr_Nmlabel[i + 1] = new Label();
                 FrGr_Nmlabel[i + 1].Font = new System.Drawing.Font("함초롬돋움", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 FrGr_Nmlabel[i + 1].Location = new System.Drawing.Point(10, 10);
-                FrGr_Nmlabel[i + 1].Name = " FrGr_pan";
+                FrGr_Nmlabel[i + 1].Name = currRow["FRGR_CD"].ToString();
                 FrGr_Nmlabel[i + 1].Size = new System.Drawing.Size(100, 20);
                 FrGr_Nmlabel[i + 1].TabIndex = i + 1;  // 클릭 함수를 실행 했을때 몇번쨰 FrGr_Nmlabel 이눌렸는지 알려줄 값 설정
                 FrGr_Nmlabel[i + 1].Text = currRow["FRGR_NM"].ToString();
+                FrGr_Nmlabel[i + 1].MouseClick += new MouseEventHandler(ModifyGroup);
 
                 // FrGr_Nmlabel[0].BringToFront();
                 FrGr_Nmlabel[0].Visible = true;
@@ -211,17 +207,15 @@ namespace WindowsFormsApplication1
             db.Adapter.Fill(DS, "friend_tb");
             friendTable = DS.Tables["friend_tb"];
             friendTable.PrimaryKey = new DataColumn[] { friendTable.Columns["UR_CD"] };
-
+            Friend_lbl.Text = "친구  총" + friendTable.Rows.Count.ToString() + "명";
             //db.Close();
         }
 
         private void FriendList_Load(object sender, EventArgs e)
         {
-            button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button4.MouseEnter += new EventHandler(OnTopPanMouseEnter);
 
-            button1.MouseEnter += new EventHandler(OnTopPanMouseLeave);
             button3.MouseEnter += new EventHandler(OnTopPanMouseLeave);
             button4.MouseEnter += new EventHandler(OnTopPanMouseLeave);
 
@@ -229,9 +223,15 @@ namespace WindowsFormsApplication1
             panel2.Location = new Point(panel1.Location.X, panel2.Location.Y);
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
-            panel1.AutoScroll = false;
+           // panel1.AutoScroll = false;
             panel1.VerticalScroll.Visible = false;
             panel1.AutoScroll = true;
+           
+            this.Controls.Add(search_pan);
+            this.Controls.Add(SEARCH_FR_btn);
+            SEARCH_FR_btn.Show();
+            search_pan.Show();
+            search_pan.Visible = false;
 
             GetFriendsList();
             GetGroupList();
@@ -252,7 +252,7 @@ namespace WindowsFormsApplication1
         private void GetGroupMamber() // 그룹 멤버 반환 
         {
 
-            for (int i = 0; i < friend_group_tb.Rows.Count; i++)  //panal 생성구간 create panel 로뺄까...?
+            for (int i = 0; i < friend_group_tb.Rows.Count; i++)  
             {
                 location = 0;
                 pan[i + 1] = new Panel();
@@ -348,36 +348,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            panel2.Visible = false;
-            location = 0;
-            bool check = false;
-
-            string sql = "select  UR_NM ,UR_ID from USER_TB  WHERE ur_cd  in (select FR_FR_FK from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "' and FR_ACEP_ST = '1') and (UR_NM ='" + textBox1.Text + "' OR UR_ID='" + textBox1.Text + "') ORDER BY  UR_NM ASC" ;
-
-            db.ExecuteReader(sql);
-            if (db.Reader.Read())
-            {
-                db.AdapterOpen(sql);
-                DataSet rs = new DataSet();
-                db.Adapter.Fill(rs, "search");
-                DataTable search = rs.Tables["search"];
-                
-                FriendSearch friendSearch = new FriendSearch(search);
-                friendSearch.ShowDialog();
-                check = true;
-                
-
-            }
-         
-            if (!check)
-            {
-                panel1.Visible = false;
-                panel2.Visible = true;
-            }
-            textBox1.Text = "";        
-        }
+       
 
         private void button4_Click(object sender, EventArgs e) // 취소
         {
@@ -389,7 +360,7 @@ namespace WindowsFormsApplication1
         {
             panel2.Visible = false;
             panel1.Visible = true;
-            AddFriend addFriend = new AddFriend();
+            Friend_Add addFriend = new Friend_Add();
             addFriend.ShowDialog();
           
         }
@@ -403,7 +374,7 @@ namespace WindowsFormsApplication1
                 string friendCD = myPan.Name;
 
                 DataRow currRow = friendTable.Rows.Find(friendCD);
-                FriendModify friendModify = new FriendModify(currRow, friend_group_tb, mousePoint);
+                Friend_Modify friendModify = new Friend_Modify(currRow, friend_group_tb, mousePoint);
                 friendModify.FormClosed += new FormClosedEventHandler(FriendModify_FormClosed);
                 friendModify.ShowDialog();
             }
@@ -411,6 +382,9 @@ namespace WindowsFormsApplication1
 
         private void FriendModify_FormClosed(object sender, FormClosedEventArgs e)
         {
+            search_pan.Controls.Clear();
+            search_pan.Visible = false;
+            SEARCH_FR_btn.Text = "⌕";
             panel1.Controls.Clear();
             GetFriendsList();
             GetGroupList();
@@ -429,6 +403,72 @@ namespace WindowsFormsApplication1
             btn.BackColor = Color.Transparent;
         }
 
+ 
+        private void SEARCH_FR_btn_Click(object sender, EventArgs e)
+        {
+            if (SEARCH_FR_btn.Text == "⟳")
+            {
+                panel1.Visible = true;     
+                search_pan.Visible = false;
+                SEARCH_FR_btn.Text = "⌕";
+                SearchFR_txt.Clear();
+                Friend_lbl.Text = "친구  총" + friendTable.Rows.Count.ToString() + "명";
+            }
+            else
+            {
+                string sql;
+                sql = "select UR_CD, UR_NM from USER_TB";
+                sql += " where UR_CD in (";
+                sql += "select FR_FR_FK from FRIEND_TB";
+                sql += " where FR_UR_FK = '" + db.UR_CD + "'";
+                sql += " and FR_ACEP_ST = 1)";
+                sql += " and UR_NM like '%" + SearchFR_txt.Text + "%'";
+                sql += " order by UR_NM ASC";
+                db.AdapterOpen(sql);
+                DataSet ds = new DataSet();
+                db.Adapter.Fill(ds, "search_user_tb");
+                int count = ds.Tables["search_user_tb"].Rows.Count;
+                if (count == 0)
+                {
+
+                    panel2.Visible = true;
+                    SEARCH_FR_btn.Text = "⟳";
+                }
+                else
+                {
+                    DataTable search_user_tb = ds.Tables["search_user_tb"];
+                    Friend_lbl.Text = "검샐결과  총" + search_user_tb.Rows.Count.ToString() + "명";
+                    location = 0;
+                    for (int i = 0; i < search_user_tb.Rows.Count; i++)
+                    {
+                        search_pan.Controls.Add(Create_FriendProfile(i, search_user_tb));
+                    }
+
+                    panel1.Visible = false;
+                    search_pan.Visible = true;
+                    SEARCH_FR_btn.Text = "⟳";
+                }
+              
+
+
+            }
+        }
+
+        private void ModifyGroup(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                //UserCustomControl.Profile myPan = (UserCustomControl.Profile)sender;
+                Label myPan = (Label)sender;
+                Point mousePoint = new Point(e.X, e.Y);
+                string GroupCD = myPan.Name;
+
+                //DataRow currRow = friendTable.Rows.Find(friendCD);
+                Friend_Group_Modify friendModify = new Friend_Group_Modify(GroupCD);
+                friendModify.FormClosed += new FormClosedEventHandler(FriendModify_FormClosed);
+                friendModify.ShowDialog();
+            }
+        }
 
     }
 }

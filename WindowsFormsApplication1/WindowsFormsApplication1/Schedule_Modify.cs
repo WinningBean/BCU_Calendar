@@ -12,20 +12,18 @@ using Oracle.DataAccess.Client;
 
 namespace WindowsFormsApplication1
 {
-    public partial class ModifySchedule : Form
+    public partial class Schedule_Modify : Form
     {
 
-        DataRow curr = null;
+        string Code = null;
 
-
-
-        public ModifySchedule(DataRow dr) 
+        public Schedule_Modify(string CD)  // 스케줄 코드를 생성자로 받는다 (수정)
         {
             InitializeComponent();
-            this.curr = dr;
+            this.Code = CD;
 
         }
-        public ModifySchedule() // 그냥 ?
+        public Schedule_Modify() //일정 생성시
         {
             InitializeComponent();
         }
@@ -37,16 +35,15 @@ namespace WindowsFormsApplication1
         bool check = false;
         private string scheduleCD = null;
 
+        //테두리 둥글게
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern System.IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect
         , int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
         [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
         private static extern bool DeleteObject(System.IntPtr hObject);
 
 
-
-
+       //프로퍼티
         public string ScheduleCD
         {
             get { return scheduleCD; }
@@ -170,7 +167,7 @@ namespace WindowsFormsApplication1
             button5.MouseEnter += new EventHandler(OnTopPanMouseLeave);
             deleteBtn.MouseEnter += new EventHandler(OnTopPanMouseLeave);
 
-
+            //콤보박스 초기 설정
             for (int i =0; i < 25; i++)
             {
                 strHour.Items.Add(i);
@@ -181,59 +178,73 @@ namespace WindowsFormsApplication1
                 strMin.Items.Add(i);
                 endMin.Items.Add(i);
             }
-
             StrMin= "00";
             EndMin = "00";
-
             for(int i = 0; i < dbc.ColorDic.Values.Count; i++ )
             { 
                 
                 colorCom.Items.Add(dbc.ColorDic.ElementAt(i).Value);
 
             }
-            if(db.GR_CD != null)
+
+
+            if (db.GR_CD != null)
             {
                 StateCheck = 1;
                 stateCheck.Enabled = false;
             }
 
-            if (curr != null)
+            if (Code != null) // 일정 코드가 null아니면 데이터 불러오기
             {
-                DateTime strSC = Convert.ToDateTime(curr[4].ToString());
-                DateTime endSC = Convert.ToDateTime(curr[5].ToString());
-
-                NameTxt = curr["SC_NM"].ToString();
-                ExTxt = curr["SC_EX"].ToString();
-                StrDate = (DateTime)curr["SC_STR_DT"];
-                EndDate = (DateTime)curr["SC_END_DT"];
-                StrHour = strSC.Hour.ToString();
-                StrMin = strSC.Minute.ToString();
-                EndHour = endSC.Hour.ToString();
-                EndMin = endSC.Minute.ToString();
-                StateCheck = Convert.ToInt32(curr["SC_PB_ST"]);
-                ColorCom = dbc.GetColorName(curr[7].ToString());
-                ScheduleCD = curr[0].ToString();
-
-                string sql = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
-                db.ExecuteReader(sql);
-                if (db.Reader.Read())
-                {
-                    Byte[] b = (Byte[])(db.Reader["PIC_DATA"]);
-                    MemoryStream stmBlobData = new MemoryStream(b);
-                    Image img = Image.FromStream(stmBlobData);
-
-                    ImagePic = img;
-                    pic_CD = db.Reader["PIC_CD"].ToString();
-                }
-                else
-                {
-                    ImagePic = null;
-                    ColorCom = null;
-                }
+                set_Data();
             }
 
         }
 
+        //수정일시(Code != null) 데이터 불러오기
+        private void set_Data()
+        {
+            string sql = "select * from SCHEDULE_TB where SC_CD = '" + Code + "'";
+            db.AdapterOpen(sql);
+            DataSet rs = new DataSet();
+            db.Adapter.Fill(rs, "search");
+            DataTable search = rs.Tables["search"];
+
+            DataRow curr = search.Rows[0];
+            DateTime strSC = Convert.ToDateTime(curr[4].ToString());
+            DateTime endSC = Convert.ToDateTime(curr[5].ToString());
+
+            NameTxt = curr["SC_NM"].ToString();
+            ExTxt = curr["SC_EX"].ToString();
+            StrDate = (DateTime)curr["SC_STR_DT"];
+            EndDate = (DateTime)curr["SC_END_DT"];
+            StrHour = strSC.Hour.ToString();
+            StrMin = strSC.Minute.ToString();
+            EndHour = endSC.Hour.ToString();
+            EndMin = endSC.Minute.ToString();
+            StateCheck = Convert.ToInt32(curr["SC_PB_ST"]);
+            ColorCom = dbc.GetColorName(curr[7].ToString());
+            ScheduleCD = curr[0].ToString();
+
+            string command = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
+            db.ExecuteReader(command);
+            if (db.Reader.Read())
+            {
+                Byte[] b = (Byte[])(db.Reader["PIC_DATA"]);
+                MemoryStream stmBlobData = new MemoryStream(b);
+                Image img = Image.FromStream(stmBlobData);
+
+                ImagePic = img;
+                pic_CD = db.Reader["PIC_CD"].ToString();
+            }
+            else
+            {
+                ImagePic = null;
+                // ColorCom = null;
+            }
+        }
+
+        //마우스 이벤트
         private void OnTopPanMouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -245,29 +256,7 @@ namespace WindowsFormsApplication1
             btn.BackColor = Color.Transparent;
         }
 
-
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void strHour_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(strHour.SelectedIndex == 24)
-            {
-                strHour.Text = "0";
-                StrDate = StrDate.AddDays(1);
-
-            }
-        }
-        private void endHour_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (endHour.SelectedIndex == 24)
-            {
-                EndDate = EndDate.AddDays(1);
-            }
-        }
+        //컨트롤 값 초기화
         private void Clear_Controls()
         {
             NameTxt = "";
@@ -279,7 +268,61 @@ namespace WindowsFormsApplication1
             StateCheck = 1;
         }
 
+        //시간 관련 콤보박스
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) // 일정 하루종일 클릭시
+        {
+            if (checkBox1.Checked == true)
+            {
+                endMin.Text = "00";
+                endMin.Enabled = false;
+                endHour.Text = "0";
+                endHour.Enabled = false;
+                strMin.Text = "00";
+                strMin.Enabled = false;
+                strHour.Text = "0";
+                strHour.Enabled = false;
 
+                if (StrDate.Date == EndDate.Date)//하루종일인데 날짜가 같을 경우 +1
+                {
+                    EndDate = EndDate.AddDays(1);
+                }
+            }
+            else
+            {
+                endMin.Enabled = true;
+                endHour.Enabled = true;
+                strMin.Enabled = true;
+                strHour.Enabled = true;
+            }
+        }
+        private void strHour_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(strHour.SelectedIndex == 24)
+            {
+                strHour.Text = "0";
+                StrDate = StrDate.AddDays(1);
+
+            }
+        } //일정 시간
+        private void endHour_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (endHour.SelectedIndex == 24)
+            {
+                EndDate = EndDate.AddDays(1);
+            }
+        }//일정 분
+
+        private void colorCom_SelectedIndexChanged(object sender, EventArgs e) // 색깔 콤보박스 선택시 색깔 나타내기 
+        {
+            int idx = colorCom.SelectedIndex;
+            label11.Text = "●";
+            // ColorCom = dbc.ColorDic.ElementAt(idx).Key;
+            label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
+
+        }
+
+        //사진
         private void FileSave(string filePath, DateTime dt)
         {
             // 입력받은 파일을 바이트 배열에 저장
@@ -307,8 +350,6 @@ namespace WindowsFormsApplication1
             db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
             db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
         }
-
-
         public bool PictureSave()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -349,101 +390,13 @@ namespace WindowsFormsApplication1
             }
             return false;
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) //이미지 지우기 버튼 
         {
-
-            if (EndHour == "" || StrHour == "")
-            {
-                MessageBox.Show("시간을 설정해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if(EndDate < StrDate ||( EndDate.Date == StrDate.Date && strHour.SelectedIndex > endHour.SelectedIndex))
-            {
-                MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (NameTxt == "")
-            {
-                MessageBox.Show("일정명을 등록하세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {//EndHour, EndMin
-                DateTime end_Date = EndDate;
-                TimeSpan endts = new TimeSpan(int.Parse(EndHour), int.Parse(EndMin), 0);
-                end_Date = end_Date.Date + endts;
-
-                DateTime str_Date = StrDate;
-                TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
-                str_Date = str_Date.Date + strts;
-
-                if(ColorCom == null)
-                {
-                    ColorCom = null;
-                }
-
-                if (db.GR_CD != null)// 그룹일때 
-                {
-
-                    if (scheduleCD == null)
-                    {
-                        dbs.Insert_Schedule(false, db.GR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
-                        MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        Clear_Controls();
-                    }
-                    else//SC_GR_FK
-                    {
-                        string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
-                        string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
-
-                        string sql = "update SCHEDULE_TB";
-                        sql += " set SC_NM = '" + NameTxt + "'";
-                        sql += ", SC_EX = '" + ExTxt + "'";
-                        sql += ", SC_PB_ST =  '" + StateCheck + "'";
-                        sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
-                        sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
-                        sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
-                        sql += ", SC_CR_FK =  '" + ColorCom + "'";
-                        sql += ", SC_GR_FK =  '" + db.GR_CD + "'";
-                        sql += " where SC_CD =  '" + ScheduleCD + "'";
-
-                        db.ExecuteNonQuery(sql);
-                        MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        Clear_Controls();
-                    }
-                }
-                else // 개인일때
-                {
-                    if (scheduleCD == null) // 등록
-                    {
-                        dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
-                        MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        Clear_Controls();
-                    }
-                    else //수정
-                    {
-                        string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
-                        string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
-
-                        string sql = "update SCHEDULE_TB";
-                        sql += " set SC_NM = '" + NameTxt + "'";
-                        sql += ", SC_EX = '" + ExTxt + "'";
-                        sql += ", SC_PB_ST =  '" + StateCheck + "'";
-                        sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
-                        sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
-                        sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
-                        sql += ", SC_CR_FK =  '" + ColorCom + "'";
-                        sql += ", SC_UR_FK =  '" + db.UR_CD + "'";
-                        sql += " where SC_CD =  '" + ScheduleCD + "'";
-
-                        db.ExecuteNonQuery(sql);
-                        MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        Clear_Controls();
-                    }
-                }
-            }
+            ImagePic = null;
+            imagePic.BorderStyle = BorderStyle.None;
 
         }
-
-        private void button4_Click(object sender, EventArgs e)//사진 등록하기 버튼 
+        private void button4_Click(object sender, EventArgs e)//이미지 등록하기 버튼 
         {
             check = PictureSave();
             if (check == true)
@@ -461,76 +414,164 @@ namespace WindowsFormsApplication1
             }
 
         }
-
-        private void colorCom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int idx = colorCom.SelectedIndex;
-            label11.Text = "●";
-           // ColorCom = dbc.ColorDic.ElementAt(idx).Key;
-            label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
-      
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e) // 일정 하루종일 
-        {
-            if (checkBox1.Checked == true)
-            {
-                endMin.Text = "00";
-                endMin.Enabled = false;
-                endHour.Text = "0";
-                endHour.Enabled = false;
-                strMin.Text = "00";
-                strMin.Enabled = false;
-                strHour.Text = "0";
-                strHour.Enabled = false;
-
-                if(StrDate.Date == EndDate.Date)//하루종일인데 날짜가 같을 경우 +1
-                {
-                    EndDate = EndDate.AddDays(1) ;
-                }
-            }
-            else
-            {
-                endMin.Enabled = true;
-                endHour.Enabled = true;
-                strMin.Enabled = true;
-                strHour.Enabled = true;
-            }
-        }
-
-        private void button5_Click(object sender, EventArgs e) // 이미지 지우기 버튼 
-        {
-            ImagePic = null;
-            imagePic.BorderStyle = BorderStyle.None;
-
-        }
-
-        private void button3_Click(object sender, EventArgs e) // 불러오기 버튼 
+        private void button3_Click(object sender, EventArgs e) //이미지 불러오기 버튼 
         {
             Picture pic = new Picture();
             pic.ShowDialog();
             pic_CD = pic.selectCD;
             ImagePic = pic.selectImage;
-           
+
+        }
+
+        private bool check_data() //시간 유효성 검사 
+        {
+            if (NameTxt == "")
+            {
+                MessageBox.Show("일정명을 등록하세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (EndHour == "" || StrHour == "")
+            {
+                MessageBox.Show("시간을 설정해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (EndDate < StrDate)
+            {
+                MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                if (EndDate == StrDate && Convert.ToInt32(EndHour) < Convert.ToInt32(StrHour))
+                {
+                   MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else
+                {
+                    if (Convert.ToInt32(EndHour) == Convert.ToInt32(StrHour) && Convert.ToInt32(EndMin) < Convert.ToInt32(StrMin))
+                    {
+                        MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        private void button1_Click(object sender, EventArgs e) // 확인버튼 일정(수정, 등록) 을 누르면 
+        {
+            if (check_data()) // 유효성 검사하는 함수에서 DB에 넣을 값을 검사 문제 없으면 
+            {
+                DateTime end_Date = EndDate;
+                TimeSpan endts = new TimeSpan(int.Parse(EndHour), int.Parse(EndMin), 0);
+                end_Date = end_Date.Date + endts;
+
+                DateTime str_Date = StrDate;
+                TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
+                str_Date = str_Date.Date + strts;
+
+                if (ColorCom == null)
+                {
+                    ColorCom = null;
+                }
+
+                if (db.GR_CD != null)// 그룹일때 
+                {
+
+                    if (scheduleCD == null)
+                    {
+                        dbs.Insert_Schedule(false, db.GR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
+                        MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+
+                    }
+                    else//SC_GR_FK
+                    {
+                        string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+                        string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 종료일시 스트링 포맷
+
+                        string sql = "update SCHEDULE_TB";
+                        sql += " set SC_NM = '" + NameTxt + "'";
+                        sql += ", SC_EX = '" + ExTxt + "'";
+                        sql += ", SC_PB_ST =  '" + StateCheck + "'";
+                        sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
+                        sql += ", SC_CR_FK =  '" + ColorCom + "'";
+                        sql += ", SC_GR_FK =  '" + db.GR_CD + "'";
+                        sql += " where SC_CD =  '" + ScheduleCD + "'";
+
+                        db.ExecuteNonQuery(sql);
+                        MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+
+                    }
+                }
+                else // 개인일때
+                {
+                    if (scheduleCD == null) // 등록
+                    {
+                        dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
+                        MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+
+                    }
+                    else //수정
+                    {
+                        string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
+                        string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 종료일시 스트링 포맷
+
+                        string sql = "update SCHEDULE_TB";
+                        sql += " set SC_NM = '" + NameTxt + "'";
+                        sql += ", SC_EX = '" + ExTxt + "'";
+                        sql += ", SC_PB_ST =  '" + StateCheck + "'";
+                        sql += ", SC_STR_DT = to_date('" + st_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ", SC_END_DT = to_date('" + end_day_str + "', 'yyyy/MM/dd hh24:mi')";
+                        sql += ",  SC_PIC_FK =  '" + pic_CD + "'";
+                        sql += ", SC_CR_FK =  '" + ColorCom + "'";
+                        sql += ", SC_UR_FK =  '" + db.UR_CD + "'";
+                        sql += " where SC_CD =  '" + ScheduleCD + "'";
+
+                        db.ExecuteNonQuery(sql);
+                        MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        Clear_Controls();
+
+                    }
+                }
+            }
+
         }
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
             if(ScheduleCD == null)
             {
-                MessageBox.Show(" 삭제할 일정이 없습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(" 삭제할 일정이 없습니다", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
-            dbs.Delete_Schedule(ScheduleCD);
-            MessageBox.Show(" 삭제 되었습니다 ", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            Clear_Controls();
+            else
+            {
+                dbs.Delete_Schedule(ScheduleCD);
+                MessageBox.Show(" 삭제 되었습니다 ", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                Clear_Controls();
+            }
+       
         }
 
+        //모서리 둥글게
         private void ModifySchedule_Paint(object sender, PaintEventArgs e)
         {
             System.IntPtr ptr = CreateRoundRectRgn(0, 0, this.Width, this.Height, 10, 10);
             this.Region = System.Drawing.Region.FromHrgn(ptr);
             DeleteObject(ptr);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

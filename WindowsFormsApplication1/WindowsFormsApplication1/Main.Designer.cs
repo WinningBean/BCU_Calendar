@@ -220,7 +220,7 @@
             this.사용자정보ToolStripMenuItem.Name = "사용자정보ToolStripMenuItem";
             this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.사용자정보ToolStripMenuItem.Text = "사용자 정보";
-            this.사용자정보ToolStripMenuItem.Click += new System.EventHandler(this.사용자정보ToolStripMenuItem_Click);
+
             // 
             // 로그아웃ToolStripMenuItem
             // 

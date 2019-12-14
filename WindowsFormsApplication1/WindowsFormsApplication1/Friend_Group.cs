@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class FriendGroup : Form
+    public partial class Friend_Group : Form
     {
 
 
@@ -22,11 +22,10 @@ namespace WindowsFormsApplication1
         string frgr_CD;
 
 
-        public FriendGroup()
+        public Friend_Group()
         {
             InitializeComponent();
             location = 0;
-            db.UR_CD = "U100000";
         }
 
         private void FriendGroup_Load(object sender, EventArgs e)

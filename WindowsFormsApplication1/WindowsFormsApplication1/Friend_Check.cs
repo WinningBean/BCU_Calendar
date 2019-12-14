@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class FriendCheck : Form
+    public partial class Friend_Check : Form
     {
-        public FriendCheck()
+        public Friend_Check()
         {
             InitializeComponent();
         }
@@ -48,18 +48,18 @@ namespace WindowsFormsApplication1
                 }
             }
             catch
-            {
+            {          
                 MessageBox.Show("끝", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-      
-        }
+       
+        }                                                         
 
-        private Panel Create_Control(int i, string name, string code, string pic)
+        private Panel Create_Control(int i, string name, string code, string pic)                                                     
         {        
             Panel boardPan = new Panel();
             boardPan.Size = new Size(180, 30);
             panel1.Controls.Add(boardPan);
-            boardPan.Location = new Point(2, y);
+            boardPan.Location = new Point(2, y);  
             y += 40;
           
             Button button2 = new Button();
@@ -136,13 +136,11 @@ namespace WindowsFormsApplication1
 
         private void FriendCheck_Load(object sender, EventArgs e)
         {
-            db.UR_CD = "U100003";
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
             panel1.AutoScroll = false;
             panel1.VerticalScroll.Visible = false;
             panel1.AutoScroll = true;
-
             Get_List();
         }
 

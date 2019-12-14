@@ -151,7 +151,7 @@
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Diary";
-            this.Text = "Diary";
+            this.Text = "        ";
             this.Load += new System.EventHandler(this.Diary_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

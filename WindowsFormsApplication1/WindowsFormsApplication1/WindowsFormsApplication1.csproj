@@ -69,11 +69,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddFriend.cs">
+    <Compile Include="Friend_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddFriend.Designer.cs">
-      <DependentUpon>AddFriend.cs</DependentUpon>
+    <Compile Include="Friend_Add.Designer.cs">
+      <DependentUpon>Friend_Add.cs</DependentUpon>
     </Compile>
     <Compile Include="Day.cs">
       <SubType>Form</SubType>
@@ -93,31 +93,31 @@
     <Compile Include="DiaryList.Designer.cs">
       <DependentUpon>DiaryList.cs</DependentUpon>
     </Compile>
-    <Compile Include="FriendCheck.cs">
+    <Compile Include="Friend_Check.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FriendCheck.Designer.cs">
-      <DependentUpon>FriendCheck.cs</DependentUpon>
+    <Compile Include="Friend_Check.Designer.cs">
+      <DependentUpon>Friend_Check.cs</DependentUpon>
     </Compile>
     <Compile Include="DBColor.cs" />
     <Compile Include="DBSchedule.cs" />
-    <Compile Include="FriendGroup.cs">
+    <Compile Include="Friend_Group.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FriendGroup.Designer.cs">
-      <DependentUpon>FriendGroup.cs</DependentUpon>
+    <Compile Include="Friend_Group.Designer.cs">
+      <DependentUpon>Friend_Group.cs</DependentUpon>
     </Compile>
-    <Compile Include="FriendModify.cs">
+    <Compile Include="Friend_Group_Modify.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FriendModify.Designer.cs">
-      <DependentUpon>FriendModify.cs</DependentUpon>
+    <Compile Include="Friend_Group_Modify.Designer.cs">
+      <DependentUpon>Friend_Group_Modify.cs</DependentUpon>
     </Compile>
-    <Compile Include="FriendSearch.cs">
+    <Compile Include="Friend_Modify.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FriendSearch.Designer.cs">
-      <DependentUpon>FriendSearch.cs</DependentUpon>
+    <Compile Include="Friend_Modify.Designer.cs">
+      <DependentUpon>Friend_Modify.cs</DependentUpon>
     </Compile>
     <Compile Include="Group.cs">
       <SubType>Form</SubType>
@@ -137,11 +137,11 @@
     <Compile Include="LeftTab.Designer.cs">
       <DependentUpon>LeftTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModifySchedule.cs">
+    <Compile Include="Schedule_Modify.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModifySchedule.Designer.cs">
-      <DependentUpon>ModifySchedule.cs</DependentUpon>
+    <Compile Include="Schedule_Modify.Designer.cs">
+      <DependentUpon>Schedule_Modify.cs</DependentUpon>
     </Compile>
     <Compile Include="Picture.cs">
       <SubType>Form</SubType>
@@ -212,8 +212,8 @@
     <Compile Include="Week_MoreInfo.Designer.cs">
       <DependentUpon>Week_MoreInfo.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddFriend.resx">
-      <DependentUpon>AddFriend.cs</DependentUpon>
+    <EmbeddedResource Include="Friend_Add.resx">
+      <DependentUpon>Friend_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Day.resx">
       <DependentUpon>Day.cs</DependentUpon>
@@ -224,8 +224,8 @@
     <EmbeddedResource Include="DiaryList.resx">
       <DependentUpon>DiaryList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FriendCheck.resx">
-      <DependentUpon>FriendCheck.cs</DependentUpon>
+    <EmbeddedResource Include="Friend_Check.resx">
+      <DependentUpon>Friend_Check.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Week.cs">
       <SubType>Component</SubType>
@@ -233,14 +233,14 @@
     <Compile Include="Week.Designer.cs">
       <DependentUpon>Week.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FriendGroup.resx">
-      <DependentUpon>FriendGroup.cs</DependentUpon>
+    <EmbeddedResource Include="Friend_Group.resx">
+      <DependentUpon>Friend_Group.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FriendModify.resx">
-      <DependentUpon>FriendModify.cs</DependentUpon>
+    <EmbeddedResource Include="Friend_Group_Modify.resx">
+      <DependentUpon>Friend_Group_Modify.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FriendSearch.resx">
-      <DependentUpon>FriendSearch.cs</DependentUpon>
+    <EmbeddedResource Include="Friend_Modify.resx">
+      <DependentUpon>Friend_Modify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Group.resx">
       <DependentUpon>Group.cs</DependentUpon>
@@ -251,8 +251,8 @@
     <EmbeddedResource Include="LeftTab.resx">
       <DependentUpon>LeftTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModifySchedule.resx">
-      <DependentUpon>ModifySchedule.cs</DependentUpon>
+    <EmbeddedResource Include="Schedule_Modify.resx">
+      <DependentUpon>Schedule_Modify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Picture.resx">
       <DependentUpon>Picture.cs</DependentUpon>

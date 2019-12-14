@@ -15,7 +15,7 @@ namespace WindowsFormsApplication1
     {
         DBConnection db = Program.DB;
         private string diaryCD = null;
-       DateTime nowDate;
+        DateTime nowDate;
 
         public Diary(DateTime nowDate)
         {

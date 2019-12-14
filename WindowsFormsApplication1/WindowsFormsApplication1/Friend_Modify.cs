@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class FriendModify : Form
+    public partial class Friend_Modify : Form
     {
         DataRow curr;
         DataTable friendGoup;
@@ -43,7 +43,7 @@ namespace WindowsFormsApplication1
                  
             }
         }
-        public FriendModify(DataRow dr,DataTable dt, Point point)
+        public Friend_Modify(DataRow dr,DataTable dt, Point point)
         {
             InitializeComponent();
             this.curr = dr;
@@ -131,6 +131,21 @@ namespace WindowsFormsApplication1
         private void friendGroupCom_SelectedIndexChanged(object sender, EventArgs e)
         {
            // FrGrCom = 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

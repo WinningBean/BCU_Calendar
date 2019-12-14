@@ -18,12 +18,21 @@ namespace WindowsFormsApplication1
         }
         DBConnection db = Program.DB;
         DataTable DiaryTB = null;
+        TextBox[] tb;
         int check = 1;
         int rowNum = 0;
         int location = 0;
+        DateTime date;
         private void DiaryList_Load(object sender, EventArgs e)
         {
+            panel1.HorizontalScroll.Maximum = 0;
+            panel1.VerticalScroll.Maximum = 0;
+            panel1.AutoScroll = false;
+            panel1.VerticalScroll.Visible = false;
+            panel1.AutoScroll = true;
+           
             Get_Diary();
+            tb = new TextBox[DiaryTB.Rows.Count];
             Create();
         }
         private void Get_Diary()
@@ -44,28 +53,29 @@ namespace WindowsFormsApplication1
                 int month = Convert.ToInt32(date.Substring(5, 2));
                 int day = Convert.ToInt32(date.Substring(8, 2));
                 DateTime currDate = new DateTime(year, month, day);
+                //date.value = currRow["DR_DT"].value;
 
                 Panel panel = new Panel();
                 panel1.Controls.Add(panel);
                 panel.Location = new Point(0, location);
-                panel.Size = new Size(260, 148);
+                panel.Size = new Size(255, 148);
 
                 Label lb = new Label();
                 panel.Controls.Add(lb);
-                lb.Text = currDate.ToString("yyyy년 MM월 dd일");
+                lb.Text = currDate.ToString("yyyy.MM.dd일");
                 lb.Location = new Point(5, 5);
                 lb.AutoSize = true;
                 lb.Size = new System.Drawing.Size(60, 20);
                 lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lb.Show();
 
-                TextBox textBox = new TextBox();
-                panel.Controls.Add(textBox);
-                textBox.Location = new Point(5, 35);
-                textBox.Size = new Size(240, 75);
-                textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                textBox.Text = currRow["DR_EX"].ToString();
-                textBox.Multiline = true;
+                tb[rowNum] = new TextBox();
+                panel.Controls.Add(tb[rowNum]);
+                tb[rowNum].Location = new Point(5, 35);
+                tb[rowNum].Size = new Size(240, 75);
+                tb[rowNum].Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                tb[rowNum].Text = currRow["DR_EX"].ToString();
+                tb[rowNum].Multiline = true;
 
 
                 Button bt = new Button();
@@ -74,9 +84,11 @@ namespace WindowsFormsApplication1
                 bt.Text = "수정";
                 bt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 bt.Location = new Point(150, 115);
-                bt.Tag = currRow["DR_DT"];
+                bt.Tag = currRow;
                 bt.Name = currRow["DR_PB_ST"].ToString();
+                bt.TabIndex = rowNum;                                                   
                 bt.FlatStyle = FlatStyle.Flat;
+                bt.Click += new System.EventHandler(update);
 
                 Button btn = new Button();
                 panel.Controls.Add(btn);
@@ -87,17 +99,33 @@ namespace WindowsFormsApplication1
                 btn.Tag = currRow["DR_DT"];
                 btn.Name = currRow["DR_PB_ST"].ToString();
                 btn.FlatStyle = FlatStyle.Flat;
+                btn.Click += new System.EventHandler(delete);
 
 
 
                 location += 140; // 라벨 y값 + y 10 띄우기 해서 34
             }
         }
-        private void delete()
+        private void delete(object sender, EventArgs e)
         {
 
         }
-    
+        private void update(object sender, EventArgs e)                                                            
+        {
+
+            //Button bt = (Button)sender;
+         
+            //DataRow date = (DataRow)bt.Tag;
+            //int i = bt.TabIndex;
+            //string str = tb[i].Text;
+            //string sql = "update DIARY_TB set DR_EX = '" + str + "' where DR_DT = '" + date + "' and DR_PB_ST = '" + check + "'";
+            //db.ExecuteNonQuery(sql);
+                                                                                                                                   
+            //MessageBox.Show("수정이 완료 되었습니다", "완료", MessageBoxButtons.OK);
+        }
+
+
+
         private void label3_Click(object sender, EventArgs e)
         {
             this.Close();
