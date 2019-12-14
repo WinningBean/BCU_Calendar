@@ -12,6 +12,20 @@ namespace WindowsFormsApplication1
 {
     public partial class Friend_Group_Modify : Form
     {
+
+        #region 폼 그림자 생성
+        private const int CS_DROPSHADOW = 0x00020000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+        #endregion
+
         DBConnection db = Program.DB;
         string CD;
         public Friend_Group_Modify(string CD)
@@ -22,7 +36,7 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string sql = "update FRIEND_GROUP_TB set FRGR_NM = '" + textBox1.Text + "'";
+            string sql = "update FRIEND_GROUP_TB set FRGR_NM = '" + textBox1.Text + "' where FRGR_CD = '" + CD + "'";
             db.ExecuteNonQuery(sql);
         }
 
@@ -30,7 +44,7 @@ namespace WindowsFormsApplication1
         {
             if (MessageBox.Show("그룹이 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                string sql = "delete from FRIEND_GROUP_TB where SC_CD = '" + CD + "'";
+                string sql = "delete from FRIEND_GROUP_TB where FRGR_CD = '" + CD + "'";
                 db.ExecuteNonQuery(sql);
                 this.Close();
             }
@@ -58,7 +72,7 @@ namespace WindowsFormsApplication1
                     i++;
                 }
             }
-            label1.Text = i + "명";
+            label2.Text = i + "명";
 
         }
 

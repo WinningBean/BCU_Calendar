@@ -46,7 +46,6 @@
             this.label1.Size = new System.Drawing.Size(40, 24);
             this.label1.TabIndex = 2;
             this.label1.Text = "이름";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // nameLabel
             // 
@@ -56,7 +55,6 @@
             this.nameLabel.Size = new System.Drawing.Size(46, 18);
             this.nameLabel.TabIndex = 3;
             this.nameLabel.Text = "label2";
-            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
             // 
             // label3
             // 
@@ -67,7 +65,6 @@
             this.label3.Size = new System.Drawing.Size(40, 24);
             this.label3.TabIndex = 4;
             this.label3.Text = "그룹";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button5
             // 

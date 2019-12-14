@@ -79,8 +79,8 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             string date = NowDate.ToString("yyyy/MM/dd 00:00");
- 
             string sql;
+
             try
             {
                 sql = "insert into DIARY_TB values('" + textBox1.Text + "' , to_date('" + date + "', 'yyyy/MM/dd hh24:mi'),'" + db.UR_CD + "', '" + StateCheck + "')";
