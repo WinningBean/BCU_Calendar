@@ -306,6 +306,7 @@ namespace WindowsFormsApplication1
 
             DateTime days = weekSunday.AddDays(x);
             Day d = new Day();
+            d.FOCUS_DT = days;
             d.ShowDialog();
             if (m_focus_dt != d.Get_focus_dt())
             {
@@ -539,7 +540,7 @@ namespace WindowsFormsApplication1
 
             if (db.FR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
                 dt = dbs.Get_Week_Schedule(true, db.FR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);
-            if (db.GR_CD != null) // 그룹이라면 그룹스케줄 표시
+            else if (db.GR_CD != null) // 그룹이라면 그룹스케줄 표시
                 dt = dbs.Get_Week_Schedule(false, db.GR_CD, weekSunday.AddDays(startWeek), turm, 1);
             else
                 dt = dbs.Get_Week_Schedule(true, db.UR_CD, weekSunday.AddDays(startWeek), turm, db.IS_PB);

@@ -709,6 +709,7 @@ namespace WindowsFormsApplication1
                 UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
                 UserProfile_prof.USERNAME.Text = ui.ur_name;
             }
+        }
         private void 그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Group_Modify grpAdd = new Group_Modify();

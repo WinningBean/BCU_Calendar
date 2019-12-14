@@ -20,7 +20,7 @@ namespace WindowsFormsApplication1
         DataRow dr = null;
         string ur_cd;
         public string ur_name;
-        bool isDefault;
+        bool isDefault = true;
         Image imgs;
 
         #region 폼 그림자 생성
