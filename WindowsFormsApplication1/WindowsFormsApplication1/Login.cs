@@ -235,6 +235,10 @@ namespace WindowsFormsApplication1
             }
         }
 
+        private void Login_Load(object sender, EventArgs e)
+        {
+            this.Focus();
+        }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
