@@ -218,16 +218,16 @@
             this.사용자정보ToolStripMenuItem.BackColor = System.Drawing.Color.Black;
             this.사용자정보ToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
             this.사용자정보ToolStripMenuItem.Name = "사용자정보ToolStripMenuItem";
-            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.사용자정보ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.사용자정보ToolStripMenuItem.Text = "사용자 정보";
-
+            this.사용자정보ToolStripMenuItem.Click += new System.EventHandler(this.사용자정보ToolStripMenuItem_Click);
             // 
             // 로그아웃ToolStripMenuItem
             // 
             this.로그아웃ToolStripMenuItem.BackColor = System.Drawing.Color.Black;
             this.로그아웃ToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
             this.로그아웃ToolStripMenuItem.Name = "로그아웃ToolStripMenuItem";
-            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.로그아웃ToolStripMenuItem.Text = "로그아웃";
             this.로그아웃ToolStripMenuItem.Click += new System.EventHandler(this.로그아웃ToolStripMenuItem_Click);
             // 
@@ -358,14 +358,14 @@
             this.일기쓰기ToolStripMenuItem.BackColor = System.Drawing.Color.Black;
             this.일기쓰기ToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
             this.일기쓰기ToolStripMenuItem.Name = "일기쓰기ToolStripMenuItem";
-            this.일기쓰기ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.일기쓰기ToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.일기쓰기ToolStripMenuItem.Text = "일기쓰기";
             this.일기쓰기ToolStripMenuItem.Click += new System.EventHandler(this.일기쓰기ToolStripMenuItem_Click);
             // 
             // 일기리스트ToolStripMenuItem
             // 
             this.일기리스트ToolStripMenuItem.Name = "일기리스트ToolStripMenuItem";
-            this.일기리스트ToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
+            this.일기리스트ToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.일기리스트ToolStripMenuItem.Text = "일기 리스트";
             this.일기리스트ToolStripMenuItem.Click += new System.EventHandler(this.일기리스트ToolStripMenuItem_Click);
             // 
@@ -383,7 +383,7 @@
             this.사진추가ToolStripMenuItem.BackColor = System.Drawing.Color.Black;
             this.사진추가ToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
             this.사진추가ToolStripMenuItem.Name = "사진추가ToolStripMenuItem";
-            this.사진추가ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.사진추가ToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.사진추가ToolStripMenuItem.Text = "사진 추가";
             this.사진추가ToolStripMenuItem.Click += new System.EventHandler(this.사진추가ToolStripMenuItem_Click);
             // 

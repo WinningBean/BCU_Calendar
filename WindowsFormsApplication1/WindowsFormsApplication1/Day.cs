@@ -65,9 +65,9 @@ namespace WindowsFormsApplication1
         }
  
         
-        private void Get_chedule()
+        private void Get_chedule() // 하루 일정 기져오기
         {
-            if(db.GR_CD == null)
+            if(db.GR_CD == null) // 그룹이아니면(개인 일정이면)
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
@@ -78,7 +78,7 @@ namespace WindowsFormsApplication1
                     Create_Day(currRow, i);
                 }
             }
-            else
+            else//그룹일정
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
@@ -90,9 +90,6 @@ namespace WindowsFormsApplication1
                 }
             }
           
-            // dt.Clear();
-            //그룹이라면 
-            //GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.UR_CD, nowDate, db.IS_PB);
         }
 
         private void Check(Panel curr, Label name, Label color) // 일정 위치 검사 겹치면 내림 !! 
@@ -144,7 +141,7 @@ namespace WindowsFormsApplication1
 
             int scheduleTimeSize;
 
-            if (endSC.Hour == 0 )
+            if (endSC.Hour == 0 ) // 끝나는 시간이 오전0시 -> 24시
             {
                 scheduleTimeSize = (24 * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
             }

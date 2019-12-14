@@ -19,7 +19,9 @@ namespace WindowsFormsApplication1
         DBConnection db = Program.DB;
         DataRow dr = null;
         string ur_cd;
+        public string ur_name;
         bool isDefault;
+        Image imgs;
 
         #region 폼 그림자 생성
         private const int CS_DROPSHADOW = 0x00020000;
@@ -59,11 +61,13 @@ namespace WindowsFormsApplication1
                 MemoryStream stmBlobData = new MemoryStream(b);
                 Image img = Image.FromStream(stmBlobData);
                 profile1.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
+                imgs = img;
                 isDefault = false;
             }
             else
             {
                 isDefault = true;
+                imgs = null;
             }
         }
 
@@ -107,7 +111,7 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("동일한 아이디가 이미 존재합니다", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (isDefault)
+                if (isDefault || imgs == null)
                 {
                     db.ExecuteNonQuery("UPDATE USER_TB SET UR_PIC = null, UR_ID = '" + m_ID_tb.Text + "', UR_PW = '" + m_PW_tb.Text + "' WHERE UR_CD = '" + ur_cd.ToString() + "'");
                 }
@@ -127,7 +131,7 @@ namespace WindowsFormsApplication1
                     db.Command.CommandType = CommandType.Text;
                     db.Command.Parameters.Add(op); // 커맨드에 이 파라미터를 추가시켜서 db에 보낼때 같이 보낼수있게 함
 
-                    db.ExecuteNonQuery("UPDATE USER_TB SET UR_PIC = :BINARYFILE, UR_ID = '" + m_ID_tb.Text + "', UR_PW = '" + m_PW_tb.Text + "' WHERE UR_CD = '" + ur_cd.ToString() + "'");
+                    db.ExecuteNonQuery("UPDATE USER_TB SET UR_NM = '"+m_Name_tb.Text+"', UR_PIC = :BINARYFILE, UR_ID = '" + m_ID_tb.Text + "', UR_PW = '" + m_PW_tb.Text + "' WHERE UR_CD = '" + ur_cd.ToString() + "'");
                     db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
                     MessageBox.Show("수정 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
@@ -139,7 +143,7 @@ namespace WindowsFormsApplication1
 
         private void OnMouseClick(object sender, MouseEventArgs e)
         {
-            UserInfo_Picture up = new UserInfo_Picture(profile1.USERPIC.Image);
+            UserInfo_Picture up = new UserInfo_Picture(profile1.USERPIC.Image, imgs == null ? false : true);
             if (up.ShowDialog() == DialogResult.OK)
             {
                 //db.AdapterOpen("select * from USER_TB where UR_CD = '" + db.UR_CD + "'");
@@ -156,15 +160,17 @@ namespace WindowsFormsApplication1
                 //Image img = Image.FromStream(stmBlobData);
                 //profile1.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
                 //this.DialogResult = DialogResult.OK;
-                if (up.img == null)
+                if (!up.isImg)
                 {
                     profile1.USERPIC.Image = up.defaultImage;
                     isDefault = true;
+                    imgs = null;
                 }
                 else
                 {
                     profile1.USERPIC.Image = up.img;
                     isDefault = false;
+                    imgs = up.img;
                 }
             }
             //if(DialogResult.Yes == MessageBox.Show("사진을 수정하시겠습니까?", "수정", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk));
@@ -184,6 +190,11 @@ namespace WindowsFormsApplication1
         private void label5_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void UserInfo_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ur_name = m_Name_tb.Text;
         }
     }
 }

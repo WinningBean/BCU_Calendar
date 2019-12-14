@@ -31,19 +31,25 @@ namespace WindowsFormsApplication1
         DBConnection db = Program.DB;
         public Image defaultImage;
         public Image img;
-        public UserInfo_Picture(Image img)
+        public bool isImg;
+
+        public UserInfo_Picture(Image img, bool isImg)
         {
             InitializeComponent();
             defaultImage = pictureBox1.Image;
-            if (img != null)
+            if (isImg)
+            {
                 pictureBox1.Image = img;
-            this.img = img;
+                this.img = img;
+            }else
+                img = null;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             img = null;
             pictureBox1.Image = defaultImage;
+            isImg = false;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -54,12 +60,14 @@ namespace WindowsFormsApplication1
             Image selectImage = pic.selectImage;
             pictureBox1.Image = selectImage;
             img = pictureBox1.Image;
+            isImg = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             PictureSave();
             img = pictureBox1.Image;
+            isImg = true;
         }
 
         public void PictureSave()
@@ -96,7 +104,7 @@ namespace WindowsFormsApplication1
                     Image img = Image.FromStream(stmBlobData);
                     pictureBox1.Image = img;
                     MessageBox.Show("사진이 등록되었습니다", "사진등록", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-
+                    isImg = true;
                 }
                 catch (Exception e)
                 {
