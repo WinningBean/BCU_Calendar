@@ -567,6 +567,7 @@ namespace WindowsFormsApplication1
             setLeftFriendPanel();
             LeftTabForm_btn.Visible = true;
             db.GR_CD = null;
+            mnt.SET_MONTH();
         }
 
         private void LeftTabForm_btn_Click(object sender, EventArgs e)
@@ -575,6 +576,7 @@ namespace WindowsFormsApplication1
             setLeftBasicPanel();
             FreindForm_btn.Visible = true;
             db.FR_CD = null;
+            mnt.SET_MONTH();
         }
 
         private void 오늘일정보기ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -680,6 +682,12 @@ namespace WindowsFormsApplication1
             Friend_Group friendGroup = new Friend_Group();
             friendGroup.ShowDialog();
 
+        }
+
+        private void 그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Group_Modify grpAdd = new Group_Modify();
+            grpAdd.ShowDialog();
         }
     }
 }
