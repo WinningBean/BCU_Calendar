@@ -212,6 +212,12 @@
     <Compile Include="UserInfo.Designer.cs">
       <DependentUpon>UserInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="User_Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User_Search.Designer.cs">
+      <DependentUpon>User_Search.cs</DependentUpon>
+    </Compile>
     <Compile Include="Week_MoreInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInfo.resx">
       <DependentUpon>UserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Search.resx">
+      <DependentUpon>User_Search.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Week.resx">
       <DependentUpon>Week.cs</DependentUpon>
