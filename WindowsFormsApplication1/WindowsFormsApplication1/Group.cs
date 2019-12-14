@@ -62,7 +62,11 @@ namespace WindowsFormsApplication1
                 if (!(db.Reader["GR_EX"].Equals(System.DBNull.Value))) GR_ex_lbl.Text = db.Reader["GR_EX"].ToString();
                 else GR_ex_lbl.Text = bs_grEX;
 
-                if (db.Reader["UR_CD"].ToString() == db.UR_CD) Modi_GR_btn.Visible = true;
+                if (db.Reader["UR_CD"].ToString() == db.UR_CD)
+                {
+                    Modi_GR_btn.Visible = true;
+                    Modi_MB_btn.Visible = true;
+                }
                 MasterProfile_prof.USERNAME.Text = db.Reader["UR_NM"].ToString();
                 // UR_PIC 값이 null이 아니라면 사진을 가져와 주세요
                 if (!(db.Reader["UR_PIC"].Equals(System.DBNull.Value))) MasterProfile_prof.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(4));
@@ -77,7 +81,8 @@ namespace WindowsFormsApplication1
             sql = "select UR_CD, UR_NM, UR_PIC from USER_TB";
             sql += " where UR_CD in ";
             sql += "(select GRMB_MBR_UR_FK from GROUP_MEMBER_TB";
-            sql += " where GRMB_FK = '" + db.GR_CD + "')";
+            sql += " where GRMB_FK = '" + db.GR_CD + "'";
+            sql += " and GRMB_ACEP_ST = 1)";
             sql += " order by UR_NM ASC";
             db.ExecuteReader(sql);
             
@@ -109,10 +114,12 @@ namespace WindowsFormsApplication1
             Set_GroupMem();
         }
 
-        private void Add_MB_btn_Click(object sender, EventArgs e)
+        private void Modi_MB_btn_Click(object sender, EventArgs e)
         {
-            AddFriend addMem_frm = new AddFriend();
-            addMem_frm.ShowDialog();
+            GroupMember_Modify grpMemModi = new GroupMember_Modify();
+            grpMemModi.ShowDialog();
+            Set_Groupbs();
+            Set_GroupMem();
         }
     }
 }

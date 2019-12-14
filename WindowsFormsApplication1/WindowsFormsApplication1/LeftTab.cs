@@ -21,17 +21,6 @@ namespace WindowsFormsApplication1
         public LeftTab()
         {
             InitializeComponent();
-
-            bsGR_pan.VerticalScroll.Minimum = 0;
-            bsGR_pan.VerticalScroll.Maximum = 0;
-            bsGR_pan.VerticalScroll.Visible = true;
-            bsGR_pan.HorizontalScroll.Minimum = 0;
-            bsGR_pan.HorizontalScroll.Maximum = 0;
-            bsGR_pan.HorizontalScroll.Visible = false;
-            bsGR_pan.AutoSize = false;
-            bsGR_pan.AutoScroll = true;
-
-            bsGroup_lstbox.AutoScrollOffset = bsGR_pan.AutoScrollOffset;
         }
 
         public List<string> GROUP_CD_lst
@@ -59,9 +48,7 @@ namespace WindowsFormsApplication1
         {
             Group_Modify grpAdd = new Group_Modify();
             grpAdd.ShowDialog();
-            bsGroup_lstbox.Items.Clear();
-            bsGroup_lstbox.Height = 0;
-            Set_MstGroupList();
+            reset();
         }
 
         int MstGr_cnt = 0;
@@ -106,12 +93,28 @@ namespace WindowsFormsApplication1
             db.Reader.Close();
         }
 
-        private void LeftTab_Load(object sender, EventArgs e)
-        {
+        public void reset() {
+            bsGR_pan.VerticalScroll.Minimum = 0;
+            bsGR_pan.VerticalScroll.Maximum = 0;
+            bsGR_pan.VerticalScroll.Visible = true;
+            bsGR_pan.HorizontalScroll.Minimum = 0;
+            bsGR_pan.HorizontalScroll.Maximum = 0;
+            bsGR_pan.HorizontalScroll.Visible = false;
+            bsGR_pan.AutoSize = false;
+            bsGR_pan.AutoScroll = true;
+
+            //bsGroup_lstbox.AutoScrollOffset = bsGR_pan.AutoScrollOffset;
+
+            bsGroup_lstbox.Items.Clear();
             bsGroup_lstbox.Height = 0;
             schGroup_lstbox.Height = 0;
             Set_MstGroupList();
             bsGroup_lstbox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.mylst_MouseWheel);
+        }
+
+        private void LeftTab_Load(object sender, EventArgs e)
+        {
+            reset();
         }
         
         private void mylst_MouseWheel(object sender, MouseEventArgs e)

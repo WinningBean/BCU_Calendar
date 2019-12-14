@@ -150,7 +150,6 @@ namespace WindowsFormsApplication1
 
         private void FriendCheck_Load(object sender, EventArgs e)
         {
-            db.UR_CD = "U100003";
             panel1.HorizontalScroll.Maximum = 0;
             panel1.VerticalScroll.Maximum = 0;
             panel1.AutoScroll = false;
