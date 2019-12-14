@@ -67,11 +67,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft New Tai Lue", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(10, 29);
+            this.label4.Location = new System.Drawing.Point(84, 14);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 19);
+            this.label4.Size = new System.Drawing.Size(35, 19);
             this.label4.TabIndex = 2;
-            this.label4.Text = "ADD";
+            this.label4.Text = "추가";
             this.label4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.label4_MouseClick);
             // 
             // m_Small_btn
@@ -80,7 +80,7 @@
             this.m_Small_btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.m_Small_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Small_btn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.m_Small_btn.Location = new System.Drawing.Point(190, 26);
+            this.m_Small_btn.Location = new System.Drawing.Point(190, 29);
             this.m_Small_btn.Name = "m_Small_btn";
             this.m_Small_btn.Size = new System.Drawing.Size(57, 20);
             this.m_Small_btn.TabIndex = 1;
@@ -94,7 +94,7 @@
             this.m_Zoom_btn.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.m_Zoom_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Zoom_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.m_Zoom_btn.Location = new System.Drawing.Point(190, 2);
+            this.m_Zoom_btn.Location = new System.Drawing.Point(190, 5);
             this.m_Zoom_btn.Name = "m_Zoom_btn";
             this.m_Zoom_btn.Size = new System.Drawing.Size(57, 20);
             this.m_Zoom_btn.TabIndex = 0;
@@ -105,10 +105,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 3);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 24);
+            this.label1.Size = new System.Drawing.Size(79, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Picture";
             // 
