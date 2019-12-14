@@ -38,7 +38,7 @@
             // 
             this.panel1.Location = new System.Drawing.Point(0, 82);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(283, 567);
+            this.panel1.Size = new System.Drawing.Size(283, 608);
             this.panel1.TabIndex = 2;
             // 
             // private_btn
@@ -85,7 +85,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(282, 646);
+            this.ClientSize = new System.Drawing.Size(282, 689);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.private_btn);
             this.Controls.Add(this.public_btn);
