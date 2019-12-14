@@ -317,8 +317,8 @@ namespace WindowsFormsApplication1
             mnt.FOCUS_DT = m_focus_dt;
 
             MainCenter_pan.Controls.Add(mnt);
-            mnt.Show();
             mnt.SET_MONTH();
+            mnt.Show();
         }
 
         // ---------- Week ----------

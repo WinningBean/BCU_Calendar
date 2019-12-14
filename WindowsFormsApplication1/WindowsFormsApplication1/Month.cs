@@ -179,7 +179,7 @@ namespace WindowsFormsApplication1
                 }
             }
 
-            if (db.FR_CD == null && grp_modi_possible)
+            if (db.FR_CD == null || grp_modi_possible)
             {
                 Schedule_Modify modiSche = new Schedule_Modify(((Label)sender).Tag.ToString()); // 일정 수정 폼 띄우기
                 int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
@@ -350,7 +350,7 @@ namespace WindowsFormsApplication1
 
             int bs_sc = 0;
             int lastY = 0;
-            List<int> nowSc_Y_lst = new List<int>(); // 현재 X좌표 레이블
+            List<int> nowSc_Y_lst = new List<int>(); // 현재 Y좌표 레이블
             
             for (int i = 0; i < WeekPanel.Controls.Count; i++)
             {
@@ -369,6 +369,7 @@ namespace WindowsFormsApplication1
                     if (i != nowSc_Y_lst[lst_cnt]) bs_lo.Add(i);
                     else lst_cnt++;
                 }
+                if (lst_cnt == 1 && nowSc_Y_lst[0] == 0 && bs_lo.Count == 0) bs_lo.Add(25);
             }
             // 일정 추가
             Set_Schedule(NowDay, WeekPanel, bs_lo, now_loX, bs_sc);
@@ -407,11 +408,10 @@ namespace WindowsFormsApplication1
                     sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
                 }
             }
-
-
+            
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
-            int lo_y = -25; // 이어이는 일정 뒤의 로케이션
+            int lo_y = -25; // 이어지는 일정 뒤의 로케이션
 
             System.Windows.Forms.Label label;
             for (int i = 0; i < rows.Length; i++)
@@ -567,6 +567,11 @@ namespace WindowsFormsApplication1
             modiSche.Location = new Point(f_loX, f_loY);
             modiSche.ShowDialog();
 
+            Set_Month_Today();
+        }
+
+        private void Month_Load(object sender, EventArgs e)
+        {
             Set_Month_Today();
         }
     }
