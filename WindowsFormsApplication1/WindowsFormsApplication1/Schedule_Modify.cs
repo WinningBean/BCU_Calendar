@@ -28,6 +28,22 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
+        #region 모서리 둥글게
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern System.IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect
+        , int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+        private static extern bool DeleteObject(System.IntPtr hObject);
+
+        private void ModifySchedule_Paint(object sender, PaintEventArgs e)
+        {
+            System.IntPtr ptr = CreateRoundRectRgn(0, 0, this.Width, this.Height, 10, 10);
+            this.Region = System.Drawing.Region.FromHrgn(ptr);
+            DeleteObject(ptr);
+        }
+         #endregion
+
         DataRow curr = null;
         string Code = null;
 
@@ -49,14 +65,6 @@ namespace WindowsFormsApplication1
         string pic_CD=null;
         bool check = false;
         private string scheduleCD = null;
-
-        //테두리 둥글게
-        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern System.IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect
-        , int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-        [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
-        private static extern bool DeleteObject(System.IntPtr hObject);
-
 
        //프로퍼티
         public string ScheduleCD
@@ -150,9 +158,10 @@ namespace WindowsFormsApplication1
                 return null;
                 return dbc.GetColorCode(colorCom.Text);
             }
-            set { colorCom.Text = "";
+            set
+            {
+                colorCom.Text = "";
                 colorCom.Text = value;
-
             }
         }
 
@@ -212,6 +221,11 @@ namespace WindowsFormsApplication1
             if (Code != null) // 일정 코드가 null아니면 데이터 불러오기
             {
                 set_Data();
+            }
+            else// 널이면 삭제버튼 안보이게
+            {
+                deleteBtn.Enabled = false;
+                deleteBtn.Visible = false;
             }
 
         }
@@ -574,14 +588,6 @@ namespace WindowsFormsApplication1
                 Clear_Controls();
             }
        
-        }
-
-        //모서리 둥글게
-        private void ModifySchedule_Paint(object sender, PaintEventArgs e)
-        {
-            System.IntPtr ptr = CreateRoundRectRgn(0, 0, this.Width, this.Height, 10, 10);
-            this.Region = System.Drawing.Region.FromHrgn(ptr);
-            DeleteObject(ptr);
         }
 
         private void button2_Click(object sender, EventArgs e)

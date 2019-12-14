@@ -147,19 +147,8 @@ namespace WindowsFormsApplication1
            // FrGrCom = 
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void nameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
 
         }
     }
-}
+
+
