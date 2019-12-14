@@ -153,7 +153,7 @@ namespace WindowsFormsApplication1
             if (cr_fk == null) { sql += "null, "; } // 컬러코드
             else { sql += "'" + cr_fk + "', "; }
             if (is_UR == true){sql += "'" + m_URorGR_CD + "', null)";} // 회원일시
-            else {sql += "null, '" + m_URorGR_CD + "')";} // 그룹일시
+            else {sql += "'" + db.UR_CD + "', '" + m_URorGR_CD + "')";} // 그룹일시
 
             db.ExecuteNonQuery(sql);
         }

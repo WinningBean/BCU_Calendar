@@ -158,7 +158,28 @@ namespace WindowsFormsApplication1
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
 
-            if (db.FR_CD == null && db.GR_CD == null)
+            bool grp_modi_possible = false;
+
+            if (db.GR_CD != null)
+            {
+                string sql = "select UR_CD from USER_TB where UR_CD = (";
+                sql += "select SC_UR_FK from SCHEDULE_TB";
+                sql += " where SC_CD = '" + ((Label)sender).Tag.ToString() + "'";
+                sql += ") or UR_CD = (";
+                sql += "select GR_MST_UR_FK from GROUP_TB";
+                sql += " where GR_CD = '" + db.GR_CD + "')";
+                db.ExecuteReader(sql);
+                while (db.Reader.Read())
+                {
+                    if (db.UR_CD == db.Reader.GetString(0))
+                    {
+                        grp_modi_possible = true;
+                        break;
+                    }
+                }
+            }
+
+            if (db.FR_CD == null && grp_modi_possible)
             {
                 Schedule_Modify modiSche = new Schedule_Modify(((Label)sender).Tag.ToString()); // 일정 수정 폼 띄우기
                 int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;

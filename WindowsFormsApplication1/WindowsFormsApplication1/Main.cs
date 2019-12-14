@@ -727,6 +727,7 @@ namespace WindowsFormsApplication1
                 Image img = Image.FromStream(stmBlobData);
                 UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
                 UserProfile_prof.USERNAME.Text = ui.ur_name;
+                Set_UserProfile();
             }
         }
 
