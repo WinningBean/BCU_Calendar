@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
         private void Set_UserSearch() {
             sql = "select UR_CD, UR_ID, UR_NM from USER_TB";
             sql += " where (UR_ID like '%" + SearchUR_txt.Text + "%'";
-            sql += " or UR_NM like '%" + SearchUR_txt + "%')";
+            sql += " or UR_NM like '%" + SearchUR_txt.Text + "%')";
             sql += " and UR_CD not in (";
             sql += "select GRMB_MBR_UR_FK from GROUP_MEMBER_TB";
             sql += " where GRMB_FK = '" + db.GR_CD + "')";

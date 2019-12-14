@@ -28,21 +28,11 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
-        #region 모서리 둥글게
+        #region 둥근 모서리
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern System.IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect
-        , int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
-        [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
-        private static extern bool DeleteObject(System.IntPtr hObject);
-
-        private void ModifySchedule_Paint(object sender, PaintEventArgs e)
-        {
-            System.IntPtr ptr = CreateRoundRectRgn(0, 0, this.Width, this.Height, 10, 10);
-            this.Region = System.Drawing.Region.FromHrgn(ptr);
-            DeleteObject(ptr);
-        }
-         #endregion
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect,
+          int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+        #endregion
 
         DataRow curr = null;
         string Code = null;
@@ -168,6 +158,8 @@ namespace WindowsFormsApplication1
 
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
+
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
             dbs = new DBSchedule();
             dbc = new DBColor();
 
