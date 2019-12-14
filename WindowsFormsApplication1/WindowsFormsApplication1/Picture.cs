@@ -119,10 +119,12 @@ namespace WindowsFormsApplication1
             string currSeq = null;
             if (db.Reader.Read())
                 currSeq = db.Reader.GetString(0);
-            if(db.GR_CD != null)
+
+            int pbSc = MessageBox.Show("사진을 공개하시겠습니까?", "사진공개", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) == DialogResult.OK ? 1 : 0;
+            if (db.GR_CD != null)
                 db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , null, '"+db.GR_CD+"', :BINARYFILE)");
             else
-                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '"+ pbSc + "', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
             db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
         }
 
@@ -226,7 +228,7 @@ namespace WindowsFormsApplication1
                         preDate = currDate;
                         Label lb = new Label();
                         insidePan.Controls.Add(lb);
-                        lb.Text = preDate.ToString("yyyy년 MM월 dd일");
+                        lb.Text = preDate.ToString("yyyy.MM.dd");
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
@@ -275,7 +277,7 @@ namespace WindowsFormsApplication1
                         preDate = currDate;
                         Label lb = new Label();
                         insidePan.Controls.Add(lb);
-                        lb.Text = preDate.ToString("yyyy년 MM월 dd일");
+                        lb.Text = preDate.ToString("yyyy.MM.dd");
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
@@ -379,15 +381,13 @@ namespace WindowsFormsApplication1
 
             int panLocaX = widthPanList[level].Location.X;
             int panLocaY = widthPanList[level].Location.Y;
-            if (panLocaX * -1 < (widthPanList[level].Width - 350))
+            if (panLocaX * -1 < (widthPanList[level].Width - 275))
             {
                 widthPanList[level].Location = new Point(panLocaX - 50, panLocaY);
                 labelList[level][0].Visible = true;
             }
             else
                 labelList[level][1].Visible = false;
-            label5.Text = (widthPanList[level].Right * -1).ToString();
-            label6.Text = panLocaX.ToString();
         }
 
         private int CreateSmallPicure(ref Panel widthPan, int location, ref int width, Image img)
@@ -397,9 +397,9 @@ namespace WindowsFormsApplication1
             pb.Click += new System.EventHandler(OnPicClick);
 
             // 사진 비율 조정 : made by seungbeen
-            float percent = (float)img.Height / 75;
+            float percent = (float)img.Height / 90;
             int imgWidth = (int)((float)img.Width / percent);
-            pb.Size = new Size(imgWidth, 75);
+            pb.Size = new Size(imgWidth, 90);
             pb.Location = new Point(width, 0);
             width += imgWidth + 10;
             pb.SizeMode = PictureBoxSizeMode.Zoom;
@@ -419,11 +419,11 @@ namespace WindowsFormsApplication1
             insidePan.Controls.Add(pb); // 페널 안에 넣는다
 
             // 사진 비율 조정 : made by seungbeen
-            float percent = (float)img.Width / 245;
+            float percent = (float)img.Width / 260;
             int imgHeight = (int)((float)img.Height / percent);
 
-            pb.Size = new Size(245, imgHeight);
-            pb.Location = new Point(0, location);
+            pb.Size = new Size(260, imgHeight);
+            pb.Location = new Point(10, location);
             pb.SizeMode = PictureBoxSizeMode.Zoom;
             pb.Name = drList[(drList.Count - 1)][0].ToString(); // 사진코드도 넣어줌
             //pb.BorderStyle = BorderStyle.FixedSingle;
@@ -449,17 +449,18 @@ namespace WindowsFormsApplication1
                 db.Adapter.Fill(ds, "PICTURE_TB");
                 Picture_Modify pm = new Picture_Modify(ds.Tables["PICTURE_TB"].Rows[0], ((PictureBox)sender).Image);
                 DialogResult dr = pm.ShowDialog();
-                if (dr == DialogResult.No) // 삭제를 눌렀다면
+                if(dr == DialogResult.OK)
                 {
-                    PictureClear();
-                    PictureLoad();
-                    preDate = new DateTime(); // PictureShow 에서 preDate로 현재날짜와 전날짜를 비교한다
-                    PictureShow();
+                    reset();
+                }
+                else if (dr == DialogResult.No) // 삭제를 눌렀다면
+                {
+                    reset();
                 }
             }
         }
 
-        private void label4_DoubleClick(object sender, EventArgs e)
+        private void label4_MouseClick(object sender, MouseEventArgs e)
         {
             PictureSave();
         }
@@ -547,6 +548,11 @@ namespace WindowsFormsApplication1
             PictureShow();
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            Close();
+        }
     }
 
 }

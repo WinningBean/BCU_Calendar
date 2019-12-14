@@ -36,11 +36,8 @@
             this.delete_btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_PB_cb = new System.Windows.Forms.ComboBox();
-            this.MainHeader_menustp = new System.Windows.Forms.MenuStrip();
-            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.최소화toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.MainHeader_menustp.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_CD_lb
@@ -49,7 +46,7 @@
             this.m_CD_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_CD_lb.Location = new System.Drawing.Point(18, 33);
             this.m_CD_lb.Name = "m_CD_lb";
-            this.m_CD_lb.Size = new System.Drawing.Size(56, 18);
+            this.m_CD_lb.Size = new System.Drawing.Size(57, 20);
             this.m_CD_lb.TabIndex = 0;
             this.m_CD_lb.Text = "label1";
             // 
@@ -59,7 +56,7 @@
             this.DT_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DT_lb.Location = new System.Drawing.Point(6, 2);
             this.DT_lb.Name = "DT_lb";
-            this.DT_lb.Size = new System.Drawing.Size(87, 18);
+            this.DT_lb.Size = new System.Drawing.Size(84, 20);
             this.DT_lb.TabIndex = 0;
             this.DT_lb.Text = "사진 등록일 :";
             // 
@@ -69,7 +66,7 @@
             this.m_DT_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_DT_lb.Location = new System.Drawing.Point(99, 2);
             this.m_DT_lb.Name = "m_DT_lb";
-            this.m_DT_lb.Size = new System.Drawing.Size(36, 18);
+            this.m_DT_lb.Size = new System.Drawing.Size(35, 20);
             this.m_DT_lb.TabIndex = 0;
             this.m_DT_lb.Text = "text";
             this.m_DT_lb.Click += new System.EventHandler(this.m_DT_lb_Click);
@@ -80,7 +77,7 @@
             this.PB_lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PB_lb.Location = new System.Drawing.Point(6, 24);
             this.PB_lb.Name = "PB_lb";
-            this.PB_lb.Size = new System.Drawing.Size(74, 18);
+            this.PB_lb.Size = new System.Drawing.Size(72, 20);
             this.PB_lb.TabIndex = 0;
             this.PB_lb.Text = "사진 공개 :";
             // 
@@ -132,53 +129,33 @@
             this.m_PB_cb.TabIndex = 2;
             this.m_PB_cb.SelectedIndexChanged += new System.EventHandler(this.m_PB_cb_SelectedIndexChanged);
             // 
-            // MainHeader_menustp
+            // label2
             // 
-            this.MainHeader_menustp.BackColor = System.Drawing.Color.Black;
-            this.MainHeader_menustp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.MainHeader_menustp.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.MainHeader_menustp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xToolStripMenuItem,
-            this.최소화toolStripMenuItem});
-            this.MainHeader_menustp.Location = new System.Drawing.Point(0, 0);
-            this.MainHeader_menustp.Name = "MainHeader_menustp";
-            this.MainHeader_menustp.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.MainHeader_menustp.Size = new System.Drawing.Size(337, 24);
-            this.MainHeader_menustp.TabIndex = 8;
-            this.MainHeader_menustp.Text = "menuStrip1";
-            // 
-            // xToolStripMenuItem
-            // 
-            this.xToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.xToolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
-            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(27, 20);
-            this.xToolStripMenuItem.Text = "X";
-            // 
-            // 최소화toolStripMenuItem
-            // 
-            this.최소화toolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.최소화toolStripMenuItem.ForeColor = System.Drawing.Color.Silver;
-            this.최소화toolStripMenuItem.Name = "최소화toolStripMenuItem";
-            this.최소화toolStripMenuItem.Size = new System.Drawing.Size(28, 20);
-            this.최소화toolStripMenuItem.Text = "─";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(307, 1);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 25);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "X";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Picture_Modify
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(337, 138);
-            this.Controls.Add(this.MainHeader_menustp);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.m_CD_lb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Picture_Modify";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Picture_Modify";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.MainHeader_menustp.ResumeLayout(false);
-            this.MainHeader_menustp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,8 +171,6 @@
         private System.Windows.Forms.Button delete_btn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox m_PB_cb;
-        private System.Windows.Forms.MenuStrip MainHeader_menustp;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 최소화toolStripMenuItem;
+        private System.Windows.Forms.Label label2;
     }
 }

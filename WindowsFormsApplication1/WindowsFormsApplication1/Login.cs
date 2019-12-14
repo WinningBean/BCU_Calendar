@@ -88,10 +88,19 @@ namespace WindowsFormsApplication1
             {
                 if (isSamePass)
                 {
-                    String strID = textBox1.Text;
-                    String strPass = textBox2.Text;
-                    String strName = textBox3.Text;
-
+                    string strID = textBox1.Text;
+                    string strPass = textBox2.Text;
+                    string strName = textBox3.Text;
+                    if (strID.Length < 6)
+                    {
+                        MessageBox.Show("아이디 길이가 6자 이상이어야 합니다\n현재 " + strID.Length.ToString() + "글자", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (strID.Length > 15)
+                    {
+                        MessageBox.Show("아이디 길이가 15자 이하이어야 합니다\n현재 " + strID.Length.ToString() + "글자", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     db.ExecuteReader("select * from USER_TB where UR_ID = '" + strID + "'");
                     if (db.Reader.Read())
                     {

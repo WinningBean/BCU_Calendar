@@ -176,6 +176,12 @@
     <Compile Include="UserInfo.Designer.cs">
       <DependentUpon>UserInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInfo_Picture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInfo_Picture.Designer.cs">
+      <DependentUpon>UserInfo_Picture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Week_MoreInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,6 +255,9 @@
     <EmbeddedResource Include="UserInfo.resx">
       <DependentUpon>UserInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserInfo_Picture.resx">
+      <DependentUpon>UserInfo_Picture.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Week.resx">
       <DependentUpon>Week.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,9 +289,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\UserCustomControl\UserCustomControl.csproj">
       <Project>{ec1b2884-805f-48da-ab2b-8e2a5026b625}</Project>
@@ -291,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\user_null.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

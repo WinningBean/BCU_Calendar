@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.m_Small_btn = new System.Windows.Forms.Label();
             this.m_Zoom_btn = new System.Windows.Forms.Label();
@@ -43,9 +41,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.m_Small_btn);
             this.panel1.Controls.Add(this.m_Zoom_btn);
@@ -53,38 +49,19 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(247, 51);
+            this.panel1.Size = new System.Drawing.Size(282, 51);
             this.panel1.TabIndex = 0;
             // 
-            // label6
+            // label2
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(96, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 18);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "label5";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(96, 2);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(46, 18);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "label5";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(96, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 18);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "label5";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(253, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 25);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "X";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label4
             // 
@@ -95,7 +72,7 @@
             this.label4.Size = new System.Drawing.Size(38, 19);
             this.label4.TabIndex = 2;
             this.label4.Text = "ADD";
-            this.label4.DoubleClick += new System.EventHandler(this.label4_DoubleClick);
+            this.label4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.label4_MouseClick);
             // 
             // m_Small_btn
             // 
@@ -103,7 +80,7 @@
             this.m_Small_btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.m_Small_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Small_btn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.m_Small_btn.Location = new System.Drawing.Point(173, 26);
+            this.m_Small_btn.Location = new System.Drawing.Point(190, 26);
             this.m_Small_btn.Name = "m_Small_btn";
             this.m_Small_btn.Size = new System.Drawing.Size(57, 20);
             this.m_Small_btn.TabIndex = 1;
@@ -117,7 +94,7 @@
             this.m_Zoom_btn.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.m_Zoom_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Zoom_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.m_Zoom_btn.Location = new System.Drawing.Point(173, 2);
+            this.m_Zoom_btn.Location = new System.Drawing.Point(190, 2);
             this.m_Zoom_btn.Name = "m_Zoom_btn";
             this.m_Zoom_btn.Size = new System.Drawing.Size(57, 20);
             this.m_Zoom_btn.TabIndex = 0;
@@ -140,16 +117,15 @@
             this.Picture_pan.Location = new System.Drawing.Point(0, 49);
             this.Picture_pan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Picture_pan.Name = "Picture_pan";
-            this.Picture_pan.Size = new System.Drawing.Size(247, 640);
+            this.Picture_pan.Size = new System.Drawing.Size(282, 642);
             this.Picture_pan.TabIndex = 1;
             this.Picture_pan.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Picture_pan_MouseWheel);
             // 
             // Picture
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(247, 689);
+            this.ClientSize = new System.Drawing.Size(282, 689);
             this.Controls.Add(this.Picture_pan);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -170,8 +146,6 @@
         private System.Windows.Forms.Label m_Small_btn;
         private System.Windows.Forms.Label m_Zoom_btn;
         private System.Windows.Forms.Panel Picture_pan;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using Oracle.DataAccess.Client;
 
 namespace WindowsFormsApplication1
 {
@@ -41,7 +43,7 @@ namespace WindowsFormsApplication1
         }
 
         public UserCustomControl.Profile USERPROFILE
-        { 
+        {
             // Userprofile 프로퍼티 -> login에서 값 넘겨줌
             get { return UserProfile_prof; }
             set { UserProfile_prof = value; }
@@ -119,11 +121,11 @@ namespace WindowsFormsApplication1
                 tdl.reset();
             if (isShowPic)
                 pic.reset();
-                
+
 
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
-            
+
             grp.CLOSE_btn.Click += new System.EventHandler(this.Close_btn_Click);
             grp.GROUP_NM_lbl.Click += new System.EventHandler(this.GR_nm_lbl_Click);
 
@@ -238,7 +240,7 @@ namespace WindowsFormsApplication1
             m_focus_dt = week.Get_focus_dt();
             MainCenter_pan.Controls.Clear();
             mnt.FOCUS_DT = m_focus_dt;
-            
+
             MainCenter_pan.Controls.Add(mnt);
             mnt.Show();
             mnt.SET_MONTH();
@@ -293,7 +295,7 @@ namespace WindowsFormsApplication1
             UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
         }
-        
+
         private void Check_FriendRequest() // 메인이 실행 될때 친구신청 온게 있는지 확인 - CJE 
         {
             string command = "select * from FRIEND_TB where FR_FR_FK ='" + db.UR_CD + "' and FR_ACEP_ST = 0";
@@ -362,6 +364,8 @@ namespace WindowsFormsApplication1
 
         private void PictureForm_btn_Click(object sender, EventArgs e) // 사진 폼 띄우기 버튼
         {
+            if (pic != null && pic.DialogResult == DialogResult.Cancel) // 자체적으로 X를눌러 폼을 종료했으면
+                isShowPic = false;
             if (!isShowPic)
             {
                 pic = new Picture(this);
@@ -374,11 +378,11 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                pic.Dispose();  
+                pic.Dispose();
                 isShowPic = false;
             }
         }
-        
+
         private void MonthForm_btn_Click(object sender, EventArgs e) // 월간 일정 보기 클릭 시
         {
             MonthForm_btn.Enabled = false; // 월간 보기 버튼 비활성화
@@ -419,7 +423,7 @@ namespace WindowsFormsApplication1
         private void 할일모두완료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (db.GR_CD != null)
-                db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_GR_FK = '" + db.GR_CD +"'");
+                db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_GR_FK = '" + db.GR_CD + "'");
             else
                 db.ExecuteNonQuery("Update TODO_TB SET TD_COMP_ST = 1 WHERE TD_UR_FK = '" + db.UR_CD + "'");
 
@@ -445,8 +449,8 @@ namespace WindowsFormsApplication1
                 tda = new ToDoList_Add(db.GR_CD);
             else
                 tda = new ToDoList_Add(db.UR_CD);
-            tda.Location = tda.PointToScreen(Cursor.Position);
-            if(tda.ShowDialog() == DialogResult.OK)
+            tda.Location = Cursor.Position;
+            if (tda.ShowDialog() == DialogResult.OK)
             {
                 if (isShowToDo)
                     tdl.reset();
@@ -457,6 +461,8 @@ namespace WindowsFormsApplication1
 
         private void TodoForm_btn_Click(object sender, EventArgs e)
         {
+            if (tdl != null && tdl.DialogResult == DialogResult.Cancel) // 자체적으로 X를눌러 폼을 종료했으면
+                isShowToDo = false;
             if (isShowToDo) // 열려있으면
             {
                 tdl.Close();
@@ -516,7 +522,91 @@ namespace WindowsFormsApplication1
 
         private void 사용자정보ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //UserInfo ui = new UserInfo(db.UR_CD);
+            UserInfo ui = new UserInfo(db.UR_CD);
+            ui.Location = Cursor.Position;
+            ui.StartPosition = FormStartPosition.Manual;
+            if (ui.ShowDialog() == DialogResult.OK)
+            {
+                db.AdapterOpen("select * from USER_TB where UR_CD = '" + db.UR_CD + "'");
+                DataSet ds = new DataSet("USER_TB");
+                db.Adapter.Fill(ds, "USER_TB");
+                if (ds.Tables["USER_TB"].Rows[0][4].Equals(System.DBNull.Value))
+                {
+                    UserProfile_prof.USERPIC.Image = null;
+                    this.DialogResult = DialogResult.OK;
+                    return;
+                }
+
+                Byte[] b = (Byte[])(ds.Tables["USER_TB"].Rows[0][4]);
+                MemoryStream stmBlobData = new MemoryStream(b);
+                Image img = Image.FromStream(stmBlobData);
+                UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
+            }
+        }
+
+        private void 사진추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "사진추가";
+            ofd.Filter = "모든 사진파일|*.jpg;*.png|JPG 파일 (*.jpg)|*.jpg|PNG 파일 (*.png)|*.png"; // 필터 형식
+
+            DialogResult dr = ofd.ShowDialog();
+
+            if (dr == DialogResult.OK) // 대화상자에서 OK를 누르면
+            {
+                try
+                {
+                    // 파일명 설정 추가해야함
+                    string file = @ofd.FileName; // 눌러진 사진의 path
+                    FileInfo info = new FileInfo(file);
+
+                    if (info.Length > 2000000) // 1당 byte, 바이트가 너무 큰 사진은 막음
+                    {
+                        MessageBox.Show("사진 용량이 너무 큽니다 \n" + info.Length.ToString() + " byte > " + "1000000 byte");
+                        return;
+                    }
+
+                    if (MessageBox.Show("사진을 올리시겠습니까?", "사진등록", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) != DialogResult.OK)
+                    {
+                        return;
+                    }
+                    Picture_SelectDate ps = new Picture_SelectDate();
+
+                    if (ps.ShowDialog() != DialogResult.OK)
+                        return;
+                    DateTime dt = ps.dt;
+
+                    FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    byte[] b = new byte[fs.Length - 1];
+                    fs.Read(b, 0, b.Length);
+                    fs.Close();
+
+                    OracleParameter op = new OracleParameter();
+                    op.ParameterName = ":BINARYFILE";
+                    op.OracleDbType = Oracle.DataAccess.Client.OracleDbType.Blob;
+                    op.Direction = ParameterDirection.Input;
+                    op.Size = b.Length;
+                    op.Value = b;
+                    db.Command.CommandType = CommandType.Text;
+                    db.Command.Parameters.Add(op); // 커맨드에 이 파라미터를 추가시켜서 db에 보낼때 같이 보낼수있게 함
+
+                    int pbSc = MessageBox.Show("사진을 공개하시겠습니까?", "사진공개", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) == DialogResult.OK ? 1 : 0;
+
+                    if (db.GR_CD != null)
+                        db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.nextval," + pbSc + ",'" + dt.ToString("yyyy-MM-dd") + "' , null,'" + db.GR_CD + "', :BINARYFILE)");
+                    else
+                        db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.nextval," + pbSc + ",'" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
+                    db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
+                    MessageBox.Show("사진추가 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    if (isShowPic)
+                        pic.reset();
+
+                }
+                catch (Exception ec)
+                {
+                    MessageBox.Show("파일을 불러오는데 실패하였습니다\n" + ec.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

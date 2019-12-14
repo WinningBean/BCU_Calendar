@@ -34,6 +34,9 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             this.AutoScroll = true;
+            //this.VerticalScroll.Maximum = 0;
+            //this.VerticalScroll.Minimum = 0;
+            //this.VerticalScroll.Visible = false;
             dbc = new DBColor();
             tdList = new List<DataRow>();
             this.Size = new Size(this.Size.Width, 689);
@@ -83,8 +86,25 @@ namespace WindowsFormsApplication1
             date.Size = new System.Drawing.Size(98, 34);
             date.Text = "할일";
 
+            Label label2 = new Label();
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label2.Location = new System.Drawing.Point(todayPan.Width - 25, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(27, 25);
+            label2.TabIndex = 3;
+            label2.Text = "X";
+            label2.Click += new System.EventHandler(label2_Click);
+
+            todayPan.Controls.Add(label2);
             todayPan.Controls.Add(date);
             this.Controls.Add(todayPan);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         DateTime lastDate = new DateTime();
@@ -136,7 +156,7 @@ namespace WindowsFormsApplication1
                 clickPan.MouseClick += new MouseEventHandler(OnFinishClick);
 
                 Label txt = new Label();
-                txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                
                 //txt.AutoSize = true;
                 txt.BackColor = Color.Transparent;
                 txt.TextAlign = ContentAlignment.MiddleLeft;
@@ -144,6 +164,10 @@ namespace WindowsFormsApplication1
                 txt.Location = new Point(45, 0);
                 txt.Name = i.ToString();
                 txt.Text = dr[1].ToString();
+                if (dr[3].ToString() == "1")
+                    txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                else
+                    txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 Label deleteLab = new Label();
                 deleteLab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -151,9 +175,9 @@ namespace WindowsFormsApplication1
                 deleteLab.BackColor = Color.Transparent;
                 deleteLab.TextAlign = ContentAlignment.BottomRight;
                 deleteLab.Size = new Size(20, 60);
-                deleteLab.Location = new Point(this.Width-20, 0);
+                deleteLab.Location = new Point(insidePan.Width-20, 0);
                 deleteLab.Name = i.ToString();
-                deleteLab.Text = "삭제";
+                deleteLab.Text = "X";
                 deleteLab.Visible = false;
                 deleteLab.MouseClick += new MouseEventHandler(OnDeleteClick);
 
@@ -199,11 +223,15 @@ namespace WindowsFormsApplication1
             {
                 db.ExecuteNonQuery("UPDATE TODO_TB SET TD_COMP_ST = 1 where TD_CD = '" + dr[0].ToString() + "'");
                 dr[3] = "1";
+                Panel parent = pan.Parent as Panel;
+                parent.Controls[1].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
             else
             {
                 db.ExecuteNonQuery("UPDATE TODO_TB SET TD_COMP_ST = 0 where TD_CD = '" + dr[0].ToString() + "'");
                 dr[3] = "0";
+                Panel parent = pan.Parent as Panel;
+                parent.Controls[1].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
             pan.Invalidate();
             Thread.Sleep(100); // 자꾸 버튼누르면 db에러생겨서 강제로 잠재움
@@ -246,6 +274,9 @@ namespace WindowsFormsApplication1
             }
             else
                 c = dbc.GetColorInsertName("GRAY");
+
+            db.Reader.Close();//혹시에러날까봐
+
             Color softC = Color.FromArgb(c.A - 200, c.R, c.G, c.B);
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;

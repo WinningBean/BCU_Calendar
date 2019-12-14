@@ -23,7 +23,7 @@ namespace WindowsFormsApplication1
             this.AutoScroll = true;
             m_CD_lb.Text = dr[0].ToString();
             currDT = DateTime.Parse(dr[2].ToString());
-            m_DT_lb.Text = currDT.ToString("yyyy년 MM월 dd일");
+            m_DT_lb.Text = currDT.ToString("yyyy.MM.dd");
             PIC_PB_ST = dr[1].ToString() == "1" ? 0 : 1;
             m_PB_cb.SelectedIndex = PIC_PB_ST;
             ShowIamge(img);
@@ -54,10 +54,11 @@ namespace WindowsFormsApplication1
         }
 
         private void modify_btn_Click(object sender, EventArgs e)
-        {
-            string sql = "UPDATE PICTURE_TB SET PIC_PB_ST = " + PIC_PB_ST + ", PIC_DT = '" + currDT.ToString("yyyy-MM-dd HH:mm:dd") + "' where PIC_CD = '" + m_CD_lb.Text + "'";
+        {// 에러 에러 에러 에러
+            string sql = "UPDATE PICTURE_TB SET PIC_PB_ST = '" + PIC_PB_ST.ToString() + "', PIC_DT = '" + currDT.ToString("yyyy/MM/dd") + "' where PIC_CD = '" + m_CD_lb.Text + "'";
             db.ExecuteNonQuery(sql);
             MessageBox.Show(this, "수정되었습니다", "사진수정", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            this.DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -66,7 +67,7 @@ namespace WindowsFormsApplication1
             Picture_SelectDate psd = new Picture_SelectDate();
             if (psd.ShowDialog() == DialogResult.OK)
             {
-                m_DT_lb.Text = psd.dt.ToString("yyyy년 MM월 dd일");
+                m_DT_lb.Text = psd.dt.ToString("yyyy.MM.dd");
                 currDT = psd.dt;
             }
         }
@@ -79,5 +80,9 @@ namespace WindowsFormsApplication1
                 PIC_PB_ST = 0;
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

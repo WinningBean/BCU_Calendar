@@ -67,17 +67,24 @@ namespace WindowsFormsApplication1
             DoubleBuffered = true;
             day = new List<List<Panel>>(); // 각 시간마다 생성된 패널 (ex: day[1][7] -> 월요일 8 AM)
             insideMain = new Panel();
-            insideMain.Location = new Point(0, 0);
-            insideMain.Size = new Size(966, 1152); // 966 1512 (1칸당 125, 63) -> 966 1200 (1칸당 125, 50) -> 1152 (48) 
+            insideMain.Location = new Point(20, 0);
+            insideMain.Size = new Size(946, 1152); // 966 1512 (1칸당 125, 63) -> 966 1200 (1칸당 125, 50) -> 1152 (48) 
             insideMain.Show();
             insideMain.Paint += new System.Windows.Forms.PaintEventHandler(OnMainPaint);
             insideMain.BackColor = Color.Transparent;
             insideMain.MouseClick += new MouseEventHandler(OnMainClick);
+            insideMain.MouseDoubleClick += new MouseEventHandler(OnMainClick);
             m_Main_pan.Controls.Add(insideMain);
             m_Main_pan.VerticalScroll.Minimum = 0;
             m_Main_pan.VerticalScroll.Maximum = 0;
             m_Main_pan.VerticalScroll.Visible = false;
             m_Main_pan.AutoScroll = true;
+            m_Left_btn.MouseEnter += new EventHandler(OnShiftEnter);
+            m_Left_btn.Name = "0";
+            m_Left_btn.MouseLeave += new EventHandler(OnShiftLeave);
+            m_Right_btn.MouseEnter += new EventHandler(OnShiftEnter);
+            m_Right_btn.MouseLeave += new EventHandler(OnShiftLeave);
+            m_Right_btn.Name = "1";
 
             m_Top_pan.Paint += new System.Windows.Forms.PaintEventHandler(OnTopPaint);
 
@@ -101,12 +108,14 @@ namespace WindowsFormsApplication1
                 graphics.DrawLine(pen, x, 0, x, 48);
                 x += 125;
             }
-            graphics.Dispose();
+            pen = new Pen(Color.LightGray, 3);
+            graphics.DrawLine(pen, 0, m_Top_pan.Height, m_Top_pan.Width, m_Top_pan.Height);
+            pen.Dispose();
         }
 
         private void OnMainPaint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            int x = 91;
+            int x = 71;
             int y = 0;
             Graphics graphics = e.Graphics;
             Pen pen = new Pen(Color.Gainsboro);
@@ -115,7 +124,7 @@ namespace WindowsFormsApplication1
                 graphics.DrawLine(pen, x, y, 956, y);
                 y += 48;
             }
-            x = 216;
+            x = 196;
             for (int i = 0; i < 6; i++)
             {
                 graphics.DrawLine(pen, x, 5, x, 1507);
@@ -140,7 +149,7 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < 25; i++)
             {
                 Label pan = new Label();
-                pan.Size = new Size(91, 48); // 125
+                pan.Size = new Size(71, 48); // 125
                 pan.Location = new Point(0, y);
                 //pan.BorderStyle = BorderStyle.FixedSingle;
 
@@ -178,7 +187,7 @@ namespace WindowsFormsApplication1
             for (int j = 0; j < 7; j++)
             {
                 Panel pan = new Panel();
-                pan.Size = new Size(125, 60);
+                pan.Size = new Size(125, m_Top_pan.Size.Height);
                 pan.Location = new Point(x, 0);
                 pan.BackColor = Color.Transparent;
                 pan.Name = j.ToString();
@@ -194,47 +203,115 @@ namespace WindowsFormsApplication1
                 Label num = new Label();
                 num.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 num.AutoSize = true;
-                num.Location = new Point(70, 30);
+                num.Location = new Point(50, 4);
                 num.ForeColor = Color.LightGray;
                 pan.Controls.Add(num);
 
                 pan.MouseEnter += new EventHandler(OnMouseEnter);
                 pan.MouseLeave += new EventHandler(OnMouseLeave);
                 pan.MouseClick += new MouseEventHandler(OnDayMouseClick);
+                day.MouseEnter += new EventHandler(OnMouseEnter);
+                day.MouseLeave += new EventHandler(OnMouseLeave);
+                day.MouseClick += new MouseEventHandler(OnDayMouseClick);
+                num.MouseEnter += new EventHandler(OnMouseEnter);
+                num.MouseLeave += new EventHandler(OnMouseLeave);
+                num.MouseClick += new MouseEventHandler(OnDayMouseClick);
                 m_Top_pan.Controls.Add(pan);
                 x += 125;
             }
         }
 
+        private void OnShiftEnter(object sender, EventArgs e)
+        {
+            var pan = (Button)sender;
+            if (pan.Name == "0")
+                m_Left_btn.BackColor = defaultColor;
+            else
+                m_Right_btn.BackColor = defaultColor;
+        }
+
+        private void OnShiftLeave(object sender, EventArgs e)
+        {
+            var pan = (Button)sender;
+            if (pan.Name == "0")
+                m_Left_btn.BackColor = Color.Transparent;
+            else
+                m_Right_btn.BackColor = Color.Transparent;
+        }
+
         private void OnMouseEnter(object sender, EventArgs e)
         {
-            Panel pan = (Panel)sender;
-            pan.BackColor = Color.Gray;
+            ;
+            if (sender is Panel)
+            {
+                Panel pan = (Panel)sender;
+                pan.BackColor = Color.Gray;
+            }
+            else if (sender is Label)
+            {
+                Label lab = (Label)sender;
+                Panel pan = (Panel)lab.Parent;
+                pan.BackColor = Color.Gray;
+            }
+
         }
 
         private void OnMouseLeave(object sender, EventArgs e)
         {
-            Panel pan = (Panel)sender;
-            pan.BackColor = Color.Transparent;
+            if (sender is Panel)
+            {
+                Panel pan = (Panel)sender;
+                pan.BackColor = Color.Transparent;
+            }
+            else if (sender is Label)
+            {
+                Label lab = (Label)sender;
+                Panel pan = (Panel)lab.Parent;
+                pan.BackColor = Color.Transparent;
+            }
         }
 
         private void OnDayMouseClick(object sender, MouseEventArgs e)
         {
             isMainClick = false;
             insideMain.Invalidate();
-            Panel pan = (Panel)sender;
             int x = 0;
-            for (int i = 0; i < 7; i++)
+            if (sender is Panel)
             {
-                if (day[i][0].Left >= pan.Location.X)
+                Panel pan = sender as Panel;
+
+                for (int i = 0; i < 7; i++)
                 {
-                    x = i;
-                    break;
+                    if (day[i][0].Left >= pan.Location.X)
+                    {
+                        x = i;
+                        break;
+                    }
                 }
             }
+            else
+            {
+                Label pan = sender as Label;
+                for (int i = 0; i < 7; i++)
+                {
+                    if (day[i][0].Left >= pan.Location.X)
+                    {
+                        x = i;
+                        break;
+                    }
+                }
+            }
+
+
+
             DateTime days = weekSunday.AddDays(x);
             Day d = new Day(days);
             d.ShowDialog();
+            if (m_focus_dt != d.Get_focus_dt())
+            {
+                m_focus_dt = d.Get_focus_dt();
+                resetSchedual();
+            }
         }
 
         private void m_Left_btn_Click(object sender, EventArgs e)
@@ -290,7 +367,7 @@ namespace WindowsFormsApplication1
 
         private void makeDay()
         {
-            int x = 91;
+            int x = 71;
             for (int j = 0; j < 7; j++)
             {
                 int y = 0;
@@ -311,27 +388,32 @@ namespace WindowsFormsApplication1
             }
         }
 
+        List<Panel> colorPan = null;
+
         private void makeColor()
         {
             db.AdapterOpen("select * from COLOR_TB");
             DataSet ds = new DataSet();
             db.Adapter.Fill(ds, "COLOR_TB");
             DataTable dt = ds.Tables["COLOR_TB"];
-            int loca = m_Mid_pan.Width - 80;
+            int loca = -300 ; // m_Mid_pan.Width - 80; // -----
             DBColor dbc = new DBColor();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            colorPan = new List<Panel>();
+
+            for (int i = 0; i < dt.Rows.Count ; i++) // 그레이색 제외해야함
             {
                 DataRow dr = dt.Rows[i];
                 Panel pan = new Panel();
                 pan.Size = new Size(18, 18);
-                pan.Location = new Point(loca, 5);
+                pan.Location = new Point(2, loca);
                 pan.BorderStyle = BorderStyle.FixedSingle;
                 pan.BackColor = dbc.GetColorInsertCRCD(dr[0].ToString());
                 pan.Name = dr[0].ToString();
                 pan.Visible = false;
                 pan.Click += new EventHandler(OnColorClick);
-                loca -= 22;
-                m_Mid_pan.Controls.Add(pan);
+                loca += 22;
+                colorPan.Add(pan);
+                m_Main_pan.Controls.Add(pan);
             }
         }
 
@@ -342,6 +424,11 @@ namespace WindowsFormsApplication1
             m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
             m_Year_lab.Text = m_focus_dt.ToString("yyyy");
             m_Month_lab.Text = m_focus_dt.ToString("MM");
+
+            //m_Left_btn.MouseEnter += new EventHandler(OnShiftEnter);
+            //m_Left_btn.MouseLeave += new EventHandler(OnShiftLeave);
+            //m_Right_btn.MouseEnter += new EventHandler(OnShiftEnter);
+            //m_Right_btn.MouseLeave += new EventHandler(OnShiftLeave);
 
             m_Main_pan.AutoScrollPosition = new Point(0, 348); // 휠 포지션을 가운데로 설정
             CurrWeek(); // 실질적인 일정 생성 메서드
@@ -426,8 +513,8 @@ namespace WindowsFormsApplication1
             overlapSCList.Clear();
             dataRowList.Clear();
             scPan.Clear();
-            for (int i = 3; i < m_Mid_pan.Controls.Count; i++)
-                m_Mid_pan.Controls[i].Visible = false;
+            for (int i = 0; i < colorPan.Count; i++)
+                colorPan[i].Visible = false; // ----
 
             for (int i = 0; i < 7; i++)
             {
@@ -443,6 +530,7 @@ namespace WindowsFormsApplication1
         {
             createObject();
 
+            int m = m_Top_pan.Controls.Count;
             for (int i = 0; i < 7; i++) // 몇일인지 표시
                 m_Top_pan.Controls[i].Controls[1].Text = weekSunday.AddDays(i).Day.ToString();
 
@@ -694,8 +782,8 @@ namespace WindowsFormsApplication1
                 clickPanel = pan;
                 m_focus_dt = DateTime.Parse(db.Reader[4].ToString());
 
-                for (int i = 3; i < m_Mid_pan.Controls.Count; i++)
-                    m_Mid_pan.Controls[i].Visible = true;
+                for (int i = 0; i < colorPan.Count; i++)
+                    colorPan[i].Visible = true; // ----
             }
             if (e.Clicks == 2)
             {
@@ -715,6 +803,8 @@ namespace WindowsFormsApplication1
 
         private void OnMorePanelClick(object sender, MouseEventArgs e)
         {// ...을 클릭했을경우
+            for (int i = 0; i < colorPan.Count; i++)
+                colorPan[i].Visible = false; // ----
             Panel pan = (Panel)sender;
             Week_MoreInfo wm = new Week_MoreInfo(pan.Name);
             wm.Location = pan.PointToScreen(new Point(e.X, e.Y));
@@ -741,35 +831,46 @@ namespace WindowsFormsApplication1
         private void OnMainClick(object sender, MouseEventArgs e)
         {// 클릭시 어디를 클릭했는지 찾고 찾는날에 시간을 반환해줌
             clickPanel.BorderStyle = BorderStyle.None;
-            for (int i = 3; i < m_Mid_pan.Controls.Count; i++)
-                m_Mid_pan.Controls[i].Visible = false;
+            for (int i = 0; i < colorPan.Count; i++)
+                colorPan[i].Visible = false; // ----
 
-            int x = 0;
-            int y = 0;
-            for (int i = 0; i < 7; i++)
+            if (e.Clicks == 1)
             {
-                if (day[i][0].Right >= e.Location.X)
+                int x = 0;
+                int y = 0;
+                for (int i = 0; i < 7; i++)
                 {
-                    x = i;
-                    break;
+                    if (day[i][0].Right >= e.Location.X)
+                    {
+                        x = i;
+                        break;
+                    }
                 }
-            }
-            for (int i = 0; i < 24; i++)
-            {
-                if (day[x][i].Bottom >= e.Location.Y)
+                for (int i = 0; i < 24; i++)
                 {
-                    y = i;
-                    break;
+                    if (day[x][i].Bottom >= e.Location.Y)
+                    {
+                        y = i;
+                        break;
+                    }
                 }
-            }
-            DateTime clickDate = weekSunday.AddDays(x - startWeek);
-            clickDate = clickDate.AddHours(y);
-            m_focus_dt = clickDate;
-            m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+                DateTime clickDate = weekSunday.AddDays(x - startWeek);
+                clickDate = clickDate.AddHours(y);
+                m_focus_dt = clickDate;
+                m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
 
-            isMainClick = true;
-            clickPan = day[x][y];
-            insideMain.Invalidate();
+                isMainClick = true;
+                clickPan = day[x][y];
+                insideMain.Invalidate();
+            }
+            else if(e.Clicks == 2)
+            {
+                ModifySchedule ms = new ModifySchedule();
+                ms.StrDate = DateTime.Parse(m_focus_dt.ToString());
+                ms.EndDate = DateTime.Parse(m_focus_dt.ToString());
+                ms.ShowDialog();
+                m_focus_dt = ms.StrDate;
+            }
         }
 
         private void OnColorClick(object sender, EventArgs e)
