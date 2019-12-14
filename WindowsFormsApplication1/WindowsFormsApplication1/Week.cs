@@ -865,7 +865,7 @@ namespace WindowsFormsApplication1
             }
             else if(e.Clicks == 2)
             {
-                ModifySchedule ms = new ModifySchedule();
+                Schedule_Modify ms = new Schedule_Modify();
                 ms.StrDate = DateTime.Parse(m_focus_dt.ToString());
                 ms.EndDate = DateTime.Parse(m_focus_dt.ToString());
                 ms.ShowDialog();

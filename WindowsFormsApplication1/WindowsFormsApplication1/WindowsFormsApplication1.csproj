@@ -67,8 +67,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Friend_Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,7 +221,7 @@
     </Compile>
     <Compile Include="UserInfo_Picture.Designer.cs">
       <DependentUpon>UserInfo_Picture.cs</DependentUpon>
-</Compile>
+    </Compile>
     <Compile Include="User_Search.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,11 +324,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInfo_Picture.resx">
       <DependentUpon>UserInfo_Picture.cs</DependentUpon>
-</EmbeddedResource>
-    <EmbeddedResource Include="User_Search.resx">
-      <DependentUpon>User_Search.cs</DependentUpon>
-</EmbeddedResource>
-    </EmbeddedResource>
+  </EmbeddedResource>
+      <EmbeddedResource Include="User_Search.resx">
+        <DependentUpon>User_Search.cs</DependentUpon>
+  </EmbeddedResource>
     <EmbeddedResource Include="Week.resx">
       <DependentUpon>Week.cs</DependentUpon>
     </EmbeddedResource>
