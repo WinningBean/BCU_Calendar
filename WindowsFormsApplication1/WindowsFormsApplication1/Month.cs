@@ -123,10 +123,13 @@ namespace WindowsFormsApplication1
                 fc_pan.Controls[0].BackColor = Color.Gainsboro;
             }
 
-            ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
-            Add_SC_btn.Dispose();
-            Set_Add_SC_btn();
-            fc_pan.Controls.Add(Add_SC_btn);
+            if (db.FR_CD == null && db.GR_CD == null)
+            {
+                ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
+                Add_SC_btn.Dispose();
+                Set_Add_SC_btn();
+                fc_pan.Controls.Add(Add_SC_btn);
+            }
         }
 
         private void Week_panel_MouseClick(object sender, MouseEventArgs e)
@@ -155,11 +158,13 @@ namespace WindowsFormsApplication1
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
 
-            Schedule_Modify modiSche = new Schedule_Modify(); // 일정 수정 폼 띄우기
-            int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
-            int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
-            modiSche.Location = new Point(f_loX, f_loY);
-            modiSche.ShowDialog();
+            if (db.FR_CD == null && db.GR_CD == null)
+            {
+                Schedule_Modify modiSche = new Schedule_Modify(((Label)sender).Tag.ToString()); // 일정 수정 폼 띄우기
+                int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
+                int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
+                modiSche.Location = new Point(f_loX, f_loY);
+                modiSche.ShowDialog();
 
                 Set_Month_Today();
             }
@@ -173,10 +178,13 @@ namespace WindowsFormsApplication1
             m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(((Label)sender).Text.ToString()));
             Panel fc_pan = (Panel)((Label)sender).Parent;
 
-            ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
-            Add_SC_btn.Dispose();
-            Set_Add_SC_btn();
-            fc_pan.Controls.Add(Add_SC_btn);
+            if (db.FR_CD == null && db.GR_CD == null)
+            {
+                ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
+                Add_SC_btn.Dispose();
+                Set_Add_SC_btn();
+                fc_pan.Controls.Add(Add_SC_btn);
+            }
 
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - day.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - day.Height / 2;
@@ -276,8 +284,11 @@ namespace WindowsFormsApplication1
                 if (i == m_nowDay)
                 {
                     Day_n_lbl.BackColor = Color.Gainsboro;
-                    Set_Add_SC_btn();
-                    MonthPanel.Controls.Add(Add_SC_btn);
+                    if (db.FR_CD == null && db.GR_CD == null)
+                    {
+                        Set_Add_SC_btn();
+                        MonthPanel.Controls.Add(Add_SC_btn);
+                    }
                 }
 
                 // 베이스 일정
@@ -415,7 +426,7 @@ namespace WindowsFormsApplication1
 
                 if (lbl_nm < Convert.ToDateTime(rows[i]["SC_END_DT"]).Day || Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month) // 하루종일 이상의 일정이라면 백컬러 지정
                 {
-                    TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - NowDay;
+                    TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - Convert.ToDateTime(rows[i]["SC_STR_DT"]);
                     if (df_time.Days == 0)
                     {
                         if (Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month)
@@ -433,7 +444,7 @@ namespace WindowsFormsApplication1
                     {
                         label.BackColor = sc_cr_bs;
                         label.ForeColor = Color.Black;
-
+                        df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - NowDay;
                         Add_Set_Schedule(label.Tag.ToString(), df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
                     }
                 }
