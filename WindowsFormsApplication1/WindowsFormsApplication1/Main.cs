@@ -492,6 +492,7 @@ namespace WindowsFormsApplication1
             modiSche.ShowDialog();
             if(WeekForm_btn.Enabled == false)
                 week.resetSchedual();
+            mnt.SET_MONTH();
         }
 
         private void 최소화toolStripMenuItem_Click(object sender, EventArgs e)
@@ -586,6 +587,7 @@ namespace WindowsFormsApplication1
             Day day = new Day();
             day.StartPosition = FormStartPosition.CenterParent;
             day.ShowDialog();
+            mnt.SET_MONTH();
         }
 
         private void 로그아웃ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -709,6 +711,7 @@ namespace WindowsFormsApplication1
                 UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
                 UserProfile_prof.USERNAME.Text = ui.ur_name;
             }
+        }
         private void 그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Group_Modify grpAdd = new Group_Modify();
