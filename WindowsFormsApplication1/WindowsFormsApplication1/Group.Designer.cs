@@ -37,7 +37,7 @@
             this.line_2 = new System.Windows.Forms.Label();
             this.line_4 = new System.Windows.Forms.Label();
             this.GR_ex_lbl = new System.Windows.Forms.Label();
-            this.Add_MB_btn = new System.Windows.Forms.Label();
+            this.Modi_MB_btn = new System.Windows.Forms.Label();
             this.Member_lbl = new System.Windows.Forms.Label();
             this.GRMember_pan = new System.Windows.Forms.Panel();
             this.Close_btn = new System.Windows.Forms.Label();
@@ -138,19 +138,20 @@
             this.GR_ex_lbl.TabIndex = 14;
             this.GR_ex_lbl.Text = "그룹 설명입니다\r\n";
             // 
-            // Add_MB_btn
+            // Modi_MB_btn
             // 
-            this.Add_MB_btn.BackColor = System.Drawing.Color.Silver;
-            this.Add_MB_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Add_MB_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Add_MB_btn.ForeColor = System.Drawing.Color.White;
-            this.Add_MB_btn.Location = new System.Drawing.Point(203, 148);
-            this.Add_MB_btn.Name = "Add_MB_btn";
-            this.Add_MB_btn.Size = new System.Drawing.Size(25, 25);
-            this.Add_MB_btn.TabIndex = 16;
-            this.Add_MB_btn.Text = "✚";
-            this.Add_MB_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Add_MB_btn.Click += new System.EventHandler(this.Add_MB_btn_Click);
+            this.Modi_MB_btn.BackColor = System.Drawing.Color.Silver;
+            this.Modi_MB_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Modi_MB_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Modi_MB_btn.ForeColor = System.Drawing.Color.White;
+            this.Modi_MB_btn.Location = new System.Drawing.Point(203, 148);
+            this.Modi_MB_btn.Name = "Modi_MB_btn";
+            this.Modi_MB_btn.Size = new System.Drawing.Size(25, 25);
+            this.Modi_MB_btn.TabIndex = 16;
+            this.Modi_MB_btn.Text = "✏";
+            this.Modi_MB_btn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Modi_MB_btn.Visible = false;
+            this.Modi_MB_btn.Click += new System.EventHandler(this.Modi_MB_btn_Click);
             // 
             // Member_lbl
             // 
@@ -206,7 +207,7 @@
             this.Controls.Add(this.Modi_GR_btn);
             this.Controls.Add(this.Close_btn);
             this.Controls.Add(this.GRMember_pan);
-            this.Controls.Add(this.Add_MB_btn);
+            this.Controls.Add(this.Modi_MB_btn);
             this.Controls.Add(this.Member_lbl);
             this.Controls.Add(this.GR_ex_lbl);
             this.Controls.Add(this.line_4);
@@ -239,7 +240,7 @@
         private System.Windows.Forms.Label line_2;
         private System.Windows.Forms.Label line_4;
         private System.Windows.Forms.Label GR_ex_lbl;
-        private System.Windows.Forms.Label Add_MB_btn;
+        private System.Windows.Forms.Label Modi_MB_btn;
         private System.Windows.Forms.Label Member_lbl;
         private System.Windows.Forms.Panel GRMember_pan;
         private System.Windows.Forms.Label Close_btn;

@@ -18,7 +18,7 @@ namespace WindowsFormsApplication1
             s_today = db.Reader.GetDateTime(0);
         }
 
-        DBConnection db = Program.DB;
+        private DBConnection db = Program.DB;
         private string sql;
         private DataSet DS;
 
