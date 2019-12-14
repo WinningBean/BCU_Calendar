@@ -32,9 +32,9 @@ namespace WindowsFormsApplication1
         DBSchedule dbs =null;
         DBColor dbc = null;
 
-        Panel paintPan = new Panel();
-        Panel day = new Panel();
-        Panel pre = new Panel();
+        Panel paintPan;
+        Panel day;
+        Panel pre;
 
         DataTable GET_DAY_SC_TB = null;
 
@@ -46,32 +46,28 @@ namespace WindowsFormsApplication1
         public DateTime Get_focus_dt() { return m_focus_dt; }
 
 
-        int checkHeight = 0;
+        int checkHeight;
         int[,] location;
 
        
-        DateTime nowDate = new DateTime(2019, 12, 24); // 생성자에 넣어서 월간에서 넘겨 받는다
+       DateTime nowDate;
 
         public Day()//DateTime date
         {
             InitializeComponent();
             pre = null;
+            checkHeight = 0;
+            day = new Panel();
+            pre = new Panel();
+            paintPan = new Panel();
+            checkHeight = 0;
+            location = new int[15, 2];
         }
-        public Day(DateTime nowDate)//DateTime date
-        {
-            InitializeComponent();
-            pre = null;
-            this.nowDate = nowDate;
-
-        }
-        public enum color
-        {
-            Green, Yellow, Orange, Mint, Gray
-        };
+ 
         
         private void Get_chedule()
         {
-            if(db.GR_CD != null)
+            if(db.GR_CD == null)
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
@@ -110,9 +106,9 @@ namespace WindowsFormsApplication1
                 if (location[curr.TabIndex,0] == curr.Left || location[curr.TabIndex,1] > curr.Left) //겹치는 조건 
                 {
                     //겹치면 Y값을 조정 
-                    curr.Location = new Point(curr.Location.X, curr.Location.Y + 120);
-                    name.Location = new Point(name.Location.X, name.Location.Y + 120);
-                    color.Location = new Point(color.Location.X, color.Location.Y + 120);
+                    curr.Location = new Point(curr.Location.X, curr.Location.Y + 110);
+                    name.Location = new Point(name.Location.X, name.Location.Y + 110);
+                    color.Location = new Point(color.Location.X, color.Location.Y + 110);
                     curr.TabIndex++;
                     Check(curr, name, color);
 
@@ -138,7 +134,7 @@ namespace WindowsFormsApplication1
             pre = curr;
         }
 
-        private void Create_Day(DataRow dr, int i)
+        private void Create_Day(DataRow dr, int i) // 하루 일정 생성
         {
             int y = 0;
 
@@ -176,24 +172,25 @@ namespace WindowsFormsApplication1
             Label scheduleNameColor = new Label();
             scheduleNameColor.ForeColor = color;
             scheduleNameColor.Text = "●";
-            scheduleNameColor.Size = new System.Drawing.Size(30, 30);
+            scheduleNameColor.Size = new System.Drawing.Size(30, 25);
             scheduleNameColor.Location = new System.Drawing.Point(cre.Location.X, cre.Location.Y + 80);
-            scheduleNameColor.Font=new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+           // scheduleNameColor.BackColor = Color.Black;
+            scheduleNameColor.Font=new System.Drawing.Font("맑은 고딕", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Label scheduleName = new Label();
             scheduleName.Text = dr[1].ToString();
-            scheduleName.Size = new System.Drawing.Size(scheduleTimeSize - 30, 30);
-            scheduleName.Location = new System.Drawing.Point(scheduleNameColor.Location.X + 30, scheduleNameColor.Location.Y);
+            scheduleName.Size = new System.Drawing.Size(scheduleTimeSize - 30, 20);
+            scheduleName.Location = new System.Drawing.Point(scheduleNameColor.Location.X + 30, scheduleNameColor.Location.Y +3);
             scheduleName.Font = new System.Drawing.Font("Microsoft Sans Serif",12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
             Label label = new Label();
             label.Text = dr[2].ToString();
-            label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label.Size = new System.Drawing.Size(scheduleTimeSize, 80);
             label.TabIndex = i;
             label.Click += new EventHandler(Label_Click);
-
-            if (!(dr[6].ToString().Equals(System.DBNull.Value)) && cre.Size.Width > 119)
+            label.Padding = new Padding(5, 5, 5, 5);
+            if (!(dr[6].ToString().Equals(System.DBNull.Value)) && cre.Size.Width > 119) // 1시간 이상 일정에 사진이 있는경우
             {
                 string sql = "select * from PICTURE_TB where PIC_CD = '" + dr[6].ToString() + "'";
                 db.ExecuteReader(sql);
@@ -210,7 +207,7 @@ namespace WindowsFormsApplication1
                     label.Location = new Point(120, 0);
                     cre.Controls.Add(label);
 
-                    if (cre.Size.Width == 120)
+                    if (cre.Size.Width == 120) // 사진이 있는데 일정이 1시간 일정인 경우
                     {
                         cre.Controls.Remove(label);
                         
@@ -335,10 +332,13 @@ namespace WindowsFormsApplication1
         }
         private void Day_Load(object sender, EventArgs e)
         {
+            button1.Visible = true;
+            Down.Visible = true;
+
             dbs = new DBSchedule();
             dbc = new DBColor();
-
-            label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd"); 
+            nowDate = m_focus_dt;
+            label1.Text = nowDate.ToString("yyyy.MM.dd ddd"); 
             day.AutoSize = true;
             day.AutoScroll = false;
             day.Location = new Point(0, 70);
@@ -352,7 +352,7 @@ namespace WindowsFormsApplication1
 
             panel2.Controls.Add(paintPan);
             panel2.Controls.Add(day);
-            panel2.Size = new System.Drawing.Size(575, 2230);
+            panel2.Size = new System.Drawing.Size(600, 2230);
 
             Draw_Time();
             panel2.VerticalScroll.Maximum = 0;
@@ -362,36 +362,38 @@ namespace WindowsFormsApplication1
             panel2.AutoScroll = true;
 
 
-            button1.Enabled = false;
+          
 
             Get_chedule();
             day.Controls.Clear(); 
             Get_chedule();
             Get_TodoList();
-            if(checkHeight<4)
+
+            if(checkHeight < 3)
             {
                 button1.Visible = false;
-                button1.Visible = false;
+                Down.Visible = false;
+                Down.Enabled = false;
                 button1.Enabled = false;
-                button2.Enabled = false;
             }
 
-
+            button1.Enabled = false;
+            Down.Enabled = true;
         }
-    
+
         private void Label_Click(object render, EventArgs e)
         {
             Label myPan = (Label)render;
             int i = myPan.TabIndex;
             DataRow curr = GET_DAY_SC_TB.Rows[i];
  
-            ModifySchedule dlg = new ModifySchedule(curr);
+            Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
             dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
             dlg.ShowDialog();
 
         }
 
-        private void Dlg_FormClosing(object sender,FormClosedEventArgs e)
+        private void Dlg_FormClosing(object sender,FormClosedEventArgs e) // 일정 수정 폼이 닫히면 스케줄 다시불러오기
         {
             day.Controls.Clear();
             Get_chedule();
@@ -404,7 +406,7 @@ namespace WindowsFormsApplication1
             DataRow curr = GET_DAY_SC_TB.Rows[i];
 
 
-            ModifySchedule dlg = new ModifySchedule(curr);
+            Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
             dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
             dlg.ShowDialog();
 
@@ -418,33 +420,34 @@ namespace WindowsFormsApplication1
          //   Color color = randomColor();
             while (db.Reader.Read())
             {
-                Label todoColor = new Label();
-                todoColor.Text = "●";
-                todoColor.AutoSize = true;
-                todoColor.Location = new System.Drawing.Point(10, y);
-                //todoColor.ForeColor = color;
-                todoColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                panel1.Controls.Add(todoColor);
-                
 
                 Label todoName = new Label();
-                todoName.Text = db.Reader["TD_EX"].ToString();
+                todoName.Text = db.Reader[1].ToString();
                 todoName.AutoSize = true;
                 todoName.Location = new System.Drawing.Point(35, y);
                 todoName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoName);
                 y += 20;
 
-                if(!(db.Reader["TD_DT"].ToString().Equals(System.DBNull.Value)))
+                if(!(db.Reader[2].ToString().Equals(System.DBNull.Value)))
                 {
                     Label todoDate = new Label();
-                    todoDate.Text = db.Reader["TD_DT"].ToString();
+                    todoDate.Text = db.Reader[2].ToString();
                     todoDate.AutoSize = true;
                     todoDate.Location = new System.Drawing.Point(15, y);
                     todoDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                     panel1.Controls.Add(todoDate);
                     y += 40;
                 }
+
+                Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
+                Label todoColor = new Label();
+                todoColor.Text = "●";
+                todoColor.AutoSize = true;
+                todoColor.Location = new System.Drawing.Point(10, todoName.Location.Y);
+                todoColor.ForeColor = color;
+                todoColor.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                panel1.Controls.Add(todoColor);
 
             }
 
@@ -453,7 +456,7 @@ namespace WindowsFormsApplication1
         private void 확인_Click(object sender, EventArgs e)
         {
             button1.Enabled = true;
-            if (day.Location.Y < - (checkHeight+1)*110+340+80)
+            if (day.Location.Y <= (340 + 70 - ((checkHeight+1)*100)))
             { // 최대일정깊이? * 110(일정하나의 크기) + 340(폼에서 한번에 보이는 크기) +(원래 위치)
             
                 Down.Enabled = false;
@@ -465,6 +468,7 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             Down.Enabled = true;
+            Down.Visible = true;
             if (day.Location.Y == -10)
             {
                 day.Location = new Point(day.Location.X, day.Location.Y + 80);
@@ -479,6 +483,7 @@ namespace WindowsFormsApplication1
         private void nextDay_Click(object sender, EventArgs e)
         {
             nowDate = nowDate.AddDays(1);
+            m_focus_dt = nowDate;
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
             checkHeight = 0;
@@ -504,6 +509,7 @@ namespace WindowsFormsApplication1
         private void preDay_Click(object sender, EventArgs e)
         {
             nowDate = nowDate.AddDays(-1);
+            m_focus_dt = nowDate;
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
             checkHeight = 0;
@@ -536,6 +542,7 @@ namespace WindowsFormsApplication1
         private void label2_Click(object sender, EventArgs e)
         {
             this.Close();
+            //this.Dispose();
         }
         private void OnTopPanMouseEnter(object sender, EventArgs e)
         {

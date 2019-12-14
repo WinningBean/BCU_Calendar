@@ -29,7 +29,7 @@ namespace WindowsFormsApplication1
 
         DBConnection db = Program.DB;
         private string diaryCD = null;
-       DateTime nowDate;
+        DateTime nowDate;
 
         public Diary(DateTime nowDate)
         {
@@ -140,6 +140,11 @@ namespace WindowsFormsApplication1
         private void label3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void date_ValueChanged(object sender, EventArgs e)
+        {
+            NowDate = date.Value;
         }
     }
 }

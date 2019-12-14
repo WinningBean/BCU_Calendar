@@ -83,7 +83,7 @@ namespace WindowsFormsApplication1
             var ls = m_LiView_info.SelectedItems[0];
             db.ExecuteReader("select * from SCHEDULE_TB where SC_CD = '" + ls.Name + "'");
             db.Reader.Read();
-            ModifySchedule ms = new ModifySchedule();
+            Schedule_Modify ms = new Schedule_Modify();
             ms.NameTxt = db.Reader[1].ToString();
             ms.ExTxt = db.Reader[2].ToString();
             ms.StrDate = DateTime.Parse(db.Reader[4].ToString());

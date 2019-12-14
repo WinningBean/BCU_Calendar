@@ -116,10 +116,12 @@ namespace WindowsFormsApplication1
 
         private void Modi_MB_btn_Click(object sender, EventArgs e)
         {
+
             GroupMember_Modify grpMemModi = new GroupMember_Modify();
             grpMemModi.ShowDialog();
             Set_Groupbs();
             Set_GroupMem();
+
         }
     }
 }

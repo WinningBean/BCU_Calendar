@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class FriendCheck
+    partial class Friend_Check
     {
         /// <summary>
         /// Required designer variable.
@@ -44,12 +44,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(12, 9);
-
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 26);
+            this.label1.Size = new System.Drawing.Size(108, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "친구신청 목록";
             // 
@@ -59,14 +57,13 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.Location = new System.Drawing.Point(204, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 24);
+            this.label2.Size = new System.Drawing.Size(25, 24);
             this.label2.TabIndex = 37;
             this.label2.Text = "X";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // FriendCheck
+            // Friend_Check
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(235, 286);
@@ -74,8 +71,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FriendCheck";
-            this.Text = "FriendCheck";
+            this.Name = "Friend_Check";
+            this.Text = "                          ";
             this.Load += new System.EventHandler(this.FriendCheck_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

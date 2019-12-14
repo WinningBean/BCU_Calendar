@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class AddFriend
+    partial class Friend_Add
     {
         /// <summary>
         /// Required designer variable.

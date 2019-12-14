@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class ModifySchedule
+    partial class Schedule_Modify
     {
         /// <summary>
         /// Required designer variable.

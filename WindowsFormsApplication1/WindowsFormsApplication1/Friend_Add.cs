@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class AddFriend : Form
+    public partial class Friend_Add : Form
     {
 
         #region 폼 그림자 생성
@@ -32,7 +32,7 @@ namespace WindowsFormsApplication1
         string strGroup;
         string strFriendID = null;
 
-        public AddFriend()
+        public Friend_Add()
         {
             InitializeComponent();
         }
@@ -94,8 +94,8 @@ namespace WindowsFormsApplication1
         }
 
         private void 친구신청_Click(object sender, EventArgs e)
-        {
-            string command = "select UR_ID,UR_NM from USER_TB where UR_ID = '" + textBox1.Text + "' or UR_NM = '" + textBox1.Text + "'";
+        {//GR_NM like '%" + SearchGR_txt.Text + "%'"
+            string command = "select UR_ID,UR_NM from USER_TB where UR_ID = '" + textBox1.Text + "' or UR_NM like '%" + textBox1.Text + "%'";
             db.AdapterOpen(command);
 
             DataSet ds = new DataSet();
@@ -121,7 +121,7 @@ namespace WindowsFormsApplication1
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // 확인 버튼 누를시
         {
             if(strFriendID == null || strFriendID == "아이디를 선택해주세요!!")
             {
@@ -187,52 +187,63 @@ namespace WindowsFormsApplication1
 
         private void dataGrid1_CellContentClick(object sender, DataGridViewCellEventArgs e) //그리드뷰에서 리스트 선택시
         {
-            if (dataGrid1.SelectedCells.Count > 0)
+            if (dataGrid1.CurrentCell.ColumnIndex == 1 )
             {
-                strFriendID = dataGrid1.SelectedCells[0].Value.ToString();
-
-                for(int i = 0; i< friendTable.Rows.Count; i++)
+                
+                dataGrid1.CurrentCell.Selected = false;
+                MessageBox.Show("아이디를 선택해주세요 ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (dataGrid1.SelectedCells.Count > 0)
                 {
-                    DataRow currRow;
-                    currRow = friendTable.Rows[i];
-                    if (currRow["UR_ID"].ToString().Equals(strFriendID))
+                    strFriendID = dataGrid1.SelectedCells[0].Value.ToString();
+
+                    for (int i = 0; i < friendTable.Rows.Count; i++)
                     {
-                        MessageBox.Show("이미 친구 입니다", "확인");
-                        dataGrid1.Refresh();
-                        strFriendID = "아이디를 선택해주세요";
-                        return;
+                        DataRow currRow;
+                        currRow = friendTable.Rows[i];
+                        if (currRow["UR_ID"].ToString().Equals(strFriendID))
+                        {
+                            MessageBox.Show("이미 친구 입니다", "확인");
+                            dataGrid1.Refresh();
+                            strFriendID = "아이디를 선택해주세요";
+                            return;
+                        }
+
+
                     }
-                  
 
-                }
-
-               label5.Text = strFriendID;
-               string sql = "select UR_CD from USER_TB where UR_ID = '" + strFriendID + "'";
-               db.ExecuteReader(sql);
-               if (db.Reader.Read())
-               {
-                    strFriendID = db.Reader[0].ToString();
-                    
-                    string command = "select FR_ACEP_ST from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "' and FR_FR_FK= '" + strFriendID + "'";
-                    db.ExecuteReader(command);
+                    label5.Text = strFriendID;
+                    string sql = "select UR_CD from USER_TB where UR_ID = '" + strFriendID + "'";
+                    db.ExecuteReader(sql);
                     if (db.Reader.Read())
                     {
-                       if(Convert.ToInt32(db.Reader[0]) == 0)
-                       {
-                           MessageBox.Show("이미친구친청 보넨 유저입니다.", "확인");
-                            label5.Text = "아이디를 선택해주세요!!";
-                            strFriendID = null;
-                          return;
-                       }
- 
+                        strFriendID = db.Reader[0].ToString();
+
+                        string command = "select FR_ACEP_ST from FRIEND_TB where FR_UR_FK = '" + db.UR_CD + "' and FR_FR_FK= '" + strFriendID + "'";
+                        db.ExecuteReader(command);
+                        if (db.Reader.Read())
+                        {
+                            if (Convert.ToInt32(db.Reader[0]) == 0)
+                            {
+                                MessageBox.Show("이미친구친청 보넨 유저입니다.", "확인");
+                                label5.Text = "아이디를 선택해주세요!!";
+                                strFriendID = null;
+                                return;
+                            }
+
+                        }
+
+
                     }
 
 
-               }
- 
 
- 
+                }
             }
+
+           
         }
 
         private void line_3_Click(object sender, EventArgs e)

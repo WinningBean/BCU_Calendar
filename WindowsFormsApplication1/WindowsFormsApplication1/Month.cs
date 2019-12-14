@@ -155,7 +155,7 @@ namespace WindowsFormsApplication1
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
 
-            ModifySchedule modiSche = new ModifySchedule(); // 일정 수정 폼 띄우기
+            Schedule_Modify modiSche = new Schedule_Modify(); // 일정 수정 폼 띄우기
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
             modiSche.Location = new Point(f_loX, f_loY);
@@ -526,7 +526,7 @@ namespace WindowsFormsApplication1
 
         private void Add_SC_btn_Click(object sender, EventArgs e)// 일정 클릭시 이벤트 처리
         {
-            ModifySchedule modiSche = new ModifySchedule(); // 일정 추가 폼 띄우기
+            Schedule_Modify modiSche = new Schedule_Modify(); // 일정 추가 폼 띄우기
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
             modiSche.Location = new Point(f_loX, f_loY);

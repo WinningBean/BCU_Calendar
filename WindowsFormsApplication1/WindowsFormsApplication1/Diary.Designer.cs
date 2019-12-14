@@ -60,16 +60,15 @@
             // 
             // date
             // 
-
             this.date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.date.Location = new System.Drawing.Point(19, 76);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(243, 31);
+            this.date.Size = new System.Drawing.Size(243, 28);
             this.date.TabIndex = 2;
+            this.date.ValueChanged += new System.EventHandler(this.date_ValueChanged);
             // 
             // button1
             // 
-
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -87,7 +86,7 @@
             this.stateCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.stateCheck.Location = new System.Drawing.Point(109, 389);
             this.stateCheck.Name = "stateCheck";
-            this.stateCheck.Size = new System.Drawing.Size(80, 26);
+            this.stateCheck.Size = new System.Drawing.Size(67, 24);
             this.stateCheck.TabIndex = 15;
             this.stateCheck.Text = "비공개";
             this.stateCheck.UseVisualStyleBackColor = true;
@@ -99,11 +98,11 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.Location = new System.Drawing.Point(15, 389);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 22);
+            this.label7.Size = new System.Drawing.Size(57, 20);
             this.label7.TabIndex = 14;
             this.label7.Text = "공개상태";
             // 
-           // button3
+            // button3
             // 
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -131,14 +130,13 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.Location = new System.Drawing.Point(351, 21);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 24);
+            this.label3.Size = new System.Drawing.Size(25, 24);
             this.label3.TabIndex = 37;
             this.label3.Text = "X";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // Diary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(393, 485);
@@ -153,7 +151,7 @@
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Diary";
-            this.Text = "Diary";
+            this.Text = "        ";
             this.Load += new System.EventHandler(this.Diary_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

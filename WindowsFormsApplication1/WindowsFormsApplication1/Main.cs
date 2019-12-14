@@ -121,6 +121,7 @@ namespace WindowsFormsApplication1
                 tdl.reset();
             if (isShowPic)
                 pic.reset();
+
             bs_leftTab.reset();
                 
             MemProf_lst = grp.MEMBER_PROF_lst;
@@ -362,7 +363,7 @@ namespace WindowsFormsApplication1
             {
                 if (MessageBox.Show("친구 신청이 왔습니다 확인 하시겠습나까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    FriendCheck friendCheck = new FriendCheck();
+                    Friend_Check friendCheck = new Friend_Check();
                     friendCheck.ShowDialog();
                 }
             }
@@ -487,7 +488,7 @@ namespace WindowsFormsApplication1
 
         private void 일정추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ModifySchedule modiSche = new ModifySchedule();
+            Schedule_Modify modiSche = new Schedule_Modify();
             modiSche.ShowDialog();
         }
 
@@ -525,7 +526,9 @@ namespace WindowsFormsApplication1
                 tda = new ToDoList_Add(db.GR_CD);
             else
                 tda = new ToDoList_Add(db.UR_CD);
+
             tda.Location = Cursor.Position;
+
             if (tda.ShowDialog() == DialogResult.OK)
             {
                 if (isShowToDo)
@@ -576,7 +579,7 @@ namespace WindowsFormsApplication1
 
         private void 오늘일정보기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Day day = new Day(sc_db.TODAY);
+            Day day = new Day();
             day.StartPosition = FormStartPosition.CenterParent;
             day.ShowDialog();
         }
@@ -589,7 +592,7 @@ namespace WindowsFormsApplication1
 
         private void 친구추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddFriend addfr = new AddFriend();
+            Friend_Add addfr = new Friend_Add();
             addfr.StartPosition = FormStartPosition.CenterParent;
             addfr.ShowDialog();
         }
@@ -600,28 +603,11 @@ namespace WindowsFormsApplication1
             Check_GroupMem();
         }
 
-        private void 사용자정보ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UserInfo ui = new UserInfo(db.UR_CD);
-            ui.Location = Cursor.Position;
-            ui.StartPosition = FormStartPosition.Manual;
-            if (ui.ShowDialog() == DialogResult.OK)
-            {
-                db.AdapterOpen("select * from USER_TB where UR_CD = '" + db.UR_CD + "'");
-                DataSet ds = new DataSet("USER_TB");
-                db.Adapter.Fill(ds, "USER_TB");
-                if (ds.Tables["USER_TB"].Rows[0][4].Equals(System.DBNull.Value))
-                {
-                    UserProfile_prof.USERPIC.Image = null;
-                    this.DialogResult = DialogResult.OK;
-                    return;
-                }
 
-                Byte[] b = (Byte[])(ds.Tables["USER_TB"].Rows[0][4]);
-                MemoryStream stmBlobData = new MemoryStream(b);
-                Image img = Image.FromStream(stmBlobData);
-                UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
-            }
+        private void 일기리스트ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DiaryList diaryList = new DiaryList();
+            diaryList.ShowDialog();
         }
 
         private void 사진추가ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -687,6 +673,13 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("파일을 불러오는데 실패하였습니다\n" + ec.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+        private void 친구그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Friend_Group friendGroup = new Friend_Group();
+            friendGroup.ShowDialog();
+
         }
     }
 }

@@ -305,7 +305,7 @@ namespace WindowsFormsApplication1
 
 
             DateTime days = weekSunday.AddDays(x);
-            Day d = new Day(days);
+            Day d = new Day();
             d.ShowDialog();
             if (m_focus_dt != d.Get_focus_dt())
             {
@@ -787,7 +787,7 @@ namespace WindowsFormsApplication1
             }
             if (e.Clicks == 2)
             {
-                ModifySchedule ms = new ModifySchedule();
+                Schedule_Modify ms = new Schedule_Modify();
                 ms.NameTxt = db.Reader[1].ToString();
                 ms.ExTxt = db.Reader[2].ToString();
                 ms.StrDate = DateTime.Parse(db.Reader[4].ToString());

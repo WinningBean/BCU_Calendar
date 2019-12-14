@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class FriendModify
+    partial class Friend_Modify
     {
         /// <summary>
         /// Required designer variable.
@@ -43,18 +43,20 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(45, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 24);
+            this.label1.Size = new System.Drawing.Size(40, 24);
             this.label1.TabIndex = 2;
             this.label1.Text = "이름";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Location = new System.Drawing.Point(109, 43);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(51, 19);
+            this.nameLabel.Size = new System.Drawing.Size(46, 18);
             this.nameLabel.TabIndex = 3;
             this.nameLabel.Text = "label2";
+            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
             // 
             // label3
             // 
@@ -62,9 +64,10 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.Location = new System.Drawing.Point(45, 85);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 24);
+            this.label3.Size = new System.Drawing.Size(40, 24);
             this.label3.TabIndex = 4;
             this.label3.Text = "그룹";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // button5
             // 
@@ -104,7 +107,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.Location = new System.Drawing.Point(190, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 24);
+            this.label2.Size = new System.Drawing.Size(25, 24);
             this.label2.TabIndex = 36;
             this.label2.Text = "X";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -114,13 +117,12 @@
             this.friendGroupCom.FormattingEnabled = true;
             this.friendGroupCom.Location = new System.Drawing.Point(97, 85);
             this.friendGroupCom.Name = "friendGroupCom";
-            this.friendGroupCom.Size = new System.Drawing.Size(74, 27);
+            this.friendGroupCom.Size = new System.Drawing.Size(74, 26);
             this.friendGroupCom.TabIndex = 37;
             this.friendGroupCom.SelectedIndexChanged += new System.EventHandler(this.friendGroupCom_SelectedIndexChanged);
             // 
-            // FriendModify
+            // Friend_Modify
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(224, 209);
@@ -134,7 +136,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FriendModify";
+            this.Name = "Friend_Modify";
             this.Text = "FriendModify";
             this.Load += new System.EventHandler(this.FriendModify_Load);
             this.ResumeLayout(false);
