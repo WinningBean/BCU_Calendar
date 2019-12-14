@@ -119,6 +119,7 @@ namespace WindowsFormsApplication1
                 tdl.reset();
             if (isShowPic)
                 pic.reset();
+            bs_leftTab.reset();
                 
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
@@ -153,6 +154,7 @@ namespace WindowsFormsApplication1
             if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
             else setCenterWeekPanel();
 
+            bs_leftTab.reset();
             bs_leftTab.Show();
             ((Group)((Label)sender).Parent).Close();
         }
@@ -365,6 +367,24 @@ namespace WindowsFormsApplication1
             db.Reader.Close();
         }
 
+        private void Check_GroupMem()
+        {
+            string sql = "select * from GROUP_MEMBER_TB";
+            sql += " where GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
+            sql += " and GRMB_ACEP_ST = 0";
+            db.ExecuteReader(sql);
+
+            if (db.Reader.Read())
+            {
+                if (MessageBox.Show("그룹원 신청이 왔습니다 확인 하시겠습나까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    GroupMember_Check GroupMem_check = new GroupMember_Check();
+                    GroupMem_check.ShowDialog();
+                }
+            }
+            db.Reader.Close();
+        }
+
         // ---------- EVENT ----------
 
         private Point fPt; // 폼 위치
@@ -571,6 +591,7 @@ namespace WindowsFormsApplication1
         private void Main_Shown(object sender, EventArgs e)
         {
             Check_FriendRequest();
+            Check_GroupMem();
         }
 
         private void 사용자정보ToolStripMenuItem_Click(object sender, EventArgs e)
