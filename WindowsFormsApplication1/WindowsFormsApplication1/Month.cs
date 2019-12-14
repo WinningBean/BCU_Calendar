@@ -161,7 +161,8 @@ namespace WindowsFormsApplication1
             modiSche.Location = new Point(f_loX, f_loY);
             modiSche.ShowDialog();
 
-            Set_Month_Today();
+                Set_Month_Today();
+            }
         }
 
         private Day day = new Day(); // 일간 폼 띄우기
@@ -350,7 +351,7 @@ namespace WindowsFormsApplication1
                 {
                     sc_day_tb = sc_db.Get_DayAll_Schedule(true, db.FR_CD, NowDay, 1); ; // 친구일정은 공개일정만
                 }
-                else if (db.GR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                else if (db.GR_CD != null) // 그룹 코드가 있다면 그룹 일정 보여주기
                 {
                     sc_day_tb = sc_db.Get_DayAll_Schedule(false, db.GR_CD, NowDay, 1); // 그룹일정은 공개일정만
                 }
@@ -365,7 +366,7 @@ namespace WindowsFormsApplication1
                 {
                     sc_day_tb = sc_db.Get_Day_Schedule(true, db.FR_CD, NowDay, 1); // 친구일정은 공개일정만
                 }
-                else if (db.GR_CD != null) // 친구 코드가 있다면 친구 일정 보여주기
+                else if (db.GR_CD != null) // 그룹 코드가 있다면 그룹 일정 보여주기
                 {
                     sc_day_tb = sc_db.Get_Day_Schedule(false, db.GR_CD, NowDay, 1); // 그룹일정은 공개일정만
                 }
@@ -390,6 +391,7 @@ namespace WindowsFormsApplication1
                 label.Padding = new Padding(5, 0, 5, 0);
                 label.Text = rows[i]["SC_NM"].ToString();
                 label.TextAlign = ContentAlignment.MiddleLeft;
+                label.Tag = rows[i]["SC_CD"].ToString();
 
                 label.Click += new System.EventHandler(this.dm_sc_Click);
 
@@ -432,7 +434,7 @@ namespace WindowsFormsApplication1
                         label.BackColor = sc_cr_bs;
                         label.ForeColor = Color.Black;
 
-                        Add_Set_Schedule(df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
+                        Add_Set_Schedule(label.Tag.ToString(), df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
                     }
                 }
                 else
@@ -446,7 +448,7 @@ namespace WindowsFormsApplication1
             
         }
 
-        private void Add_Set_Schedule(TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
+        private void Add_Set_Schedule(string SC_CD, TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
         {
             int add_lbl_now = 0;
 
@@ -477,6 +479,7 @@ namespace WindowsFormsApplication1
                     add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc + add_lbl_now).ToString();
                     add_label.Size = new System.Drawing.Size(135, 25);
                     add_label.BackColor = sc_cr_bs;
+                    add_label.Tag = SC_CD;
 
                     add_label.Click += new System.EventHandler(this.dm_sc_Click);
 
