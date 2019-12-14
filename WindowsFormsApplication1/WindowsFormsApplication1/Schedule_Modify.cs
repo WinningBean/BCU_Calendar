@@ -29,10 +29,10 @@ namespace WindowsFormsApplication1
         #endregion
 
         #region 둥근 모서리
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect,
           int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
         #endregion
-
 
         DataRow curr = null;
         string Code = null;
@@ -47,6 +47,7 @@ namespace WindowsFormsApplication1
         public Schedule_Modify() //일정 생성시
         {
             InitializeComponent();
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
         }
 
         DBConnection db = Program.DB;
@@ -167,11 +168,11 @@ namespace WindowsFormsApplication1
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
 
-            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
+            //this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
             dbs = new DBSchedule();
             dbc = new DBColor();
-           // strDate.Value = m_focus_dt;
-           // EndDate = m_focus_dt;
+            //strDate.Value = m_focus_dt;
+            //EndDate = m_focus_dt;
             this.StartPosition = FormStartPosition.CenterParent;
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;
@@ -473,7 +474,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                if (EndDate == StrDate && Convert.ToInt32(EndHour) < Convert.ToInt32(StrHour))
+                if (EndDate.Date == StrDate.Date && Convert.ToInt32(EndHour) < Convert.ToInt32(StrHour))
                 {
                    MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;

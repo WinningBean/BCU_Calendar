@@ -32,6 +32,7 @@
             this.private_btn = new System.Windows.Forms.Button();
             this.public_btn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panel1
@@ -45,7 +46,7 @@
             // 
             this.private_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.private_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.private_btn.Location = new System.Drawing.Point(172, 32);
+            this.private_btn.Location = new System.Drawing.Point(201, 35);
             this.private_btn.Margin = new System.Windows.Forms.Padding(0);
             this.private_btn.Name = "private_btn";
             this.private_btn.Size = new System.Drawing.Size(55, 30);
@@ -60,7 +61,7 @@
             this.public_btn.Enabled = false;
             this.public_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.public_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.public_btn.Location = new System.Drawing.Point(118, 32);
+            this.public_btn.Location = new System.Drawing.Point(147, 35);
             this.public_btn.Margin = new System.Windows.Forms.Padding(0);
             this.public_btn.Name = "public_btn";
             this.public_btn.Size = new System.Drawing.Size(55, 30);
@@ -80,12 +81,23 @@
             this.label3.Text = "X";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 31);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "Diary List";
+            // 
             // DiaryList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(282, 689);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.private_btn);
             this.Controls.Add(this.public_btn);
@@ -105,5 +117,6 @@
         private System.Windows.Forms.Button private_btn;
         private System.Windows.Forms.Button public_btn;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
     }
 }

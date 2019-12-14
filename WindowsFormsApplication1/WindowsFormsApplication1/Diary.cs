@@ -86,7 +86,7 @@ namespace WindowsFormsApplication1
                 sql = "insert into DIARY_TB values('" + textBox1.Text + "' , to_date('" + date + "', 'yyyy/MM/dd hh24:mi'),'" + db.UR_CD + "', '" + StateCheck + "')";
                 db.ExecuteNonQuery(sql);
                 MessageBox.Show("일기를 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-
+                this.Close();
             }
             catch (Exception)
             {

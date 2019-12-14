@@ -31,7 +31,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.line_3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -39,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -73,16 +73,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(110, 32);
             this.textBox1.TabIndex = 45;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.LightGray;
-            this.label5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label5.Location = new System.Drawing.Point(9, 476);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(251, 1);
-            this.label5.TabIndex = 44;
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -160,6 +150,16 @@
             this.panel1.Size = new System.Drawing.Size(221, 265);
             this.panel1.TabIndex = 49;
             // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.LightGray;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label5.Location = new System.Drawing.Point(9, 476);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(251, 1);
+            this.label5.TabIndex = 44;
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // button3
             // 
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -207,7 +207,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label line_3;
         private System.Windows.Forms.Button button1;
@@ -215,6 +214,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
     }
 }

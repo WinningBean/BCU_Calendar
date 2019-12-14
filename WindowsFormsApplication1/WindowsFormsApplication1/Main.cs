@@ -506,6 +506,7 @@ namespace WindowsFormsApplication1
         private void 일정추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Schedule_Modify modiSche = new Schedule_Modify();
+            modiSche.FOCUS_DT = m_focus_dt;
             modiSche.ShowDialog();
             if(WeekForm_btn.Enabled == false)
                 week.resetSchedual();
@@ -603,6 +604,7 @@ namespace WindowsFormsApplication1
         {
             Day day = new Day();
             day.StartPosition = FormStartPosition.CenterParent;
+            day.FOCUS_DT = m_focus_dt;
             day.ShowDialog();
             mnt.SET_MONTH();
         }
