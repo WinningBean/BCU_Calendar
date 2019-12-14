@@ -75,6 +75,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GroupMember_Check";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "GroupMember_Check";
             this.Load += new System.EventHandler(this.GroupMember_Check_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Group_dbgrid)).EndInit();

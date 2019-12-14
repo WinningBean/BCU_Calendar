@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
             try
             {
                 sql = "select GR_CD, GR_NM from GROUP_TB";
-                sql += " where GR_CD = (";
+                sql += " where GR_CD in (";
                 sql += "select GRMB_FK from GROUP_MEMBER_TB";
                 sql += " where GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
                 sql += " and GRMB_ACEP_ST = 0)";
@@ -91,7 +91,7 @@ namespace WindowsFormsApplication1
                 sql += " where GRMB_FK = '" + update_gr_cd + "'";
                 sql += " and GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
                 db.ExecuteNonQuery(sql);
-                Get_list();
+                Group_dbgrid.Rows.Remove(Group_dbgrid.Rows[e.RowIndex]);
             }
             else if (e.ColumnIndex == btnColumnIdx_delete)
             {
@@ -100,8 +100,9 @@ namespace WindowsFormsApplication1
                 sql += " where GRMB_FK = '" + delete_gr_cd + "'";
                 sql += " and GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
                 db.ExecuteNonQuery(sql);
-                Get_list();
+                Group_dbgrid.Rows.Remove(Group_dbgrid.Rows[e.RowIndex]);
             }
+            if (Group_dbgrid.Rows.Count == 1) Close();
         }
 
         private void GroupMember_Check_Load(object sender, EventArgs e)
