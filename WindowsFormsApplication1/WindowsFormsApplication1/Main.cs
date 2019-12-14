@@ -402,6 +402,7 @@ namespace WindowsFormsApplication1
                 }
             }
             db.Reader.Close();
+            bs_leftTab.reset();
         }
 
         // ---------- EVENT ----------
@@ -730,6 +731,7 @@ namespace WindowsFormsApplication1
                 UserProfile_prof.USERNAME.Text = ui.ur_name;
             }
         }
+
         private void 그룹추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Group_Modify grpAdd = new Group_Modify();

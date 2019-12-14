@@ -276,6 +276,7 @@
             this.그룹추가ToolStripMenuItem.Name = "그룹추가ToolStripMenuItem";
             this.그룹추가ToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.그룹추가ToolStripMenuItem.Text = "그룹 추가";
+            this.그룹추가ToolStripMenuItem.Click += new System.EventHandler(this.그룹추가ToolStripMenuItem_Click);
             // 
             // 일정ToolStripMenuItem
             // 

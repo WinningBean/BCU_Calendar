@@ -123,7 +123,7 @@ namespace WindowsFormsApplication1
                 fc_pan.Controls[0].BackColor = Color.Gainsboro;
             }
 
-            if (db.FR_CD == null && db.GR_CD == null)
+            if (db.FR_CD == null)
             {
                 ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
                 Add_SC_btn.Dispose();
@@ -178,7 +178,7 @@ namespace WindowsFormsApplication1
             m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(((Label)sender).Text.ToString()));
             Panel fc_pan = (Panel)((Label)sender).Parent;
 
-            if (db.FR_CD == null && db.GR_CD == null)
+            if (db.FR_CD == null)
             {
                 ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
                 Add_SC_btn.Dispose();
@@ -284,7 +284,7 @@ namespace WindowsFormsApplication1
                 if (i == m_nowDay)
                 {
                     Day_n_lbl.BackColor = Color.Gainsboro;
-                    if (db.FR_CD == null && db.GR_CD == null)
+                    if (db.FR_CD == null)
                     {
                         Set_Add_SC_btn();
                         MonthPanel.Controls.Add(Add_SC_btn);
