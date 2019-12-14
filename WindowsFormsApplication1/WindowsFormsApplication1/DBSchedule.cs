@@ -80,6 +80,32 @@ namespace WindowsFormsApplication1
             return GET_DAY_SC_TB;
         }
 
+        public DataTable Get_DayAll_Schedule(bool is_UR, string m_URorGR_CD, DateTime day, int is_PB)
+        {
+            // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
+            if (is_UR == true) // 회원이라면
+            {
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+            }
+            else // 그룹이라면
+            {
+                sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
+            }
+            sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_END_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_PB_ST = " + is_PB.ToString();
+            sql += " order by  SC_STR_DT ASC";
+
+            DS = new DataSet();
+            db.AdapterOpen(sql);
+            db.Adapter.Fill(DS, "GET_DAY_SC_TB");
+
+            DataTable GET_DAY_SC_TB = new DataTable();
+            GET_DAY_SC_TB = DS.Tables["GET_DAY_SC_TB"];
+
+            return GET_DAY_SC_TB;
+        }
+
         public DataTable Get_Week_Schedule(bool is_UR, string m_URorGR_CD, DateTime day, int turm, int is_PB) // day + turm
         {
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
@@ -94,7 +120,7 @@ namespace WindowsFormsApplication1
             sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") + "'";
             sql += " and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd") + "'";
             sql += " and SC_PB_ST = " + is_PB.ToString();
-            sql += " order by  SC_STR_DT ASC"; // 일주일 범위 안에 들어오면 무조건
+            sql += " order by  SC_STR_DT ASC"; // 범위 안에 들어오면 무조건
 
             DS = new DataSet();
             db.AdapterOpen(sql);
