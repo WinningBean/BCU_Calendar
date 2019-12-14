@@ -29,10 +29,10 @@ namespace WindowsFormsApplication1
         #endregion
 
         #region 둥근 모서리
-        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect,
           int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
         #endregion
+
 
         DataRow curr = null;
         string Code = null;
@@ -143,7 +143,8 @@ namespace WindowsFormsApplication1
         }
         public string ColorCom
         {
-            get {
+            get
+            {
                 if (colorCom.Text == "")
                 return null;
                 return dbc.GetColorCode(colorCom.Text);
@@ -156,13 +157,22 @@ namespace WindowsFormsApplication1
         }
 
 
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        { // 현재 포커스날짜 프로퍼티
+            set { m_focus_dt = value; }
+        }
+        public DateTime Get_focus_dt() { return m_focus_dt; }
+
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
 
             this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
             dbs = new DBSchedule();
             dbc = new DBColor();
-
+           // strDate.Value = m_focus_dt;
+           // EndDate = m_focus_dt;
+            this.StartPosition = FormStartPosition.CenterParent;
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";
@@ -585,6 +595,16 @@ namespace WindowsFormsApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void strDate_ValueChanged(object sender, EventArgs e)
+        {
+            StrDate = strDate.Value;
+        }
+
+        private void endDate_ValueChanged(object sender, EventArgs e)
+        {
+            EndDate = endDate.Value;
         }
     }
 }

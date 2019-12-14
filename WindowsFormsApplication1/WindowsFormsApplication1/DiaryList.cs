@@ -117,6 +117,7 @@ namespace WindowsFormsApplication1
                 string sql = "delete from DIARY_TB where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi') and DR_PB_ST = '" + check + "' and DR_UR_FK='" + db.UR_CD + "'";
                 db.ExecuteNonQuery(sql);
                 Clear_Control();
+                this.Close();
             }
      
         }
@@ -131,6 +132,7 @@ namespace WindowsFormsApplication1
             db.ExecuteNonQuery(sql);
 
             MessageBox.Show("수정이 완료 되었습니다", "완료", MessageBoxButtons.OK);
+            this.Close();
 
         }
 
