@@ -12,6 +12,20 @@ namespace WindowsFormsApplication1
 {
     public partial class Group_Modify : Form
     {
+
+        #region 폼 그림자 생성
+        private const int CS_DROPSHADOW = 0x00020000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+        #endregion
+
         private DBConnection db = Program.DB;
         private string sql;
 

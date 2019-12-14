@@ -116,9 +116,9 @@ namespace WindowsFormsApplication1
             DataSet ds = new DataSet("TODO_TB");
             string sql;
             if (db.GR_CD != null) // 그룹이라면 그룹스케줄 표시
-                sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_GR_FK = '"+ db.GR_CD +"'ORDER BY TD_DT";
+                sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_GR_FK = '" + db.GR_CD + "'ORDER BY TD_DT";
             else
-                sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_UR_FK = '"+db.UR_CD+"' ORDER BY TD_DT";
+                sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_UR_FK = '" + db.UR_CD + "' ORDER BY TD_DT";
             db.AdapterOpen(sql);
             db.Adapter.Fill(ds, "TODO_TB");
             if (db.GR_CD != null) // 완료된것도 표시해야한다
@@ -134,13 +134,27 @@ namespace WindowsFormsApplication1
             {
                 DataRow dr = dt.Rows[i];
                 tdList.Add(dr);
-                DateTime currDate = DateTime.Parse(dr[2].ToString());
-                if (lastDate.ToString("yyyy-MM-dd") != currDate.ToString("yyyy-MM-dd"))
+                if (!(dr[2].Equals(System.DBNull.Value)))
                 {
-                    CreateDateLab(currDate, y);
-                    insidePan.Size = new Size(insidePan.Width, insidePan.Height + 20);
-                    y += 20;
+                    DateTime currDate = DateTime.Parse(dr[2].ToString());
+                    if (lastDate.ToString("yyyy-MM-dd") != currDate.ToString("yyyy-MM-dd"))
+                    {
+                        CreateDateLab(currDate, y);
+                        insidePan.Size = new Size(insidePan.Width, insidePan.Height + 20);
+                        y += 20;
+                    }
                 }
+                else
+                {
+                    if (lastDate != new DateTime())
+                    {
+                        CreateNullLab(y);
+                        lastDate = new DateTime();
+                        insidePan.Size = new Size(insidePan.Width, insidePan.Height + 20);
+                        y += 20;
+                    }
+                }
+
                 Panel todo = new Panel();
                 todo.Location = new Point(0, y);
                 todo.Size = new Size(this.Width, 60);
@@ -156,7 +170,7 @@ namespace WindowsFormsApplication1
                 clickPan.MouseClick += new MouseEventHandler(OnFinishClick);
 
                 Label txt = new Label();
-                
+
                 //txt.AutoSize = true;
                 txt.BackColor = Color.Transparent;
                 txt.TextAlign = ContentAlignment.MiddleLeft;
@@ -175,7 +189,7 @@ namespace WindowsFormsApplication1
                 deleteLab.BackColor = Color.Transparent;
                 deleteLab.TextAlign = ContentAlignment.BottomRight;
                 deleteLab.Size = new Size(20, 60);
-                deleteLab.Location = new Point(insidePan.Width-20, 0);
+                deleteLab.Location = new Point(insidePan.Width - 20, 0);
                 deleteLab.Name = i.ToString();
                 deleteLab.Text = "X";
                 deleteLab.Visible = false;
@@ -219,7 +233,7 @@ namespace WindowsFormsApplication1
             Panel pan = (Panel)sender;
             int num = Int32.Parse(pan.Name);
             DataRow dr = tdList[num];
-            if(dr[3].ToString() == "0")
+            if (dr[3].ToString() == "0")
             {
                 db.ExecuteNonQuery("UPDATE TODO_TB SET TD_COMP_ST = 1 where TD_CD = '" + dr[0].ToString() + "'");
                 dr[3] = "1";
@@ -240,13 +254,25 @@ namespace WindowsFormsApplication1
         private void CreateDateLab(DateTime dt, int y)
         {
             Label lab = new Label();
-            lab.Location = new Point(0, y);
-            lab.Size = new Size(this.Width, 20);
+            lab.Location = new Point(10, y + 3);
+            lab.Size = new Size(this.Width-10, 20);
             lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lab.BackColor = Color.Transparent;
             lab.TextAlign = ContentAlignment.MiddleLeft;
             lab.Text = dt.ToString("yyyy/MM/dd");
             lastDate = dt;
+            insidePan.Controls.Add(lab);
+        }
+
+        private void CreateNullLab(int y)
+        {
+            Label lab = new Label();
+            lab.Location = new Point(10, y + 3);
+            lab.Size = new Size(this.Width-10, 20);
+            lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lab.BackColor = Color.Transparent;
+            lab.TextAlign = ContentAlignment.MiddleLeft;
+            lab.Text = "마감일자 없음";
             insidePan.Controls.Add(lab);
         }
 
@@ -265,6 +291,7 @@ namespace WindowsFormsApplication1
             db.ExecuteReader("select * from TODO_TB where TD_CD = '" + tdList[Int32.Parse(pan.Name)][0] + "'");
             db.Reader.Read();
             Color c = new Color();
+
             if (db.Reader[3].ToString().Equals("0"))
             {
                 if (tdList[Int32.Parse(pan.Name)][4].ToString() != "")
@@ -273,7 +300,7 @@ namespace WindowsFormsApplication1
                     c = defaultColor;
             }
             else
-                c = dbc.GetColorInsertName("GRAY");
+                c = defaultColor;
 
             db.Reader.Close();//혹시에러날까봐
 

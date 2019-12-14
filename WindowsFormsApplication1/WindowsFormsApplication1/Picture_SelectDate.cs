@@ -12,6 +12,20 @@ namespace WindowsFormsApplication1
 {
     public partial class Picture_SelectDate : Form
     {
+
+        #region 폼 그림자 생성
+        private const int CS_DROPSHADOW = 0x00020000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+        #endregion
+
         public DateTime dt;
         public Picture_SelectDate()
         {
@@ -27,6 +41,11 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
             Close();
         }
     }

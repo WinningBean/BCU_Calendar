@@ -13,6 +13,20 @@ namespace WindowsFormsApplication1
     public partial class ToDoList_Add : Form
     {
 
+        #region 폼 그림자 생성
+        private const int CS_DROPSHADOW = 0x00020000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+        #endregion
+
+
         DBConnection db = Program.DB;
         string urcd;
 
@@ -71,17 +85,33 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (urcd[0] == 'U') // 유저면
+            if (m_Date_cb.Checked) // 마감일자 미설정 체크가 되어있으면
             {
-                db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
-                textBox2.Text + "', '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") +
-                "', 0, '" + selectCD + "', '" + urcd + "', null)");
+                if (urcd[0] == 'U') // 유저면
+                {
+                    db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
+                    textBox2.Text + "', null, 0, '" + selectCD + "', '" + urcd + "', null)");
+                }
+                else // 그룹이면
+                {
+                    db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
+                    textBox2.Text + "', null, 0, '" + selectCD + "', null, '" + urcd + "')");
+                }
             }
-            else // 그룹이면
+            else
             {
-                db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
-                textBox2.Text + "', '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") +
-                "', 0, '" + selectCD + "', null, '" + urcd + "')");
+                if (urcd[0] == 'U') // 유저면
+                {
+                    db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
+                    textBox2.Text + "', '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") +
+                    "', 0, '" + selectCD + "', '" + urcd + "', null)");
+                }
+                else // 그룹이면
+                {
+                    db.ExecuteNonQuery("insert into TODO_TB values('T' || SEQ_TDCD.nextval, '" +
+                    textBox2.Text + "', '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") +
+                    "', 0, '" + selectCD + "', null, '" + urcd + "')");
+                }
             }
             MessageBox.Show("할일이 등록되었습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             this.DialogResult = DialogResult.OK;
@@ -114,6 +144,22 @@ namespace WindowsFormsApplication1
         private void label2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ToDoList_Add_Load(object sender, EventArgs e)
+        {
+            if (m_Date_cb.Checked)
+                dateTimePicker1.Enabled = false;
+            else
+                dateTimePicker1.Enabled = true;
+        }
+
+        private void m_Date_cb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_Date_cb.Checked)
+                dateTimePicker1.Enabled = false;
+            else
+                dateTimePicker1.Enabled = true;
         }
     }
 }
