@@ -169,6 +169,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UserInfo";
             this.Text = "UserInfo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserInfo_FormClosed);
             this.Load += new System.EventHandler(this.UserInfo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

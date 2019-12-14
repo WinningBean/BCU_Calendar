@@ -123,7 +123,7 @@ namespace WindowsFormsApplication1
                 pic.reset();
 
             bs_leftTab.reset();
-                
+
             MemProf_lst = grp.MEMBER_PROF_lst;
             MemCD_lst = grp.MEMBER_CD_lst;
 
@@ -490,6 +490,8 @@ namespace WindowsFormsApplication1
         {
             Schedule_Modify modiSche = new Schedule_Modify();
             modiSche.ShowDialog();
+            if(WeekForm_btn.Enabled == false)
+                week.resetSchedual();
         }
 
         private void 최소화toolStripMenuItem_Click(object sender, EventArgs e)
@@ -680,6 +682,31 @@ namespace WindowsFormsApplication1
             Friend_Group friendGroup = new Friend_Group();
             friendGroup.ShowDialog();
 
+        }
+
+        private void 사용자정보ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserInfo ui = new UserInfo(db.UR_CD);
+            ui.Location = Cursor.Position;
+            ui.StartPosition = FormStartPosition.Manual;
+            if (ui.ShowDialog() == DialogResult.OK)
+            {
+                db.AdapterOpen("select * from USER_TB where UR_CD = '" + db.UR_CD + "'");
+                DataSet ds = new DataSet("USER_TB");
+                db.Adapter.Fill(ds, "USER_TB");
+                if (ds.Tables["USER_TB"].Rows[0][4].Equals(System.DBNull.Value))
+                {
+                    UserProfile_prof.USERPIC.Image = global::WindowsFormsApplication1.Properties.Resources.user_null;
+                    this.DialogResult = DialogResult.OK;
+                    return;
+                }
+
+                Byte[] b = (Byte[])(ds.Tables["USER_TB"].Rows[0][4]);
+                MemoryStream stmBlobData = new MemoryStream(b);
+                Image img = Image.FromStream(stmBlobData);
+                UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
+                UserProfile_prof.USERNAME.Text = ui.ur_name;
+            }
         }
     }
 }

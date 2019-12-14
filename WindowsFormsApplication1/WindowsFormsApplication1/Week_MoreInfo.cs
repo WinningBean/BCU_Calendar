@@ -79,6 +79,8 @@ namespace WindowsFormsApplication1
 
         private void m_LiView_info_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (db.FR_CD != null)
+                return;
             this.DialogResult = DialogResult.OK;
             var ls = m_LiView_info.SelectedItems[0];
             db.ExecuteReader("select * from SCHEDULE_TB where SC_CD = '" + ls.Name + "'");

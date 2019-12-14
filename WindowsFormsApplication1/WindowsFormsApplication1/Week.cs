@@ -782,11 +782,15 @@ namespace WindowsFormsApplication1
                 clickPanel = pan;
                 m_focus_dt = DateTime.Parse(db.Reader[4].ToString());
 
+                if (db.FR_CD != null)
+                    return;
                 for (int i = 0; i < colorPan.Count; i++)
                     colorPan[i].Visible = true; // ----
             }
             if (e.Clicks == 2)
             {
+                if (db.FR_CD != null)
+                    return;
                 Schedule_Modify ms = new Schedule_Modify();
                 ms.NameTxt = db.Reader[1].ToString();
                 ms.ExTxt = db.Reader[2].ToString();
@@ -865,6 +869,8 @@ namespace WindowsFormsApplication1
             }
             else if(e.Clicks == 2)
             {
+                if (db.FR_CD != null)
+                    return;
                 Schedule_Modify ms = new Schedule_Modify();
                 ms.StrDate = DateTime.Parse(m_focus_dt.ToString());
                 ms.EndDate = DateTime.Parse(m_focus_dt.ToString());
@@ -875,6 +881,8 @@ namespace WindowsFormsApplication1
 
         private void OnColorClick(object sender, EventArgs e)
         {
+            if (db.FR_CD != null)
+                return;
             Panel pan = (Panel)sender;
             DBColor dbc = new DBColor();
 
