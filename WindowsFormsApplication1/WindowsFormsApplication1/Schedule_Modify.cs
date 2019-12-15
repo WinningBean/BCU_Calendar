@@ -170,8 +170,8 @@ namespace WindowsFormsApplication1
             //this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
             dbs = new DBSchedule();
             dbc = new DBColor();
-            //strDate.Value = m_focus_dt;
-            //EndDate = m_focus_dt;
+            strDate.Value = m_focus_dt;
+            EndDate = m_focus_dt;
             this.StartPosition = FormStartPosition.CenterParent;
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
             strDate.Format = DateTimePickerFormat.Custom;

@@ -167,6 +167,7 @@
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Diary";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "        ";
             this.Load += new System.EventHandler(this.Diary_Load);
             this.ResumeLayout(false);

@@ -459,7 +459,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Schedule_Modify";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModifySchedule";
             this.Load += new System.EventHandler(this.ModifySchedule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imagePic)).EndInit();

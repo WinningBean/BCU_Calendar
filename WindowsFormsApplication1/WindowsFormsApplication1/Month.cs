@@ -565,7 +565,9 @@ namespace WindowsFormsApplication1
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
             modiSche.Location = new Point(f_loX, f_loY);
+            modiSche.FOCUS_DT = m_focus_dt;
             modiSche.ShowDialog();
+            m_focus_dt = modiSche.StrDate;
 
             Set_Month_Today();
         }
