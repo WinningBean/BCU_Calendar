@@ -347,8 +347,7 @@ namespace WindowsFormsApplication1
             string Panel_nm = "Week" + w_n.ToString() + "_panel"; // 해당 패널에 삽입
             Panel WeekPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
             List<int> bs_lo = new List<int>(); // 비어있는 로케이션 리스트
-
-            int bs_sc = 0;
+            
             int lastY = 0;
             List<int> nowSc_Y_lst = new List<int>(); // 현재 Y좌표 레이블
             
@@ -358,6 +357,7 @@ namespace WindowsFormsApplication1
                 {
                     nowSc_Y_lst.Add(WeekPanel.Controls[i].Location.Y);
                     lastY = WeekPanel.Controls[i].Location.Y + 25;
+                    //bs_sc++;
                 }
             }
 
@@ -372,10 +372,10 @@ namespace WindowsFormsApplication1
                 if (lst_cnt == 1 && nowSc_Y_lst[0] == 0 && bs_lo.Count == 0) bs_lo.Add(25);
             }
             // 일정 추가
-            Set_Schedule(NowDay, WeekPanel, bs_lo, now_loX, bs_sc);
+            Set_Schedule(NowDay, WeekPanel, bs_lo, now_loX);
         }
 
-        private void Set_Schedule(DateTime NowDay, Panel WeekPanel, List<int> bs_lo, int now_loX, int bs_sc)
+        private void Set_Schedule(DateTime NowDay, Panel WeekPanel, List<int> bs_lo, int now_loX)
         {
             // 일정 표시 함수
             DataTable sc_day_tb;
@@ -412,6 +412,7 @@ namespace WindowsFormsApplication1
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
             int lo_y = -25; // 이어지는 일정 뒤의 로케이션
+            int bs_sc = 0;
 
             System.Windows.Forms.Label label;
             for (int i = 0; i < rows.Length; i++)
@@ -466,7 +467,8 @@ namespace WindowsFormsApplication1
                         label.BackColor = sc_cr_bs;
                         label.ForeColor = Color.Black;
                         df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - NowDay;
-                        Add_Set_Schedule(label.Tag.ToString(), df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
+                        bs_sc++;
+                        Add_Set_Schedule(label.Tag.ToString(), NowDay.Day, df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
                     }
                 }
                 else
@@ -480,7 +482,7 @@ namespace WindowsFormsApplication1
             
         }
 
-        private void Add_Set_Schedule(string SC_CD, TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
+        private void Add_Set_Schedule(string SC_CD, int NowDay, TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
         {
             int add_lbl_now = 0;
 
@@ -491,6 +493,8 @@ namespace WindowsFormsApplication1
                 int add_loX = now_loX;
                 for (int j = 1; j < df_time.Days; j++) // 차이나는 일자만큼 해당 패널에 추가레이블 생성
                 {
+                    if (m_LastDay - NowDay < j) return;
+
                     int add_day = lbl_nm + j;
 
                     int add_w_n = ((add_day - 1) / 7) + 1;
@@ -508,7 +512,7 @@ namespace WindowsFormsApplication1
                     System.Windows.Forms.Label add_label;
                     add_label = new System.Windows.Forms.Label();
                     add_label.Location = new System.Drawing.Point(add_loX, lo_y);
-                    add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc + add_lbl_now).ToString();
+                    add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc).ToString();
                     add_label.Size = new System.Drawing.Size(135, 25);
                     add_label.BackColor = sc_cr_bs;
                     add_label.Tag = SC_CD;
