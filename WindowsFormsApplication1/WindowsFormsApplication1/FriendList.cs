@@ -119,25 +119,25 @@ namespace WindowsFormsApplication1
             FrGr_btnlabel[0].Show();
 
             pan[0] = new Panel();
-            pan[0].AutoSize = true;
             pan[0].Location = new Point(FrGr_pan[0].Location.X, FrGr_pan[0].Location.Y + 40);
-           
             panel1.Controls.Add(pan[0]);
 
             FrProf_lst = new List<UserCustomControl.Profile>();
 
-            for (int i = 0; i < friendTable.Rows.Count; i++)
-            {             
-                pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
-            }
             if (friendTable.Rows.Count != 0)
             {
                 pan[0].Size = new System.Drawing.Size(223, 25 * (friendTable.Rows.Count + 1));
             }
             else
             {
-                pan[0].Size = new System.Drawing.Size(223, 25 * friendTable.Rows.Count);
+                pan[0].Size = new System.Drawing.Size(223, 0);
             }
+
+            for (int i = 0; i < friendTable.Rows.Count; i++)
+            {             
+                pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
+            }
+
             //기본적 생성이 아닌 사용자가 설정한 그룹들 가져온다
             for (int i = 0; i < friend_group_tb.Rows.Count; i++) 
             {
@@ -258,11 +258,13 @@ namespace WindowsFormsApplication1
                 panel1.Controls.Add(pan[i + 1]);
                 pan[i + 1].Location = new System.Drawing.Point(FrGr_pan[i + 1].Location.X, FrGr_pan[i + 1].Location.Y + FrGr_pan[i + 1].Size.Height);
                 pan[i + 1].Visible = false;
+                pan[i + 1].BackColor = Color.Blue;
+                pan[0].BackColor = Color.Blue;
 
                 DataRow currRow = friend_group_tb.Rows[i];
 
                 string sql;
-                sql = "select UR_NM, UR_CD  UR_PIC from USER_TB";
+                sql = "select UR_NM, UR_CD,  UR_PIC from USER_TB";
                 sql += " where UR_CD in ";
                 sql += "(select FR_FR_FK from FRIEND_TB";
                 sql += " where FR_FRGR_FK = '" + currRow["FRGR_CD"].ToString() + "'";
@@ -275,13 +277,13 @@ namespace WindowsFormsApplication1
                 db.Adapter.Fill(rs, "groupMemberTb");
                 DataTable groupMemberTb = rs.Tables["groupMemberTb"];
 
-                if (friendTable.Rows.Count != 0)
+                if (groupMemberTb.Rows.Count != 0)
                 {
                     pan[i + 1].Size = new System.Drawing.Size(223, 25 * (groupMemberTb.Rows.Count + 1));
                 }
                 else
                 {
-                    pan[i + 1].Size = new System.Drawing.Size(223, 25 * groupMemberTb.Rows.Count);
+                    pan[i + 1].Size = new System.Drawing.Size(223, 0);
                 }
 
                 for (int j = 0; j < groupMemberTb.Rows.Count; j++) // 그룹 목록에 그룹원 추가

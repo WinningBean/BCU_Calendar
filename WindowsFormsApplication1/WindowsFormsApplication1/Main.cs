@@ -505,7 +505,7 @@ namespace WindowsFormsApplication1
 
         private void 일정추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Schedule_Modify modiSche = new Schedule_Modify();
+            Schedule_Modify modiSche = new Schedule_Modify(true);
             modiSche.ShowDialog();
             if(WeekForm_btn.Enabled == false)
                 week.resetSchedual();

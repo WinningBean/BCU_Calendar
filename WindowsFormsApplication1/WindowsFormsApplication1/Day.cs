@@ -410,6 +410,7 @@ namespace WindowsFormsApplication1
                 DataRow curr = GET_DAY_SC_TB.Rows[i];
 
                 Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
+                dlg.FOCUS_DT = m_focus_dt;
                 dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
                 dlg.ShowDialog();
 
@@ -434,6 +435,7 @@ namespace WindowsFormsApplication1
                 DataRow curr = GET_DAY_SC_TB.Rows[i];
 
                 Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
+                dlg.FOCUS_DT = m_focus_dt;
                 dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
                 dlg.ShowDialog();
             }
