@@ -795,8 +795,7 @@ namespace WindowsFormsApplication1
                 Schedule_Modify ms = new Schedule_Modify();
                 ms.NameTxt = db.Reader[1].ToString();
                 ms.ExTxt = db.Reader[2].ToString();
-                ms.StrDate = DateTime.Parse(db.Reader[4].ToString());
-                ms.EndDate = DateTime.Parse(db.Reader[5].ToString());
+                ms.FOCUS_DT = m_focus_dt;
                 ms.StateCheck = Int32.Parse(db.Reader[3].ToString());
                 ms.ShowDialog();
                 m_focus_dt = ms.StrDate;
@@ -873,8 +872,7 @@ namespace WindowsFormsApplication1
                 if (db.FR_CD != null)
                     return;
                 Schedule_Modify ms = new Schedule_Modify();
-                ms.StrDate = DateTime.Parse(m_focus_dt.ToString());
-                ms.EndDate = DateTime.Parse(m_focus_dt.ToString());
+                ms.FOCUS_DT = m_focus_dt;
                 ms.ShowDialog();
                 m_focus_dt = ms.StrDate;
             }

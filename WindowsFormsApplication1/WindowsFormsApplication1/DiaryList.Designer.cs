@@ -104,6 +104,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "DiaryList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DiaryList";
             this.Load += new System.EventHandler(this.DiaryList_Load);
             this.ResumeLayout(false);
