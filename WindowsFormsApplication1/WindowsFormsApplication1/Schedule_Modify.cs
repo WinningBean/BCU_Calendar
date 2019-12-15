@@ -34,7 +34,6 @@ namespace WindowsFormsApplication1
           int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
         #endregion
 
-        DataRow curr = null;
         string Code = null;
 
 

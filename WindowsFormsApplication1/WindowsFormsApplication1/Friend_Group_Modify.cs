@@ -38,6 +38,8 @@ namespace WindowsFormsApplication1
         {
             string sql = "update FRIEND_GROUP_TB set FRGR_NM = '" + textBox1.Text + "' where FRGR_CD = '" + CD + "'";
             db.ExecuteNonQuery(sql);
+            MessageBox.Show("수정이 완료되었습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            this.Close();
         }
 
         private void button5_Click(object sender, EventArgs e)

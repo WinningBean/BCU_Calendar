@@ -355,12 +355,16 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e) // 취소
         {
+            SearchFR_txt.Text = "";
+            SEARCH_FR_btn.Text = "⌕";
             panel2.Visible = false;
             panel1.Visible = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            SearchFR_txt.Text = "";
+            SEARCH_FR_btn.Text = "⌕";
             panel2.Visible = false;
             panel1.Visible = true;
             Friend_Add addFriend = new Friend_Add();
@@ -413,7 +417,10 @@ namespace WindowsFormsApplication1
             {
                 panel1.Visible = true;     
                 search_pan.Visible = false;
+                search_pan.Controls.Clear();
                 SEARCH_FR_btn.Text = "⌕";
+                SearchFR_txt.Text = "";
+                location = 0;
                 SearchFR_txt.Clear();
                 Friend_lbl.Text = "친구  총" + friendTable.Rows.Count.ToString() + "명";
             }
