@@ -443,9 +443,12 @@ namespace WindowsFormsApplication1
         private void Get_TodoList()
         {
             string sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "'";
+            sql += " and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'";
+            sql += " and TD_COMP_ST = 0 " ;
+            sql += " order by TD_DT ASC";
             db.ExecuteReader(sql);
             int y = 75;
-         //   Color color = randomColor();
+       
             while (db.Reader.Read())
             {
 
@@ -457,16 +460,21 @@ namespace WindowsFormsApplication1
                 panel1.Controls.Add(todoName);
                 y += 20;
 
-                if(!(db.Reader[2].ToString().Equals(System.DBNull.Value)))
-                {
-                    Label todoDate = new Label();
-                    todoDate.Text = db.Reader[2].ToString();
-                    todoDate.AutoSize = true;
-                    todoDate.Location = new System.Drawing.Point(15, y);
-                    todoDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                    panel1.Controls.Add(todoDate);
-                    y += 40;
-                }
+
+                string date = db.Reader[2].ToString();
+                int year = Convert.ToInt32(date.Substring(0, 4));
+                int month = Convert.ToInt32(date.Substring(5, 2));
+                int day = Convert.ToInt32(date.Substring(8, 2));
+                DateTime currDate = new DateTime(year, month, day);
+
+                Label todoDate = new Label();
+                todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
+                todoDate.AutoSize = true;
+                todoDate.Location = new System.Drawing.Point(15, y);
+                todoDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                panel1.Controls.Add(todoDate);
+                y += 40;
+                
 
                 Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
                 Label todoColor = new Label();

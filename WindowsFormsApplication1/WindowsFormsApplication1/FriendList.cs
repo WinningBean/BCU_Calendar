@@ -45,11 +45,14 @@ namespace WindowsFormsApplication1
             FriendProfile.Size = new System.Drawing.Size(223, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
             FriendProfile.Name = currRow["UR_CD"].ToString();
-            //if (!(currRow["UR_PIC"].Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
+            if (!(currRow["UR_PIC"].Equals(System.DBNull.Value)))
+            {
+                byte[] byteData = (byte[])(dataTable.Rows[i].ItemArray[2]);
+                System.IO.MemoryStream msData = new System.IO.MemoryStream(byteData);
+                FriendProfile.USERPIC.Image = Image.FromStream(msData);
+            }
             FriendProfile.USERNAME.Text = currRow["UR_NM"].ToString();
             FriendProfile.Location = new System.Drawing.Point(0,location * 25);
-            FriendProfile.MouseClick += new MouseEventHandler(mouse_MouseClick);
-            FriendProfile.USERPIC.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.Name = currRow["UR_CD"].ToString();
             FriendProfile.Show();
@@ -259,7 +262,7 @@ namespace WindowsFormsApplication1
                 DataRow currRow = friend_group_tb.Rows[i];
 
                 string sql;
-                sql = "select UR_NM, UR_PIC, UR_CD from USER_TB";
+                sql = "select UR_NM, UR_CD  UR_PIC from USER_TB";
                 sql += " where UR_CD in ";
                 sql += "(select FR_FR_FK from FRIEND_TB";
                 sql += " where FR_FRGR_FK = '" + currRow["FRGR_CD"].ToString() + "'";
@@ -274,11 +277,11 @@ namespace WindowsFormsApplication1
 
                 if (friendTable.Rows.Count != 0)
                 {
-                    pan[0].Size = new System.Drawing.Size(223, 25 * (friendTable.Rows.Count + 1));
+                    pan[i + 1].Size = new System.Drawing.Size(223, 25 * (groupMemberTb.Rows.Count + 1));
                 }
                 else
                 {
-                    pan[0].Size = new System.Drawing.Size(223, 25 * friendTable.Rows.Count);
+                    pan[i + 1].Size = new System.Drawing.Size(223, 25 * groupMemberTb.Rows.Count);
                 }
 
                 for (int j = 0; j < groupMemberTb.Rows.Count; j++) // 그룹 목록에 그룹원 추가
@@ -427,7 +430,7 @@ namespace WindowsFormsApplication1
             else
             {
                 string sql;
-                sql = "select UR_CD, UR_NM from USER_TB";
+                sql = "select UR_CD, UR_NM, UR_PIC from USER_TB";
                 sql += " where UR_CD in (";
                 sql += "select FR_FR_FK from FRIEND_TB";
                 sql += " where FR_UR_FK = '" + db.UR_CD + "'";
