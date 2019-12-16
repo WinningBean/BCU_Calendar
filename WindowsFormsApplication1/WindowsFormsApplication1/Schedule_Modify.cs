@@ -34,19 +34,30 @@ namespace WindowsFormsApplication1
           int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
         #endregion
 
-        DataRow curr = null;
         string Code = null;
-
+        bool is_main = false;
 
         public Schedule_Modify(string CD)  // 스케줄 코드를 생성자로 받는다 (수정)
         {
             InitializeComponent();
             this.Code = CD;
-
+            dbs = new DBSchedule();
+            dbc = new DBColor();
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
         }
-        public Schedule_Modify() //일정 생성시
+        public Schedule_Modify(bool is_main = false) //일정 생성시
         {
             InitializeComponent();
+            dbs = new DBSchedule();
+            dbc = new DBColor();
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
+            this.is_main = is_main;
+            if (is_main == true)
+            {
+                StrDate = dbs.TODAY;
+                EndDate = dbs.TODAY;
+            }
+
         }
 
         DBConnection db = Program.DB;
@@ -143,9 +154,12 @@ namespace WindowsFormsApplication1
         }
         public string ColorCom
         {
-            get {
-                if (colorCom.Text == "")
-                return null;
+            get
+            {
+                if (colorCom.Text.Equals("gainboro"))
+                    return null;
+                else if (colorCom.Text.Equals(""))
+                    return null;
                 return dbc.GetColorCode(colorCom.Text);
             }
             set
@@ -156,14 +170,23 @@ namespace WindowsFormsApplication1
         }
 
 
+        private DateTime m_focus_dt; // 현재 포커스 날짜
+        public DateTime FOCUS_DT
+        { // 현재 포커스날짜 프로퍼티
+            set { m_focus_dt = value; }
+        }
+        public DateTime Get_focus_dt() { return m_focus_dt; }
+
         private void ModifySchedule_Load(object sender, EventArgs e)
         {
-
             this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, this.Size.Width, this.Size.Height, 15, 15));
-            dbs = new DBSchedule();
-            dbc = new DBColor();
+            if(is_main==false && Code == null)
+            {
+                EndDate = m_focus_dt;
+                StrDate = m_focus_dt;
+            }
 
-            label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
+            this.StartPosition = FormStartPosition.CenterParent;
             strDate.Format = DateTimePickerFormat.Custom;
             strDate.CustomFormat = "yyyy/MM/dd ddd";
 
@@ -244,8 +267,18 @@ namespace WindowsFormsApplication1
             EndHour = endSC.Hour.ToString();
             EndMin = endSC.Minute.ToString();
             StateCheck = Convert.ToInt32(curr["SC_PB_ST"]);
-            ColorCom = dbc.GetColorName(curr[7].ToString());
             ScheduleCD = curr[0].ToString();
+
+            if (!(curr[7].Equals(System.DBNull.Value)))
+            {
+                ColorCom = dbc.GetColorName(curr[7].ToString());
+                label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
+            }
+            else
+            {
+                ColorCom = "gainboro";
+                label11.ForeColor = Color.Gainsboro;
+            }
 
             string command = "select * from PICTURE_TB where PIC_CD = '" + curr["SC_PIC_FK"].ToString() + "'";
             db.ExecuteReader(command);
@@ -463,7 +496,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                if (EndDate == StrDate && Convert.ToInt32(EndHour) < Convert.ToInt32(StrHour))
+                if (EndDate.Date == StrDate.Date && Convert.ToInt32(EndHour) < Convert.ToInt32(StrHour))
                 {
                    MessageBox.Show("일정 시간을 다시 확인해주세요", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
@@ -495,11 +528,6 @@ namespace WindowsFormsApplication1
                 TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
                 str_Date = str_Date.Date + strts;
 
-                if (ColorCom == null)
-                {
-                    ColorCom = null;
-                }
-
                 if (db.GR_CD != null)// 그룹일때 
                 {
 
@@ -508,6 +536,7 @@ namespace WindowsFormsApplication1
                         dbs.Insert_Schedule(false, db.GR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
                         MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         Clear_Controls();
+                        this.Close();
 
                     }
                     else//SC_GR_FK
@@ -529,6 +558,7 @@ namespace WindowsFormsApplication1
                         db.ExecuteNonQuery(sql);
                         MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         Clear_Controls();
+                        this.Close();
 
                     }
                 }
@@ -539,6 +569,7 @@ namespace WindowsFormsApplication1
                         dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
                         MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         Clear_Controls();
+                        this.Close();
 
                     }
                     else //수정
@@ -560,6 +591,7 @@ namespace WindowsFormsApplication1
                         db.ExecuteNonQuery(sql);
                         MessageBox.Show("일정을 수정했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         Clear_Controls();
+                        this.Close();
 
                     }
                 }
@@ -585,6 +617,16 @@ namespace WindowsFormsApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void strDate_ValueChanged(object sender, EventArgs e)
+        {
+            StrDate = strDate.Value;
+        }
+
+        private void endDate_ValueChanged(object sender, EventArgs e)
+        {
+            EndDate = endDate.Value;
         }
     }
 }

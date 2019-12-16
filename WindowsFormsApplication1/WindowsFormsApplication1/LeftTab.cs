@@ -28,6 +28,11 @@ namespace WindowsFormsApplication1
             // 그룹 코드 리스트 프로퍼티
             get { return bsGroup_CD_lst; }
         }
+        public List<string> SchGROUP_CD_lst
+        {
+            // 그룹 검색 코드 리스트 프로퍼티
+            get { return schGroup_CD_lst; }
+        }
         public Label PUBLIC_BTN
         {
             // 공개 일정 버튼 프로퍼티
@@ -42,6 +47,11 @@ namespace WindowsFormsApplication1
         {
             // 그룹 리스트박스 프로퍼티
             get { return bsGroup_lstbox; }
+        }
+        public ListBox SchGROUP_lstbox
+        {
+            // 그룹 리스트박스 프로퍼티
+            get { return schGroup_lstbox; }
         }
 
         private void Add_GR_btn_Click(object sender, EventArgs e) // 그룹 추가 버튼

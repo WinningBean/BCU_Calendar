@@ -35,7 +35,7 @@ namespace WindowsFormsApplication1
             // 해당 사용자에 대한 모든 일정 테이블 함수
             if (is_UR == true) // 회원이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' and SC_GR_FK is null";
             }
             else // 그룹이라면
             {
@@ -59,7 +59,7 @@ namespace WindowsFormsApplication1
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
             if (is_UR == true) // 회원이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' and SC_GR_FK is null";
             }
             else // 그룹이라면
             {
@@ -85,7 +85,7 @@ namespace WindowsFormsApplication1
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
             if (is_UR == true) // 회원이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' and SC_GR_FK is null";
             }
             else // 그룹이라면
             {
@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1
             // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
             if (is_UR == true) // 회원이라면
             {
-                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "'";
+                sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' and SC_GR_FK is null";
             }
             else // 그룹이라면
             {
@@ -153,7 +153,7 @@ namespace WindowsFormsApplication1
             if (cr_fk == null) { sql += "null, "; } // 컬러코드
             else { sql += "'" + cr_fk + "', "; }
             if (is_UR == true){sql += "'" + m_URorGR_CD + "', null)";} // 회원일시
-            else {sql += "null, '" + m_URorGR_CD + "')";} // 그룹일시
+            else {sql += "'" + db.UR_CD + "', '" + m_URorGR_CD + "')";} // 그룹일시
 
             db.ExecuteNonQuery(sql);
         }

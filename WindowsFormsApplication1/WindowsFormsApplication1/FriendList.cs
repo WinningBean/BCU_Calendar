@@ -45,11 +45,14 @@ namespace WindowsFormsApplication1
             FriendProfile.Size = new System.Drawing.Size(223, 25);
             FriendProfile.Set_Profile_Size(FontStyle.Bold);
             FriendProfile.Name = currRow["UR_CD"].ToString();
-            //if (!(currRow["UR_PIC"].Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
+            if (!(currRow["UR_PIC"].Equals(System.DBNull.Value)))
+            {
+                byte[] byteData = (byte[])(dataTable.Rows[i].ItemArray[2]);
+                System.IO.MemoryStream msData = new System.IO.MemoryStream(byteData);
+                FriendProfile.USERPIC.Image = Image.FromStream(msData);
+            }
             FriendProfile.USERNAME.Text = currRow["UR_NM"].ToString();
             FriendProfile.Location = new System.Drawing.Point(0,location * 25);
-            FriendProfile.MouseClick += new MouseEventHandler(mouse_MouseClick);
-            FriendProfile.USERPIC.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.MouseClick += new MouseEventHandler(mouse_MouseClick);
             FriendProfile.USERNAME.Name = currRow["UR_CD"].ToString();
             FriendProfile.Show();
@@ -116,25 +119,25 @@ namespace WindowsFormsApplication1
             FrGr_btnlabel[0].Show();
 
             pan[0] = new Panel();
-            pan[0].AutoSize = true;
             pan[0].Location = new Point(FrGr_pan[0].Location.X, FrGr_pan[0].Location.Y + 40);
-           
             panel1.Controls.Add(pan[0]);
 
             FrProf_lst = new List<UserCustomControl.Profile>();
 
-            for (int i = 0; i < friendTable.Rows.Count; i++)
-            {             
-                pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
-            }
             if (friendTable.Rows.Count != 0)
             {
                 pan[0].Size = new System.Drawing.Size(223, 25 * (friendTable.Rows.Count + 1));
             }
             else
             {
-                pan[0].Size = new System.Drawing.Size(223, 25 * friendTable.Rows.Count);
+                pan[0].Size = new System.Drawing.Size(223, 0);
             }
+
+            for (int i = 0; i < friendTable.Rows.Count; i++)
+            {             
+                pan[0].Controls.Add(Create_FriendProfile(i , friendTable));
+            }
+
             //기본적 생성이 아닌 사용자가 설정한 그룹들 가져온다
             for (int i = 0; i < friend_group_tb.Rows.Count; i++) 
             {
@@ -255,11 +258,13 @@ namespace WindowsFormsApplication1
                 panel1.Controls.Add(pan[i + 1]);
                 pan[i + 1].Location = new System.Drawing.Point(FrGr_pan[i + 1].Location.X, FrGr_pan[i + 1].Location.Y + FrGr_pan[i + 1].Size.Height);
                 pan[i + 1].Visible = false;
+                pan[i + 1].BackColor = Color.Blue;
+                pan[0].BackColor = Color.Blue;
 
                 DataRow currRow = friend_group_tb.Rows[i];
 
                 string sql;
-                sql = "select UR_NM, UR_PIC, UR_CD from USER_TB";
+                sql = "select UR_NM, UR_CD,  UR_PIC from USER_TB";
                 sql += " where UR_CD in ";
                 sql += "(select FR_FR_FK from FRIEND_TB";
                 sql += " where FR_FRGR_FK = '" + currRow["FRGR_CD"].ToString() + "'";
@@ -272,13 +277,13 @@ namespace WindowsFormsApplication1
                 db.Adapter.Fill(rs, "groupMemberTb");
                 DataTable groupMemberTb = rs.Tables["groupMemberTb"];
 
-                if (friendTable.Rows.Count != 0)
+                if (groupMemberTb.Rows.Count != 0)
                 {
-                    pan[0].Size = new System.Drawing.Size(223, 25 * (friendTable.Rows.Count + 1));
+                    pan[i + 1].Size = new System.Drawing.Size(223, 25 * (groupMemberTb.Rows.Count + 1));
                 }
                 else
                 {
-                    pan[0].Size = new System.Drawing.Size(223, 25 * friendTable.Rows.Count);
+                    pan[i + 1].Size = new System.Drawing.Size(223, 0);
                 }
 
                 for (int j = 0; j < groupMemberTb.Rows.Count; j++) // 그룹 목록에 그룹원 추가
@@ -355,12 +360,16 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e) // 취소
         {
+            SearchFR_txt.Text = "";
+            SEARCH_FR_btn.Text = "⌕";
             panel2.Visible = false;
             panel1.Visible = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            SearchFR_txt.Text = "";
+            SEARCH_FR_btn.Text = "⌕";
             panel2.Visible = false;
             panel1.Visible = true;
             Friend_Add addFriend = new Friend_Add();
@@ -413,14 +422,17 @@ namespace WindowsFormsApplication1
             {
                 panel1.Visible = true;     
                 search_pan.Visible = false;
+                search_pan.Controls.Clear();
                 SEARCH_FR_btn.Text = "⌕";
+                SearchFR_txt.Text = "";
+                location = 0;
                 SearchFR_txt.Clear();
                 Friend_lbl.Text = "친구  총" + friendTable.Rows.Count.ToString() + "명";
             }
             else
             {
                 string sql;
-                sql = "select UR_CD, UR_NM from USER_TB";
+                sql = "select UR_CD, UR_NM, UR_PIC from USER_TB";
                 sql += " where UR_CD in (";
                 sql += "select FR_FR_FK from FRIEND_TB";
                 sql += " where FR_UR_FK = '" + db.UR_CD + "'";

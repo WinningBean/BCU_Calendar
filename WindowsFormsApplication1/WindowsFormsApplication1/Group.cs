@@ -78,6 +78,8 @@ namespace WindowsFormsApplication1
         private List<string> MemCD_lst;
         private void Set_GroupMem() // 그룹원 설정
         {
+            GRMember_pan.Controls.Clear();
+
             sql = "select UR_CD, UR_NM, UR_PIC from USER_TB";
             sql += " where UR_CD in ";
             sql += "(select GRMB_MBR_UR_FK from GROUP_MEMBER_TB";
@@ -121,7 +123,6 @@ namespace WindowsFormsApplication1
             grpMemModi.ShowDialog();
             Set_Groupbs();
             Set_GroupMem();
-
         }
     }
 }

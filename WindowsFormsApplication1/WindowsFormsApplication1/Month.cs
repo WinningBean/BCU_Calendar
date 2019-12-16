@@ -123,7 +123,7 @@ namespace WindowsFormsApplication1
                 fc_pan.Controls[0].BackColor = Color.Gainsboro;
             }
 
-            if (db.FR_CD == null && db.GR_CD == null)
+            if (db.FR_CD == null)
             {
                 ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
                 Add_SC_btn.Dispose();
@@ -158,7 +158,28 @@ namespace WindowsFormsApplication1
             Panel fc_pan = (Panel)this.Controls.Find("MonthDay" + fc_pan_n.ToString() + "_panel", true)[0];
             set_pass_Month(fc_pan, fc_pan_n);
 
-            if (db.FR_CD == null && db.GR_CD == null)
+            bool grp_modi_possible = false;
+
+            if (db.GR_CD != null)
+            {
+                string sql = "select UR_CD from USER_TB where UR_CD = (";
+                sql += "select SC_UR_FK from SCHEDULE_TB";
+                sql += " where SC_CD = '" + ((Label)sender).Tag.ToString() + "'";
+                sql += ") or UR_CD = (";
+                sql += "select GR_MST_UR_FK from GROUP_TB";
+                sql += " where GR_CD = '" + db.GR_CD + "')";
+                db.ExecuteReader(sql);
+                while (db.Reader.Read())
+                {
+                    if (db.UR_CD == db.Reader.GetString(0))
+                    {
+                        grp_modi_possible = true;
+                        break;
+                    }
+                }
+            }
+
+            if (db.FR_CD == null || grp_modi_possible)
             {
                 Schedule_Modify modiSche = new Schedule_Modify(((Label)sender).Tag.ToString()); // 일정 수정 폼 띄우기
                 int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
@@ -178,7 +199,7 @@ namespace WindowsFormsApplication1
             m_focus_dt = new DateTime(m_nowYear, m_nowMonth, Convert.ToInt32(((Label)sender).Text.ToString()));
             Panel fc_pan = (Panel)((Label)sender).Parent;
 
-            if (db.FR_CD == null && db.GR_CD == null)
+            if (db.FR_CD == null)
             {
                 ((Label)this.Controls.Find("Add_SC_btn", true)[0]).Dispose();
                 Add_SC_btn.Dispose();
@@ -284,7 +305,7 @@ namespace WindowsFormsApplication1
                 if (i == m_nowDay)
                 {
                     Day_n_lbl.BackColor = Color.Gainsboro;
-                    if (db.FR_CD == null && db.GR_CD == null)
+                    if (db.FR_CD == null)
                     {
                         Set_Add_SC_btn();
                         MonthPanel.Controls.Add(Add_SC_btn);
@@ -326,10 +347,9 @@ namespace WindowsFormsApplication1
             string Panel_nm = "Week" + w_n.ToString() + "_panel"; // 해당 패널에 삽입
             Panel WeekPanel = (Panel)this.Controls.Find(Panel_nm, true)[0];
             List<int> bs_lo = new List<int>(); // 비어있는 로케이션 리스트
-
-            int bs_sc = 0;
+            
             int lastY = 0;
-            List<int> nowSc_Y_lst = new List<int>(); // 현재 X좌표 레이블
+            List<int> nowSc_Y_lst = new List<int>(); // 현재 Y좌표 레이블
             
             for (int i = 0; i < WeekPanel.Controls.Count; i++)
             {
@@ -337,6 +357,7 @@ namespace WindowsFormsApplication1
                 {
                     nowSc_Y_lst.Add(WeekPanel.Controls[i].Location.Y);
                     lastY = WeekPanel.Controls[i].Location.Y + 25;
+                    //bs_sc++;
                 }
             }
 
@@ -348,12 +369,13 @@ namespace WindowsFormsApplication1
                     if (i != nowSc_Y_lst[lst_cnt]) bs_lo.Add(i);
                     else lst_cnt++;
                 }
+                if (lst_cnt == 1 && nowSc_Y_lst[0] == 0 && bs_lo.Count == 0) bs_lo.Add(25);
             }
             // 일정 추가
-            Set_Schedule(NowDay, WeekPanel, bs_lo, now_loX, bs_sc);
+            Set_Schedule(NowDay, WeekPanel, bs_lo, now_loX);
         }
 
-        private void Set_Schedule(DateTime NowDay, Panel WeekPanel, List<int> bs_lo, int now_loX, int bs_sc)
+        private void Set_Schedule(DateTime NowDay, Panel WeekPanel, List<int> bs_lo, int now_loX)
         {
             // 일정 표시 함수
             DataTable sc_day_tb;
@@ -386,11 +408,11 @@ namespace WindowsFormsApplication1
                     sc_day_tb = sc_db.Get_Day_Schedule(true, db.UR_CD, NowDay, db.IS_PB);
                 }
             }
-
-
+            
             DataRow[] rows = sc_day_tb.Select();
             int lbl_nm = (int)NowDay.Day; // 현재 일자
-            int lo_y = -25; // 이어이는 일정 뒤의 로케이션
+            int lo_y = -25; // 이어지는 일정 뒤의 로케이션
+            int bs_sc = 0;
 
             System.Windows.Forms.Label label;
             for (int i = 0; i < rows.Length; i++)
@@ -445,7 +467,8 @@ namespace WindowsFormsApplication1
                         label.BackColor = sc_cr_bs;
                         label.ForeColor = Color.Black;
                         df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - NowDay;
-                        Add_Set_Schedule(label.Tag.ToString(), df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
+                        bs_sc++;
+                        Add_Set_Schedule(label.Tag.ToString(), NowDay.Day, df_time, WeekPanel, lbl_nm, now_loX, lo_y, bs_sc, sc_cr_bs);
                     }
                 }
                 else
@@ -459,7 +482,7 @@ namespace WindowsFormsApplication1
             
         }
 
-        private void Add_Set_Schedule(string SC_CD, TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
+        private void Add_Set_Schedule(string SC_CD, int NowDay, TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
         {
             int add_lbl_now = 0;
 
@@ -470,6 +493,8 @@ namespace WindowsFormsApplication1
                 int add_loX = now_loX;
                 for (int j = 1; j < df_time.Days; j++) // 차이나는 일자만큼 해당 패널에 추가레이블 생성
                 {
+                    if (m_LastDay - NowDay < j) return;
+
                     int add_day = lbl_nm + j;
 
                     int add_w_n = ((add_day - 1) / 7) + 1;
@@ -487,7 +512,7 @@ namespace WindowsFormsApplication1
                     System.Windows.Forms.Label add_label;
                     add_label = new System.Windows.Forms.Label();
                     add_label.Location = new System.Drawing.Point(add_loX, lo_y);
-                    add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc + add_lbl_now).ToString();
+                    add_label.Name = "add_sc" + add_day.ToString() + "_lbl" + (bs_sc).ToString();
                     add_label.Size = new System.Drawing.Size(135, 25);
                     add_label.BackColor = sc_cr_bs;
                     add_label.Tag = SC_CD;
@@ -544,8 +569,15 @@ namespace WindowsFormsApplication1
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - modiSche.Height / 2;
             modiSche.Location = new Point(f_loX, f_loY);
+            modiSche.FOCUS_DT = m_focus_dt;
             modiSche.ShowDialog();
+            m_focus_dt = modiSche.StrDate;
 
+            Set_Month_Today();
+        }
+
+        private void Month_Load(object sender, EventArgs e)
+        {
             Set_Month_Today();
         }
     }

@@ -20,7 +20,6 @@ namespace WindowsFormsApplication1
         DataTable DiaryTB = null;
         TextBox[] tb;
         int check = 1;
-        int rowNum = 0;
         int location = 0;
         DateTime[] date;
         private void DiaryList_Load(object sender, EventArgs e)
@@ -112,11 +111,12 @@ namespace WindowsFormsApplication1
             int i = bt.TabIndex;
             string str = tb[i].Text;
             string nowdate = bt.Name;
-            if (MessageBox.Show("그룹이 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("일기가 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 string sql = "delete from DIARY_TB where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi') and DR_PB_ST = '" + check + "' and DR_UR_FK='" + db.UR_CD + "'";
                 db.ExecuteNonQuery(sql);
                 Clear_Control();
+                this.Close();
             }
      
         }
@@ -131,6 +131,7 @@ namespace WindowsFormsApplication1
             db.ExecuteNonQuery(sql);
 
             MessageBox.Show("수정이 완료 되었습니다", "완료", MessageBoxButtons.OK);
+            this.Close();
 
         }
 
@@ -155,7 +156,6 @@ namespace WindowsFormsApplication1
         {
             panel1.Controls.Clear();
             location = 0;
-            rowNum = 0;
             Get_Diary();
             Create();
         }

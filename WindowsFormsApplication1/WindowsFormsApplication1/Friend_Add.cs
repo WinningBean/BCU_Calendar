@@ -123,7 +123,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e) // 확인 버튼 누를시
         {
-            if(strFriendID == null || strFriendID == "아이디를 선택해주세요!!")
+            if(strFriendID == null || strFriendID == "아이디를 선택하세요!!")
             {
                 MessageBox.Show("유저를 선택해주세요 ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -207,7 +207,7 @@ namespace WindowsFormsApplication1
                         {
                             MessageBox.Show("이미 친구 입니다", "확인");
                             dataGrid1.Refresh();
-                            strFriendID = "아이디를 선택해주세요";
+                            strFriendID = "아이디를 선택하세요!!";
                             return;
                         }
 
@@ -228,7 +228,7 @@ namespace WindowsFormsApplication1
                             if (Convert.ToInt32(db.Reader[0]) == 0)
                             {
                                 MessageBox.Show("이미친구친청 보넨 유저입니다.", "확인");
-                                label5.Text = "아이디를 선택해주세요!!";
+                                label5.Text = "아이디를 선택하세요!!";
                                 strFriendID = null;
                                 return;
                             }

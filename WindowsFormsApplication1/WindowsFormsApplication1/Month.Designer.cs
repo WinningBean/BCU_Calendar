@@ -689,6 +689,7 @@
             this.Name = "Month";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Month";
+            this.Load += new System.EventHandler(this.Month_Load);
             this.Month_panel.ResumeLayout(false);
             this.weeknm_pan.ResumeLayout(false);
             this.weeknm_pan.PerformLayout();

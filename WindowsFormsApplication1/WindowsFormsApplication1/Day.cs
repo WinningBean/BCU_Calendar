@@ -67,7 +67,7 @@ namespace WindowsFormsApplication1
         
         private void Get_chedule() // 하루 일정 기져오기
         {
-            if(db.GR_CD == null) // 그룹이아니면(개인 일정이면)
+            if(db.GR_CD == null && db.FR_CD == null) // 그룹,친구가 아니라면(개인 일정이면)
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
@@ -78,9 +78,20 @@ namespace WindowsFormsApplication1
                     Create_Day(currRow, i);
                 }
             }
-            else//그룹일정
+            else if(db.GR_CD != null)//그룹일정
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
+                location = new int[15, 2];
+
+                for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
+                {
+                    DataRow currRow = GET_DAY_SC_TB.Rows[i];
+                    Create_Day(currRow, i);
+                }
+            }
+            else
+            {
+                GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.FR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
 
                 for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
@@ -376,17 +387,34 @@ namespace WindowsFormsApplication1
 
             button1.Enabled = false;
             Down.Enabled = true;
+
+            if (db.GR_CD == null && db.FR_CD == null)
+            {
+                button2.Visible = true;
+                button2.Enabled = true;
+            }
+           else
+            {
+                button2.Visible = false;
+                button2.Enabled = false;   
+            }
         }
 
         private void Label_Click(object render, EventArgs e)
         {
-            Label myPan = (Label)render;
-            int i = myPan.TabIndex;
-            DataRow curr = GET_DAY_SC_TB.Rows[i];
- 
-            Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
-            dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
-            dlg.ShowDialog();
+            if(db.GR_CD == null && db.FR_CD == null)
+            {
+
+                Label myPan = (Label)render;
+                int i = myPan.TabIndex;
+                DataRow curr = GET_DAY_SC_TB.Rows[i];
+
+                Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
+                dlg.FOCUS_DT = m_focus_dt;
+                dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
+                dlg.ShowDialog();
+
+            }
 
         }
 
@@ -398,23 +426,31 @@ namespace WindowsFormsApplication1
 
         private void PictureBox_Click(object render, EventArgs e)
         {
-            PictureBox myPic = (PictureBox)render;
-            int i = myPic.TabIndex;
-            DataRow curr = GET_DAY_SC_TB.Rows[i];
 
+            if (db.GR_CD == null && db.FR_CD == null) // 친구의 일정폼이나 그룹의 일정 폼이 아닐때만 
+            {
 
-            Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
-            dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
-            dlg.ShowDialog();
+                PictureBox myPic = (PictureBox)render;
+                int i = myPic.TabIndex;
+                DataRow curr = GET_DAY_SC_TB.Rows[i];
+
+                Schedule_Modify dlg = new Schedule_Modify(curr["SC_CD"].ToString());
+                dlg.FOCUS_DT = m_focus_dt;
+                dlg.FormClosed += new FormClosedEventHandler(Dlg_FormClosing);
+                dlg.ShowDialog();
+            }
 
         }
 
         private void Get_TodoList()
         {
             string sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "'";
+            sql += " and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'";
+            sql += " and TD_COMP_ST = 0 " ;
+            sql += " order by TD_DT ASC";
             db.ExecuteReader(sql);
             int y = 75;
-         //   Color color = randomColor();
+       
             while (db.Reader.Read())
             {
 
@@ -426,16 +462,21 @@ namespace WindowsFormsApplication1
                 panel1.Controls.Add(todoName);
                 y += 20;
 
-                if(!(db.Reader[2].ToString().Equals(System.DBNull.Value)))
-                {
-                    Label todoDate = new Label();
-                    todoDate.Text = db.Reader[2].ToString();
-                    todoDate.AutoSize = true;
-                    todoDate.Location = new System.Drawing.Point(15, y);
-                    todoDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                    panel1.Controls.Add(todoDate);
-                    y += 40;
-                }
+
+                string date = db.Reader[2].ToString();
+                int year = Convert.ToInt32(date.Substring(0, 4));
+                int month = Convert.ToInt32(date.Substring(5, 2));
+                int day = Convert.ToInt32(date.Substring(8, 2));
+                DateTime currDate = new DateTime(year, month, day);
+
+                Label todoDate = new Label();
+                todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
+                todoDate.AutoSize = true;
+                todoDate.Location = new System.Drawing.Point(15, y);
+                todoDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                panel1.Controls.Add(todoDate);
+                y += 40;
+                
 
                 Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
                 Label todoColor = new Label();
