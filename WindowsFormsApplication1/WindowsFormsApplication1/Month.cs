@@ -177,9 +177,10 @@ namespace WindowsFormsApplication1
                         break;
                     }
                 }
+                db.Reader.Close();
             }
 
-            if (db.FR_CD == null || grp_modi_possible)
+            if ((db.FR_CD == null && db.GR_CD == null) || (db.GR_CD != null && grp_modi_possible))
             {
                 Schedule_Modify modiSche = new Schedule_Modify(((Label)sender).Tag.ToString()); // 일정 수정 폼 띄우기
                 int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - modiSche.Width / 2;
@@ -315,7 +316,6 @@ namespace WindowsFormsApplication1
                 // 베이스 일정
                 Get_bsWeek(m_FirstDay.AddDays(i - 1), DayPenel_num);
             }
-
         }
 
         private void Get_bsWeek(DateTime NowDay, int DayPenel_num)
@@ -446,9 +446,12 @@ namespace WindowsFormsApplication1
                     sc_cr_ft = Color.Black;
                 }
 
-                if (lbl_nm < Convert.ToDateTime(rows[i]["SC_END_DT"]).Day || Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month) // 하루종일 이상의 일정이라면 백컬러 지정
+                DateTime sc_str_dt = Convert.ToDateTime(rows[i]["SC_STR_DT"]);
+                DateTime sc_end_dt = Convert.ToDateTime(rows[i]["SC_END_DT"]);
+
+                if (lbl_nm < sc_end_dt.Day || sc_str_dt.Month < sc_end_dt.Month || sc_str_dt.Year < sc_end_dt.Year) // 하루종일 이상의 일정이라면 백컬러 지정
                 {
-                    TimeSpan df_time = Convert.ToDateTime(rows[i]["SC_END_DT"]) - Convert.ToDateTime(rows[i]["SC_STR_DT"]);
+                    TimeSpan df_time = sc_end_dt - sc_str_dt;
                     if (df_time.Days == 0)
                     {
                         if (Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month)
@@ -479,7 +482,6 @@ namespace WindowsFormsApplication1
 
                 WeekPanel.Controls.Add(label); // 패널에 레이블 추가
             }
-            
         }
 
         private void Add_Set_Schedule(string SC_CD, int NowDay, TimeSpan df_time, Panel WeekPanel, int lbl_nm, int now_loX, int lo_y, int bs_sc, Color sc_cr_bs)
@@ -490,23 +492,24 @@ namespace WindowsFormsApplication1
             {
                 if (df_time.Hours > 0) { df_time = df_time.Add(TimeSpan.FromDays(1)); } // 시간이 넘는다면 패널을 하나 더 생성
 
+                int add_w_n = Convert.ToInt32(WeekPanel.Name.Substring(4, 1));
+                int add_week = 1;
                 int add_loX = now_loX;
                 for (int j = 1; j < df_time.Days; j++) // 차이나는 일자만큼 해당 패널에 추가레이블 생성
                 {
                     if (m_LastDay - NowDay < j) return;
 
                     int add_day = lbl_nm + j;
-
-                    int add_w_n = ((add_day - 1) / 7) + 1;
+                    if (add_loX == 810)
+                    {
+                        add_w_n = Convert.ToInt32(WeekPanel.Name.Substring(4, 1)) + add_week;
+                        add_loX = -135;
+                        add_week++;
+                    }
                     string add_wpan_nm = "Week" + add_w_n.ToString() + "_panel";
                     Panel add_wpan = (Panel)this.Controls.Find(add_wpan_nm, true)[0];
 
                     add_loX += 135;
-                    if (WeekPanel.Name != add_wpan.Name)
-                    {
-                        add_loX = 135 * ((add_day % 7) - 1);
-                        if (add_loX == -135) add_loX = 810;
-                    }
 
                     if (j == 1) add_lbl_now += 1;
                     System.Windows.Forms.Label add_label;
@@ -528,12 +531,14 @@ namespace WindowsFormsApplication1
         {
             m_focus_dt = m_focus_dt.AddMonths(-1);
             Set_Month_Today();
+            if (m_focus_dt.Month == 12) Set_Month_Today();
         }
 
         private void NextMonth_btn_Click(object sender, EventArgs e) // 후 달 보기
         {
             m_focus_dt = m_focus_dt.AddMonths(1);
             Set_Month_Today();
+            if (m_focus_dt.Month == 1) Set_Month_Today();
         }
         
         private void TodayBtn_Click(object sender, EventArgs e)

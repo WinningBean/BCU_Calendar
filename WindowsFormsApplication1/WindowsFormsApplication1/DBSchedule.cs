@@ -92,7 +92,7 @@ namespace WindowsFormsApplication1
                 sql = "select * from SCHEDULE_TB where SC_GR_FK = '" + m_URorGR_CD + "'";
             }
             sql += " and SC_STR_DT < '" + day.AddDays(1).ToString("yyyy-MM-dd") + "'";
-            sql += " and SC_END_DT >= '" + day.ToString("yyyy-MM-dd") + "'";
+            sql += " and SC_END_DT >= to_date('" + day.ToString("yyyy/MM/dd 00:01") + "', 'yyyy/MM/dd hh24:mi')";
             sql += " and SC_PB_ST = " + is_PB.ToString();
             sql += " order by  SC_STR_DT ASC";
 
