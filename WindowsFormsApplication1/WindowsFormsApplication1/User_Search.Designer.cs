@@ -116,6 +116,7 @@
             this.Name = "User_Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "User_Search";
+            this.Load += new System.EventHandler(this.User_Search_Load);
             ((System.ComponentModel.ISupportInitialize)(this.User_DBgrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -32,6 +32,7 @@ namespace WindowsFormsApplication1
         public GroupMember_Modify()
         {
             InitializeComponent();
+            Mem_DBgrid.CellClick += Mem_DBgrid_CellClick;
         }
 
         private void Close_btn_Click(object sender, EventArgs e)
@@ -50,6 +51,11 @@ namespace WindowsFormsApplication1
         }
 
         private void Set_GroupMem() {
+            Mem_DBgrid.DataSource = null;
+            Mem_DBgrid.Columns.Clear();
+            Mem_DBgrid.Rows.Clear();
+            Mem_DBgrid.Refresh();
+
             try { 
                 sql = "select UR_CD, UR_ID, UR_NM from USER_TB";
                 sql += " where UR_CD in(";
@@ -97,8 +103,6 @@ namespace WindowsFormsApplication1
             foreach (DataGridViewRow row in Mem_DBgrid.Rows)
                 row.Cells[btnColumnIdx].Value = "삭제";
             Mem_DBgrid.Columns[3].Width = 50;
-
-            Mem_DBgrid.CellClick += Mem_DBgrid_CellClick;
         }
 
         void Mem_DBgrid_CellClick(object sender, DataGridViewCellEventArgs e)
