@@ -53,7 +53,7 @@ namespace WindowsFormsApplication1
 
         private void ToDoList_Load(object sender, EventArgs e)
         {
-            defaultColor = dbc.GetColorInsertName("GRAY");
+            defaultColor = Color.Gainsboro;
         }
 
         public void reset()
@@ -96,9 +96,36 @@ namespace WindowsFormsApplication1
             label2.Text = "X";
             label2.Click += new System.EventHandler(label2_Click);
 
+            Label label3 = new Label();
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label3.Location = new System.Drawing.Point(60, 20);
+            label3.Name = "label2";
+            label3.Size = new System.Drawing.Size(27, 25);
+            label3.TabIndex = 3;
+            label3.Text = "할일추가";
+            label3.Click += new System.EventHandler(label3_Click);
+
+            todayPan.Controls.Add(label3);
             todayPan.Controls.Add(label2);
             todayPan.Controls.Add(date);
             this.Controls.Add(todayPan);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            ToDoList_Add tda = null;
+            if (db.GR_CD != null)
+                tda = new ToDoList_Add(db.GR_CD);
+            else
+                tda = new ToDoList_Add(db.UR_CD);
+
+            tda.Location = Cursor.Position;
+
+            if (tda.ShowDialog() == DialogResult.OK)
+            {
+                reset();
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -255,7 +282,7 @@ namespace WindowsFormsApplication1
         {
             Label lab = new Label();
             lab.Location = new Point(10, y + 3);
-            lab.Size = new Size(this.Width-10, 20);
+            lab.Size = new Size(this.Width - 10, 20);
             lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lab.BackColor = Color.Transparent;
             lab.TextAlign = ContentAlignment.MiddleLeft;
@@ -268,7 +295,7 @@ namespace WindowsFormsApplication1
         {
             Label lab = new Label();
             lab.Location = new Point(10, y + 3);
-            lab.Size = new Size(this.Width-10, 20);
+            lab.Size = new Size(this.Width - 10, 20);
             lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lab.BackColor = Color.Transparent;
             lab.TextAlign = ContentAlignment.MiddleLeft;
@@ -304,7 +331,7 @@ namespace WindowsFormsApplication1
 
             db.Reader.Close();//혹시에러날까봐
 
-            Color softC = Color.FromArgb(c.A - 200, c.R, c.G, c.B);
+            Color softC = Color.FromArgb(c.A / 4, c.R, c.G, c.B);
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Pen p = new Pen(c, 2);

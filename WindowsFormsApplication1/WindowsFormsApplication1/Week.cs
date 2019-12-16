@@ -646,9 +646,10 @@ namespace WindowsFormsApplication1
                 DateTime endDate = scList[k][1];
                 Panel startPanel = day[(int)startDate.DayOfWeek][startDate.Hour];
                 int startMinute = scList[k][0].Minute / 10;
+                int startPlusMinute = startMinute * 8;
                 Panel endPanel = day[(int)endDate.DayOfWeek][endDate.Hour];
                 int endMinute = scList[k][1].Minute / 10;
-                int plusMinute = endMinute * 8; // 끝나는시간에 더 추가해야할 height 크기
+                int endPlusMinute = endMinute * 8; // 끝나는시간에 더 추가해야할 height 크기
 
                 if (startWeekDate > startDate)
                 {
@@ -696,11 +697,11 @@ namespace WindowsFormsApplication1
                     {
                         endDate = endWeekDate.AddSeconds(-1);
                         endPanel = day[6][23];
-                        plusMinute = 48;
+                        endPlusMinute = 48;
                     }
                     pan.Location = new Point(startPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
-                        , startPanel.Location.Y);
-                    pan.Size = new Size(panCountWidth[overlapNum], insideMain.Size.Height - startPanel.Top);
+                        , (startPanel.Top + startPlusMinute)); //startPanel.Location.Y
+                    pan.Size = new Size(panCountWidth[overlapNum], insideMain.Size.Height - (startPanel.Top + startPlusMinute));
                     pan.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pan.Size.Width, pan.Size.Height, 13, 13));
                     pan.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
                     scPan.Last().Add(pan);
@@ -726,7 +727,7 @@ namespace WindowsFormsApplication1
                         last.Name = pan.Name;
                         last.BackColor = pan.BackColor;
                         last.Location = new Point(endPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1]), 0);
-                        last.Size = new Size(panCountWidth[overlapNum], endPanel.Top + plusMinute);
+                        last.Size = new Size(panCountWidth[overlapNum], endPanel.Top + endPlusMinute);
                         last.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, last.Size.Width, last.Size.Height, 13, 13));
                         last.Paint += new System.Windows.Forms.PaintEventHandler(OnPanPaint); // 사이드를 칠하기위함
                         last.MouseClick += new MouseEventHandler(OnPanelClick);
@@ -738,8 +739,8 @@ namespace WindowsFormsApplication1
                 else // 시작일 끝일이 같을경우
                 {
                     pan.Location = new Point(startPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
-                        , startPanel.Location.Y);
-                    pan.Size = new Size(panCountWidth[overlapNum], (endPanel.Top + plusMinute) - startPanel.Top);
+                        , (startPanel.Top + startPlusMinute));
+                    pan.Size = new Size(panCountWidth[overlapNum], (endPanel.Top + endPlusMinute) - (startPanel.Top + startPlusMinute));
                     //(좌측상단여백, 우측상단여백, 컨트롤 넓이, 컨트롤 높이, 가로 모서리 원기울기, 세로 모서리 원기울기)
                     pan.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pan.Size.Width, pan.Size.Height, 13, 13));
 
