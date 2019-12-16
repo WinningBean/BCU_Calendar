@@ -81,10 +81,10 @@ namespace WindowsFormsApplication1
             Label date = new Label();
             date.AutoSize = true;
             date.BackColor = System.Drawing.Color.Transparent;
-            date.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            date.Location = new System.Drawing.Point(10, 10);
+            date.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            date.Location = new System.Drawing.Point(5, 10);
             date.Size = new System.Drawing.Size(98, 34);
-            date.Text = "할일";
+            date.Text = "ToDoList";
 
             Label label2 = new Label();
             label2.AutoSize = true;
@@ -98,12 +98,13 @@ namespace WindowsFormsApplication1
 
             Label label3 = new Label();
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            label3.Location = new System.Drawing.Point(60, 20);
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label3.Location = new System.Drawing.Point(92, 15);
             label3.Name = "label2";
-            label3.Size = new System.Drawing.Size(27, 25);
+            label3.BackColor = Color.Transparent;
+            label3.Size = new System.Drawing.Size(27, 8);
             label3.TabIndex = 3;
-            label3.Text = "할일추가";
+            label3.Text = "ADD";
             label3.Click += new System.EventHandler(label3_Click);
 
             todayPan.Controls.Add(label3);

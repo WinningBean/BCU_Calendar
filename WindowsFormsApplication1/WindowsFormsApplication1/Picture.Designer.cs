@@ -69,9 +69,9 @@
             this.label4.Font = new System.Drawing.Font("Microsoft New Tai Lue", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(84, 14);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 19);
+            this.label4.Size = new System.Drawing.Size(38, 19);
             this.label4.TabIndex = 2;
-            this.label4.Text = "추가";
+            this.label4.Text = "ADD";
             this.label4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.label4_MouseClick);
             // 
             // m_Small_btn
