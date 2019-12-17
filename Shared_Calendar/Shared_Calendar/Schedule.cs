@@ -156,7 +156,7 @@ namespace Shared_Calendar
         {
             get
             {
-                if (colorCom.Text.Equals("gainboro"))
+                if (colorCom.Text.Equals("gray"))
                     return null;
                 else if (colorCom.Text.Equals(""))
                     return null;
@@ -276,7 +276,7 @@ namespace Shared_Calendar
             }
             else
             {
-                ColorCom = "gainboro";
+                ColorCom = "gray";
                 label11.ForeColor = Color.Gainsboro;
             }
 
@@ -327,26 +327,23 @@ namespace Shared_Calendar
         {
             if (checkBox1.Checked == true)
             {
-                endMin.Text = "00";
-                endMin.Enabled = false;
+                endMin.Text = "0";
                 endHour.Text = "0";
-                endHour.Enabled = false;
-                strMin.Text = "00";
-                strMin.Enabled = false;
+                strMin.Text = "0";
                 strHour.Text = "0";
+                endMin.Enabled = false;
+                endMin.Visible = false;
+                endHour.Enabled = false;
+                endHour.Visible = false;
+                strMin.Enabled = false;
+                strMin.Enabled = false;
                 strHour.Enabled = false;
+                strHour.Enabled = false;
+                label8.Visible = false;
+                label9.Visible = false;
+                label10.Visible = false;
+                label13.Visible = false;
 
-                if (StrDate.Date == EndDate.Date)//하루종일인데 날짜가 같을 경우 +1
-                {
-                    EndDate = EndDate.AddDays(1);
-                }
-            }
-            else
-            {
-                endMin.Enabled = true;
-                endHour.Enabled = true;
-                strMin.Enabled = true;
-                strHour.Enabled = true;
             }
         }
         private void strHour_SelectedIndexChanged(object sender, EventArgs e)
@@ -527,6 +524,11 @@ namespace Shared_Calendar
                 DateTime str_Date = StrDate;
                 TimeSpan strts = new TimeSpan(int.Parse(StrHour), int.Parse(StrMin), 0);
                 str_Date = str_Date.Date + strts;
+
+                if ( checkBox1.Checked == true )
+                    {
+                    end_Date =end_Date.AddDays(1); 
+                    }
 
                 if (db.GR_CD != null)// 그룹일때 
                 {
