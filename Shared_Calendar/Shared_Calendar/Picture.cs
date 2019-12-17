@@ -199,11 +199,11 @@ namespace Shared_Calendar
         private void PictureLoad() // 폼이 처음 실행되거나 사진추가했을때 사진목록을 불러옴
         {
             if(db.FR_CD != null)
-                db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.FR_CD + "' AND PIC_PB_ST = 1 ORDER BY PIC_DT DESC");
+                db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.FR_CD + "' AND PIC_GR_FK is null AND PIC_PB_ST = 1 ORDER BY PIC_DT DESC");
             else if (db.GR_CD != null)
                 db.AdapterOpen("select * from PICTURE_TB where PIC_GR_FK = '" + db.GR_CD + "' ORDER BY PIC_DT DESC");
             else
-                db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' AND PIC_PB_ST = "+ db.IS_PB+ " ORDER BY PIC_DT DESC");
+                db.AdapterOpen("select * from PICTURE_TB where PIC_UR_FK = '" + db.UR_CD + "' AND PIC_GR_FK is null AND PIC_PB_ST = "+ db.IS_PB+ " ORDER BY PIC_DT DESC");
             PictureDS = new DataSet();
             db.Adapter.Fill(PictureDS, "PICTURE_TB");
             PictureDT = PictureDS.Tables["PICTURE_TB"];
@@ -445,7 +445,8 @@ namespace Shared_Calendar
             }
             else
             {
-
+                if (db.FR_CD != null)
+                    return;
                 if (db.GR_CD != null)
                 {
                     bool grp_modi_possible = false;
