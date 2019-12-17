@@ -160,8 +160,7 @@ namespace Shared_Calendar
 
                 Font font;
 
-                if (e.Index < MstGr_cnt) font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, FontStyle.Bold);
-                else font = new Font(FontLibrary.HANDOTUM, 9F, FontStyle.Regular);
+                font = new Font(FontLibrary.HANDOTUM, 9F, FontStyle.Regular);
 
                 SizeF size = e.Graphics.MeasureString(item.ToString(), font);
 
