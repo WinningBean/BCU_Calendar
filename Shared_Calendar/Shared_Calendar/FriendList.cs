@@ -258,8 +258,6 @@ namespace Shared_Calendar
                 panel1.Controls.Add(pan[i + 1]);
                 pan[i + 1].Location = new System.Drawing.Point(FrGr_pan[i + 1].Location.X, FrGr_pan[i + 1].Location.Y + FrGr_pan[i + 1].Size.Height);
                 pan[i + 1].Visible = false;
-                pan[i + 1].BackColor = Color.Blue;
-                pan[0].BackColor = Color.Blue;
 
                 DataRow currRow = friend_group_tb.Rows[i];
 

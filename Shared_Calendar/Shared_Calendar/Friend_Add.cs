@@ -95,7 +95,7 @@ namespace Shared_Calendar
 
         private void 친구신청_Click(object sender, EventArgs e)
         {//GR_NM like '%" + SearchGR_txt.Text + "%'"
-            string command = "select UR_ID,UR_NM from USER_TB where UR_ID = '" + textBox1.Text + "' or UR_NM like '%" + textBox1.Text + "%'";
+            string command = "select UR_ID,UR_NM from USER_TB where UR_ID like '%" + textBox1.Text + "%' or UR_NM like '%" + textBox1.Text + "%'";
             db.AdapterOpen(command);
 
             DataSet ds = new DataSet();
