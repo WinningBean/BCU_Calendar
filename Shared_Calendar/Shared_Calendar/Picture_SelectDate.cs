@@ -26,7 +26,12 @@ namespace Shared_Calendar
         }
         #endregion
 
-        public DateTime dt;
+        private DateTime dt;
+
+        public DateTime DT {
+            get { return dt; }
+            set { dt = value; }
+        }
         public Picture_SelectDate()
         {
             InitializeComponent();

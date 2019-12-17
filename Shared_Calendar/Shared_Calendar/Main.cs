@@ -332,8 +332,8 @@ namespace Shared_Calendar
             week.FOCUS_DT = m_focus_dt;
 
             MainCenter_pan.Controls.Add(week);
-            week.Show();
             week.resetSchedual();
+            week.Show();
         }
 
         // ---------- FUNCTION ----------
@@ -664,7 +664,7 @@ namespace Shared_Calendar
 
                     if (ps.ShowDialog() != DialogResult.OK)
                         return;
-                    DateTime dt = ps.dt;
+                    DateTime dt = ps.DT;
 
                     FileStream fs = new FileStream(file, FileMode.Open, FileAccess.Read);
                     byte[] b = new byte[fs.Length - 1];

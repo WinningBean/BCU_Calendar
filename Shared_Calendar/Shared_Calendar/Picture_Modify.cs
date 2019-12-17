@@ -81,8 +81,8 @@ namespace Shared_Calendar
             Picture_SelectDate psd = new Picture_SelectDate();
             if (psd.ShowDialog() == DialogResult.OK)
             {
-                m_DT_lb.Text = psd.dt.ToString("yyyy.MM.dd");
-                currDT = psd.dt;
+                m_DT_lb.Text = psd.DT.ToString("yyyy.MM.dd");
+                currDT = psd.DT;
             }
         }
 

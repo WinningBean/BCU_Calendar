@@ -397,11 +397,11 @@ namespace Shared_Calendar
             DataSet ds = new DataSet();
             db.Adapter.Fill(ds, "COLOR_TB");
             DataTable dt = ds.Tables["COLOR_TB"];
-            int loca = -300 ; // m_Mid_pan.Width - 80; // -----
+            int loca = -300; // m_Mid_pan.Width - 80; // -----
             DBColor dbc = new DBColor();
             colorPan = new List<Panel>();
 
-            for (int i = 0; i < dt.Rows.Count ; i++) // 그레이색 제외해야함
+            for (int i = 0; i < dt.Rows.Count; i++) // 그레이색 제외해야함
             {
                 DataRow dr = dt.Rows[i];
                 Panel pan = new Panel();
@@ -654,7 +654,7 @@ namespace Shared_Calendar
                 if (startWeekDate > startDate)
                 {
                     startDate = startWeekDate;
-                    startPanel = day[0][0];
+                    startPanel = day[(int)startDate.DayOfWeek][0];
                 }
 
                 Panel pan = new DoubleBufferPanel();
@@ -662,7 +662,7 @@ namespace Shared_Calendar
                 if (dataRowList[k][7].ToString() != "") // 널이 아니면 고유 색상지정
                     pan.BackColor = (new DBColor()).GetColorInsertCRCD(dataRowList[k][7].ToString(), 200);
                 else // 널이면 랜덤
-                    pan.BackColor = (new DBColor()).randomColor(200);
+                    pan.BackColor = Color.FromArgb(200, 128, 128, 128);
                 pan.MouseClick += new MouseEventHandler(OnPanelClick); // 판넬 클릭시 정보출력
                 pan.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
 
@@ -696,7 +696,7 @@ namespace Shared_Calendar
                     if (endWeekDate <= endDate) // 일주일 표시를 넘어가면
                     {
                         endDate = endWeekDate.AddSeconds(-1);
-                        endPanel = day[6][23];
+                        endPanel = day[(int)endDate.DayOfWeek][23];
                         endPlusMinute = 48;
                     }
                     pan.Location = new Point(startPanel.Location.X + (panCountPosition[overlapNum] * overlapSCList[k][1])
@@ -827,7 +827,7 @@ namespace Shared_Calendar
             Graphics g = e.Graphics;
             Panel pan = ((Panel)sender);
             Color panColor = pan.BackColor;
-            Color sideColor = Color.FromArgb(((int)panColor.A) + 50, (int)panColor.R, (int)panColor.G, (int)panColor.B); // 좀 진하게
+            Color sideColor = Color.FromArgb(((int)panColor.A), (int)panColor.R, (int)panColor.G, (int)panColor.B); // 좀 진하게
             Pen p = new Pen(sideColor);
             p.Width = 10;
             g.DrawLine(p, 0, 0, 0, pan.Size.Height);
@@ -868,7 +868,7 @@ namespace Shared_Calendar
                 clickPan = day[x][y];
                 insideMain.Invalidate();
             }
-            else if(e.Clicks == 2)
+            else if (e.Clicks == 2)
             {
                 if (db.FR_CD != null)
                     return;

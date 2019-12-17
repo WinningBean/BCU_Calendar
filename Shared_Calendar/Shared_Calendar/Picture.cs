@@ -160,7 +160,7 @@ namespace Shared_Calendar
 
                     if (ps.ShowDialog() == DialogResult.OK)
                     {
-                        DateTime dt = ps.dt;
+                        DateTime dt = ps.DT;
                         FileSave(file, dt);
                         MessageBox.Show("사진이 등록되었습니다", "사진등록", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
