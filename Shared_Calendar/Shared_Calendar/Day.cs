@@ -78,18 +78,7 @@ namespace Shared_Calendar
                     Create_Day(currRow, i);
                 }
             }
-            else if(db.GR_CD != null)//그룹일정
-            {
-                GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
-                location = new int[15, 2];
-
-                for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
-                {
-                    DataRow currRow = GET_DAY_SC_TB.Rows[i];
-                    Create_Day(currRow, i);
-                }
-            }
-            else
+            else if (db.FR_CD != null)
             {
                 GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.FR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
@@ -100,7 +89,18 @@ namespace Shared_Calendar
                     Create_Day(currRow, i);
                 }
             }
-          
+           else//그룹일정
+            {
+                GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
+                location = new int[15, 2];
+
+                for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
+                {
+                    DataRow currRow = GET_DAY_SC_TB.Rows[i];
+                    Create_Day(currRow, i);
+                }
+            }
+
         }
 
         private void Check(Panel curr, Label name, Label color) // 일정 위치 검사 겹치면 내림 !! 
