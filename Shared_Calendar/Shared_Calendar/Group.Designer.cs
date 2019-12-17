@@ -46,7 +46,7 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.ForeColor = System.Drawing.Color.DimGray;
             this.label1.Location = new System.Drawing.Point(10, 43);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
@@ -59,7 +59,7 @@
             // MasterProfile_prof
             // 
             this.MasterProfile_prof.BackColor = System.Drawing.Color.Transparent;
-            this.MasterProfile_prof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.MasterProfile_prof.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.MasterProfile_prof.Location = new System.Drawing.Point(70, 46);
             this.MasterProfile_prof.Margin = new System.Windows.Forms.Padding(0);
             this.MasterProfile_prof.Name = "MasterProfile_prof";
@@ -89,7 +89,7 @@
             // GR_nm_lbl
             // 
             this.GR_nm_lbl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.GR_nm_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.GR_nm_lbl.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.GR_nm_lbl.ForeColor = System.Drawing.Color.Black;
             this.GR_nm_lbl.Location = new System.Drawing.Point(10, 2);
             this.GR_nm_lbl.Name = "GR_nm_lbl";
@@ -142,7 +142,7 @@
             // 
             this.Modi_MB_btn.BackColor = System.Drawing.Color.Silver;
             this.Modi_MB_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Modi_MB_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Modi_MB_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Modi_MB_btn.ForeColor = System.Drawing.Color.White;
             this.Modi_MB_btn.Location = new System.Drawing.Point(203, 148);
             this.Modi_MB_btn.Name = "Modi_MB_btn";
@@ -156,7 +156,7 @@
             // Member_lbl
             // 
             this.Member_lbl.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Member_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Member_lbl.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F);
             this.Member_lbl.ForeColor = System.Drawing.Color.DimGray;
             this.Member_lbl.Location = new System.Drawing.Point(10, 140);
             this.Member_lbl.Name = "Member_lbl";
@@ -176,7 +176,7 @@
             // 
             this.Close_btn.BackColor = System.Drawing.Color.Silver;
             this.Close_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Close_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Close_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Close_btn.ForeColor = System.Drawing.Color.White;
             this.Close_btn.Location = new System.Drawing.Point(15, 10);
             this.Close_btn.Name = "Close_btn";
@@ -189,7 +189,7 @@
             // 
             this.Modi_GR_btn.BackColor = System.Drawing.Color.Silver;
             this.Modi_GR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Modi_GR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Modi_GR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Modi_GR_btn.ForeColor = System.Drawing.Color.White;
             this.Modi_GR_btn.Location = new System.Drawing.Point(200, 10);
             this.Modi_GR_btn.Name = "Modi_GR_btn";
@@ -219,7 +219,7 @@
             this.Controls.Add(this.MasterProfile_prof);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Group";

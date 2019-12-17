@@ -154,7 +154,7 @@ namespace Shared_Calendar
                 //pan.BorderStyle = BorderStyle.FixedSingle;
 
                 pan.TextAlign = ContentAlignment.TopRight;
-                pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                pan.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 pan.ForeColor = Color.DimGray;
 
                 if (i < 12)
@@ -167,7 +167,7 @@ namespace Shared_Calendar
                 {
                     pan.Text = "Noon";
                     pan.ForeColor = Color.Black;
-                    pan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    pan.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
                 else
                     pan.Text = "0 AM";
@@ -193,7 +193,7 @@ namespace Shared_Calendar
                 pan.Name = j.ToString();
 
                 Label day = new Label();
-                day.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                day.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 day.AutoSize = true;
                 day.Location = new Point(10, 10);
                 day.Text = dayEnum[j];
@@ -201,7 +201,7 @@ namespace Shared_Calendar
                 pan.Controls.Add(day);
 
                 Label num = new Label();
-                num.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                num.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 num.AutoSize = true;
                 num.Location = new Point(50, 4);
                 num.ForeColor = Color.LightGray;
@@ -909,7 +909,7 @@ namespace Shared_Calendar
         {
             Label txt = new Label();
             txt.TextAlign = ContentAlignment.TopLeft;
-            txt.Font = new System.Drawing.Font("Microsoft Sans Serif", size, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            txt.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, size, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             txt.Location = new Point(5, 5);
             txt.AutoSize = true; // this.label1.Size = new System.Drawing.Size(46, 18);
                                  //txt.BackColor = Color.Transparent; // 안한게 더 예쁜데?

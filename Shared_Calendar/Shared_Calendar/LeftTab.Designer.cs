@@ -51,7 +51,7 @@
             // label1
             // 
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F);
             this.label1.ForeColor = System.Drawing.Color.DimGray;
             this.label1.Location = new System.Drawing.Point(10, 2);
             this.label1.Name = "label1";
@@ -115,7 +115,7 @@
             // Goup_lbl
             // 
             this.Goup_lbl.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Goup_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Goup_lbl.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F);
             this.Goup_lbl.ForeColor = System.Drawing.Color.DimGray;
             this.Goup_lbl.Location = new System.Drawing.Point(10, 114);
             this.Goup_lbl.Name = "Goup_lbl";
@@ -140,7 +140,7 @@
             // 
             this.bsGroup_lstbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.bsGroup_lstbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.bsGroup_lstbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bsGroup_lstbox.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bsGroup_lstbox.FormattingEnabled = true;
             this.bsGroup_lstbox.ItemHeight = 30;
             this.bsGroup_lstbox.Location = new System.Drawing.Point(0, 0);
@@ -153,7 +153,7 @@
             // 
             this.Add_GR_btn.BackColor = System.Drawing.Color.Silver;
             this.Add_GR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Add_GR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Add_GR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Add_GR_btn.ForeColor = System.Drawing.Color.White;
             this.Add_GR_btn.Location = new System.Drawing.Point(203, 122);
             this.Add_GR_btn.Name = "Add_GR_btn";
@@ -176,7 +176,7 @@
             // 
             this.SEARCH_GR_btn.BackColor = System.Drawing.Color.Silver;
             this.SEARCH_GR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SEARCH_GR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEARCH_GR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SEARCH_GR_btn.ForeColor = System.Drawing.Color.White;
             this.SEARCH_GR_btn.Location = new System.Drawing.Point(203, 122);
             this.SEARCH_GR_btn.Name = "SEARCH_GR_btn";
@@ -202,7 +202,7 @@
             // 
             this.schGroup_lstbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.schGroup_lstbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.schGroup_lstbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.schGroup_lstbox.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.schGroup_lstbox.FormattingEnabled = true;
             this.schGroup_lstbox.ItemHeight = 30;
             this.schGroup_lstbox.Location = new System.Drawing.Point(15, 160);
@@ -240,7 +240,7 @@
             this.Controls.Add(this.bsGR_pan);
             this.Controls.Add(this.schGroup_lstbox);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LeftTab";

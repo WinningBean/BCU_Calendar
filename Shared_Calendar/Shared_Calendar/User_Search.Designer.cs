@@ -50,7 +50,7 @@
             // Close_btn
             // 
             this.Close_btn.AutoSize = true;
-            this.Close_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Close_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Close_btn.Location = new System.Drawing.Point(358, 10);
             this.Close_btn.Name = "Close_btn";
             this.Close_btn.Size = new System.Drawing.Size(33, 25);
@@ -61,7 +61,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 29);
@@ -82,7 +82,7 @@
             // 
             this.SEARCH_UR_btn.BackColor = System.Drawing.Color.Silver;
             this.SEARCH_UR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SEARCH_UR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEARCH_UR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SEARCH_UR_btn.ForeColor = System.Drawing.Color.White;
             this.SEARCH_UR_btn.Location = new System.Drawing.Point(360, 50);
             this.SEARCH_UR_btn.Name = "SEARCH_UR_btn";
@@ -111,7 +111,7 @@
             this.Controls.Add(this.User_DBgrid);
             this.Controls.Add(this.Close_btn);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "User_Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

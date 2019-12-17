@@ -95,7 +95,7 @@
             // PictureForm_btn
             // 
             this.PictureForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PictureForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.PictureForm_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.PictureForm_btn.Location = new System.Drawing.Point(714, 21);
             this.PictureForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.PictureForm_btn.Name = "PictureForm_btn";
@@ -108,7 +108,7 @@
             // TodoForm_btn
             // 
             this.TodoForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TodoForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.TodoForm_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.TodoForm_btn.Location = new System.Drawing.Point(660, 21);
             this.TodoForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.TodoForm_btn.Name = "TodoForm_btn";
@@ -121,7 +121,7 @@
             // WeekForm_btn
             // 
             this.WeekForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.WeekForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.WeekForm_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.WeekForm_btn.Location = new System.Drawing.Point(254, 21);
             this.WeekForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.WeekForm_btn.Name = "WeekForm_btn";
@@ -144,7 +144,7 @@
             // 
             // m_Today_lbl
             // 
-            this.m_Today_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Today_lbl.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Today_lbl.Location = new System.Drawing.Point(384, 19);
             this.m_Today_lbl.Name = "m_Today_lbl";
             this.m_Today_lbl.Size = new System.Drawing.Size(200, 30);
@@ -157,7 +157,7 @@
             this.MonthForm_btn.BackColor = System.Drawing.Color.Gainsboro;
             this.MonthForm_btn.Enabled = false;
             this.MonthForm_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MonthForm_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.MonthForm_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.MonthForm_btn.Location = new System.Drawing.Point(200, 21);
             this.MonthForm_btn.Margin = new System.Windows.Forms.Padding(0);
             this.MonthForm_btn.Name = "MonthForm_btn";
@@ -182,7 +182,7 @@
             // MainHeader_menustp
             // 
             this.MainHeader_menustp.BackColor = System.Drawing.Color.Black;
-            this.MainHeader_menustp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.MainHeader_menustp.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F);
             this.MainHeader_menustp.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MainHeader_menustp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.사용자ToolStripMenuItem,
@@ -444,7 +444,7 @@
             // UserProfile_prof
             // 
             this.UserProfile_prof.BackColor = System.Drawing.Color.Transparent;
-            this.UserProfile_prof.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.UserProfile_prof.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.UserProfile_prof.Location = new System.Drawing.Point(0, 0);
             this.UserProfile_prof.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.UserProfile_prof.Name = "UserProfile_prof";
@@ -462,7 +462,7 @@
             this.Controls.Add(this.MainLeft_pan);
             this.Controls.Add(this.MainTop_pan);
             this.Controls.Add(this.MainHeader_menustp);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;

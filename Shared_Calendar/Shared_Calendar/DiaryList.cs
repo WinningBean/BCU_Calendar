@@ -66,14 +66,14 @@ namespace Shared_Calendar
                 lb.Location = new Point(5, 5);
                 lb.AutoSize = true;
                 lb.Size = new System.Drawing.Size(60, 20);
-                lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lb.Show();
 
                 tb[i] = new TextBox();
                 panel.Controls.Add(tb[i]);
                 tb[i].Location = new Point(5, 35);
                 tb[i].Size = new Size(240, 75);
-                tb[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                tb[i].Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 tb[i].Text = currRow["DR_EX"].ToString();
                 tb[i].Multiline = true;
 
@@ -82,7 +82,7 @@ namespace Shared_Calendar
                 panel.Controls.Add(bt);
                 bt.Size = new Size(45, 23);
                 bt.Text = "수정";
-                bt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                bt.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 bt.Location = new Point(150, 115);
                 bt.Name = currDate.ToString("yyyy/MM/dd H:mm");
                 bt.TabIndex = i;                                                   
@@ -93,7 +93,7 @@ namespace Shared_Calendar
                 panel.Controls.Add(btn);
                 btn.Size = new Size(45, 23);
                 btn.Text = "삭제";
-                btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 btn.Location = new Point(195, 115);
                 btn.Name = currDate.ToString("yyyy/MM/dd H:mm");
                 btn.FlatStyle = FlatStyle.Flat;

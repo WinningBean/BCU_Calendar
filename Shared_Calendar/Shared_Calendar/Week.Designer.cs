@@ -44,7 +44,7 @@
             // 
             this.m_Month_lab.AutoSize = true;
             this.m_Month_lab.BackColor = System.Drawing.Color.Transparent;
-            this.m_Month_lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Month_lab.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Month_lab.Location = new System.Drawing.Point(4, 15);
             this.m_Month_lab.Name = "m_Month_lab";
             this.m_Month_lab.Size = new System.Drawing.Size(84, 29);
@@ -55,7 +55,7 @@
             // 
             this.m_Year_lab.AutoSize = true;
             this.m_Year_lab.BackColor = System.Drawing.Color.Transparent;
-            this.m_Year_lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Year_lab.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Year_lab.Location = new System.Drawing.Point(-4, -4);
             this.m_Year_lab.Name = "m_Year_lab";
             this.m_Year_lab.Size = new System.Drawing.Size(54, 20);
@@ -100,7 +100,7 @@
             // m_Str_focus
             // 
             this.m_Str_focus.AutoSize = true;
-            this.m_Str_focus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_Str_focus.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_Str_focus.Location = new System.Drawing.Point(-3, -14);
             this.m_Str_focus.Name = "m_Str_focus";
             this.m_Str_focus.Size = new System.Drawing.Size(46, 17);
@@ -126,7 +126,7 @@
             this.Controls.Add(this.m_Month_lab);
             this.Controls.Add(this.m_Main_pan);
             this.Controls.Add(this.m_Top_pan);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(-5, 64);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

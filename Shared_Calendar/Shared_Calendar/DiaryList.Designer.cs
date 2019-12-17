@@ -45,7 +45,7 @@
             // private_btn
             // 
             this.private_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.private_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.private_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.private_btn.Location = new System.Drawing.Point(201, 35);
             this.private_btn.Margin = new System.Windows.Forms.Padding(0);
             this.private_btn.Name = "private_btn";
@@ -60,7 +60,7 @@
             this.public_btn.BackColor = System.Drawing.Color.Gainsboro;
             this.public_btn.Enabled = false;
             this.public_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.public_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.public_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.public_btn.Location = new System.Drawing.Point(147, 35);
             this.public_btn.Margin = new System.Windows.Forms.Padding(0);
             this.public_btn.Name = "public_btn";
@@ -73,7 +73,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.Location = new System.Drawing.Point(245, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(25, 24);
@@ -84,7 +84,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 31);

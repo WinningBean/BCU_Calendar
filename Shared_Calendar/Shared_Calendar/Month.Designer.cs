@@ -100,7 +100,7 @@
             // 
             // m_MonthNum
             // 
-            this.m_MonthNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.m_MonthNum.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.m_MonthNum.Location = new System.Drawing.Point(442, 0);
             this.m_MonthNum.Name = "m_MonthNum";
             this.m_MonthNum.Size = new System.Drawing.Size(84, 60);
@@ -112,7 +112,7 @@
             // 
             this.LastMonth_btn.FlatAppearance.BorderSize = 0;
             this.LastMonth_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LastMonth_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LastMonth_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LastMonth_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.LastMonth_btn.Location = new System.Drawing.Point(420, 10);
             this.LastMonth_btn.Margin = new System.Windows.Forms.Padding(0);
@@ -127,7 +127,7 @@
             // 
             this.NextMonth_btn.FlatAppearance.BorderSize = 0;
             this.NextMonth_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NextMonth_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.NextMonth_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.NextMonth_btn.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.NextMonth_btn.Location = new System.Drawing.Point(526, 10);
             this.NextMonth_btn.Margin = new System.Windows.Forms.Padding(0);
@@ -622,7 +622,7 @@
             // TodayBtn
             // 
             this.TodayBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TodayBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.TodayBtn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F);
             this.TodayBtn.Location = new System.Drawing.Point(907, 22);
             this.TodayBtn.Name = "TodayBtn";
             this.TodayBtn.Size = new System.Drawing.Size(50, 26);
@@ -633,7 +633,7 @@
             // m_Year_txt
             // 
             this.m_Year_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.m_Year_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.m_Year_txt.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F);
             this.m_Year_txt.Location = new System.Drawing.Point(13, 22);
             this.m_Year_txt.Name = "m_Year_txt";
             this.m_Year_txt.Size = new System.Drawing.Size(51, 26);
@@ -683,7 +683,7 @@
             this.Controls.Add(this.NextMonth_btn);
             this.Controls.Add(this.LastMonth_btn);
             this.Controls.Add(this.m_MonthNum);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Month";

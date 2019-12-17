@@ -160,8 +160,8 @@ namespace Shared_Calendar
 
                 Font font;
 
-                if (e.Index < MstGr_cnt) font = new System.Drawing.Font("맑은 고딕", 9F, FontStyle.Bold);
-                else font = new Font("맑은 고딕", 9F, FontStyle.Regular);
+                if (e.Index < MstGr_cnt) font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, FontStyle.Bold);
+                else font = new Font(FontLibrary.HANDOTUM, 9F, FontStyle.Regular);
 
                 SizeF size = e.Graphics.MeasureString(item.ToString(), font);
 
@@ -239,7 +239,7 @@ namespace Shared_Calendar
                 e.DrawFocusRectangle();
                 Brush brush = new SolidBrush(e.ForeColor);
 
-                Font font =new Font("맑은 고딕", 9F, FontStyle.Regular);
+                Font font =new Font(FontLibrary.HANDOTUM, 9F, FontStyle.Regular);
                 SizeF size = e.Graphics.MeasureString(item.ToString(), font);
 
                 e.Graphics.DrawString(item.ToString(), font, brush, e.Bounds.Left + 5, e.Bounds.Top + (e.Bounds.Height / 2 - size.Height / 2));

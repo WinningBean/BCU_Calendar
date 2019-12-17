@@ -232,7 +232,7 @@ namespace Shared_Calendar
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
-                        lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         lb.Show();
                         pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34
                     }
@@ -281,7 +281,7 @@ namespace Shared_Calendar
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
-                        lb.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         lb.Show();
 
                         pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34

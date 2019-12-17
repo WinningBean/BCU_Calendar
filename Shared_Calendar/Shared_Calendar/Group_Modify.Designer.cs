@@ -42,7 +42,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 29);
@@ -52,7 +52,7 @@
             // Close_btn
             // 
             this.Close_btn.AutoSize = true;
-            this.Close_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Close_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Close_btn.Location = new System.Drawing.Point(308, 10);
             this.Close_btn.Name = "Close_btn";
             this.Close_btn.Size = new System.Drawing.Size(33, 25);
@@ -99,7 +99,7 @@
             // 
             this.AddGR_btn.AutoSize = true;
             this.AddGR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddGR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddGR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddGR_btn.Location = new System.Drawing.Point(154, 177);
             this.AddGR_btn.Name = "AddGR_btn";
             this.AddGR_btn.Size = new System.Drawing.Size(42, 25);
@@ -111,7 +111,7 @@
             // 
             this.ModiGR_btn.AutoSize = true;
             this.ModiGR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ModiGR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModiGR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ModiGR_btn.Location = new System.Drawing.Point(74, 177);
             this.ModiGR_btn.Name = "ModiGR_btn";
             this.ModiGR_btn.Size = new System.Drawing.Size(42, 25);
@@ -124,7 +124,7 @@
             // 
             this.DeleGR_btn.AutoSize = true;
             this.DeleGR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DeleGR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeleGR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeleGR_btn.Location = new System.Drawing.Point(234, 177);
             this.DeleGR_btn.Name = "DeleGR_btn";
             this.DeleGR_btn.Size = new System.Drawing.Size(42, 25);
@@ -147,7 +147,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Close_btn);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Group_Modify";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

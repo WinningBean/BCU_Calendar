@@ -82,14 +82,14 @@ namespace Shared_Calendar
             Label date = new Label();
             date.AutoSize = true;
             date.BackColor = System.Drawing.Color.Transparent;
-            date.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            date.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             date.Location = new System.Drawing.Point(5, 10);
             date.Size = new System.Drawing.Size(98, 34);
             date.Text = "ToDoList";
 
             Label label2 = new Label();
             label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label2.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label2.Location = new System.Drawing.Point(todayPan.Width - 25, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(27, 25);
@@ -99,7 +99,7 @@ namespace Shared_Calendar
 
             Label label3 = new Label();
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label3.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label3.Location = new System.Drawing.Point(92, 15);
             label3.Name = "label2";
             label3.BackColor = Color.Transparent;
@@ -208,12 +208,12 @@ namespace Shared_Calendar
                 txt.Name = i.ToString();
                 txt.Text = dr[1].ToString();
                 if (dr[3].ToString() == "1")
-                    txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    txt.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 else
-                    txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    txt.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 Label deleteLab = new Label();
-                deleteLab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                deleteLab.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 //txt.AutoSize = true;
                 deleteLab.BackColor = Color.Transparent;
                 deleteLab.TextAlign = ContentAlignment.BottomRight;
@@ -267,14 +267,14 @@ namespace Shared_Calendar
                 db.ExecuteNonQuery("UPDATE TODO_TB SET TD_COMP_ST = 1 where TD_CD = '" + dr[0].ToString() + "'");
                 dr[3] = "1";
                 Panel parent = pan.Parent as Panel;
-                parent.Controls[1].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                parent.Controls[1].Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
             else
             {
                 db.ExecuteNonQuery("UPDATE TODO_TB SET TD_COMP_ST = 0 where TD_CD = '" + dr[0].ToString() + "'");
                 dr[3] = "0";
                 Panel parent = pan.Parent as Panel;
-                parent.Controls[1].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                parent.Controls[1].Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
             pan.Invalidate();
             Thread.Sleep(100); // 자꾸 버튼누르면 db에러생겨서 강제로 잠재움
@@ -285,7 +285,7 @@ namespace Shared_Calendar
             Label lab = new Label();
             lab.Location = new Point(10, y + 3);
             lab.Size = new Size(this.Width - 10, 20);
-            lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lab.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lab.BackColor = Color.Transparent;
             lab.TextAlign = ContentAlignment.MiddleLeft;
             lab.Text = dt.ToString("yyyy/MM/dd");
@@ -298,7 +298,7 @@ namespace Shared_Calendar
             Label lab = new Label();
             lab.Location = new Point(10, y + 3);
             lab.Size = new Size(this.Width - 10, 20);
-            lab.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lab.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lab.BackColor = Color.Transparent;
             lab.TextAlign = ContentAlignment.MiddleLeft;
             lab.Text = "마감일자 없음";

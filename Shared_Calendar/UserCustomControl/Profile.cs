@@ -25,7 +25,7 @@ namespace UserCustomControl
             this.m_UserPic_rpic.Size = new System.Drawing.Size(this.Height, this.Height);
 
             this.m_UserName_lbl.Left = this.Height + 5;
-            this.m_UserName_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", m_fontSize, m_fontStyle);
+            this.m_UserName_lbl.Font = new System.Drawing.Font("맑은 고딕", m_fontSize, m_fontStyle);
             this.m_UserName_lbl.Top = (this.Height - this.m_UserName_lbl.Height) / 2;
         }
 

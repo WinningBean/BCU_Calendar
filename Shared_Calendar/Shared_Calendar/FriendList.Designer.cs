@@ -69,7 +69,7 @@
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button4.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button4.Location = new System.Drawing.Point(126, 122);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
@@ -84,7 +84,7 @@
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button3.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button3.Location = new System.Drawing.Point(23, 122);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button3.Name = "button3";
@@ -96,7 +96,7 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(3, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(240, 95);
@@ -117,7 +117,7 @@
             // SearchFR_txt
             // 
             this.SearchFR_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SearchFR_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchFR_txt.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchFR_txt.Location = new System.Drawing.Point(40, 12);
             this.SearchFR_txt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SearchFR_txt.Multiline = true;
@@ -149,7 +149,7 @@
             // 
             this.SEARCH_FR_btn.BackColor = System.Drawing.Color.Silver;
             this.SEARCH_FR_btn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SEARCH_FR_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEARCH_FR_btn.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SEARCH_FR_btn.ForeColor = System.Drawing.Color.White;
             this.SEARCH_FR_btn.Location = new System.Drawing.Point(172, 12);
             this.SEARCH_FR_btn.Name = "SEARCH_FR_btn";
@@ -180,7 +180,7 @@
             // Friend_lbl
             // 
             this.Friend_lbl.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Friend_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Friend_lbl.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F);
             this.Friend_lbl.ForeColor = System.Drawing.Color.DimGray;
             this.Friend_lbl.Location = new System.Drawing.Point(11, 53);
             this.Friend_lbl.Name = "Friend_lbl";
@@ -204,7 +204,7 @@
             this.Controls.Add(this.line_3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Friend_lbl);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FriendList";

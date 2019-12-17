@@ -97,7 +97,7 @@
             // profile1
             // 
             this.profile1.BackColor = System.Drawing.Color.Transparent;
-            this.profile1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.profile1.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.profile1.Location = new System.Drawing.Point(0, 29);
             this.profile1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.profile1.Name = "profile1";
@@ -140,7 +140,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label5.Location = new System.Drawing.Point(267, -2);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(27, 25);

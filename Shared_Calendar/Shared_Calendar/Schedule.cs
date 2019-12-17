@@ -371,7 +371,7 @@ namespace Shared_Calendar
             int idx = colorCom.SelectedIndex;
             label11.Text = "●";
             // ColorCom = dbc.ColorDic.ElementAt(idx).Key;
-            label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label11.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label11.ForeColor = dbc.GetColorInsertCRCD(ColorCom);
 
         }
