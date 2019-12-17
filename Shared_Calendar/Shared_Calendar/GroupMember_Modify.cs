@@ -108,15 +108,18 @@ namespace Shared_Calendar
 
         void Mem_DBgrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == btnColumnIdx)
+            if (e.RowIndex < Mem_DBgrid.Rows.Count - 1)
             {
-                string delete_ur_cd = Mem_DBgrid.Rows[e.RowIndex].Cells["UR_CD"].Value.ToString();
-                sql = "delete from GROUP_MEMBER_TB";
-                sql += " where GRMB_FK = '" + db.GR_CD + "'";
-                sql += " and GRMB_MBR_UR_FK = '" + delete_ur_cd + "'";
-                db.ExecuteNonQuery(sql);
-                MessageBox.Show("그룹원이 삭제되었습니다.");
-                Set_GroupMem();
+                if (e.ColumnIndex == btnColumnIdx)
+                {
+                    string delete_ur_cd = Mem_DBgrid.Rows[e.RowIndex].Cells["UR_CD"].Value.ToString();
+                    sql = "delete from GROUP_MEMBER_TB";
+                    sql += " where GRMB_FK = '" + db.GR_CD + "'";
+                    sql += " and GRMB_MBR_UR_FK = '" + delete_ur_cd + "'";
+                    db.ExecuteNonQuery(sql);
+                    MessageBox.Show("그룹원이 삭제되었습니다.");
+                    Set_GroupMem();
+                }
             }
         }
 
