@@ -447,11 +447,11 @@ namespace Shared_Calendar
             string sql;
 
             if (db.FR_CD != null)
-                sql ="select * from TODO_TB where TD_UR_FK = '" + db.FR_CD + "'and TD_COMP_ST = 0  order by TD_DT ASC";
+                sql ="select * from TODO_TB where TD_UR_FK = '" + db.FR_CD + "'and  TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
             else if (db.GR_CD != null)
-                sql = "select * from TODO_TB where TD_GR_FK  = '" + db.GR_CD + "'  order by TD_DT ASC";
+                sql = "select * from TODO_TB where TD_GR_FK  = '" + db.GR_CD + "'  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'  order by TD_DT ASC";
             else
-                sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "' and TD_COMP_ST = 0 " + db.IS_PB + "  order by TD_DT ASC";
+                sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "' and TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
            
             db.ExecuteReader(sql);
             int y = 75;
