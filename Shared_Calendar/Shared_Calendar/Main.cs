@@ -96,7 +96,8 @@ namespace Shared_Calendar
 
         private void Group_lstbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            db.GR_CD = bs_leftTab.GROUP_CD_lst[((ListBox)sender).SelectedIndex];
+            ListBox lb = (ListBox)sender;
+            db.GR_CD = bs_leftTab.GROUP_CD_lst[lb.SelectedIndex];
             grp = new Group();
             grp.TopLevel = false;
             grp.TopMost = true;
@@ -200,6 +201,10 @@ namespace Shared_Calendar
             bs_leftTab.reset();
             bs_leftTab.Show();
             ((Group)((Label)sender).Parent).Close();
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
         }
 
         private void Modi_GR_btn_Click(object sender, EventArgs e)
@@ -230,6 +235,10 @@ namespace Shared_Calendar
             db.FR_CD = MemCD_lst[prof_lst_n];
             if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
             else setCenterWeekPanel();
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
         }
 
         private void Mem_prof_lbl_Click(object sender, EventArgs e)
@@ -239,6 +248,10 @@ namespace Shared_Calendar
             db.FR_CD = MemCD_lst[prof_lst_n];
             if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
             else setCenterWeekPanel();
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
         }
 
         private void Mem_prof_pic_Click(object sender, EventArgs e)
@@ -248,6 +261,10 @@ namespace Shared_Calendar
             db.FR_CD = MemCD_lst[prof_lst_n];
             if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
             else setCenterWeekPanel();
+            if (isShowToDo)
+                tdl.reset();
+            if (isShowPic)
+                pic.reset();
         }
 
         // ---------- FriendList ----------
@@ -281,6 +298,10 @@ namespace Shared_Calendar
                 db.FR_CD = prof_nm;
                 if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
                 else setCenterWeekPanel();
+                if (isShowPic)
+                    pic.reset();
+                if (isShowToDo)
+                    tdl.reset();
             }
         }
 
@@ -292,6 +313,10 @@ namespace Shared_Calendar
                 db.FR_CD = prof_nm;
                 if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
                 else setCenterWeekPanel();
+                if (isShowPic)
+                    pic.reset();
+                if (isShowToDo)
+                    tdl.reset();
             }
         }
 
@@ -303,6 +328,10 @@ namespace Shared_Calendar
                 db.FR_CD = prof_nm;
                 if (MonthForm_btn.Enabled == false) setCenterMonthPanel(); // 월간버튼이 비활성화 되어있다면 -> 지금 월간폼을 보고 있다면
                 else setCenterWeekPanel();
+                if (isShowPic)
+                    pic.reset();
+                if (isShowToDo)
+                    tdl.reset();
             }
         }
 
