@@ -22,6 +22,7 @@ namespace UserCustomControl
             // Profile의 각 요소들 Size 설정 함수
             m_fontSize = this.Height/(float)3;
             this.m_UserPic_rpic.Size = new System.Drawing.Size(this.Height, this.Height);
+            this.m_UserPic_rpic.SizeMode = PictureBoxSizeMode.Zoom;
 
             this.m_UserName_lbl.Left = this.Height + 5;
             this.m_UserName_lbl.Font = new System.Drawing.Font(m_fontfamily, m_fontSize, m_fontStyle);
