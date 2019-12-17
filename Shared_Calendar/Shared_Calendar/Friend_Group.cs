@@ -82,12 +82,12 @@ namespace Shared_Calendar
             check[i].BackColor = Color.White;
             check[i].UseVisualStyleBackColor = true;
        
-            button2.Font = new System.Drawing.Font("함초롬돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            button2.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
 
        
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
             FriendProfile.Size = new System.Drawing.Size(100, 25);
-            FriendProfile.Set_Profile_Size(FontStyle.Bold);
+            FriendProfile.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Bold);
             boardPan[i].Controls.Add(FriendProfile);
             FriendProfile.Location = new System.Drawing.Point(5, 5);
             FriendProfile.USERNAME.Text = curr["UR_NM"].ToString();

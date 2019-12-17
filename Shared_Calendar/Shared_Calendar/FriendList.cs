@@ -43,7 +43,7 @@ namespace Shared_Calendar
             DataRow currRow = dataTable.Rows[i];
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
             FriendProfile.Size = new System.Drawing.Size(223, 25);
-            FriendProfile.Set_Profile_Size(FontStyle.Bold);
+            FriendProfile.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Bold);
             FriendProfile.Name = currRow["UR_CD"].ToString();
             if (!(currRow["UR_PIC"].Equals(System.DBNull.Value)))
             {

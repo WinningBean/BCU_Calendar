@@ -18,14 +18,13 @@ namespace UserCustomControl
         }
 
         private float m_fontSize; // fontSize 설정 변수
-        public void Set_Profile_Size(FontStyle m_fontStyle) {
-            // Set_Profile_Size(int Profile Control's Heihgt, FontStyle want FontStyle)
+        public void Set_Profile_Size(FontFamily m_fontfamily, FontStyle m_fontStyle) {
             // Profile의 각 요소들 Size 설정 함수
             m_fontSize = this.Height/(float)3;
             this.m_UserPic_rpic.Size = new System.Drawing.Size(this.Height, this.Height);
 
             this.m_UserName_lbl.Left = this.Height + 5;
-            this.m_UserName_lbl.Font = new System.Drawing.Font("맑은 고딕", m_fontSize, m_fontStyle);
+            this.m_UserName_lbl.Font = new System.Drawing.Font(m_fontfamily, m_fontSize, m_fontStyle);
             this.m_UserName_lbl.Top = (this.Height - this.m_UserName_lbl.Height) / 2;
         }
 

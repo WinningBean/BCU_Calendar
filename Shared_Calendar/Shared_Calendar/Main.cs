@@ -365,7 +365,7 @@ namespace Shared_Calendar
         private void Set_UserProfile()
         {
             // UserProfile_pro 초기 설정 함수
-            UserProfile_prof.Set_Profile_Size(FontStyle.Bold);
+            UserProfile_prof.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Bold);
             UserProfile_prof.Width = UserProfile_prof.USERPIC.Width + 5 + UserProfile_prof.USERNAME.Width;
             UserProfile_prof.Left = (MainUser_pan.Width - UserProfile_prof.Width) / 2;
             UserProfile_prof.Top = (MainUser_pan.Height - UserProfile_prof.Height) / 2;
