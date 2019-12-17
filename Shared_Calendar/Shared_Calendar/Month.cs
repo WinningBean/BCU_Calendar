@@ -452,18 +452,10 @@ namespace Shared_Calendar
                 if (lbl_nm < sc_end_dt.Day || sc_str_dt.Month < sc_end_dt.Month || sc_str_dt.Year < sc_end_dt.Year) // 하루종일 이상의 일정이라면 백컬러 지정
                 {
                     TimeSpan df_time = sc_end_dt - sc_str_dt;
-                    if (df_time.Days == 0)
+                    if (df_time.Days == 0 && sc_end_dt.Hour == 0)
                     {
-                        if (Convert.ToDateTime(rows[i]["SC_STR_DT"]).Month < Convert.ToDateTime(rows[i]["SC_END_DT"]).Month)
-                        {
-                            label.BackColor = sc_cr_bs;
-                            label.ForeColor = Color.Black;
-                        }
-                        else
-                        {
-                            label.BackColor = Color.Transparent;
-                            label.ForeColor = sc_cr_bs;
-                        }
+                        label.BackColor = Color.Transparent;
+                        label.ForeColor = sc_cr_bs;
                     }
                     else
                     {

@@ -80,7 +80,7 @@ namespace Shared_Calendar
             }
             else if (db.FR_CD != null)
             {
-                GET_DAY_SC_TB = dbs..Get_DayAll_Schedule(true, db.FR_CD, nowDate, db.IS_PB);
+                GET_DAY_SC_TB = dbs.Get_DayAll_Schedule(true, db.FR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
 
                 for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
@@ -91,7 +91,7 @@ namespace Shared_Calendar
             }
            else//그룹일정
             {
-                GET_DAY_SC_TB = dbs..Get_DayAll_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
+                GET_DAY_SC_TB = dbs.Get_DayAll_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
 
                 for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
