@@ -302,9 +302,7 @@ namespace Shared_Calendar
                 }
             }
 
-
-
-            DateTime days = weekSunday.AddDays(x);
+            DateTime days = weekSunday.AddDays(x - startWeek);
             Day d = new Day();
             d.FOCUS_DT = days;
             d.ShowDialog();
