@@ -54,7 +54,7 @@ namespace Shared_Calendar
         private void UserInfo_Load(object sender, EventArgs e)
         {
             profile1.USERNAME.Text = dr[3].ToString();
-            profile1.Set_Profile_Size(FontStyle.Bold);
+            profile1.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Bold);
             if (!(dr[4].Equals(System.DBNull.Value)))
             {
                 Byte[] b = (Byte[])(dr[4]);

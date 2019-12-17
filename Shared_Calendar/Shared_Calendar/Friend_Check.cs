@@ -101,7 +101,7 @@ namespace Shared_Calendar
 
             UserCustomControl.Profile FriendProfile = new UserCustomControl.Profile();
             FriendProfile.Size = new System.Drawing.Size(100, 25);
-            FriendProfile.Set_Profile_Size(FontStyle.Bold);
+            FriendProfile.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Bold);
             boardPan.Controls.Add(FriendProfile);
            // if (!(pic.Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
             FriendProfile.Location = new System.Drawing.Point(5, 5);

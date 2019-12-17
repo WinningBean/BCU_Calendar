@@ -22,7 +22,7 @@ namespace Shared_Calendar
         {
             InitializeComponent();
 
-            MasterProfile_prof.Set_Profile_Size(FontStyle.Bold);
+            MasterProfile_prof.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Bold);
         }
 
         public UserCustomControl.Profile MASTERPROFILE
@@ -99,7 +99,7 @@ namespace Shared_Calendar
                 Mem_prof.Name = "GRMem_prof" + (MemCD_lst.Count);
                 Mem_prof.Size = new Size(213, 30);
                 Mem_prof.Location = new Point(5, MemCD_lst.Count * 35);
-                Mem_prof.Set_Profile_Size(FontStyle.Regular);
+                Mem_prof.Set_Profile_Size(FontLibrary.HANDOTUM, FontStyle.Regular);
                 if (db.Reader["UR_CD"].ToString() == db.UR_CD) Mem_prof.Enabled = false;
 
                 MemCD_lst.Add(db.Reader["UR_CD"].ToString());
