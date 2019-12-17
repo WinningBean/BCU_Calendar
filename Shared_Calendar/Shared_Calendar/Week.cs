@@ -294,7 +294,7 @@ namespace Shared_Calendar
                 Label pan = sender as Label;
                 for (int i = 0; i < 7; i++)
                 {
-                    if (day[i][0].Left >= pan.Location.X)
+                    if (day[i][0].Left >= pan.Parent.Location.X)
                     {
                         x = i;
                         break;
