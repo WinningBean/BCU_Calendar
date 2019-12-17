@@ -92,14 +92,17 @@ namespace Shared_Calendar
 
         void User_DBgrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == btnColumnIdx)
+            if (e.RowIndex < User_DBgrid.Rows.Count - 1)
             {
-                string add_ur_cd = User_DBgrid.Rows[e.RowIndex].Cells["UR_CD"].Value.ToString();
-                sql = "insert into GROUP_MEMBER_TB";
-                sql += " values ('" + db.GR_CD + "', '" + add_ur_cd + "', 0)";
-                db.ExecuteNonQuery(sql);
-                MessageBox.Show("그룹원 추가 신청되었습니다.");
-                User_DBgrid.Rows.Remove(User_DBgrid.Rows[e.RowIndex]);
+                if (User_DBgrid.Rows[e.RowIndex].Cells["UR_CD"] != null)
+                {
+                    string add_ur_cd = User_DBgrid.Rows[e.RowIndex].Cells["UR_CD"].Value.ToString();
+                    sql = "insert into GROUP_MEMBER_TB";
+                    sql += " values ('" + db.GR_CD + "', '" + add_ur_cd + "', 0)";
+                    db.ExecuteNonQuery(sql);
+                    MessageBox.Show("그룹원 추가 신청되었습니다.");
+                    User_DBgrid.Rows.Remove(User_DBgrid.Rows[e.RowIndex]);
+                }
             }
         }
 

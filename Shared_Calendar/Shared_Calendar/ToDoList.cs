@@ -89,7 +89,7 @@ namespace Shared_Calendar
 
             Label label2 = new Label();
             label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label2.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label2.Location = new System.Drawing.Point(todayPan.Width - 25, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(27, 25);
@@ -99,7 +99,7 @@ namespace Shared_Calendar
 
             Label label3 = new Label();
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            label3.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             label3.Location = new System.Drawing.Point(92, 15);
             label3.Name = "label2";
             label3.BackColor = Color.Transparent;
