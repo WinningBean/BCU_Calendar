@@ -635,7 +635,7 @@ namespace Shared_Calendar
 
         int[] panCountWidth = { 125, 63, 42, 31 }; //125, 62.5 , 41.66... ,31.25
         int[] panCountPosition = { 0, 63, 42, 31 }; // 사이즈만큼 더해줌여
-        float[] panTextSize = { 14F, 11F, 10F, 8F };
+        float[] panTextSize = { 12F, 9F, 8F, 7F };
         // 곂치는 개수에따라 width 사이즈를 조정해줄 배열
         public void CreateSCPan() // DataRow를 읽고 색을 입혀줌
         {

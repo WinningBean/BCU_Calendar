@@ -232,7 +232,7 @@ namespace Shared_Calendar
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
-                        lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         lb.Show();
                         pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34
                     }
@@ -281,7 +281,7 @@ namespace Shared_Calendar
                         lb.Location = new Point(10, pictureLocation);
                         lb.AutoSize = true;
                         lb.Size = new System.Drawing.Size(60, 24);
-                        lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        lb.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         lb.Show();
 
                         pictureLocation += 34; // 라벨 y값 + y 10 띄우기 해서 34
@@ -443,6 +443,28 @@ namespace Shared_Calendar
             }
             else
             {
+
+                bool grp_modi_possible = false;
+
+                if (db.GR_CD != null)
+                {
+                    string sql = "select UR_CD from USER_TB where UR_CD = (";
+                    sql += "select SC_UR_FK from SCHEDULE_TB";
+                    sql += " where SC_CD = '" + ((Label)sender).Tag.ToString() + "'";
+                    sql += ") or UR_CD = (";
+                    sql += "select GR_MST_UR_FK from GROUP_TB";
+                    sql += " where GR_CD = '" + db.GR_CD + "')";
+                    db.ExecuteReader(sql);
+                    while (db.Reader.Read())
+                    {
+                        if (db.UR_CD == db.Reader.GetString(0))
+                        {
+                            grp_modi_possible = true;
+                            break;
+                        }
+                    }
+                    db.Reader.Close();
+                }
                 //int rowNum = Int32.Parse(((PictureBox)sender).Name);
                 db.AdapterOpen("select * from PICTURE_TB where PIC_CD = '" + ((PictureBox)sender).Name + "'");
                 DataSet ds = new DataSet("PICTURE_TB");
