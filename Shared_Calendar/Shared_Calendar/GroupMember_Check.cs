@@ -97,25 +97,28 @@ namespace Shared_Calendar
 
         void Group_DBgrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == btnColumnIdx_acept)
+            if (e.RowIndex < Group_dbgrid.Rows.Count - 1)
             {
-                string update_gr_cd = Group_dbgrid.Rows[e.RowIndex].Cells["GR_CD"].Value.ToString();
-                sql = "update GROUP_MEMBER_TB set GRMB_ACEP_ST = 1";
-                sql += " where GRMB_FK = '" + update_gr_cd + "'";
-                sql += " and GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
-                db.ExecuteNonQuery(sql);
-                Group_dbgrid.Rows.Remove(Group_dbgrid.Rows[e.RowIndex]);
+                if (e.ColumnIndex == btnColumnIdx_acept)
+                {
+                    string update_gr_cd = Group_dbgrid.Rows[e.RowIndex].Cells["GR_CD"].Value.ToString();
+                    sql = "update GROUP_MEMBER_TB set GRMB_ACEP_ST = 1";
+                    sql += " where GRMB_FK = '" + update_gr_cd + "'";
+                    sql += " and GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
+                    db.ExecuteNonQuery(sql);
+                    Group_dbgrid.Rows.Remove(Group_dbgrid.Rows[e.RowIndex]);
+                }
+                else if (e.ColumnIndex == btnColumnIdx_delete)
+                {
+                    string delete_gr_cd = Group_dbgrid.Rows[e.RowIndex].Cells["GR_CD"].Value.ToString();
+                    sql = "delete from GROUP_MEMBER_TB";
+                    sql += " where GRMB_FK = '" + delete_gr_cd + "'";
+                    sql += " and GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
+                    db.ExecuteNonQuery(sql);
+                    Group_dbgrid.Rows.Remove(Group_dbgrid.Rows[e.RowIndex]);
+                }
+                if (Group_dbgrid.Rows.Count == 1) Close();
             }
-            else if (e.ColumnIndex == btnColumnIdx_delete)
-            {
-                string delete_gr_cd = Group_dbgrid.Rows[e.RowIndex].Cells["GR_CD"].Value.ToString();
-                sql = "delete from GROUP_MEMBER_TB";
-                sql += " where GRMB_FK = '" + delete_gr_cd + "'";
-                sql += " and GRMB_MBR_UR_FK = '" + db.UR_CD + "'";
-                db.ExecuteNonQuery(sql);
-                Group_dbgrid.Rows.Remove(Group_dbgrid.Rows[e.RowIndex]);
-            }
-            if (Group_dbgrid.Rows.Count == 1) Close();
         }
 
         private void GroupMember_Check_Load(object sender, EventArgs e)
