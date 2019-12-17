@@ -69,7 +69,7 @@ namespace Shared_Calendar
         {
             if(db.GR_CD == null && db.FR_CD == null) // 그룹,친구가 아니라면(개인 일정이면)
             {
-                GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
+                GET_DAY_SC_TB = dbs.Get_DayAll_Schedule(true, db.UR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
 
                 for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
@@ -444,10 +444,15 @@ namespace Shared_Calendar
 
         private void Get_TodoList()
         {
-            string sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "'";
-            sql += " and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'";
-            sql += " and TD_COMP_ST = 0 " ;
-            sql += " order by TD_DT ASC";
+            string sql;
+
+            if (db.FR_CD != null)
+                sql ="select * from TODO_TB where TD_UR_FK = '" + db.FR_CD + "'and TD_COMP_ST = 0  order by TD_DT ASC";
+            else if (db.GR_CD != null)
+                sql = "select * from TODO_TB where TD_GR_FK  = '" + db.GR_CD + "'  order by TD_DT ASC";
+            else
+                sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "' and TD_COMP_ST = 0 " + db.IS_PB + "  order by TD_DT ASC";
+           
             db.ExecuteReader(sql);
             int y = 75;
        
@@ -526,7 +531,10 @@ namespace Shared_Calendar
             day.Controls.Clear();
             checkHeight = 0;
             button1.Enabled = false;
+            paintPan.Controls.Clear();
+          //  panel2.Controls.Clear();
             day.Controls.Clear();
+            Draw_Time();
             Get_chedule();
             Get_TodoList();
             if (checkHeight < 4)
@@ -550,9 +558,12 @@ namespace Shared_Calendar
             m_focus_dt = nowDate;
             label1.Text = nowDate.ToString("yyyy년MM월dd일 ddd");
             day.Controls.Clear();
+            paintPan.Controls.Clear();
             checkHeight = 0;
             button1.Enabled = false;
             day.Controls.Clear();
+          //  panel2.Controls.Clear();
+             Draw_Time();
             Get_chedule();
             Get_TodoList();
             if (checkHeight < 4)
