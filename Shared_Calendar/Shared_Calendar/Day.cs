@@ -80,7 +80,7 @@ namespace Shared_Calendar
             }
             else if (db.FR_CD != null)
             {
-                GET_DAY_SC_TB = dbs.Get_Day_Schedule(true, db.FR_CD, nowDate, db.IS_PB);
+                GET_DAY_SC_TB = dbs..Get_DayAll_Schedule(true, db.FR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
 
                 for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
@@ -91,7 +91,7 @@ namespace Shared_Calendar
             }
            else//그룹일정
             {
-                GET_DAY_SC_TB = dbs.Get_Day_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
+                GET_DAY_SC_TB = dbs..Get_DayAll_Schedule(false, db.GR_CD, nowDate, db.IS_PB);
                 location = new int[15, 2];
 
                 for (int i = 0; i < GET_DAY_SC_TB.Rows.Count; i++)
@@ -447,23 +447,24 @@ namespace Shared_Calendar
             string sql;
 
             if (db.FR_CD != null)
-                sql ="select * from TODO_TB where TD_UR_FK = '" + db.FR_CD + "'and  TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
+            {
+                sql = "select * from TODO_TB where TD_UR_FK = '" + db.FR_CD + "'and  TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
+                db.ExecuteReader(sql);
+            }             
             else if (db.GR_CD != null)
+            {
                 sql = "select * from TODO_TB where TD_GR_FK  = '" + db.GR_CD + "'  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'  order by TD_DT ASC";
-            else
-                sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "' and TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
-           
-            db.ExecuteReader(sql);
-            int y = 75;
-       
+                db.ExecuteReader(sql);
+            }
+                
+            int y = 70; 
             while (db.Reader.Read())
             {
-
                 Label todoName = new Label();
                 todoName.Text = db.Reader[1].ToString();
                 todoName.AutoSize = true;
                 todoName.Location = new System.Drawing.Point(35, y);
-                todoName.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                todoName.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoName);
                 y += 20;
 
@@ -478,7 +479,7 @@ namespace Shared_Calendar
                 todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
                 todoDate.AutoSize = true;
                 todoDate.Location = new System.Drawing.Point(15, y);
-                todoDate.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                todoDate.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
                 panel1.Controls.Add(todoDate);
                 y += 40;
                 
