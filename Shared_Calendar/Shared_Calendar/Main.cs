@@ -377,7 +377,7 @@ namespace Shared_Calendar
             db.ExecuteReader(command);
             if (db.Reader.Read())
             {
-                if (MessageBox.Show("친구 신청이 왔습니다 확인 하시겠습나까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("친구 신청이 왔습니다 확인 하시겠습나까?", "친구 알림", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Friend_Check friendCheck = new Friend_Check();
                     friendCheck.ShowDialog();
@@ -395,7 +395,7 @@ namespace Shared_Calendar
 
             if (db.Reader.Read())
             {
-                if (MessageBox.Show("그룹원 신청이 왔습니다 확인 하시겠습나까?", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("그룹원 신청이 왔습니다 확인 하시겠습나까?", "그룹 알림", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     GroupMember_Check GroupMem_check = new GroupMember_Check();
                     GroupMem_check.ShowDialog();
