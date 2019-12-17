@@ -71,17 +71,17 @@ namespace Shared_Calendar
         public string ScheduleCD
         {
             get { return scheduleCD; }
-            set { scheduleCD = value.ToString(); }
+            set { scheduleCD = value; }
         }
         public string NameTxt
         {
             get { return nameTxt.Text; }
-            set { nameTxt.Text = value.ToString(); }
+            set { nameTxt.Text = value; }
         }
         public string ExTxt
         {
             get { return exTxt.Text; }
-            set { exTxt.Text = value.ToString(); }
+            set { exTxt.Text = value; }
         }
         public DateTime StrDate
         {

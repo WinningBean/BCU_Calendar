@@ -327,7 +327,7 @@ namespace Shared_Calendar
             else
                 weekSunday = weekSunday.AddDays(-7);
             m_focus_dt = weekSunday;
-            m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            //m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
             m_Year_lab.Text = m_focus_dt.ToString("yyyy");
             m_Month_lab.Text = m_focus_dt.ToString("MM");
 
@@ -354,7 +354,7 @@ namespace Shared_Calendar
             else
                 weekSunday = weekSunday.AddDays(7);
             m_focus_dt = weekSunday;
-            m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            //m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
             m_Year_lab.Text = m_focus_dt.ToString("yyyy");
             m_Month_lab.Text = m_focus_dt.ToString("MM");
 
@@ -422,7 +422,7 @@ namespace Shared_Calendar
 
         private void Week_Load(object sender, EventArgs e)
         {
-            m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            //m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
             m_Year_lab.Text = m_focus_dt.ToString("yyyy");
             m_Month_lab.Text = m_focus_dt.ToString("MM");
 
@@ -431,7 +431,7 @@ namespace Shared_Calendar
             //m_Right_btn.MouseEnter += new EventHandler(OnShiftEnter);
             //m_Right_btn.MouseLeave += new EventHandler(OnShiftLeave);
 
-            m_Main_pan.AutoScrollPosition = new Point(0, 348); // 휠 포지션을 가운데로 설정
+            m_Main_pan.AutoScrollPosition = new Point(0, 300); // 휠 포지션을 가운데로 설정
             CurrWeek(); // 실질적인 일정 생성 메서드
         }
 
@@ -801,7 +801,7 @@ namespace Shared_Calendar
                 ms.ShowDialog();
                 m_focus_dt = ms.StrDate;
             }
-            m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+            //m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
         }
 
 
@@ -817,7 +817,7 @@ namespace Shared_Calendar
             if (wm.DialogResult == DialogResult.OK)
             {
                 m_focus_dt = wm.FocusDate;
-                m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+                //m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
             }
         }
 
@@ -862,7 +862,7 @@ namespace Shared_Calendar
                 DateTime clickDate = weekSunday.AddDays(x - startWeek);
                 clickDate = clickDate.AddHours(y);
                 m_focus_dt = clickDate;
-                m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
+                //m_Str_focus.Text = m_focus_dt.ToString("yyyy년 MM월 dd일");
 
                 isMainClick = true;
                 clickPan = day[x][y];

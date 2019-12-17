@@ -35,7 +35,7 @@
             this.m_Top_pan = new System.Windows.Forms.Panel();
             this.m_Right_btn = new System.Windows.Forms.Button();
             this.m_Left_btn = new System.Windows.Forms.Button();
-            this.m_Str_focus = new System.Windows.Forms.Label();
+            //this.m_Str_focus = new System.Windows.Forms.Label();
             this.m_Main_pan = new System.Windows.Forms.Panel();
             this.m_Main_pan.SuspendLayout();
             this.SuspendLayout();
@@ -96,20 +96,20 @@
             this.m_Left_btn.Text = "<";
             this.m_Left_btn.UseVisualStyleBackColor = false;
             this.m_Left_btn.Click += new System.EventHandler(this.m_Left_btn_Click);
-            // 
-            // m_Str_focus
-            // 
-            this.m_Str_focus.AutoSize = true;
-            this.m_Str_focus.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_Str_focus.Location = new System.Drawing.Point(-3, -14);
-            this.m_Str_focus.Name = "m_Str_focus";
-            this.m_Str_focus.Size = new System.Drawing.Size(46, 17);
-            this.m_Str_focus.TabIndex = 0;
-            this.m_Str_focus.Text = "label1";
+            //// 
+            //// m_Str_focus
+            //// 
+            //this.m_Str_focus.AutoSize = true;
+            //this.m_Str_focus.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //this.m_Str_focus.Location = new System.Drawing.Point(-3, -14);
+            //this.m_Str_focus.Name = "m_Str_focus";
+            //this.m_Str_focus.Size = new System.Drawing.Size(46, 17);
+            //this.m_Str_focus.TabIndex = 0;
+            //this.m_Str_focus.Text = "label1";
             // 
             // m_Main_pan
             // 
-            this.m_Main_pan.Controls.Add(this.m_Str_focus);
+            //this.m_Main_pan.Controls.Add(this.m_Str_focus);
             this.m_Main_pan.Location = new System.Drawing.Point(1, 38);
             this.m_Main_pan.Name = "m_Main_pan";
             this.m_Main_pan.Size = new System.Drawing.Size(966, 558);
@@ -145,7 +145,7 @@
         private System.Windows.Forms.Label m_Month_lab;
         private System.Windows.Forms.Panel m_Top_pan;
         private System.Windows.Forms.Panel m_Main_pan;
-        private System.Windows.Forms.Label m_Str_focus;
+        //private System.Windows.Forms.Label m_Str_focus;
         private System.Windows.Forms.Button m_Right_btn;
         private System.Windows.Forms.Button m_Left_btn;
         private System.Windows.Forms.Label m_Year_lab;

@@ -40,20 +40,21 @@ namespace Shared_Calendar
             m_DT_lb.Text = currDT.ToString("yyyy.MM.dd");
             PIC_PB_ST = dr[1].ToString() == "1" ? 0 : 1;
             m_PB_cb.SelectedIndex = PIC_PB_ST;
-            ShowIamge(img);
+            pictureBox1.Image = img;
+            //ShowIamge(img);
         }
 
-        private void ShowIamge(Image img)
-        {
-            PictureBox pb = new PictureBox();
-            pb.Size = new Size(img.Width, img.Height);
-            pb.SizeMode = PictureBoxSizeMode.Normal;
-            pb.Image = img;
-            pb.Location = new Point(6, 30);
-            this.Size = new Size(this.Width + pb.Width, this.Height + pb.Height);
-            panel1.Location = new Point(panel1.Location.X + pb.Width, panel1.Location.Y + pb.Height);
-            this.Controls.Add(pb);
-        }
+        //private void ShowIamge(Image img)
+        //{
+        //    PictureBox pb = new PictureBox();
+        //    pb.Size = new Size(img.Width, img.Height);
+        //    pb.SizeMode = PictureBoxSizeMode.Normal;
+        //    pb.Image = img;
+        //    pb.Location = new Point(6, 30);
+        //    this.Size = new Size(this.Width + pb.Width, this.Height + pb.Height);
+        //    panel1.Location = new Point(panel1.Location.X + pb.Width, panel1.Location.Y + pb.Height);
+        //    this.Controls.Add(pb);
+        //}
 
         private void delete_btn_Click(object sender, EventArgs e)
         {

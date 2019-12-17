@@ -120,11 +120,13 @@ namespace Shared_Calendar
             if (db.Reader.Read())
                 currSeq = db.Reader.GetString(0);
 
-            int pbSc = MessageBox.Show("사진을 공개하시겠습니까?", "사진공개", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) == DialogResult.OK ? 1 : 0;
             if (db.GR_CD != null)
-                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' , null, '"+db.GR_CD+"', :BINARYFILE)");
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' ,'" + db.UR_CD +"', '" + db.GR_CD + "', :BINARYFILE)");
             else
-                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '"+ pbSc + "', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
+            {
+                int pbSc = MessageBox.Show("사진을 공개하시겠습니까?", "사진공개", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) == DialogResult.OK ? 1 : 0;
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '" + pbSc + "', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
+            }
             db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
         }
 
@@ -343,7 +345,7 @@ namespace Shared_Calendar
                     maxHeight = maxHeight < currHeight ? currHeight : maxHeight;
                     i++;
 
-                    if (widthInsidePan.Right > 400)
+                    if (widthInsidePan.Right > this.Width) // 400 이 사이즈가 클경우 오른쪽 버튼을 활성화 시킨다
                         labelList.Last()[1].Visible = true;
 
                     if (rowNum == PictureDT.Rows.Count - 1)
@@ -381,7 +383,7 @@ namespace Shared_Calendar
 
             int panLocaX = widthPanList[level].Location.X;
             int panLocaY = widthPanList[level].Location.Y;
-            if (panLocaX * -1 < (widthPanList[level].Width - 275))
+            if (panLocaX * -1 < (widthPanList[level].Width - 250))
             {
                 widthPanList[level].Location = new Point(panLocaX - 50, panLocaY);
                 labelList[level][0].Visible = true;
@@ -444,13 +446,12 @@ namespace Shared_Calendar
             else
             {
 
-                bool grp_modi_possible = false;
-
                 if (db.GR_CD != null)
                 {
+                    bool grp_modi_possible = false;
                     string sql = "select UR_CD from USER_TB where UR_CD = (";
-                    sql += "select SC_UR_FK from SCHEDULE_TB";
-                    sql += " where SC_CD = '" + ((Label)sender).Tag.ToString() + "'";
+                    sql += "select PIC_UR_FK from PICTURE_TB";
+                    sql += " where PIC_CD = '" + ((PictureBox)sender).Name + "'";
                     sql += ") or UR_CD = (";
                     sql += "select GR_MST_UR_FK from GROUP_TB";
                     sql += " where GR_CD = '" + db.GR_CD + "')";
@@ -464,6 +465,9 @@ namespace Shared_Calendar
                         }
                     }
                     db.Reader.Close();
+
+                    if (!grp_modi_possible)
+                        return;
                 }
                 //int rowNum = Int32.Parse(((PictureBox)sender).Name);
                 db.AdapterOpen("select * from PICTURE_TB where PIC_CD = '" + ((PictureBox)sender).Name + "'");
