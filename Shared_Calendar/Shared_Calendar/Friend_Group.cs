@@ -91,7 +91,12 @@ namespace Shared_Calendar
             boardPan[i].Controls.Add(FriendProfile);
             FriendProfile.Location = new System.Drawing.Point(5, 5);
             FriendProfile.USERNAME.Text = curr["UR_NM"].ToString();
-            if (!(curr["UR_PIC"].Equals(System.DBNull.Value))) FriendProfile.USERPIC.Image = Image.FromStream(db.Reader.GetOracleBlob(2));
+            if (!(curr["UR_PIC"].Equals(System.DBNull.Value)))
+            {
+                byte[] byteData = (byte[])(curr.ItemArray[2]);
+                System.IO.MemoryStream msData = new System.IO.MemoryStream(byteData);
+                FriendProfile.USERPIC.Image = Image.FromStream(msData);
+            }
             FriendProfile.TabIndex = i;
 
             return boardPan[i];

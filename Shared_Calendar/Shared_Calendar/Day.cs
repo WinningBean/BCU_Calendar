@@ -367,6 +367,9 @@ namespace Shared_Calendar
             day.AutoScroll = false;
             day.Location = new Point(0, 70);
 
+            panel1.Controls.Add(panel3);
+            panel3.Show();
+            panel3.BackColor = Color.Blue;
 
             paintPan.Location = new Point(0, 0);
             paintPan.Size = new System.Drawing.Size(2990, 70);
@@ -458,55 +461,66 @@ namespace Shared_Calendar
 
         private void Get_TodoList()
         {
+            int i = 0;
             string sql;
+            int checkFriend = 0;
 
             if (db.FR_CD != null)
             {
-                sql = "select * from TODO_TB where TD_UR_FK = '" + db.FR_CD + "'and  TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
-                db.ExecuteReader(sql);
-            }             
+                checkFriend = 1;
+            }
             else if (db.GR_CD != null)
             {
                 sql = "select * from TODO_TB where TD_GR_FK  = '" + db.GR_CD + "'  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'  order by TD_DT ASC";
                 db.ExecuteReader(sql);
+            }            
+            else
+            {
+                sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "'and  TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
+                db.ExecuteReader(sql);
             }
                 
-            int y = 70; 
-            while (db.Reader.Read())
+            int y = 0;
+            if (checkFriend == 0)
             {
-                Label todoName = new Label();
-                todoName.Text = db.Reader[1].ToString();
-                todoName.AutoSize = true;
-                todoName.Location = new System.Drawing.Point(35, y);
-                todoName.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                panel1.Controls.Add(todoName);
-                y += 20;
+                while (db.Reader.Read())
+                {
+                    Label todoName = new Label();
+                    todoName.Text = db.Reader[1].ToString();
+                    todoName.Name = todoName + i.ToString();
+                    todoName.AutoSize = true;
+                    todoName.Location = new System.Drawing.Point(35, y);
+                    todoName.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                    panel3.Controls.Add(todoName);
+                    y += 20;
 
 
-                string date = db.Reader[2].ToString();
-                int year = Convert.ToInt32(date.Substring(0, 4));
-                int month = Convert.ToInt32(date.Substring(5, 2));
-                int day = Convert.ToInt32(date.Substring(8, 2));
-                DateTime currDate = new DateTime(year, month, day);
+                    string date = db.Reader[2].ToString();
+                    int year = Convert.ToInt32(date.Substring(0, 4));
+                    int month = Convert.ToInt32(date.Substring(5, 2));
+                    int day = Convert.ToInt32(date.Substring(8, 2));
+                    DateTime currDate = new DateTime(year, month, day);
 
-                Label todoDate = new Label();
-                todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
-                todoDate.AutoSize = true;
-                todoDate.Location = new System.Drawing.Point(15, y);
-                todoDate.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                panel1.Controls.Add(todoDate);
-                y += 40;
-                
+                    Label todoDate = new Label();
+                    todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
+                    todoDate.AutoSize = true;
+                    todoDate.Location = new System.Drawing.Point(15, y);
+                    todoDate.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                    panel3.Controls.Add(todoDate);
+                    y += 40;
 
-                Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
-                Label todoColor = new Label();
-                todoColor.Text = "●";
-                todoColor.AutoSize = true;
-                todoColor.Location = new System.Drawing.Point(10, todoName.Location.Y);
-                todoColor.ForeColor = color;
-                todoColor.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                panel1.Controls.Add(todoColor);
 
+                    Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
+                    Label todoColor = new Label();
+                    todoColor.Text = "●";
+                    todoColor.AutoSize = true;
+                    todoColor.Location = new System.Drawing.Point(10, todoName.Location.Y);
+                    todoColor.ForeColor = color;
+                    todoColor.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+                    panel3.Controls.Add(todoColor);
+
+                    i++;
+                }
             }
 
         }
