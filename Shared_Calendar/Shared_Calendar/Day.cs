@@ -152,25 +152,41 @@ namespace Shared_Calendar
 
             int scheduleTimeSize;
 
-            if (endSC.Hour == 0 ) // 끝나는 시간이 오전0시 -> 24시
+            if (endSC.Hour == 0) // 끝나는 시간이 오전0시 -> 24시
             {
                 scheduleTimeSize = (24 * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
             }
-            else if(strSC.Day != endSC.Day)
+
+            if (nowDate.Day != strSC.Day && nowDate.Day != endSC.Day) // 오늘 시작도 안했고 오늘끝나지도 않음 ( 하루종일 )
             {
-                scheduleTimeSize = (25 * 120 ) - (strSC.Hour * 120 + strSC.Minute * 2);
+                scheduleTimeSize = (24 * 120 + endSC.Minute * 2);
             }
-            else
+            else if(nowDate.Day != strSC.Day && nowDate.Day == endSC.Day) //(오늘 시작은 안했지만 오늘 끝남 )
+            {
+                scheduleTimeSize = (strSC.Hour * 120 + strSC.Minute * 2);
+            }
+            else if(nowDate.Day == strSC.Day && nowDate.Day != endSC.Day) // (오늘 시작했지만 오늘 끝나지 않음) 
+            {
+                scheduleTimeSize = (24 * 120) - (strSC.Hour * 120 + strSC.Minute * 2);
+            }
+            else // 오늘 시작해서 오늘 끝나는 일정 
             {
                scheduleTimeSize = (endSC.Hour * 120 + endSC.Minute * 2) - (strSC.Hour * 120 + strSC.Minute * 2);
             }
 
-
-
             Panel cre = new Panel();
             cre.Size = new System.Drawing.Size(scheduleTimeSize,80);
-            cre.Location = new System.Drawing.Point(strSC.Hour * 120 + strSC.Minute * 2 + 30, y);
-           // cre.BorderStyle = BorderStyle.FixedSingle;
+           
+            if (nowDate.Day != strSC.Day) // 오늘 시작하는 일정이 아니면  0시부터
+            {
+                cre.Location = new System.Drawing.Point(30, 0);
+            }
+            else // 오늘시작하는 일정
+            {
+                cre.Location = new System.Drawing.Point(strSC.Hour * 120 + strSC.Minute * 2 + 30, y);
+            }
+
+            // cre.BorderStyle = BorderStyle.FixedSingle;
             cre.TabIndex = 0;
             cre.Tag = i;
             cre.BackColor = color;
@@ -369,9 +385,7 @@ namespace Shared_Calendar
             panel2.VerticalScroll.Enabled = true;
             panel2.AutoScroll = true;
 
-
-          
-
+        
             Get_chedule();
             day.Controls.Clear(); 
             Get_chedule();

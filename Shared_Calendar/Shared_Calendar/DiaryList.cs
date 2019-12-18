@@ -37,11 +37,23 @@ namespace Shared_Calendar
         }
         private void Get_Diary()
         {
-            string sql = "select * from DIARY_TB where DR_UR_FK = '" + db.UR_CD + "'and DR_PB_ST= '" + check + "'ORDER BY  DR_DT DESC";
-            db.AdapterOpen(sql);
-            DataSet DS = new DataSet();
-            db.Adapter.Fill(DS, "DiaryTB");
-            DiaryTB = DS.Tables["DiaryTB"];
+            if(check == 1)
+            {
+                string sql = "select * from DIARY_TB where DR_UR_FK ='" + db.UR_CD + "' and DR_PB_EX is not null ORDER BY  DR_DT DESC";
+                db.AdapterOpen(sql);
+                DataSet DS = new DataSet();
+                db.Adapter.Fill(DS, "DiaryTB");
+                DiaryTB = DS.Tables["DiaryTB"];
+            }
+            else
+            {
+                string sql = "select * from DIARY_TB where DR_UR_FK ='" + db.UR_CD + "' and DR_PV_EX is not null ORDER BY  DR_DT DESC";
+                db.AdapterOpen(sql);
+                DataSet DS = new DataSet();
+                db.Adapter.Fill(DS, "DiaryTB");
+                DiaryTB = DS.Tables["DiaryTB"];
+            }
+  
         }
         private void Create()
         {
@@ -74,7 +86,15 @@ namespace Shared_Calendar
                 tb[i].Location = new Point(5, 35);
                 tb[i].Size = new Size(240, 75);
                 tb[i].Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                tb[i].Text = currRow["DR_EX"].ToString();
+                if(check == 0)
+                {
+                    tb[i].Text = currRow["DR_PV_EX"].ToString();
+                }
+                else
+                {
+                    tb[i].Text = currRow["DR_PB_EX"].ToString();
+                }
+
                 tb[i].Multiline = true;
 
 
@@ -113,10 +133,26 @@ namespace Shared_Calendar
             string nowdate = bt.Name;
             if (MessageBox.Show("일기가 삭제됩니다", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                string sql = "delete from DIARY_TB where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi') and DR_PB_ST = '" + check + "' and DR_UR_FK='" + db.UR_CD + "'";
-                db.ExecuteNonQuery(sql);
-                Clear_Control();
+                if(check == 0)//nowdate
+                {
+                    string sql = "delete from DIARY_TB";
+                    sql += " where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi')";
+                    sql += " and DR_UR_FK='" + db.UR_CD + "'";
+                    sql += " DR_PV_EX is not null";
+                    db.ExecuteNonQuery(sql);
+                }
+                else
+                {
+                    string sql = "delete from DIARY_TB";
+                    sql += " where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi')";
+                    sql += " and DR_UR_FK='" + db.UR_CD + "'";
+                    sql += " DR_PB_EX is not null";
+                    db.ExecuteNonQuery(sql);
+
+                }
+                MessageBox.Show("삭제 완료 되었습니다", "완료", MessageBoxButtons.OK);
                 this.Close();
+
             }
      
         }
@@ -127,9 +163,22 @@ namespace Shared_Calendar
             int i = bt.TabIndex;
             string str = tb[i].Text;
             string nowdate = bt.Name;
-            string sql = "update DIARY_TB set DR_EX = '" + str + "' where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi') and DR_PB_ST = '" + check + "'"; 
-            db.ExecuteNonQuery(sql);
-
+            if (check == 1)
+            {
+                string sql = "update DIARY_TB  set ";
+                sql += " DR_PV_EX = '" + str + "'";
+                sql += " where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi')";
+                sql += " and DR_PB_EX is not null";
+                db.ExecuteNonQuery(sql);
+            }
+            else
+            {
+                string sql = "update DIARY_TB  set ";
+                sql += " DR_PV_EX = '" + str + "'";
+                sql += " where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi')";
+                sql += " and DR_PB_EX is not null";
+                db.ExecuteNonQuery(sql);
+            }
             MessageBox.Show("수정이 완료 되었습니다", "완료", MessageBoxButtons.OK);
             this.Close();
 
