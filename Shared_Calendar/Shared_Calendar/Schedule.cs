@@ -188,11 +188,12 @@ namespace Shared_Calendar
 
             this.StartPosition = FormStartPosition.CenterParent;
             strDate.Format = DateTimePickerFormat.Custom;
-            strDate.CustomFormat = "yyyy/MM/dd ddd";
+            strDate.CustomFormat = "yyyy/MM/dd ddd"; // string format
 
             endDate.Format = DateTimePickerFormat.Custom;
             endDate.CustomFormat = "yyyy/MM/dd ddd";
 
+            //커서 가까이하면 색 변하는 이벤트 
             button1.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button2.MouseEnter += new EventHandler(OnTopPanMouseEnter);
             button3.MouseEnter += new EventHandler(OnTopPanMouseEnter);
@@ -336,9 +337,9 @@ namespace Shared_Calendar
                 endHour.Enabled = false;
                 endHour.Visible = false;
                 strMin.Enabled = false;
-                strMin.Enabled = false;
+                strMin.Visible = false;
                 strHour.Enabled = false;
-                strHour.Enabled = false;
+                strHour.Visible = false;
                 label8.Visible = false;
                 label9.Visible = false;
                 label10.Visible = false;
