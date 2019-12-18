@@ -192,7 +192,6 @@ namespace Shared_Calendar
             }
         }
 
-        private Day day = new Day(); // 일간 폼 띄우기
         private void dm_dt_Click(object sender, EventArgs e)// 날짜 클릭시 이벤트 처리
         {
             clear_lbl_cr();
@@ -208,6 +207,7 @@ namespace Shared_Calendar
                 fc_pan.Controls.Add(Add_SC_btn);
             }
 
+            Day day = new Day(); // 일간 폼 띄우기
             int f_loX = (this.Parent.Parent.Location.X + 243 + this.Width / 2) - day.Width / 2;
             int f_loY = (this.Parent.Parent.Location.Y + 92 + this.Height / 2) - day.Height / 2;
             day.Location = new Point(f_loX, f_loY);

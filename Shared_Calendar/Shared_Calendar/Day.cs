@@ -387,6 +387,7 @@ namespace Shared_Calendar
             panel2.VerticalScroll.Visible = false;
             panel2.VerticalScroll.Enabled = true;
             panel2.AutoScroll = true;
+            panel2.AutoScrollPosition = new Point(1000, 0);
 
         
             Get_chedule();
