@@ -536,7 +536,7 @@ namespace Shared_Calendar
         {
             Schedule modiSche = new Schedule(true);
             modiSche.ShowDialog();
-            if(WeekForm_btn.Enabled == false)
+            if (WeekForm_btn.Enabled == false)
                 week.resetSchedual();
             mnt.SET_MONTH();
         }
@@ -766,6 +766,32 @@ namespace Shared_Calendar
             Group_Modify grpAdd = new Group_Modify();
             grpAdd.ShowDialog();
             bs_leftTab.reset();
+        }
+
+        private void 회원정보ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserInfo ui = new UserInfo(db.UR_CD);
+            ui.Location = Cursor.Position;
+            ui.StartPosition = FormStartPosition.Manual;
+            if (ui.ShowDialog() == DialogResult.OK)
+            {
+                db.AdapterOpen("select * from USER_TB where UR_CD = '" + db.UR_CD + "'");
+                DataSet ds = new DataSet("USER_TB");
+                db.Adapter.Fill(ds, "USER_TB");
+                if (ds.Tables["USER_TB"].Rows[0][4].Equals(System.DBNull.Value))
+                {
+                    UserProfile_prof.USERPIC.Image = global::Shared_Calendar.Properties.Resources.user_null;
+                    this.DialogResult = DialogResult.OK;
+                    return;
+                }
+
+                Byte[] b = (Byte[])(ds.Tables["USER_TB"].Rows[0][4]);
+                MemoryStream stmBlobData = new MemoryStream(b);
+                Image img = Image.FromStream(stmBlobData);
+                UserProfile_prof.USERPIC.Image = img; // 프로퍼티로 PIC값 넘겨줌
+                UserProfile_prof.USERNAME.Text = ui.ur_name;
+                Set_UserProfile();
+            }
         }
     }
 }
