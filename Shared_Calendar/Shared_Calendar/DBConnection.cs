@@ -50,7 +50,7 @@ namespace Shared_Calendar
         public DBConnection()
         {// 굳이 try catch에 throw 넣지 않아도 예외발생시 알아서 호출된곳으로 넘기게됨
             conn = new OracleConnection();
-            conn.ConnectionString = "User Id = CHARMJO; Password = CHARMJO; Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.142.16)(PORT = 1521))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = xe))); ";
+            conn.ConnectionString = "User Id = CHARMJO; Password = CHARMJO; Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = xe))); ";
             comd = new OracleCommand();
             comd.Connection = conn;
             conn.Open();

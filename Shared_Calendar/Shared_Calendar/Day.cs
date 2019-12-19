@@ -31,7 +31,7 @@ namespace Shared_Calendar
         DBConnection db = Program.DB;
         DBSchedule dbs =null;
         DBColor dbc = null;
-
+        DataTable Todo_tb = null;
         Panel paintPan;
         Panel day;
         Panel pre;
@@ -369,7 +369,6 @@ namespace Shared_Calendar
 
             panel1.Controls.Add(panel3);
             panel3.Show();
-            panel3.BackColor = Color.Blue;
 
             paintPan.Location = new Point(0, 0);
             paintPan.Size = new System.Drawing.Size(2990, 70);
@@ -459,69 +458,98 @@ namespace Shared_Calendar
             }
 
         }
+        private void CreateTodoList(string TodoName, string TodoDate, string TodoColor, int y)
+        {
+            Label todoName = new Label();
+            todoName.Text = TodoName;
+            //todoName.Name = todoName + i.ToString();
+            todoName.AutoSize = true;
+            todoName.Location = new System.Drawing.Point(35, y * 50 + 25);
+            todoName.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            panel3.Controls.Add(todoName);
+
+
+            string date = TodoDate;
+            int year = Convert.ToInt32(date.Substring(0, 4));
+            int month = Convert.ToInt32(date.Substring(5, 2));
+            int day = Convert.ToInt32(date.Substring(8, 2));
+            DateTime currDate = new DateTime(year, month, day);
+
+            Label todoDate = new Label();
+            todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
+            todoDate.AutoSize = true;
+            todoDate.Location = new System.Drawing.Point(15, y * 50 + 10);
+            todoDate.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            panel3.Controls.Add(todoDate);
+
+
+            Color color = dbc.GetColorInsertCRCD(TodoColor);
+            Label todoColor = new Label();
+            todoColor.Text = "●";
+            todoColor.AutoSize = true;
+            todoColor.Location = new System.Drawing.Point(10, todoName.Location.Y);
+            todoColor.ForeColor = color;
+            todoColor.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            panel3.Controls.Add(todoColor);
+        }
 
         private void Get_TodoList()
         {
-            int i = 0;
+            int todoLocation = 0;
             string sql;
-            int checkFriend = 0;
+
 
             if (db.FR_CD != null)
             {
-                checkFriend = 1;
+                panel3.Controls.Clear();
+                label5.Visible = false;
             }
             else if (db.GR_CD != null)
             {
+                label5.Visible = true;
                 sql = "select * from TODO_TB where TD_GR_FK  = '" + db.GR_CD + "'  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "'  order by TD_DT ASC";
                 db.ExecuteReader(sql);
-            }            
+                DataSet DS = new DataSet();
+                db.Adapter.Fill(DS, "Todo_tb");
+                int count = DS.Tables["Todo_tb"].Rows.Count;
+                if (count == 0)
+                {
+                    panel3.Controls.Clear();
+                }
+                else
+                {
+                    Todo_tb = DS.Tables["Todo_tb"];
+                    for (int j = 0; j < Todo_tb.Rows.Count; j++)
+                    {
+                        DataRow curr = Todo_tb.Rows[j];
+                        CreateTodoList(curr[1].ToString(), curr[2].ToString(), curr[4].ToString(), todoLocation);
+                        todoLocation++;
+                    }
+                }
+            }
             else
             {
+                label5.Visible = true;
                 sql = "select * from TODO_TB where TD_UR_FK = '" + db.UR_CD + "'and  TD_COMP_ST = 0  and TD_DT >= '" + nowDate.ToString("yyyy-MM-dd") + "' order by TD_DT ASC";
-                db.ExecuteReader(sql);
-            }
-                
-            int y = 0;
-            if (checkFriend == 0)
-            {
-                while (db.Reader.Read())
+                db.AdapterOpen(sql);
+                DataSet DS = new DataSet();
+                db.Adapter.Fill(DS, "Todo_tb");
+                int count = DS.Tables["Todo_tb"].Rows.Count;
+                if (count == 0)
                 {
-                    Label todoName = new Label();
-                    todoName.Text = db.Reader[1].ToString();
-                    todoName.Name = todoName + i.ToString();
-                    todoName.AutoSize = true;
-                    todoName.Location = new System.Drawing.Point(35, y);
-                    todoName.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                    panel3.Controls.Add(todoName);
-                    y += 20;
-
-
-                    string date = db.Reader[2].ToString();
-                    int year = Convert.ToInt32(date.Substring(0, 4));
-                    int month = Convert.ToInt32(date.Substring(5, 2));
-                    int day = Convert.ToInt32(date.Substring(8, 2));
-                    DateTime currDate = new DateTime(year, month, day);
-
-                    Label todoDate = new Label();
-                    todoDate.Text = currDate.ToString("yyyy.MM.dd.ddd");
-                    todoDate.AutoSize = true;
-                    todoDate.Location = new System.Drawing.Point(15, y);
-                    todoDate.Font = new System.Drawing.Font(FontLibrary.HANDOTUM, 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                    panel3.Controls.Add(todoDate);
-                    y += 40;
-
-
-                    Color color = dbc.GetColorInsertCRCD(db.Reader[4].ToString());
-                    Label todoColor = new Label();
-                    todoColor.Text = "●";
-                    todoColor.AutoSize = true;
-                    todoColor.Location = new System.Drawing.Point(10, todoName.Location.Y);
-                    todoColor.ForeColor = color;
-                    todoColor.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-                    panel3.Controls.Add(todoColor);
-
-                    i++;
+                    panel3.Controls.Clear();
                 }
+                else
+                {
+                    Todo_tb = DS.Tables["Todo_tb"];
+                    for (int j = 0; j < Todo_tb.Rows.Count; j++)
+                    {
+                        DataRow curr = Todo_tb.Rows[j];
+                        CreateTodoList(curr[1].ToString(), curr[2].ToString(), curr[4].ToString(), todoLocation);
+                        todoLocation++;
+                    }
+                }
+
             }
 
         }
