@@ -22,6 +22,7 @@ namespace Shared_Calendar
         int check = 1;
         int location = 0;
         DateTime[] date;
+
         private void DiaryList_Load(object sender, EventArgs e)
         {
             panel1.HorizontalScroll.Maximum = 0;
@@ -35,6 +36,7 @@ namespace Shared_Calendar
             date = new DateTime[DiaryTB.Rows.Count + 1];
             Create();
         }
+
         private void Get_Diary()
         {
             if(check == 1)
@@ -146,7 +148,7 @@ namespace Shared_Calendar
                     string sql = "delete from DIARY_TB";
                     sql += " where DR_DT = to_date('" + nowdate + "', 'yyyy/MM/dd hh24:mi')";
                     sql += " and DR_UR_FK='" + db.UR_CD + "'";
-                    sql += " DR_PB_EX is not null";
+                    sql += " and DR_PB_EX is not null";
                     db.ExecuteNonQuery(sql);
 
                 }
