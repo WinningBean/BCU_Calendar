@@ -43,7 +43,7 @@ namespace Shared_Calendar
 
         DBSchedule dbs = new DBSchedule();
         DBConnection db = Program.DB;
-        Color defaultColor = (new DBColor()).GetColorInsertName("GRAY", 100);
+        Color defaultColor = Color.FromArgb(200, 128, 128, 128);
 
         bool isMainClick = false;
         Panel clickPan;
@@ -660,7 +660,7 @@ namespace Shared_Calendar
                 if (dataRowList[k][7].ToString() != "") // 널이 아니면 고유 색상지정
                     pan.BackColor = (new DBColor()).GetColorInsertCRCD(dataRowList[k][7].ToString(), 200);
                 else // 널이면 랜덤
-                    pan.BackColor = Color.FromArgb(200, 128, 128, 128);
+                    pan.BackColor = defaultColor;
                 pan.MouseClick += new MouseEventHandler(OnPanelClick); // 판넬 클릭시 정보출력
                 pan.MouseDoubleClick += new MouseEventHandler(OnPanelClick);
 
