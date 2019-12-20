@@ -66,6 +66,7 @@
             this.m_ID_tb.Name = "m_ID_tb";
             this.m_ID_tb.Size = new System.Drawing.Size(100, 21);
             this.m_ID_tb.TabIndex = 3;
+            this.m_ID_tb.Enabled = false;
             // 
             // m_PW_tb
             // 
