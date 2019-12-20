@@ -791,11 +791,11 @@ namespace Shared_Calendar
             {
                 if (db.FR_CD != null)
                     return;
-                Schedule ms = new Schedule();
-                ms.NameTxt = db.Reader[1].ToString();
-                ms.ExTxt = db.Reader[2].ToString();
+                Schedule ms = new Schedule(pan.Name);
+                //ms.NameTxt = db.Reader[1].ToString();
+                //ms.ExTxt = db.Reader[2].ToString();
                 ms.FOCUS_DT = m_focus_dt;
-                ms.StateCheck = Int32.Parse(db.Reader[3].ToString());
+                //ms.StateCheck = Int32.Parse(db.Reader[3].ToString());
                 ms.ShowDialog();
                 m_focus_dt = ms.StrDate;
             }
