@@ -534,7 +534,7 @@ namespace Shared_Calendar
                 if (db.GR_CD != null)// 그룹일때 
                 {
 
-                    if (scheduleCD == null)
+                    if (scheduleCD == null) // 일정 등록
                     {
                         dbs.Insert_Schedule(false, db.GR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
                         MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -542,7 +542,7 @@ namespace Shared_Calendar
                         this.Close();
 
                     }
-                    else//SC_GR_FK
+                    else//일정 수정 
                     {
                         string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
                         string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 종료일시 스트링 포맷
@@ -567,7 +567,7 @@ namespace Shared_Calendar
                 }
                 else // 개인일때
                 {
-                    if (scheduleCD == null) // 등록
+                    if (scheduleCD == null) // 일정 등록
                     {
                         dbs.Insert_Schedule(true, db.UR_CD, NameTxt, ExTxt, StateCheck, str_Date, end_Date, pic_CD, ColorCom);
                         MessageBox.Show("일정을 등록했습니다", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -575,7 +575,7 @@ namespace Shared_Calendar
                         this.Close();
 
                     }
-                    else //수정
+                    else //일정 수정
                     {
                         string st_day_str = str_Date.ToString("yyyy/MM/dd H:mm"); // 시작일시 스트링 포맷
                         string end_day_str = end_Date.ToString("yyyy/MM/dd H:mm"); // 종료일시 스트링 포맷

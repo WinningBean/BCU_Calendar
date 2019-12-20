@@ -358,6 +358,8 @@ namespace Shared_Calendar
         {
             button1.Visible = true;
             Down.Visible = true;
+            button1.BringToFront();
+            Down.BringToFront();
 
             dbs = new DBSchedule();
             dbc = new DBColor();
@@ -394,16 +396,18 @@ namespace Shared_Calendar
             Get_chedule();
             Get_TodoList();
 
-            if(checkHeight < 3)
+            if(checkHeight < 3) //   겹치는 일정이 세개 이하면 버튼숨김
             {
                 button1.Visible = false;
                 Down.Visible = false;
                 Down.Enabled = false;
                 button1.Enabled = false;
             }
-
-            button1.Enabled = false;
-            Down.Enabled = true;
+            else
+            {
+                button1.Enabled = false;
+                Down.Enabled = true;
+            }
 
             if (db.GR_CD == null && db.FR_CD == null)
             {
@@ -595,7 +599,7 @@ namespace Shared_Calendar
             Draw_Time();
             Get_chedule();
             Get_TodoList();
-            if (checkHeight < 4)
+            if (checkHeight < 3)
             {
                 button1.Visible = false;
                 Down.Visible = false;
@@ -606,8 +610,8 @@ namespace Shared_Calendar
             {
                 button1.Visible = true;
                 Down.Visible = true;
-                button1.Enabled = true;
                 Down.Enabled = true;
+                button1.Enabled = false;
             }
         }
         private void preDay_Click(object sender, EventArgs e)
@@ -624,7 +628,7 @@ namespace Shared_Calendar
              Draw_Time();
             Get_chedule();
             Get_TodoList();
-            if (checkHeight < 4)
+            if (checkHeight < 3)
             {
                 button1.Visible = false;
                 Down.Visible = false;
@@ -635,8 +639,8 @@ namespace Shared_Calendar
             {
                 button1.Visible = true;
                 Down.Visible = true;
-                button1.Enabled = true;
                 Down.Enabled = true;
+                button1.Enabled = false;
             }
         }
 

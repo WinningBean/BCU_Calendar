@@ -75,7 +75,6 @@ namespace Shared_Calendar
             {
                 bsGroup_CD_lst.Add(db.Reader.GetString(0));
                 bsGroup_lstbox.Items.Add(db.Reader.GetString(1));
-                //if (bsGroup_lstbox.Items.Count < 15) bsGroup_lstbox.Height += 30;
                 bsGroup_lstbox.Height += 30;
                 MstGr_cnt++;
             }
@@ -97,7 +96,6 @@ namespace Shared_Calendar
             {
                 bsGroup_CD_lst.Add(db.Reader.GetString(0));
                 bsGroup_lstbox.Items.Add(db.Reader.GetString(1));
-                //if (bsGroup_lstbox.Items.Count < 15) bsGroup_lstbox.Height += 30;
                 bsGroup_lstbox.Height += 30;
             }
             db.Reader.Close();
@@ -133,7 +131,7 @@ namespace Shared_Calendar
             Panel parentPan = (Panel)mylst.Parent;
             if (e.Delta / 120 > 0)
             {
-                if (mylst.Location.Y <= parentPan.Height - mylst.Height)
+                if (mylst.Height > parentPan.Height && mylst.Location.Y <= parentPan.Height - mylst.Height)
                 {
                     mylst.Location = new Point(mylst.Location.X, mylst.Location.Y + 30);
                 }

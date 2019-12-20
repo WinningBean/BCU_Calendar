@@ -145,7 +145,7 @@
             this.bsGroup_lstbox.ItemHeight = 30;
             this.bsGroup_lstbox.Location = new System.Drawing.Point(0, 0);
             this.bsGroup_lstbox.Name = "bsGroup_lstbox";
-            this.bsGroup_lstbox.Size = new System.Drawing.Size(213, 30);
+            this.bsGroup_lstbox.Size = new System.Drawing.Size(213, 0);
             this.bsGroup_lstbox.TabIndex = 8;
             this.bsGroup_lstbox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.Group_lst_DrawItem);
             // 
