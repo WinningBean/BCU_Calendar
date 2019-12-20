@@ -144,12 +144,12 @@ namespace Shared_Calendar
         {
             DataSet ds = new DataSet("TODO_TB");
             string sql;
-            if (db.GR_CD != null) // 그룹이라면 그룹스케줄 표시
+            if (db.GR_CD != null) // 그룹에서 보는것이면 그룹 할일을 보여줘야한다.
                 sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_GR_FK = '" + db.GR_CD + "'ORDER BY TD_DT";
             else
                 sql = "select * from TODO_TB where TD_COMP_ST = 0 AND TD_UR_FK = '" + db.UR_CD + "' ORDER BY TD_DT";
-            db.AdapterOpen(sql);
-            db.Adapter.Fill(ds, "TODO_TB");
+            db.AdapterOpen(sql); // 미완료된것이 먼저 나오고 완료된것이 나와야되기때문에 
+            db.Adapter.Fill(ds, "TODO_TB"); // fill을 두번 해야한다.
             if (db.GR_CD != null) // 완료된것도 표시해야한다
                 sql = "select * from TODO_TB where TD_COMP_ST = 1 AND TD_GR_FK = '" + db.GR_CD + "'ORDER BY TD_DT";
             else

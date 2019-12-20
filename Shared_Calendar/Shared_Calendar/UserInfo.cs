@@ -131,7 +131,8 @@ namespace Shared_Calendar
                     db.Command.CommandType = CommandType.Text;
                     db.Command.Parameters.Add(op); // 커맨드에 이 파라미터를 추가시켜서 db에 보낼때 같이 보낼수있게 함
 
-                    db.ExecuteNonQuery("UPDATE USER_TB SET UR_NM = '"+m_Name_tb.Text+"', UR_PIC = :BINARYFILE, UR_ID = '" + m_ID_tb.Text + "', UR_PW = '" + m_PW_tb.Text + "' WHERE UR_CD = '" + ur_cd.ToString() + "'");
+                    db.ExecuteNonQuery("UPDATE USER_TB SET UR_NM = '"+m_Name_tb.Text+"', UR_PIC = :BINARYFILE, UR_ID = '" 
+                        + m_ID_tb.Text + "', UR_PW = '" + m_PW_tb.Text + "' WHERE UR_CD = '" + ur_cd.ToString() + "'");
                     db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
                     MessageBox.Show("수정 되었습니다!", "완료", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
@@ -179,7 +180,8 @@ namespace Shared_Calendar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(DialogResult.Yes == MessageBox.Show("정말 회원탈퇴 하시겠습니까?\n탈퇴시 정보를 되돌릴수없습니다.", "탈퇴", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+            if(DialogResult.Yes == MessageBox.Show("정말 회원탈퇴 하시겠습니까?\n탈퇴시 정보를 되돌릴수없습니다."
+                , "탈퇴", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
             {
                 db.ExecuteNonQuery("delete from USER_TB where UR_CD = '" + db.UR_CD + "'");
                 Application.Exit();

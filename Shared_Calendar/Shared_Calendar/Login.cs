@@ -84,7 +84,7 @@ namespace Shared_Calendar
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (isSighUp)
+            if (isSighUp) 
             {
                 if (isSamePass)
                 {

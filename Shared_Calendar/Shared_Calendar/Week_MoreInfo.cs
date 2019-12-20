@@ -85,12 +85,12 @@ namespace Shared_Calendar
             var ls = m_LiView_info.SelectedItems[0];
             db.ExecuteReader("select * from SCHEDULE_TB where SC_CD = '" + ls.Name + "'");
             db.Reader.Read();
-            Schedule ms = new Schedule();
-            ms.NameTxt = db.Reader[1].ToString();
-            ms.ExTxt = db.Reader[2].ToString();
-            ms.StrDate = DateTime.Parse(db.Reader[4].ToString());
-            ms.EndDate = DateTime.Parse(db.Reader[5].ToString());
-            ms.StateCheck = Int32.Parse(db.Reader[3].ToString());
+            Schedule ms = new Schedule(ls.Name);
+            //ms.NameTxt = db.Reader[1].ToString();
+            //ms.ExTxt = db.Reader[2].ToString();
+            //ms.StrDate = DateTime.Parse(db.Reader[4].ToString());
+            //ms.EndDate = DateTime.Parse(db.Reader[5].ToString());
+            //ms.StateCheck = Int32.Parse(db.Reader[3].ToString());
             ms.Show();
             ms.Focus();
             focusDate = ms.StrDate;

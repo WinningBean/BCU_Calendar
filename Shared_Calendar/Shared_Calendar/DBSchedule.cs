@@ -106,9 +106,8 @@ namespace Shared_Calendar
             return GET_DAY_SC_TB;
         }
 
-        public DataTable Get_Week_Schedule(bool is_UR, string m_URorGR_CD, DateTime day, int turm, int is_PB) // day + turm
-        {
-            // 해당 날짜에 대한 해당 사용자의 일정 테이블 함수
+        public DataTable Get_Week_Schedule(bool is_UR, string m_URorGR_CD, DateTime day, int turm, int is_PB) 
+        { // 해당 사용자의 일주일 안에 포함되는 스케줄을 모두 가져오는 메서드
             if (is_UR == true) // 회원이라면
             {
                 sql = "select * from SCHEDULE_TB where SC_UR_FK = '" + m_URorGR_CD + "' and SC_GR_FK is null";
@@ -120,7 +119,7 @@ namespace Shared_Calendar
             sql += " and SC_END_DT > '" + day.ToString("yyyy-MM-dd") + "'";
             sql += " and SC_STR_DT < '" + day.AddDays(turm).ToString("yyyy-MM-dd") + "'";
             sql += " and SC_PB_ST = " + is_PB.ToString();
-            sql += " order by  SC_STR_DT ASC"; // 범위 안에 들어오면 무조건
+            sql += " order by  SC_STR_DT ASC"; // 해당 범위 안에들어는 일정을 모두 가져온다
 
             DS = new DataSet();
             db.AdapterOpen(sql);

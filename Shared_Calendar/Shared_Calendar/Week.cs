@@ -581,42 +581,40 @@ namespace Shared_Calendar
 
 
         private void overlapMethod()
-        {
+        { // 곂치는 일정을 조사하는 재귀함수를 시작하기 위한 메서드
             int skipValue = -1;
             int maxValue = -1;
             for (int k = 0; k < scList.Count;)
-            {
+            { // 모든 스케줄 만큼 반복한다
                 if (skipValue > -1)
-                {
+                {// 스킵을 위한 구문 재귀가 끝나면 곂치는 수만큼 스킵하는 용도
                     overlapSCList[k][0] = maxValue;
                     --skipValue; // 곂치는 개수만큼 스킵해줌
-                    if (skipValue == -1)
+                    if (skipValue == -1) // 1이면 끝났으므로 maxValue 초기화
                         maxValue = -1;
                     ++k;
                     continue;
                 }
                 skipValue += overlapLoop(scList[k][1], k, -1, ref maxValue);
-                //overlapSCList[k][0] = maxValue;
-                //++k;
-            }
+            } //scList : ([k] - 일정 카운트), ([1] : 0 - 시작일 , 1 - 끝나는일)
         }
 
         private int overlapLoop(DateTime preEnd, int currVal, int count, ref int maxValue)
-        {
-            if (count > -1) // 맨처음은 프리패스
+        { // 곂치는 일정을 재귀함수로 찾는다. 곂칠시 사이즈, 순서를 지정하기위한 용도
+            if (count > -1) // 처음 스케줄은 곂치는게 없으니 리턴구문을 스킵한다
             {
-                if (scList[currVal][0].Day > preEnd.Day) // 비교하는 일이 더 크면 절대 곂칠수없음
+                if (scList[currVal][0].Day > preEnd.Day) // 현재 일이 전단계 일보다 더 크면 절대 곂칠수없다
                     return 0;
-                else if (scList[currVal][0].Day == preEnd.Day) // 일이같지만 시간대가 곂치지않으면 곂칠수없음
+                else if (scList[currVal][0].Day == preEnd.Day) // 일이같지만 시간대가 곂치지않으면 곂칠수없다
                 {
                     if (((preEnd.Hour * 10) + (preEnd.Minute / 10)) <= ((scList[currVal][0].Hour * 10) + (scList[currVal][0].Minute / 10)))
-                        return 0;
+                        return 0; //  현재 시간, 분이 전단계보다 더 크다면 곂치지않는다.
                 }
-            }
-            overlapSCList[currVal][1] = ++count; // 몇번째 순서인지 지정
-            maxValue = maxValue < count ? count : maxValue; // 최대 카운트를 넣어줌 (사이즈를 지정하기위함)
+            }// overlapSCList : ([] : 일정 카운트), ([] : 0 - 최대로 곂치져있는 값, 1 -  현재 곂치는 순서) 
+            overlapSCList[currVal][1] = ++count; // 곂치는게 몇번째 순서인지 지정
+            maxValue = maxValue < count ? count : maxValue; // 곂치는대로 사이즈를 작아지기때문에 최대 몇번곂친건지를 위해 설정
 
-            int size = 1; // 후에 리턴할 값, 자기자신은 포함되니 1로 정의
+            int size = 1; // 후에 리턴해 그만큼 곂치는지 검사하지 않아도된다, 자기자신은 항상 포함되니 1로 정의
             for (int k = currVal + 1; k < scList.Count;)
             {
                 int value = overlapLoop(scList[currVal][1], k, count, ref maxValue);

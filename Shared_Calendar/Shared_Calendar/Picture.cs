@@ -105,7 +105,7 @@ namespace Shared_Calendar
             fs.Close();
 
 
-            // 배열에 있는 데이터를 보낼 정보를 담는다
+            // 배열에 있는 데이터를 보낼 정보를 OracleParameter로 담는다
             OracleParameter op = new OracleParameter();
             op.ParameterName = ":BINARYFILE";
             op.OracleDbType = Oracle.DataAccess.Client.OracleDbType.Blob;
@@ -113,7 +113,9 @@ namespace Shared_Calendar
             op.Size = b.Length;
             op.Value = b;
             db.Command.CommandType = CommandType.Text;
-            db.Command.Parameters.Add(op); // 커맨드에 이 파라미터를 추가시켜서 db에 보낼때 같이 보낼수있게 함
+            // 커맨드에 이 파라미터를 추가시켜서 db에 보낼때 같이 보낼수있게 함
+            db.Command.Parameters.Add(op);
+            
 
             db.ExecuteReader("select TO_CHAR(SEQ_PICCD.nextval) from dual"); // 다음 시퀀스 값 불러오기
             string currSeq = null;
@@ -121,11 +123,16 @@ namespace Shared_Calendar
                 currSeq = db.Reader.GetString(0);
 
             if (db.GR_CD != null)
-                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" + dt.ToString("yyyy-MM-dd") + "' ,'" + db.UR_CD +"', '" + db.GR_CD + "', :BINARYFILE)");
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '1', '" 
+                    + dt.ToString("yyyy-MM-dd") + "' ,'" + db.UR_CD +"', '" 
+                    + db.GR_CD + "', :BINARYFILE)");
             else
             {
-                int pbSc = MessageBox.Show("사진을 공개하시겠습니까?", "사진공개", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk) == DialogResult.OK ? 1 : 0;
-                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '" + pbSc + "', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD + "', null, :BINARYFILE)");
+                int pbSc = MessageBox.Show("사진을 공개하시겠습니까?", "사진공개", MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Asterisk) == DialogResult.OK ? 1 : 0;
+                db.ExecuteNonQuery("insert into PICTURE_TB values('P'||SEQ_PICCD.currval, '" 
+                    + pbSc + "', '" + dt.ToString("yyyy-MM-dd") + "' , '" + db.UR_CD 
+                    + "', null, :BINARYFILE)");
             }
             db.Command.Parameters.Remove(op); // 삭제를 꼭 시켜야한다 안하면 사진생성을 두번이상 실행안됨
         }
@@ -333,7 +340,7 @@ namespace Shared_Calendar
                         insidePan.Controls.Add(widthOutsidePan);
                     }
 
-                    // 사진을 2진데이터화 하고 Image 클래스로 만든다
+                    // 사진을 2진데이터화 하고 Image 객체로 만든다
                     Byte[] b = (Byte[])(currRow["PIC_DATA"]);
                     MemoryStream stmBlobData = new MemoryStream(b);
                     Image img = Image.FromStream(stmBlobData);
