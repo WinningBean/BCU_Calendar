@@ -1,9 +1,10 @@
-# BCU_Calendar : Shared_Calendar
+# BCU_Calendar : Shared_Calendar :spiral_calendar:
 ## windows os based Shared Calendar C# program
+:school: 2학년 2학기 DB설계 및 관리 & C# 실습 과목 기말과정 중 진행
 
 ![image](https://user-images.githubusercontent.com/53260922/73426101-d495a400-4376-11ea-9fdb-3ab81df80b30.png)
 
-## Contributor
+## Contributor :man_technologist: :woman_technologist:
 - 위성호 [Sungho-Wi](https://github.com/Sungho-Wi)
 - 위승빈 [wsb0722](https://github.com/wsb0722) (leader)
 - 최주은 [jueun275](https://github.com/jueun275)
